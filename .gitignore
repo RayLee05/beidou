@@ -1,0 +1,44 @@
+# --- 临时与中间产物 ---
+tmp/
+.scratch/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# --- 大体积输入数据（本地保留，不入库）---
+data/input/*
+!data/input/.gitkeep
+
+# --- RTL 仿真/综合中间产物 ---
+*.vcd
+*.fsdb
+*.vpd
+*.shm
+*.wlf
+work/
+csrc/
+*.o
+*.so
+*.d
+*.ddc
+*.synctmp
+*.svf
+*.mdb
+*.log.bak
+
+# --- 编辑器/系统 ---
+.vscode/
+.idea/
+Thumbs.db
+desktop.ini
+
+# --- 密钥与凭据（安全：绝不入库）---
+*.pem
+id_rsa*
+id_ed25519*
+known_hosts
+authorized_keys
+# --- 课程内部材料与内网凭据：不入公开仓库 ---
+/北斗B1I基带与位置解算基础.pdf
+/集成电路EDA实验课_课程安排.pdf
+/VM-IC-SSH连接指南.md

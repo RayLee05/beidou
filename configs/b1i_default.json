@@ -1,0 +1,48 @@
+{
+  "config_version": "0.1.0",
+  "note": "运行期配置；参数含义与取值范围见 docs/INTERFACES.md 第 4 节。所有值在 RTL 冻结前均可调整。",
+  "input": {
+    "sample_rate_hz": 16384000,
+    "if_hz": 4096000,
+    "sample_encoding": "2bit-pair",
+    "byte_order": "sample0_msb",
+    "metadata_required": true
+  },
+  "channels": {
+    "count": 12,
+    "prn_list": [],
+    "prn_list_note": "留空表示由捕获阶段按 PRN 候选表分配；禁止凭记忆写入 PRN 码表"
+  },
+  "acquisition": {
+    "doppler_min_hz": -10000,
+    "doppler_max_hz": 10000,
+    "doppler_step_hz": 500,
+    "code_phase_step_chips": 0.5,
+    "coherent_ms": 1,
+    "noncoherent_ms": 10,
+    "threshold_mode": "cfar",
+    "threshold_pfa": 1e-06,
+    "threshold_note": "±10 kHz/500 Hz 为起始扫描建议，验收门槛待课程基线冻结"
+  },
+  "tracking": {
+    "dll": { "correlator_spacing_chips": 0.5, "bandwidth_hz": 2.0, "order": 2 },
+    "pll": { "bandwidth_hz": 15.0, "order": 2, "zeta": 0.707 },
+    "fll": { "bandwidth_hz": 40.0, "order": 1 },
+    "lock_detect": { "cn0_min_dbhz": 28.0, "loss_timeout_ms": 200 }
+  },
+  "sync": {
+    "nh_code_note": "NH20 序列须取自 B1I ICD；本文件不内嵌码表",
+    "bit_sync_timeout_ms": 2000,
+    "frame_sync_timeout_ms": 34000
+  },
+  "output": {
+    "epoch_period_s": 1.0,
+    "record_width_bits": 256,
+    "fifo_depth": 1024,
+    "invalid_policy": "hold-invalid-never-fake"
+  },
+  "debug": {
+    "enable": false,
+    "dump_prompt_every_ms": 0
+  }
+}

@@ -1,0 +1,8 @@
+# 统一换行与二进制标记，避免 Windows 下 CRLF 污染 diff
+* text=auto eol=lf
+*.png binary
+*.pdf binary
+*.bin binary
+*.dat binary
+*.vcd binary
+*.fsdb binary

@@ -1,0 +1,185 @@
+{
+  "banner": {
+    "generated_at": "2026-09-21T18:33:12+08:00",
+    "python": "3.12.1",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "machine": "AMD64",
+    "git_revision": "4301364",
+    "git_dirty": false
+  },
+  "params_version": "0.1.0",
+  "nco": {
+    "phase_w": 32,
+    "freq_resolution_hz": 0.003814697265625,
+    "rows": [
+      {
+        "label": "中频 IF",
+        "f_hz": 4096000.0,
+        "word": 1073741824,
+        "exact": true,
+        "word_bits_needed": 32
+      },
+      {
+        "label": "码率 PRN",
+        "f_hz": 2046000.0,
+        "word": 536346624,
+        "exact": true,
+        "word_bits_needed": 30
+      },
+      {
+        "label": "多普勒 +10 kHz",
+        "f_hz": 10000.0,
+        "word": 2621440,
+        "exact": true,
+        "word_bits_needed": 23
+      },
+      {
+        "label": "多普勒 -10 kHz",
+        "f_hz": -10000.0,
+        "word": -2621440,
+        "exact": true,
+        "word_bits_needed": 23
+      }
+    ],
+    "lut_addr_w": 10,
+    "phase_trunc_spur_dbc": -60.199999999999996,
+    "lut_data_w": 10,
+    "amplitude_snr_db": 61.959999999999994
+  },
+  "accumulator": {
+    "max_sample_abs": 3,
+    "max_cos_abs": 512,
+    "per_ms_bound": 25165824,
+    "per_ms_required_w": 26,
+    "corr_acc_w": 26,
+    "corr_acc_headroom_bits": 0,
+    "prod_w": 13,
+    "per_bit_bound": 503316480,
+    "per_bit_required_w": 30,
+    "bit_acc_w": 32,
+    "bit_acc_headroom_bits": 2,
+    "acc_bits_per_channel": 220,
+    "acc_bits_total": 2640
+  },
+  "timebase": {
+    "sample_period_ns": 61.03515625,
+    "sample_range_m": 18.29787951660156,
+    "chip_period_ns": 488.7585532746823,
+    "chip_range_m": 146.52612805474095,
+    "samples_per_chip": 8.007820136852395,
+    "sample_index_w": 32,
+    "sample_index_wrap_s": 262.144,
+    "epoch_id_wrap_s": 4294967296.0,
+    "frac_table": [
+      {
+        "frac_bits": 6,
+        "res_chip": 0.015625,
+        "res_m": 2.2894707508553274
+      },
+      {
+        "frac_bits": 10,
+        "res_chip": 0.0009765625,
+        "res_m": 0.14309192192845796
+      },
+      {
+        "frac_bits": 12,
+        "res_chip": 0.000244140625,
+        "res_m": 0.03577298048211449
+      },
+      {
+        "frac_bits": 16,
+        "res_chip": 1.52587890625e-05,
+        "res_m": 0.0022358112801321556
+      },
+      {
+        "frac_bits": 20,
+        "res_chip": 9.5367431640625e-07,
+        "res_m": 0.00013973820500825973
+      }
+    ],
+    "internal_code_phase_w": 32
+  },
+  "cycle": {
+    "target_clk_hz": 100000000.0,
+    "clk_per_sample": 6.103515625,
+    "sample_clk_utilization": 0.16384,
+    "rows": [
+      {
+        "label": "1 ms（积分/Prompt 边界）",
+        "available_clk": 100000,
+        "samples": 16384,
+        "sample_slot_util": 0.16384,
+        "loop_updates": 1.0
+      },
+      {
+        "label": "20 ms（1 个 D1 数据位）",
+        "available_clk": 2000000,
+        "samples": 327680,
+        "sample_slot_util": 0.16384,
+        "loop_updates": 20.0
+      },
+      {
+        "label": "1 s（公共输出历元）",
+        "available_clk": 100000000,
+        "samples": 16384000,
+        "sample_slot_util": 0.16384,
+        "loop_updates": 1000.0
+      },
+      {
+        "label": "6 s（1 个子帧）",
+        "available_clk": 600000000,
+        "samples": 98304000,
+        "sample_slot_util": 0.16384,
+        "loop_updates": 6000.0
+      },
+      {
+        "label": "30 s（1 个 D1 帧）",
+        "available_clk": 3000000000,
+        "samples": 491520000,
+        "sample_slot_util": 0.16384,
+        "loop_updates": 30000.0
+      }
+    ],
+    "per_channel_loop_clk_budget": 512,
+    "loop_utilization": 0.00512
+  },
+  "resource": {
+    "mix_mults_per_channel": 2,
+    "base_mults": 24,
+    "mac_rate_s": 393216000.0,
+    "ops_per_sample": 132,
+    "op_rate_s": 2162688000.0,
+    "accumulator_rw_per_sample": 72,
+    "accumulator_rw_per_clk": 11.79648,
+    "options": [
+      {
+        "mux": 1,
+        "mults": 24,
+        "required_clk_hz": 16384000.0,
+        "feasible_at_target": true,
+        "note": "全并行，状态全在触发器"
+      },
+      {
+        "mux": 2,
+        "mults": 12,
+        "required_clk_hz": 32768000.0,
+        "feasible_at_target": true,
+        "note": "每 2 个通道共享一套混频乘法器"
+      },
+      {
+        "mux": 3,
+        "mults": 8,
+        "required_clk_hz": 49152000.0,
+        "feasible_at_target": true,
+        "note": "每 3 个通道共享一套混频乘法器"
+      },
+      {
+        "mux": 6,
+        "mults": 4,
+        "required_clk_hz": 98304000.0,
+        "feasible_at_target": true,
+        "note": "每 6 个通道共享一套混频乘法器"
+      }
+    ]
+  }
+}
