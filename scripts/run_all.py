@@ -9,6 +9,7 @@
 
 from __future__ import annotations
 
+import glob
 import os
 import subprocess
 import sys
@@ -18,6 +19,23 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from _common import LOGS_DIR, ROOT, bootstrap, env_banner, git_revision, git_dirty  # noqa: E402
 
 bootstrap()
+
+#: `reports/logs/` 中保留的历史运行日志份数（超出自动清理，避免仓库堆积）
+KEEP_LOGS = 5
+
+
+def prune_logs(keep: int = KEEP_LOGS) -> list:
+    """删除最旧的运行日志，只保留最近 keep 份。返回被删除的文件名列表。"""
+    logs = sorted(glob.glob(os.path.join(LOGS_DIR, "run_all-*.log")), reverse=True)
+    removed = []
+    for path in logs[keep:]:
+        try:
+            os.remove(path)
+            removed.append(os.path.basename(path))
+        except OSError:
+            pass
+    return removed
+
 
 STEPS = [
     ("环境与工具链", "scripts/check_env.py", []),
@@ -73,6 +91,8 @@ def main(argv) -> int:
     with open(log_path, "w", encoding="utf-8", newline="\n") as f:
         f.write(header + "\n\n" + "\n".join(log_lines))
     print(f"日志: {log_path}")
+    for name in prune_logs():
+        print(f"已清理旧日志: {name}")
     return 0 if ok else 1
 
 

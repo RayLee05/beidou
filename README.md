@@ -88,3 +88,7 @@ python scripts/run_all.py --quick  # 跳过绘图（无 matplotlib 环境）
 
 需求文档中引用的“C-课程 P?? / C-基带 P??”页码均指上述两份 PDF。
 
+## License
+
+[MIT](LICENSE) © 2026 RayLee05。课程内部材料（讲义 PDF、实验环境凭据）不在授权范围内，见上一节。
+
