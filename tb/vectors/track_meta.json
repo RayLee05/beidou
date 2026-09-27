@@ -1,0 +1,20 @@
+{
+  "carrier_lut_generated_by": "scripts/gen_carrier_lut.py",
+  "params_version": "0.1.0",
+  "code_source": {
+    "kind": "TEST_PATTERN_NOT_ICD",
+    "description": "11 级 m 序列 x^11+x^2+1 截断到 2046 chip",
+    "warning": "仅用于数据通路验证；真实 PRN 必须取自正式 B1I ICD"
+  },
+  "nh_source": "TEST_PATTERN_NOT_ICD",
+  "ms_generated": 7,
+  "ms_compared": 6,
+  "code_phase_true_chips": 123.0,
+  "code_phase_init_chips": 123.3,
+  "doppler_true_hz": 1500.0,
+  "doppler_init_hz": 1500.0,
+  "amplitude": 2.6,
+  "spacing_chips": 1,
+  "samples_sha256": "e20bde157a45c8bebdcebd42c3364b44bf61be051204d779429d15b9d102f8cc",
+  "expected_sha256": "ed818a67273e16a338c3a0211c1ea35f46200b147d1ce639a33eb4091be81f9a"
+}

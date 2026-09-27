@@ -66,6 +66,19 @@ class B1IParams:
     channel_id_w: int = 4                # 12 通道 -> ceil(log2(12)) = 4
     prn_w: int = 6                       # BDS PRN 1..63
 
+    # ---- 码相位定点（Q(11.21)）----
+    code_frac_w: int = 21                # 小数码片位宽
+
+    # ---- 环路默认系数（Q2.14）----
+    disc_shift_default: int = 12
+    dll_kp_default: int = 328            # ≈ 0.020
+    dll_ki_default: int = 33             # ≈ 0.002
+    pll_kp_default: int = 820            # ≈ 0.050
+    pll_ki_default: int = 33             # ≈ 0.002
+    fll_kp_default: int = 328            # ≈ 0.020
+    lock_thresh_default: int = 8192
+    lock_count_max: int = 200
+
     # ---- 吞吐与时钟（目标值，待后端冻结）----
     target_clk_hz: float = 100.0e6
     clk_uncertainty: float = 0.30        # 预留比例：CDC/后端膨胀/裕量
@@ -104,6 +117,25 @@ class B1IParams:
     @property
     def sample_index_wrap_s(self) -> float:
         return (2 ** self.sample_index_w) / self.f_s_hz
+
+    @property
+    def code_period_word(self) -> int:
+        """一个码周期对应的 Q(11.21) 相位字：2046 << 21。"""
+        return self.code_chips_per_period << self.code_frac_w
+
+    @property
+    def code_inc_nominal(self) -> int:
+        """标称码相位增量（每样本）= round(2046/16384 × 2^21) = 261888，精确。"""
+        return int(round(self.code_chips_per_period / self.samples_per_ms
+                         * (2 ** self.code_frac_w)))
+
+    @property
+    def code_inc_min(self) -> int:
+        return self.code_inc_nominal - 3840
+
+    @property
+    def code_inc_max(self) -> int:
+        return self.code_inc_nominal + 3840
 
     @property
     def clk_per_sample(self) -> float:

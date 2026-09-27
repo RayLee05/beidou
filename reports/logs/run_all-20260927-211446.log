@@ -1,0 +1,68 @@
+generated_at: 2026-09-27T21:14:45+08:00
+python: 3.12.1
+platform: Windows-11-10.0.26200-SP0
+machine: AMD64
+git_revision: 97c5832
+git_dirty: True
+
+--- 环境与工具链 [PASS] 0.29s ---
+== ���� ==
+  generated_at    : 2026-09-27T21:14:45+08:00
+  python          : 3.12.1
+  platform        : Windows-11-10.0.26200-SP0
+  machine         : AMD64
+  git_revision    : 97c5832
+  git_dirty       : True
+  workspace       : D:\A_workfiles\codexwork\beidou
+== Python ģ�� ==
+  numpy           : OK
+  matplotlib      : OK
+  pypdf           : OK
+  fitz            : OK
+  scipy           : MISSING
+  pytest          : MISSING
+== �ⲿ���� ==
+  git             : D:\git\Git\cmd\git.EXE
+  python          : C:\Users\heibai\AppData\Local\Programs\Python\Python312\python.EXE
+  node            : D:\nodejs\node.EXE
+  iverilog        : MISSING
+  verilator       : MISSING
+  yosys           : MISSING
+  vcs             : MISSING
+  xrun            : MISSING
+  vlog            : D:\modeltech64_10.5\win64\vlog.EXE
+  dc_shell        : MISSING
+  genus           : MISSING
+  innovus         : MISSING
+== ���� ==
+  RTL ������/�ۺ���ȱʧ������ P0/P1���ܹ��붨����ƣ��׶Σ�
+  ���� P2����ͨ�� RTL��ǰ������ docs/status.md ��¼��ѡ������汾��
+
+--- 参数一致性 [PASS] 0.07s ---
+params.py �汾 : b1i_ref.params
+svh ������     : 52
+sha256(svh)    : 9a6f9d29cd6eeaf68ec2ebf25239480c0093111b02265a5a5a615371d6da188b
+sha256(config) : e2525a6631efee15d779a84d2342464bbb5307334d5941da6522a8b1c2a6fb27
+[PASS] params һ����: 65 checks passed, 0 failed
+
+--- 定点与周期预算 [PASS] 0.27s ---
+������ D:\A_workfiles\codexwork\beidou\reports\fixed_point_budget.md
+������ D:\A_workfiles\codexwork\beidou\reports\fixed_point_budget.json
+[PASS] ����Ԥ����Ǣ��: 6 checks passed, 0 failed
+�ؼ����ۣ�
+  NCO Ƶ�ʷֱ���      : 0.003814697 Hz
+  CORR_ACC_W ����/ʵ�� : 26 / 26 bit
+  BIT_ACC_W  ����/ʵ�� : 30 / 32 bit
+  1 ������Ӧ����      : 18.298 m
+  SAMPLE_INDEX ����   : 262.144 s
+  MAC ��              : 393.2 MMAC/s
+
+--- SKIP 架构图 ---
+--- 参考模型自检 [PASS] 0.49s ---
+������ D:\A_workfiles\codexwork\beidou\reports\ref_model_results.md
+������ D:\A_workfiles\codexwork\beidou\reports\ref_model_results.json
+����: doppler=1200 Hz  cp=123.005 chip
+����ĩ֡: cp_err=-0.0938 chip  fd_err=+1.34 Hz
+[PASS] �ο�ģ��: 13 checks passed, 0 failed
+
+--- SKIP RTL 单元/系统测试 ---

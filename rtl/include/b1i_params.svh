@@ -52,6 +52,28 @@ localparam int unsigned CODE_PHASE_W    = 32;
 localparam int unsigned SAMPLE_INDEX_W  = 32;
 localparam int unsigned EPOCH_ID_W      = 32;
 
+// ---- 码相位定点（Q(11.21)，见 docs/FIXED_POINT.md 第 6 节）----
+// 码相位 = 整数码片[31:21] + 小数码片[20:0]；一个码周期 = 2046 << 21
+localparam int unsigned CODE_FRAC_W      = 21;
+localparam logic [31:0] CODE_PERIOD_WORD = 32'd4290772992;  // = 2046 << 21
+localparam int unsigned CODE_INC_NOMINAL = 261888;          // = round(2046/16384 * 2^21)，精确
+localparam int unsigned CODE_INC_MIN     = 258048;          // 标称 - 3840
+localparam int unsigned CODE_INC_MAX     = 265728;          // 标称 + 3840
+
+// ---- 载波频率字 ----
+localparam logic [31:0] FREQ_WORD_IF      = 32'd1073741824; // = 2^30，精确表示 4.096 MHz
+localparam logic [31:0] FREQ_WORD_DOP_MAX = 32'd2621440;    // ±10 kHz
+
+// ---- 环路默认系数（Q2.14，可由配置寄存器覆盖）----
+localparam int unsigned DISC_SHIFT_DEFAULT = 12;
+localparam int unsigned DLL_KP_DEFAULT = 16'd328;    // ≈ 0.020
+localparam int unsigned DLL_KI_DEFAULT = 16'd33;     // ≈ 0.002
+localparam int unsigned PLL_KP_DEFAULT = 16'd820;    // ≈ 0.050
+localparam int unsigned PLL_KI_DEFAULT = 16'd33;     // ≈ 0.002
+localparam int unsigned FLL_KP_DEFAULT = 16'd328;    // ≈ 0.020
+localparam int unsigned LOCK_THRESH_DEFAULT = 8192;
+localparam int unsigned LOCK_COUNT_MAX      = 200;
+
 // ---- 派生常量 ----
 localparam int unsigned SAMPLES_PER_MS      = F_S_HZ / 1000;             // 16384
 localparam int unsigned SAMPLES_PER_BIT     = F_S_HZ / D1_BIT_RATE_BPS;  // 327680

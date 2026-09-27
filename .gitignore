@@ -9,6 +9,10 @@ __pycache__/
 data/input/*
 !data/input/.gitkeep
 
+# --- 本地工具链与构建产物 ---
+.tools/
+reports/build/
+
 # --- RTL 仿真/综合中间产物 ---
 *.vcd
 *.fsdb

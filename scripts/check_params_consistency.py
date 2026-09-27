@@ -57,11 +57,28 @@ EXPECTED = {
     "MS_PER_BIT": int(1000 / P.d1_bit_rate_bps),
     "MS_PER_SUBFRAME": P.d1_subframe_period_s * 1000,
     "MS_PER_FRAME": P.d1_frame_period_s * 1000,
+    # 码相位定点与环路默认值
+    "CODE_FRAC_W": P.code_frac_w,
+    "CODE_PERIOD_WORD": P.code_period_word,
+    "CODE_INC_NOMINAL": P.code_inc_nominal,
+    "CODE_INC_MIN": P.code_inc_min,
+    "CODE_INC_MAX": P.code_inc_max,
+    "FREQ_WORD_IF": 2 ** 30,
+    "FREQ_WORD_DOP_MAX": 2621440,
+    "DISC_SHIFT_DEFAULT": P.disc_shift_default,
+    "DLL_KP_DEFAULT": P.dll_kp_default,
+    "DLL_KI_DEFAULT": P.dll_ki_default,
+    "PLL_KP_DEFAULT": P.pll_kp_default,
+    "PLL_KI_DEFAULT": P.pll_ki_default,
+    "FLL_KP_DEFAULT": P.fll_kp_default,
+    "LOCK_THRESH_DEFAULT": P.lock_thresh_default,
+    "LOCK_COUNT_MAX": P.lock_count_max,
 }
 
 LITERAL_RE = re.compile(r"(\d+)'([dD])")
 DECL_RE = re.compile(
-    r"localparam\s+(?:int\s+unsigned|longint\s+unsigned|int|longint)\s+"
+    r"localparam\s+(?:int\s+unsigned|longint\s+unsigned|int|longint"
+    r"|logic\s*\[\s*\d+\s*:\s*\d+\s*\])\s+"
     r"([A-Za-z_]\w*)\s*=\s*([^;]+);"
 )
 

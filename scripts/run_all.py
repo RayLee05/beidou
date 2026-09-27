@@ -42,6 +42,8 @@ STEPS = [
     ("参数一致性", "scripts/check_params_consistency.py", []),
     ("定点与周期预算", "scripts/fixed_point_budget.py", []),
     ("架构图", "scripts/make_architecture_figure.py", ["--quick"]),
+    ("参考模型自检", "scripts/run_ref_model.py", []),
+    ("RTL 单元/系统测试", "scripts/run_rtl_unit.py", ["--quick"]),
 ]
 
 
