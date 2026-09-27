@@ -1,13 +1,13 @@
 {
   "banner": {
-    "generated_at": "2026-09-27T21:14:37+08:00",
+    "generated_at": "2026-09-27T21:16:36+08:00",
     "python": "3.12.1",
     "platform": "Windows-11-10.0.26200-SP0",
     "machine": "AMD64",
-    "git_revision": "97c5832",
+    "git_revision": "93b8e02",
     "git_dirty": true
   },
-  "iverilog": "Icarus Verilog version 12.0 (devel) (s20150603-1539-g2693dd32b)",
+  "simulator": "Icarus Verilog version 12.0 (devel) (s20150603-1539-g2693dd32b)",
   "total": 1,
   "passed": 1,
   "results": [
@@ -19,7 +19,7 @@
       "run_ok": true,
       "passed": true,
       "run_log": "TEST PASSED\nD:\\A_workfiles\\codexwork\\beidou\\tb\\unit\\tb_sample_timebase.sv:66: $finish called at 3276836 (1s)\n",
-      "seconds": 0.570069
+      "seconds": 0.560759
     }
   ]
 }

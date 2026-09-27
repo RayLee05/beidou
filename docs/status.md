@@ -69,7 +69,7 @@
 | L2 回归 | `tb_tracking_channel`：第 1 个 1 ms 的 E/P/L 相关值与定点模型**逐位一致**，此后出现分歧（ISSUE-001） | `tb/system/tb_tracking_channel.sv` |
 | 参考模型 | 载波表/码源/信号生成/定点跟踪/捕获搜索 | `sw/b1i_ref/`、`reports/ref_model_results.md` |
 | 向量与元数据 | 输入字节流 + 每 1 ms 期望值 + SHA256 + 码源标注 | `tb/vectors/` |
-| 工具链 | Icarus Verilog 12（`E:\iverilog\app\bin`，不在仓库内，脚本自动定位） | `scripts/rtl_tools.py` |
+| 工具链 | 正式用虚拟机 IC 的 **VCS + DC**（`make` / `scripts/dc_synth.tcl`）；本机 Icarus 12 兜底 | `docs/TOOLCHAIN.md`、`Makefile`、`rtl/filelist.f` |
 | 设计文档 | 数据通路、定点与时序约定、环路参数、验证与问题 | `docs/TRACKING_DESIGN.md` |
 | **ISSUE-001** | 跟踪通道：`code_phase` 观测端口读回恒 0（相关值在第 1 窗口仍正确），第 2 个窗口起全面偏离 | `docs/TRACKING_DESIGN.md` 第 7 节 |
 | **ISSUE-002** | `tb_sample_unpacker` 握手未完成导致仿真超时（已加超时保护，不再挂死套件） | `docs/TRACKING_DESIGN.md` 第 7 节 |

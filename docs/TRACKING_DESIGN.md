@@ -82,6 +82,12 @@ NH20 同样用占位序列。**切换真实 ICD 码表只需替换向量文件�
 
 ## 6. RTL 工具链
 
+**正式流程在虚拟机 `IC` 上用 Synopsys VCS 仿真、DC 综合**，入口是仓库根目录的 `make`
+（详见 [TOOLCHAIN.md](TOOLCHAIN.md)）；本机的 Icarus Verilog 只是兜底。
+`scripts/run_rtl_unit.py` 会先找 `vcs`，找不到才退回 Icarus。
+
+以下为本机兜底安装记录（保留备查）：
+
 Icarus Verilog **不作为仓库内容**（`.gitignore`），脚本按环境变量 `IVERILOG_HOME` → PATH → 常见路径
 （`E:\iverilog\app\bin` 等）自动查找，见 `scripts/rtl_tools.py`。
 

@@ -12,6 +12,8 @@ data/input/*
 # --- 本地工具链与构建产物 ---
 .tools/
 reports/build/
+reports/sim/
+reports/synth/
 
 # --- RTL 仿真/综合中间产物 ---
 *.vcd

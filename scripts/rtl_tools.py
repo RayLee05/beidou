@@ -60,11 +60,20 @@ def vvp() -> str | None:
     return find_tool("vvp")
 
 
+def vcs() -> str | None:
+    """Synopsys VCS（虚拟机里是主用仿真器）。"""
+    return find_tool("vcs")
+
+
+def vcs_home() -> str | None:
+    return os.environ.get("VCS_HOME")
+
+
 def require() -> tuple:
     iv, vp = iverilog(), vvp()
     if not iv or not vp:
         raise SystemExit(
-            "未找到 Icarus Verilog。\n"
+            "未找到 Icarus Verilog，也没找到 VCS。\n"
             "  - 设置环境变量 IVERILOG_HOME 指向安装目录，或\n"
             "  - 把 iverilog/vvp 加入 PATH，或\n"
             "  - 参见 docs/TRACKING_DESIGN.md 附录的安装步骤。"

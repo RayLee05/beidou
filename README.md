@@ -6,11 +6,24 @@
 **当前阶段：P0/P1（需求冻结 + 架构与定点设计）已完成**，对应课程 72 学时安排的第 1–2 行（12 学时）。
 实现代码尚未开始，见 `docs/PLAN.md` 第 10 节。
 
+## 运行环境
+
+**正式 RTL 仿真与综合在虚拟机 `IC` 上做**（Synopsys VCS + Design Compiler），
+入口是仓库根目录的 `make` 与 `scripts/dc_synth.tcl`；
+本机只用于写代码、跑 Python 参考模型、生成测试向量。详见 [docs/TOOLCHAIN.md](docs/TOOLCHAIN.md)。
+
 ## 快速开始
 
 ```powershell
-python scripts/run_all.py          # 全量检查：环境、参数一致性、定点预算、架构图
-python scripts/run_all.py --quick  # 跳过绘图（无 matplotlib 环境）
+```powershell
+python scripts/run_all.py          # 全量检查：环境、参数一致性、定点预算、架构图、参考模型、RTL 用例
+python scripts/run_all.py --quick  # 跳过绘图与 RTL 用例（无 iverilog/VCS 时）
+```
+
+```bash
+# 虚拟机 IC 上（VCS）
+make && make TEST=tb_tracking_channel
+```
 ```
 
 预期输出：4 项检查全部 PASS，日志写入 `reports/logs/run_all-<时间戳>.log`。
