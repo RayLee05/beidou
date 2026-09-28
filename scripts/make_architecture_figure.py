@@ -1,150 +1,139 @@
-"""生成架构总览图 reports/figures/architecture.png。
-
-用法: python scripts/make_architecture_figure.py
-"""
-
+# -*- coding: utf-8 -*-
+"""生成架构总览图 reports/figures/architecture.png（分层网格 + 正交连线，不穿越方框）。"""
 from __future__ import annotations
-
-import os
-import sys
-
+import os, sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from _common import FIGURES_DIR, bootstrap  # noqa: E402
-
+from _common import FIGURES_DIR, bootstrap
 bootstrap()
 
-import matplotlib  # noqa: E402
+import matplotlib
 matplotlib.use("Agg")
-import matplotlib.font_manager as fm  # noqa: E402
-import matplotlib.patches as mp  # noqa: E402
-import matplotlib.pyplot as plt  # noqa: E402
-from b1i_ref.params import P  # noqa: E402
+import matplotlib.font_manager as fm
+import matplotlib.patches as mp
+import matplotlib.pyplot as plt
+from b1i_ref.params import P
+
+C = {"in": "#D6E4F0", "acq": "#FBE7D0", "trk": "#DDEFD8", "sync": "#E4DCF2",
+     "out": "#F7DDE4", "sw": "#EDEDED", "edge": "#2F4F6B"}
+CX = [13, 38, 63, 88]
+BW, BH = 21, 8.2
+ROW = {1: 64.5, 2: 51.0, 3: 36.5, 4: 22.0, 5: 8.5}
 
 
-def pick_font() -> str:
-    available = {f.name for f in fm.fontManager.ttflist}
-    for name in ("Microsoft YaHei", "SimHei", "SimSun", "Noto Sans CJK SC", "DejaVu Sans"):
-        if name in available:
-            return name
+def pick_font():
+    avail = {f.name for f in fm.fontManager.ttflist}
+    for n in ("Microsoft YaHei", "SimHei", "SimSun", "DejaVu Sans"):
+        if n in avail:
+            return n
     return "DejaVu Sans"
 
 
-COLORS = {
-    "in": "#DCE9F7",
-    "rtl": "#E8F4E8",
-    "nav": "#FBEFD8",
-    "sw": "#F3E4F3",
-    "cfg": "#EDEDED",
-    "edge": "#33506B",
-}
+def box(ax, col, y, text, kind, fs=8.2):
+    ax.add_patch(mp.FancyBboxPatch((CX[col] - BW / 2, y - BH / 2), BW, BH,
+                 boxstyle="round,pad=0.25,rounding_size=1.0",
+                 linewidth=1.1, edgecolor=C["edge"], facecolor=C[kind], zorder=2))
+    ax.text(CX[col], y, text, ha="center", va="center", fontsize=fs, zorder=3, linespacing=1.5)
 
 
-def box(ax, x, y, w, h, text, kind="rtl", fs=9.0, bold=False):
-    ax.add_patch(mp.FancyBboxPatch(
-        (x, y), w, h,
-        boxstyle="round,pad=0.35,rounding_size=1.2",
-        linewidth=1.1, edgecolor=COLORS["edge"], facecolor=COLORS[kind], zorder=2))
-    ax.text(x + w / 2, y + h / 2, text, ha="center", va="center",
-            fontsize=fs, zorder=3, wrap=True,
-            fontweight="bold" if bold else "normal")
+def seg(ax, pts, ls="-", color=None, head=True):
+    col = color or C["edge"]
+    for i in range(len(pts) - 1):
+        p, q = pts[i], pts[i + 1]
+        if i == len(pts) - 2 and head:
+            ax.add_patch(mp.FancyArrowPatch(p, q, arrowstyle="-|>", mutation_scale=11,
+                         linewidth=1.0, color=col, linestyle=ls, zorder=1))
+        else:
+            ax.plot([p[0], q[0]], [p[1], q[1]], color=col, linewidth=1.0,
+                    linestyle=ls, zorder=1)
 
 
-def arrow(ax, p1, p2, style="-|>", color=None, ls="-", rad=0.0):
-    ax.add_patch(mp.FancyArrowPatch(
-        p1, p2, arrowstyle=style, mutation_scale=12,
-        linewidth=1.1, color=color or COLORS["edge"],
-        linestyle=ls, zorder=1,
-        connectionstyle=f"arc3,rad={rad}"))
+def hlink(ax, a, b, y, ls="-"):
+    seg(ax, [(CX[a] + BW / 2, y), (CX[b] - BW / 2, y)], ls)
 
 
-def main() -> int:
+def main():
     font = pick_font()
     plt.rcParams["font.sans-serif"] = [font]
     plt.rcParams["axes.unicode_minus"] = False
+    fig, ax = plt.subplots(figsize=(17, 10))
+    ax.set_xlim(0, 100); ax.set_ylim(0, 74); ax.axis("off")
 
-    fig, ax = plt.subplots(figsize=(16.5, 9.2))
-    ax.set_xlim(0, 100)
-    ax.set_ylim(0, 60)
-    ax.axis("off")
+    ax.text(50, 72.2, "北斗 B1I 基带信号处理器 —— 总体架构（分层网格）",
+            ha="center", fontsize=16, fontweight="bold", color="#1F3B57")
+    ax.text(50, 69.5,
+            "fIF 4.092 MHz / Fs 16.368 MHz（每码片 8 样本，1 ms = 16368 样本）/ 2 bit / "
+            "12 通道 / 公共输出历元 1 s",
+            ha="center", fontsize=9.5, color="#4A6B85")
 
-    ax.text(50, 58.6, "北斗 B1I 基带处理与电文解调 —— 数字核心架构（阶段 P0/P1 基线）",
-            ha="center", va="center", fontsize=15, fontweight="bold", color="#1F3B57")
-    ax.text(50, 56.4,
-            f"IF {P.f_if_hz/1e6:.3f} MHz / Fs {P.f_s_hz/1e6:.3f} MHz（8 样本/码片）/ 2 bit / "
-            f"{P.n_channels} 通道 / 1 ms = {P.samples_per_ms} 样本 / 载波表全芯片共享 / 输出历元 {P.epoch_period_s:g} s",
-            ha="center", va="center", fontsize=10, color="#4A6B85")
-
-    # 列标题
-    for x, t in ((11, "输入与公共时基"), (36, "捕获与通道管理"), (62, "同步与解调"),
-                 (88, "输出与软件适配")):
-        ax.text(x, 53.6, t, ha="center", va="center", fontsize=10.5,
+    for k, t in [(1, "① 输入与公共时基"), (2, "② 捕获（后台，与跟踪并发）"),
+                 (3, "③ 12 × 跟踪通道"), (4, "④ 同步与解调"), (5, "⑤ 测量与输出")]:
+        ax.text(1.0, ROW[k] + BH / 2 + 1.0, t, ha="left", va="bottom", fontsize=10,
                 fontweight="bold", color="#1F3B57")
 
-    # --- 列 1 ---
-    box(ax, 2, 46, 18, 6, "配套 SRAM 模型（2 bit 实中频）\n读地址 / 读使能 / 读数据", "in")
-    box(ax, 2, 37.5, 18, 6, "sram_reader\n按配套字宽取数 → s[2:0]", "rtl")
-    box(ax, 2, 29, 18, 6, "sample_timebase\nn, sample_valid, 1 ms tick", "rtl")
-    box(ax, 2, 18, 18, 8, "配置接口（cfg_valid/addr/wdata/ready）\nPRN 候选表 · 搜索范围 · 门限\n环路系数 · 历元周期 · debug", "cfg", fs=8.5)
+    # ①
+    box(ax, 0, ROW[1], "配套 SRAM 模型\n(2 bit 实中频)", "in")
+    box(ax, 1, ROW[1], "sram_reader\n读地址/使能/数据 → s[2:0]", "in")
+    box(ax, 2, ROW[1], "sample_timebase\n样本编号 / 1ms / 20ms / 6s / 1s", "in")
+    box(ax, 3, ROW[1], "配置寄存器\nPRN 表·搜索范围·门限·环路系数\n(写入后立即生效)", "in", 7.4)
+    hlink(ax, 0, 1, ROW[1]); hlink(ax, 1, 2, ROW[1])
+    # 配置寄存器通过 cfg_valid/ready 写入后立即生效，不画连线以免穿越方框
 
-    arrow(ax, (11, 46), (11, 43.5))
-    arrow(ax, (11, 37.5), (11, 35))
-    arrow(ax, (20, 22), (26, 22), ls="--")
-    ax.text(23, 23.2, "控制", fontsize=8, color="#4A6B85")
+    # 时基总线：sample_timebase -> 捕获引擎 / 跟踪通道
+    ybus = 57.5
+    seg(ax, [(CX[2], ROW[1] - BH / 2), (CX[2], ybus), (CX[1], ybus), (CX[1], ROW[2] + BH / 2)],
+        head=True)
+    ax.text(CX[2] - 8, ybus + 0.6, "时基 sample_valid / ms_tick", fontsize=7.2, color="#4A6B85")
 
-    # --- 列 2 ---
-    box(ax, 26, 44, 20, 8, "acquisition_manager\nP × acquisition_engine\n码相位 × 多普勒 × PRN", "rtl", fs=8.8)
-    box(ax, 26, 34, 20, 6, "channel_manager\nCH0..CH11 分配 / 状态 / 重捕获", "rtl", fs=8.8)
-    box(ax, 26, 16, 20, 15,
-        "12 × tracking_channel\n\ncarrier_mixer_nco  (sin/cos LUT)\n"
-        "code_nco  (PRN / NH 码相位)\ncorrelator_epl  (E/P/L 积分)\n"
-        "dll_loop  ·  fll_pll_loop\n锁定判决 / 失锁撤销", "rtl", fs=8.4)
+    # ②
+    box(ax, 0, ROW[2], "acquisition_manager\n任务调度 / 资源仲裁 / 峰值判决", "acq", 7.8)
+    box(ax, 1, ROW[2], "acquisition_engine\n码相位 × 多普勒 × PRN\n(复用混频/相关结构)", "acq", 7.5)
+    box(ax, 2, ROW[2], "search_result\n成败·PRN·task_id\n码相位·频偏·质量", "acq", 7.6)
+    hlink(ax, 0, 1, ROW[2]); hlink(ax, 1, 2, ROW[2])
+    seg(ax, [(CX[2], ROW[2] - BH / 2), (CX[2], ROW[3] + BH / 2)], color="#B06A00")
+    ax.text(CX[2] + 0.8, ROW[2] - BH / 2 - 3.4, "allocate / init", fontsize=7.2, color="#B06A00")
 
-    arrow(ax, (20, 40.5), (26, 46))
-    arrow(ax, (20, 32), (26, 38))
-    arrow(ax, (36, 44), (36, 40))
-    arrow(ax, (36, 34), (36, 31))
-    arrow(ax, (46, 20), (52, 20), rad=-0.15)
+    # ③
+    box(ax, 0, ROW[3], "channel_manager\n分配 / generation / 重捕获", "trk", 7.8)
+    box(ax, 1, ROW[3], "tracking_channel × 12\ncarrier_mixer_nco + code_nco\n"
+                       "code_ram(E/P/L) + correlator_epl\ndll_loop + fll_pll_loop", "trk", 7.4)
+    box(ax, 2, ROW[3], "channel_status\n分层有效位·质量\n失锁原因·发生时刻", "trk", 7.6)
+    hlink(ax, 0, 1, ROW[3], ls="--"); hlink(ax, 1, 2, ROW[3])
+    ax.text(CX[3], ROW[3], "共享资源（只读）\n载波 sin/cos ROM：全芯片 1 份\n"
+                           "PRN 码 RAM：按 ICD 装载\n12 通道只读访问，不在数据流上",
+            ha="center", va="center", fontsize=7.2, color="#4A6B85")
 
-    # --- 列 3 ---
-    box(ax, 52, 46, 20, 6, "nh_sync\n20 ms 位同步 / 去 NH20", "nav", fs=8.8)
-    box(ax, 52, 37, 20, 6, "d1_frame_sync\n子帧同步 / 去交织 / BCH", "nav", fs=8.8)
-    box(ax, 52, 28, 20, 6, "nav_decoder\n时间 / 星历 / 钟差 / 健康", "nav", fs=8.8)
-    box(ax, 52, 12, 20, 6, "measurement_engine\n码相位 + 整周期 + 时间锚点", "nav", fs=8.5)
-    box(ax, 52, 4, 20, 5.5, "全局记录汇聚（无丢失/无伪造）", "nav", fs=8.5)
+    # ③ -> ④
+    seg(ax, [(CX[1], ROW[3] - BH / 2), (CX[1], ROW[4] + BH / 2)])
+    ax.text(CX[1] + 0.8, ROW[3] - BH / 2 - 3.6, "correlator_result（每 1 ms）", fontsize=7.2, color="#4A6B85")
 
-    arrow(ax, (46, 30), (52, 49), rad=0.12)
-    ax.text(47.6, 38.0, "Prompt", fontsize=7.5, color="#4A6B85")
-    arrow(ax, (62, 46), (62, 43))
-    arrow(ax, (62, 37), (62, 34))
-    arrow(ax, (46, 24), (52, 15), rad=-0.12)
-    arrow(ax, (62, 28), (62, 25))
+    # ④
+    box(ax, 0, ROW[4], "nh_sync\n去 NH20 / 位同步", "sync", 7.8)
+    box(ax, 1, ROW[4], "d1_frame_sync\n子帧同步 / 去交织 / BCH(15,11,1)", "sync", 7.5)
+    box(ax, 2, ROW[4], "nav_decoder\nBDT时间 / 星历 / 钟差 / 健康", "sync", 7.6)
+    box(ax, 3, ROW[4], "measurement_engine\n码相位 + 整周期 + 时间锚点", "sync", 7.6)
+    hlink(ax, 0, 1, ROW[4]); hlink(ax, 1, 2, ROW[4]); hlink(ax, 2, 3, ROW[4])
 
-    # --- 列 4 ---
-    box(ax, 78, 44, 20, 6, "epoch_aggregator\n公共历元 1 s / 有效性裁决", "sw", fs=8.8)
-    box(ax, 78, 35, 20, 6, "record_fifo → 结构化记录\nrec_valid / ready / last", "sw", fs=8.8)
-    box(ax, 78, 24, 20, 6, "RINEX 3.05 适配器（软件）\nOBS: C2I…  NAV: 星历/钟差", "sw", fs=8.8)
-    box(ax, 78, 13, 20, 6, "配套定位软件（教师提供）\n单频码定位 PVT", "sw", fs=8.8)
-    box(ax, 78, 4, 20, 5.5, "验证证据：波形 / 日志 / 报告", "cfg", fs=8.5)
+    # ④ -> ⑤（正交下折到左侧）
+    y4 = 15.3
+    seg(ax, [(CX[3] - 6, ROW[4] - BH / 2), (CX[3] - 6, y4), (CX[0], y4), (CX[0], ROW[5] + BH / 2)])
+    ax.text(CX[3] - 5.2, y4 + 0.7, "obs / nav / status", fontsize=7.2, color="#4A6B85")
 
-    arrow(ax, (72, 15), (78, 46), rad=-0.18)
-    arrow(ax, (72, 49), (78, 47), rad=0.1)
-    arrow(ax, (72, 31), (78, 45), rad=-0.1)
-    arrow(ax, (72, 6.8), (78, 38), rad=-0.2)
-    arrow(ax, (88, 44), (88, 41))
-    arrow(ax, (88, 35), (88, 30))
-    arrow(ax, (88, 24), (88, 19))
-    arrow(ax, (88, 13), (88, 9.5))
+    # ⑤
+    box(ax, 0, ROW[5], "epoch_aggregator\n公共历元 / 有效性裁决", "out", 7.8)
+    box(ax, 1, ROW[5], "record_fifo\nobs / nav / status + 背压", "out", 7.8)
+    box(ax, 2, ROW[5], "RINEX 3.05 适配器\n(配套软件，非 RTL)", "sw", 7.8)
+    box(ax, 3, ROW[5], "定位软件\n单频码定位(配套)", "sw", 7.8)
+    hlink(ax, 0, 1, ROW[5]); hlink(ax, 1, 2, ROW[5], ls="--"); hlink(ax, 2, 3, ROW[5], ls="--")
 
-    ax.text(50, 1.0,
-            "实线：样本 / 结果   虚线：控制 / 状态    失锁：撤销本通道有效数据 → 重新捕获",
+    ax.text(50, 1.0, "实线：样本与结果　虚线：控制/复用　"
+                     "失锁：撤销本通道本代次有效数据 → 重捕获（generation 自增）",
             ha="center", fontsize=9, color="#4A6B85")
 
     os.makedirs(FIGURES_DIR, exist_ok=True)
     out = os.path.join(FIGURES_DIR, "architecture.png")
-    fig.savefig(out, dpi=160, bbox_inches="tight", facecolor="white")
+    fig.savefig(out, dpi=150, bbox_inches="tight", facecolor="white")
     plt.close(fig)
-    print(f"中文字体: {font}")
-    print(f"已生成 {out}")
+    print("字体:", font, "->", out)
     return 0
 
 
