@@ -24,13 +24,11 @@ module code_ram #(
   output logic [10:0] l_idx
 );
 
+  // 注意：这里不能用 initial 预置 mem。VCS 会判定 mem 同时被 always_ff 和
+  // initial 驱动（Illegal combination of procedural drivers），综合工具也不接受。
+  // 使用前必须通过写端口把整张码表装进去。
   logic mem [0:LEN-1];
-  integer i;
   integer e_tmp, l_tmp;
-
-  initial begin
-    for (i = 0; i < LEN; i = i + 1) mem[i] = 1'b0;
-  end
 
   always_ff @(posedge clk) begin
     if (we) mem[waddr % LEN] <= wdata;

@@ -5,4 +5,5 @@
 tb/unit/tb_carrier_lut.sv
 tb/unit/tb_sample_unpacker.sv
 tb/unit/tb_sample_timebase.sv
+tb/unit/tb_acquisition_engine.sv
 tb/system/tb_tracking_channel.sv

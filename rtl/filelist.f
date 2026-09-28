@@ -14,3 +14,4 @@ rtl/track/correlator_epl.sv
 rtl/track/dll_loop.sv
 rtl/track/fll_pll_loop.sv
 rtl/track/tracking_channel.sv
+rtl/acq/acquisition_engine.sv

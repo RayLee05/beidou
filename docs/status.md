@@ -100,3 +100,19 @@
 **顺带发现的 RTL 缺陷**：`rtl/track/fll_pll_loop.sv` 第 98 行
 `mag_p > lock_thresh[CORR_ACC_W:0]` 对 26 bit 向量做 [26:0] 切片越界（Icarus 报 out of bound → 'bx），
 应改为 `mag_p > {1'b0, lock_thresh}`。
+
+
+## 2026-09-28 捕获引擎首版（VCS 实测通过）
+
+- 新增 `rtl/acq/acquisition_engine.sv`：码相位串行扫描，复用跟踪通道的 mix/NCO/码 RAM，
+  每个假设相干积分 1 ms，用 |I|+|Q|/2 判决，记录峰值与 found。
+- 新增 `tb/unit/tb_acquisition_engine.sv`：4 个假设、码表全 1、常数输入 + 本地载波冻结，
+  峰值可手算 = 16368 × 3 × 511 = **25092144**，实测逐位一致。
+- **虚拟机 VCS 实测通过**：`make TEST=tb_acquisition_engine` → PASS；`tb_carrier_lut` → PASS。
+- 修了一个跨工具可移植性问题：`rtl/track/code_ram.sv` 里 `mem` 同时被 `always_ff` 和 `initial`
+  驱动，VCS 判 `Illegal combination of procedural drivers`（Icarus 放行），已删除 `initial`。
+- 本地 Icarus 现状：3/5 通过（acquisition、carrier_lut、sample_timebase）；
+  未通过的两个是 ISSUE-001（跟踪通道 code_phase）与 ISSUE-002（unpacker 握手）。
+
+**下一步**：`acquisition_manager.sv`（任务调度、峰值确认、allocate/init 移交）→ 修 ISSUE-001/002
+→ 用 ICD 真实码表替换测试图案，重跑 L2 回归。
