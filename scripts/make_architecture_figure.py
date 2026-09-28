@@ -70,8 +70,8 @@ def main() -> int:
     ax.text(50, 58.6, "北斗 B1I 基带处理与电文解调 —— 数字核心架构（阶段 P0/P1 基线）",
             ha="center", va="center", fontsize=15, fontweight="bold", color="#1F3B57")
     ax.text(50, 56.4,
-            f"IF {P.f_if_hz/1e6:.3f} MHz / Fs {P.f_s_hz/1e6:.3f} MSps / 2 bit / "
-            f"{P.n_channels} 通道 / 1 ms = {P.samples_per_ms} 样本 / 输出历元 {P.epoch_period_s:g} s",
+            f"IF {P.f_if_hz/1e6:.3f} MHz / Fs {P.f_s_hz/1e6:.3f} MHz（8 样本/码片）/ 2 bit / "
+            f"{P.n_channels} 通道 / 1 ms = {P.samples_per_ms} 样本 / 载波表全芯片共享 / 输出历元 {P.epoch_period_s:g} s",
             ha="center", va="center", fontsize=10, color="#4A6B85")
 
     # 列标题
@@ -81,8 +81,8 @@ def main() -> int:
                 fontweight="bold", color="#1F3B57")
 
     # --- 列 1 ---
-    box(ax, 2, 46, 18, 6, "离线 2-bit 实中频文件\n+ metadata（版本/速率/码表）", "in")
-    box(ax, 2, 37.5, 18, 6, "sample_unpacker\n4 样本/字节 → s[2:0] 有符号", "rtl")
+    box(ax, 2, 46, 18, 6, "配套 SRAM 模型（2 bit 实中频）\n读地址 / 读使能 / 读数据", "in")
+    box(ax, 2, 37.5, 18, 6, "sram_reader\n按配套字宽取数 → s[2:0]", "rtl")
     box(ax, 2, 29, 18, 6, "sample_timebase\nn, sample_valid, 1 ms tick", "rtl")
     box(ax, 2, 18, 18, 8, "配置接口（cfg_valid/addr/wdata/ready）\nPRN 候选表 · 搜索范围 · 门限\n环路系数 · 历元周期 · debug", "cfg", fs=8.5)
 

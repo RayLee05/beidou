@@ -16,8 +16,9 @@ localparam int unsigned B1I_PARAMS_VERSION_MINOR = 1;
 
 // ---- 射频与中频 ----
 localparam longint unsigned F_RF_HZ  = 1561098000;   // 1561.098 MHz
-localparam int    unsigned F_IF_HZ   = 4096000;      // 课程规格；PDF 4.092 MHz 待确认
-localparam int    unsigned F_S_HZ    = 16384000;     // 课程规格；PDF 16.368 MSps 待确认
+// 依据实验指导书 1.2/2.3 节：每码片 8 样本，Fs = 8*2.046M = 16.368 MHz，fIF = Fs/4
+localparam int    unsigned F_IF_HZ   = 4092000;
+localparam int    unsigned F_S_HZ    = 16368000;
 
 // ---- 量化与打包 ----
 localparam int unsigned SAMPLE_BITS      = 2;
@@ -56,9 +57,9 @@ localparam int unsigned EPOCH_ID_W      = 32;
 // 码相位 = 整数码片[31:21] + 小数码片[20:0]；一个码周期 = 2046 << 21
 localparam int unsigned CODE_FRAC_W      = 21;
 localparam logic [31:0] CODE_PERIOD_WORD = 32'd4290772992;  // = 2046 << 21
-localparam int unsigned CODE_INC_NOMINAL = 261888;          // = round(2046/16384 * 2^21)，精确
-localparam int unsigned CODE_INC_MIN     = 258048;          // 标称 - 3840
-localparam int unsigned CODE_INC_MAX     = 265728;          // 标称 + 3840
+localparam int unsigned CODE_INC_NOMINAL = 262144;          // = 2046/16368 * 2^21 = 2^21/8，精确
+localparam int unsigned CODE_INC_MIN     = 258304;          // 标称 - 3840
+localparam int unsigned CODE_INC_MAX     = 265984;          // 标称 + 3840
 
 // ---- 载波频率字 ----
 localparam logic [31:0] FREQ_WORD_IF      = 32'd1073741824; // = 2^30，精确表示 4.096 MHz

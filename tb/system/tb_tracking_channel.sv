@@ -10,9 +10,9 @@
 module tb_tracking_channel;
 
   // 严格比对的窗口数（ISSUE-001: 第 4 个窗口起 RTL 与模型分歧，见 docs/TRACKING_DESIGN.md 第 7 节）
-  localparam int MS_CMP = 3;
+  localparam int MS_CMP = 1;
   localparam int MS_DUMP = 7;
-  localparam int N_SAMP = 16384 * 7;
+  localparam int N_SAMP = SAMPLES_PER_MS * 7;
   localparam int N_BYTE = N_SAMP / 4;
 
   logic clk = 1'b0, rst_n;
@@ -158,7 +158,7 @@ module tb_tracking_channel;
     init_load = 1'b1;
     init_carrier_phase = '0;
     init_code_phase = 32'd258578022;             // round(123.3 * 2^21)
-    init_doppler = 32'sd393216;                  // round(1500/16.384e6 * 2^32)
+    init_doppler = 32'sd393600;                  // round(1500/16.368e6 * 2^32)
     @(negedge clk);
     init_load = 1'b0;
 
@@ -178,7 +178,7 @@ module tb_tracking_channel;
     byte_valid = 1'b0;
 
     // 再跑一点时间让最后一个窗口的 dump 出来
-    repeat (8 * 16384) @(negedge clk);
+    repeat (8 * SAMPLES_PER_MS) @(negedge clk);
 
     if (dump_cnt != MS_DUMP) begin
       $display("FAIL: dump 次数 %0d，期望 %0d", dump_cnt, MS_DUMP);

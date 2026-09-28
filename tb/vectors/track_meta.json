@@ -15,6 +15,6 @@
   "doppler_init_hz": 1500.0,
   "amplitude": 2.6,
   "spacing_chips": 1,
-  "samples_sha256": "e20bde157a45c8bebdcebd42c3364b44bf61be051204d779429d15b9d102f8cc",
-  "expected_sha256": "ed818a67273e16a338c3a0211c1ea35f46200b147d1ce639a33eb4091be81f9a"
+  "samples_sha256": "5130675ba197fcb755df73ab85ad9be1e942f7508966bbf4f2b9db18ad1404c2",
+  "expected_sha256": "6215161bf3578da5aa1a5d977a66684584ce4b47eb218ea16e4525f78506baf0"
 }

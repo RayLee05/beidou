@@ -1,20 +1,20 @@
 {
   "banner": {
-    "generated_at": "2026-09-27T21:14:46+08:00",
+    "generated_at": "2026-09-28T12:02:08+08:00",
     "python": "3.12.1",
     "platform": "Windows-11-10.0.26200-SP0",
     "machine": "AMD64",
-    "git_revision": "97c5832",
+    "git_revision": "470b8b5",
     "git_dirty": true
   },
   "params_version": "0.1.0",
   "nco": {
     "phase_w": 32,
-    "freq_resolution_hz": 0.003814697265625,
+    "freq_resolution_hz": 0.003810971975326538,
     "rows": [
       {
         "label": "中频 IF",
-        "f_hz": 4096000.0,
+        "f_hz": 4092000.0,
         "word": 1073741824,
         "exact": true,
         "word_bits_needed": 32
@@ -22,21 +22,21 @@
       {
         "label": "码率 PRN",
         "f_hz": 2046000.0,
-        "word": 536346624,
+        "word": 536870912,
         "exact": true,
-        "word_bits_needed": 30
+        "word_bits_needed": 31
       },
       {
         "label": "多普勒 +10 kHz",
         "f_hz": 10000.0,
-        "word": 2621440,
+        "word": 2624003,
         "exact": true,
         "word_bits_needed": 23
       },
       {
         "label": "多普勒 -10 kHz",
         "f_hz": -10000.0,
-        "word": -2621440,
+        "word": -2624003,
         "exact": true,
         "word_bits_needed": 23
       }
@@ -49,12 +49,12 @@
   "accumulator": {
     "max_sample_abs": 3,
     "max_cos_abs": 512,
-    "per_ms_bound": 25165824,
+    "per_ms_bound": 25141248,
     "per_ms_required_w": 26,
     "corr_acc_w": 26,
     "corr_acc_headroom_bits": 0,
     "prod_w": 13,
-    "per_bit_bound": 503316480,
+    "per_bit_bound": 502824960,
     "per_bit_required_w": 30,
     "bit_acc_w": 32,
     "bit_acc_headroom_bits": 2,
@@ -62,13 +62,13 @@
     "acc_bits_total": 2640
   },
   "timebase": {
-    "sample_period_ns": 61.03515625,
-    "sample_range_m": 18.29787951660156,
+    "sample_period_ns": 61.09481915933529,
+    "sample_range_m": 18.31576600684262,
     "chip_period_ns": 488.7585532746823,
     "chip_range_m": 146.52612805474095,
-    "samples_per_chip": 8.007820136852395,
+    "samples_per_chip": 8.0,
     "sample_index_w": 32,
-    "sample_index_wrap_s": 262.144,
+    "sample_index_wrap_s": 262.40025024437927,
     "epoch_id_wrap_s": 4294967296.0,
     "frac_table": [
       {
@@ -101,42 +101,42 @@
   },
   "cycle": {
     "target_clk_hz": 100000000.0,
-    "clk_per_sample": 6.103515625,
-    "sample_clk_utilization": 0.16384,
+    "clk_per_sample": 6.109481915933529,
+    "sample_clk_utilization": 0.16368,
     "rows": [
       {
         "label": "1 ms（积分/Prompt 边界）",
         "available_clk": 100000,
-        "samples": 16384,
-        "sample_slot_util": 0.16384,
+        "samples": 16368,
+        "sample_slot_util": 0.16368,
         "loop_updates": 1.0
       },
       {
         "label": "20 ms（1 个 D1 数据位）",
         "available_clk": 2000000,
-        "samples": 327680,
-        "sample_slot_util": 0.16384,
+        "samples": 327360,
+        "sample_slot_util": 0.16368,
         "loop_updates": 20.0
       },
       {
         "label": "1 s（公共输出历元）",
         "available_clk": 100000000,
-        "samples": 16384000,
-        "sample_slot_util": 0.16384,
+        "samples": 16368000,
+        "sample_slot_util": 0.16368,
         "loop_updates": 1000.0
       },
       {
         "label": "6 s（1 个子帧）",
         "available_clk": 600000000,
-        "samples": 98304000,
-        "sample_slot_util": 0.16384,
+        "samples": 98208000,
+        "sample_slot_util": 0.16368,
         "loop_updates": 6000.0
       },
       {
         "label": "30 s（1 个 D1 帧）",
         "available_clk": 3000000000,
-        "samples": 491520000,
-        "sample_slot_util": 0.16384,
+        "samples": 491040000,
+        "sample_slot_util": 0.16368,
         "loop_updates": 30000.0
       }
     ],
@@ -146,37 +146,37 @@
   "resource": {
     "mix_mults_per_channel": 2,
     "base_mults": 24,
-    "mac_rate_s": 393216000.0,
+    "mac_rate_s": 392832000.0,
     "ops_per_sample": 132,
-    "op_rate_s": 2162688000.0,
+    "op_rate_s": 2160576000.0,
     "accumulator_rw_per_sample": 72,
-    "accumulator_rw_per_clk": 11.79648,
+    "accumulator_rw_per_clk": 11.78496,
     "options": [
       {
         "mux": 1,
         "mults": 24,
-        "required_clk_hz": 16384000.0,
+        "required_clk_hz": 16368000.0,
         "feasible_at_target": true,
         "note": "全并行，状态全在触发器"
       },
       {
         "mux": 2,
         "mults": 12,
-        "required_clk_hz": 32768000.0,
+        "required_clk_hz": 32736000.0,
         "feasible_at_target": true,
         "note": "每 2 个通道共享一套混频乘法器"
       },
       {
         "mux": 3,
         "mults": 8,
-        "required_clk_hz": 49152000.0,
+        "required_clk_hz": 49104000.0,
         "feasible_at_target": true,
         "note": "每 3 个通道共享一套混频乘法器"
       },
       {
         "mux": 6,
         "mults": 4,
-        "required_clk_hz": 98304000.0,
+        "required_clk_hz": 98208000.0,
         "feasible_at_target": true,
         "note": "每 6 个通道共享一套混频乘法器"
       }

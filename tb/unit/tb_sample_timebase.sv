@@ -39,7 +39,7 @@ module tb_sample_timebase;
     sample_valid = 1'b1;
 
     // 观察 20 ms + 1 个样本
-    for (i = 0; i < (20 * 16384 + 1); i = i + 1) @(posedge clk);
+    for (i = 0; i < (20 * SAMPLES_PER_MS + 1); i = i + 1) @(posedge clk);
     #1;
 
     // 边界计数与"复位后第一个有效样本"的对齐有关：20 ms+1 个样本应出现 20 或 21 次
@@ -56,7 +56,7 @@ module tb_sample_timebase;
       errors = errors + 1;
     end
     // 计数器在复位释放那一拍可能已经计入一个样本，允许 ±1
-    if (sample_count < 20 * 16384 || sample_count > 20 * 16384 + 2) begin
+    if (sample_count < 20 * SAMPLES_PER_MS || sample_count > 20 * SAMPLES_PER_MS + 2) begin
       $display("FAIL: sample_count 应在 %0d..%0d，实际 %0d", 20*16384, 20*16384+2, sample_count);
       errors = errors + 1;
     end

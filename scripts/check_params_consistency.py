@@ -123,7 +123,9 @@ def main() -> int:
     c.eq("config.input.sample_encoding", cfg["input"]["sample_encoding"], "2bit-pair")
 
     # 内部不变量
-    c.eq("1 ms 样本数", P.samples_per_ms, 16384)
+    c.eq("1 ms 样本数", P.samples_per_ms, 16368)
+    c.eq("每码片样本数", P.samples_per_code_period, 8.0)
+    c.eq("fIF = Fs/4", P.f_if_hz * 4, P.f_s_hz)
     c.eq("每 1 ms 码片数", int(P.code_rate_hz * 1e-3), P.code_chips_per_period)
     c.eq("1 数据位 = 20 ms", int(P.samples_per_bit), 20 * P.samples_per_ms)
     c.eq("1 子帧 = 6 s", P.samples_per_subframe, 6000 * P.samples_per_ms)

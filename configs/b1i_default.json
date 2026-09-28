@@ -2,8 +2,8 @@
   "config_version": "0.1.0",
   "note": "运行期配置；参数含义与取值范围见 docs/INTERFACES.md 第 4 节。所有值在 RTL 冻结前均可调整。",
   "input": {
-    "sample_rate_hz": 16384000,
-    "if_hz": 4096000,
+    "sample_rate_hz": 16368000,
+    "if_hz": 4092000,
     "sample_encoding": "2bit-pair",
     "byte_order": "sample0_msb",
     "metadata_required": true

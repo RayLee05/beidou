@@ -39,7 +39,7 @@ def main() -> int:
     nh = codegen.test_nh20()
     data = [1, 0, 1, 1, 0, 0, 1, 0]
 
-    sig = signal_gen.make_if_signal(16384 * MS, code, nh, data,
+    sig = signal_gen.make_if_signal(P.samples_per_ms * MS, code, nh, data,
                                     code_phase_chips=CODE_PHASE_TRUE,
                                     doppler_hz=DOPPLER_TRUE,
                                     amplitude=AMPLITUDE)
@@ -50,7 +50,7 @@ def main() -> int:
 
     expected = []
     for k in range(CMP):
-        r = ch.step_ms(sig[k * 16384:(k + 1) * 16384])
+        r = ch.step_ms(sig[k * P.samples_per_ms:(k + 1) * P.samples_per_ms])
         expected.append(r)
 
     write_text(os.path.join(OUT, "track_code.hex"),

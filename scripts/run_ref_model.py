@@ -47,11 +47,11 @@ def test_packing(c: Check):
 
 
 def test_acquisition(c: Check) -> dict:
-    s = signal_gen.make_if_signal(16384, CODE, NH, DATA, CP_TRUE, FD_TRUE, amplitude=2.6)
+    s = signal_gen.make_if_signal(P.samples_per_ms, CODE, NH, DATA, CP_TRUE, FD_TRUE, amplitude=2.6)
     grid = [FD_TRUE + d for d in range(-1000, 1001, 100)]
     hits = acquisition.serial_search(s, CODE, grid)
     best = hits[0]
-    n = 16384
+    n = P.samples_per_ms
     cp = ((n - int(best["code_phase_chips"])) % n) * 2046.0 / n
     # 1 ms 相干 + 2 bit 量化会产生谐波混叠，粗捕获的频率估计有偏；
     # 精细频率由 FLL/PLL 拉入（P4 再做频率细化搜索）
@@ -64,13 +64,13 @@ def test_acquisition(c: Check) -> dict:
 
 def test_tracking(c: Check) -> dict:
     ms = 40
-    sig = signal_gen.make_if_signal(16384 * ms, CODE, NH, DATA, CP_TRUE, FD_TRUE,
+    sig = signal_gen.make_if_signal(P.samples_per_ms * ms, CODE, NH, DATA, CP_TRUE, FD_TRUE,
                                     amplitude=2.6)
     ch = TrackingChannel(CODE, spacing=1, cfg=LoopConfig(fll_en=True))
     ch.reset(code_phase_chips=CP_TRUE + 0.5, doppler_hz=FD_TRUE + 2.0)
     rows = []
     for k in range(ms):
-        r = ch.step_ms(sig[k * 16384:(k + 1) * 16384])
+        r = ch.step_ms(sig[k * P.samples_per_ms:(k + 1) * P.samples_per_ms])
         r["code_phase_chips"] = r["code_phase"] / 2 ** P.code_frac_w
         r["cp_err"] = r["code_phase_chips"] - CP_TRUE
         r["fd_err"] = r["doppler_hz"] - FD_TRUE
