@@ -332,7 +332,7 @@ DOC = [
 ]
 
 TITLE = "北斗B1I基带处理器_总体架构方案"
-FIG_W_CM = 15.5
+FIG_W_CM = 15.0   # A4 去掉左右各 28 mm 页边距后可用 15.4 cm，留一点余量
 
 
 import re as _re
@@ -386,9 +386,11 @@ def build_md():
 
 def add_caption(doc, text, size_pt=10.5):
     from docx.shared import Pt
-    from docx.enum.text import WD_ALIGN_PARAGRAPH
+    from docx.enum.text import WD_ALIGN_PARAGRAPH, WD_LINE_SPACING
     p = doc.add_paragraph()
     p.alignment = WD_ALIGN_PARAGRAPH.CENTER
+    p.paragraph_format.line_spacing_rule = WD_LINE_SPACING.SINGLE
+    p.paragraph_format.line_spacing = None
     r = p.add_run(text)
     r.bold = True
     r.font.size = Pt(size_pt)
@@ -405,6 +407,14 @@ def build_docx(path):
     from docx.enum.text import WD_ALIGN_PARAGRAPH, WD_LINE_SPACING
 
     doc = Document()
+    from docx.shared import Mm
+    for sec in doc.sections:
+        sec.page_width = Mm(210)
+        sec.page_height = Mm(297)
+        sec.top_margin = Mm(25)
+        sec.bottom_margin = Mm(25)
+        sec.left_margin = Mm(28)
+        sec.right_margin = Mm(28)
     # 正文：宋体 小四(12pt)，行距固定 22 磅，首行缩进 2 字符
     normal = doc.styles["Normal"]
     normal.font.name = "宋体"
@@ -444,6 +454,11 @@ def build_docx(path):
             p = doc.add_paragraph()
             p.alignment = WD_ALIGN_PARAGRAPH.CENTER
             p.paragraph_format.first_line_indent = Pt(0)
+            # 关键：正文是"固定值 22 磅"，图片必须改成单倍行距，否则会被裁成一条
+            p.paragraph_format.line_spacing_rule = WD_LINE_SPACING.SINGLE
+            p.paragraph_format.line_spacing = None
+            p.paragraph_format.space_before = Pt(6)
+            p.paragraph_format.space_after = Pt(3)
             p.add_run().add_picture(FIG, width=Cm(FIG_W_CM))
             add_caption(doc, _renum(payload))
         elif kind == "code":
