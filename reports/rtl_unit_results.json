@@ -1,16 +1,26 @@
 {
   "banner": {
-    "generated_at": "2026-09-27T21:16:36+08:00",
+    "generated_at": "2026-09-28T12:03:07+08:00",
     "python": "3.12.1",
     "platform": "Windows-11-10.0.26200-SP0",
     "machine": "AMD64",
-    "git_revision": "93b8e02",
-    "git_dirty": true
+    "git_revision": "e627afc",
+    "git_dirty": false
   },
   "simulator": "Icarus Verilog version 12.0 (devel) (s20150603-1539-g2693dd32b)",
-  "total": 1,
-  "passed": 1,
+  "total": 4,
+  "passed": 2,
   "results": [
+    {
+      "name": "tb_carrier_lut",
+      "tb": "tb\\unit\\tb_carrier_lut.sv",
+      "compile_ok": true,
+      "compile_log": "D:\\A_workfiles\\codexwork\\beidou\\rtl\\common\\sample_unpacker.sv:45: sorry: constant selects in always_* processes are not currently supported (all bits will be included).\nD:\\A_workfiles\\codexwork\\beidou\\rtl\\track\\code_nco.sv:25: sorry: constant selects in always_* processes are not currently supported (all bits will be included).\nD:\\A_workfiles\\codexwork\\beidou\\rtl\\track\\code_ram.sv:39: sorry: constant selects in always_* processes are not currently supported (all bits will be included).\nD:\\A_workfiles\\codexwork\\beidou\\rtl\\track\\code_ram.sv:39: sorry: constant selects in always_* processes are not currently supported (all bits will be included).\nD:\\A_workfiles\\codexwork\\beidou\\rtl\\track\\fll_pll_loop.sv:98: warning: Part select [26:0] is selecting after the vector lock_thresh[25:0].\nD:\\A_workfiles\\codexwork\\beidou\\rtl\\track\\fll_pll_loop.sv:98:        : Replacing the out of bound bits with 'bx.\n",
+      "run_ok": true,
+      "passed": true,
+      "run_log": "TEST PASSED\nD:\\A_workfiles\\codexwork\\beidou\\tb\\unit\\tb_carrier_lut.sv:39: $finish called at 6 (1s)\n",
+      "seconds": 0.425238
+    },
     {
       "name": "tb_sample_timebase",
       "tb": "tb\\unit\\tb_sample_timebase.sv",
@@ -18,8 +28,28 @@
       "compile_log": "D:\\A_workfiles\\codexwork\\beidou\\rtl\\common\\sample_unpacker.sv:45: sorry: constant selects in always_* processes are not currently supported (all bits will be included).\nD:\\A_workfiles\\codexwork\\beidou\\rtl\\track\\code_nco.sv:25: sorry: constant selects in always_* processes are not currently supported (all bits will be included).\nD:\\A_workfiles\\codexwork\\beidou\\rtl\\track\\code_ram.sv:39: sorry: constant selects in always_* processes are not currently supported (all bits will be included).\nD:\\A_workfiles\\codexwork\\beidou\\rtl\\track\\code_ram.sv:39: sorry: constant selects in always_* processes are not currently supported (all bits will be included).\nD:\\A_workfiles\\codexwork\\beidou\\rtl\\track\\fll_pll_loop.sv:98: warning: Part select [26:0] is selecting after the vector lock_thresh[25:0].\nD:\\A_workfiles\\codexwork\\beidou\\rtl\\track\\fll_pll_loop.sv:98:        : Replacing the out of bound bits with 'bx.\n",
       "run_ok": true,
       "passed": true,
-      "run_log": "TEST PASSED\nD:\\A_workfiles\\codexwork\\beidou\\tb\\unit\\tb_sample_timebase.sv:66: $finish called at 3276836 (1s)\n",
-      "seconds": 0.560759
+      "run_log": "TEST PASSED\nD:\\A_workfiles\\codexwork\\beidou\\tb\\unit\\tb_sample_timebase.sv:66: $finish called at 3273636 (1s)\n",
+      "seconds": 0.89011
+    },
+    {
+      "name": "tb_sample_unpacker",
+      "tb": "tb\\unit\\tb_sample_unpacker.sv",
+      "compile_ok": true,
+      "compile_log": "D:\\A_workfiles\\codexwork\\beidou\\rtl\\common\\sample_unpacker.sv:45: sorry: constant selects in always_* processes are not currently supported (all bits will be included).\nD:\\A_workfiles\\codexwork\\beidou\\rtl\\track\\code_nco.sv:25: sorry: constant selects in always_* processes are not currently supported (all bits will be included).\nD:\\A_workfiles\\codexwork\\beidou\\rtl\\track\\code_ram.sv:39: sorry: constant selects in always_* processes are not currently supported (all bits will be included).\nD:\\A_workfiles\\codexwork\\beidou\\rtl\\track\\code_ram.sv:39: sorry: constant selects in always_* processes are not currently supported (all bits will be included).\nD:\\A_workfiles\\codexwork\\beidou\\rtl\\track\\fll_pll_loop.sv:98: warning: Part select [26:0] is selecting after the vector lock_thresh[25:0].\nD:\\A_workfiles\\codexwork\\beidou\\rtl\\track\\fll_pll_loop.sv:98:        : Replacing the out of bound bits with 'bx.\n",
+      "run_ok": true,
+      "passed": false,
+      "run_log": "FAIL: 仿真超时（byte_ready/sample_valid 握手未完成）\nD:\\A_workfiles\\codexwork\\beidou\\tb\\unit\\tb_sample_unpacker.sv:73: $finish called at 100000 (1s)\n",
+      "seconds": 0.060454
+    },
+    {
+      "name": "tb_tracking_channel",
+      "tb": "tb\\system\\tb_tracking_channel.sv",
+      "compile_ok": true,
+      "compile_log": "D:\\A_workfiles\\codexwork\\beidou\\rtl\\common\\sample_unpacker.sv:45: sorry: constant selects in always_* processes are not currently supported (all bits will be included).\nD:\\A_workfiles\\codexwork\\beidou\\rtl\\track\\code_nco.sv:25: sorry: constant selects in always_* processes are not currently supported (all bits will be included).\nD:\\A_workfiles\\codexwork\\beidou\\rtl\\track\\code_ram.sv:39: sorry: constant selects in always_* processes are not currently supported (all bits will be included).\nD:\\A_workfiles\\codexwork\\beidou\\rtl\\track\\code_ram.sv:39: sorry: constant selects in always_* processes are not currently supported (all bits will be included).\nD:\\A_workfiles\\codexwork\\beidou\\rtl\\track\\fll_pll_loop.sv:98: warning: Part select [26:0] is selecting after the vector lock_thresh[25:0].\nD:\\A_workfiles\\codexwork\\beidou\\rtl\\track\\fll_pll_loop.sv:98:        : Replacing the out of bound bits with 'bx.\n",
+      "run_ok": true,
+      "passed": false,
+      "run_log": "FAIL i_e[ms 1]: got -63103 want -4615487\nFAIL q_e[ms 1]: got 11281 want -75597\nFAIL i_p[ms 1]: got 18837 want -7559311\nFAIL q_p[ms 1]: got 75651 want -27149\nFAIL i_l[ms 1]: got 66837 want -125657\nFAIL q_l[ms 1]: got -18805 want -116643\nFAIL code_phase[ms 1]: got 0 want 258578842\nISSUE-001 dump 1: RTL i_p=-18831 cp=16368 fw=1074135424 (不参与判定)\nISSUE-001 dump 2: RTL i_p=18838 cp=49104 fw=1074135424 (不参与判定)\nISSUE-001 dump 3: RTL i_p=18838 cp=98208 fw=1074135424 (不参与判定)\nISSUE-001 dump 4: RTL i_p=18820 cp=163680 fw=1074135424 (不参与判定)\nISSUE-001 dump 5: RTL i_p=-18808 cp=245520 fw=1074135424 (不参与判定)\nISSUE-001 dump 6: RTL i_p=42896 cp=343728 fw=1074135424 (不参与判定)\n注: 前 1 个窗口与定点模型逐位一致；第 2 个窗口起分歧(ISSUE-001)\nTEST FAILED: 7\nD:\\A_workfiles\\codexwork\\beidou\\tb\\system\\tb_tracking_channel.sv:191: $finish called at 2762150 (1s)\n",
+      "seconds": 47.958906
     }
   ]
 }

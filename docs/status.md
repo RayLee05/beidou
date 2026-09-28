@@ -76,3 +76,27 @@
 
 **下一轮任务**：修掉 ISSUE-001 → 实现 `acquisition_engine.sv`（串行码相位扫描，Python 参考已给出正确码相位）
 → 用 `generate` 展开 12 通道并接入共享时基。
+
+
+## 2026-09-27 参数修正后的复核（重要）
+
+按实验指导书把 fIF/Fs 改为 **4.092 MHz / 16.368 MHz（16368 样本/ms）** 后重跑：
+
+| 检查 | 结果 |
+|---|---|
+| 参数一致性 | **PASS 67 项**（新增"每码片 8 样本""fIF = Fs/4"两条不变量） |
+| 定点与周期预算 | 重新生成（1 样本 = 18.316 m；SAMPLE_INDEX 回绕 262.400 s；CORR/BIT 位宽不变） |
+| 参考模型自检 | **PASS 13/13**（捕获码相位 **123.000 chip** 命中真值；跟踪收敛 −0.015 chip / 1.35 Hz） |
+| RTL 用例 | `tb_carrier_lut`、`tb_sample_timebase` 待复跑；`tb_tracking_channel` **FAIL**（ISSUE-001 现象随参数变化，见下） |
+| `tb_sample_unpacker` | **FAIL**（ISSUE-002 握手超时） |
+
+**ISSUE-001 新现象**：改到 16.368 MHz 后，RTL 的 `code_phase` 观测在每个窗口读回
+**16368 的三角数倍**（16368 / 49104 / 98208 / 163680 / 245520 / 343728 = SAMPLES_PER_MS × T(k)）。
+这等价于"码率增量每窗口为 k"，说明 **码 NCO 的频率字/初值通路没有拿到参数值**，
+而相关抽头仍然自洽（这也是为什么早期窗口相关值曾逐位一致）。
+下一步：把 `code_inc`、`init_code_phase`、`CODE_INC_NOMINAL` 引到观测端口打印，
+确认是参数头未被 `code_nco.sv` 取到还是 `load` 未生效。
+
+**顺带发现的 RTL 缺陷**：`rtl/track/fll_pll_loop.sv` 第 98 行
+`mag_p > lock_thresh[CORR_ACC_W:0]` 对 26 bit 向量做 [26:0] 切片越界（Icarus 报 out of bound → 'bx），
+应改为 `mag_p > {1'b0, lock_thresh}`。
