@@ -18,6 +18,8 @@ SIMDIR  := reports/sim
 RTLF    := rtl/filelist.f
 TBS     := $(notdir $(basename $(filter %.sv,$(shell sed -n 's/^\(tb\/.*\.sv\).*/\1/p' tb/filelist.f))))
 IVL     ?= 0
+# VCS 2014 的 -debug_access 属于 LCA 特性，需要 -lca；默认不开调试
+VCSFLAGS ?=
 
 ifeq ($(TEST),)
 TARGETS := $(TBS)
@@ -37,9 +39,9 @@ list:
 run.%:
 	@mkdir -p $(SIMDIR)
 	@echo "=== 编译 $* (VCS) ==="
-	vcs -full64 -sverilog +v2k -timescale=1ns/1ps -debug_access+all \
+	vcs -full64 -sverilog +v2k -timescale=1ns/1ps \
 	    -Mdir=$(SIMDIR)/csrc_$* -o $(SIMDIR)/simv_$* \
-	    -f $(RTLF) -f tb/filelist.f -top $* 2>&1 | tee $(SIMDIR)/$*.compile.log
+	    -f $(RTLF) $(firstword $(wildcard tb/unit/$*.sv tb/system/$*.sv)) -top $* 2>&1 | tee $(SIMDIR)/$*.compile.log
 	@echo "=== 运行 $* ==="
 	@cd . && ./$(SIMDIR)/simv_$* 2>&1 | tee $(SIMDIR)/$*.run.log
 	@grep -q "TEST PASSED" $(SIMDIR)/$*.run.log && echo "[PASS] $*" || (echo "[FAIL] $*"; exit 1)

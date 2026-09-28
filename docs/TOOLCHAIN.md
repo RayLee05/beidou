@@ -7,6 +7,31 @@
   本机的 Icarus Verilog 只是"没有 VCS 时的兜底"。
 - **虚拟机里没有 git**（见 `VM-IC-SSH连接指南.md`），代码用 scp/tar 同步。
 
+## 0. 虚拟机实测结论（2026-09-28 已验证）
+
+| 项 | 实测值 |
+|---|---|
+| 主机/用户 | `IC` / `7902_13`（与文档一致，主机指纹 MD5:09:76:...:8d:9a） |
+| 免密公钥 | **失效**（publickey 被拒）；改用文档附录 A 的 **SSH_ASKPASS 密码认证可用** |
+| EDA 环境 | `source /etc/profile.d/eda.sh` —— 一次性设置 Synopsys/Cadence/Mentor/KeySight |
+| VCS | `$VCS_HOME=/opt/Synopsys/VCS2014`，`vcs -ID` → **VCS-MX I-2014.03**，License 可用 |
+| 其它 | ICC2016、PrimeTime2015、Formality2016、StarRC2015、Verdi2015、Calibre2015、Innovus15、ModelSim |
+| 工程目录 | `/home/7902_13/beidou`（已创建） |
+| 实测用例 | `make TEST=tb_carrier_lut` → **PASS**（VCS 编译+仿真） |
+
+**VCS 2014 注意事项**（已写进 Makefile）：
+1. `-debug_access+all` 在 2014 版属 LCA 特性，会报 `LCA_FEATURES_NEED_OPTION`，默认不要加；
+   需要波形时用 `make VCSFLAGS=-debug_pp`（或按手册加 `-lca`）。
+2. testbench 路径要按名字解析到 `tb/unit/` 或 `tb/system/`，不能写死 `tb/xxx.sv`。
+
+**同步方式**（虚拟机无 git）：
+
+```powershell
+tar -czf $env:TEMP\beidou.tgz -C <repo> --exclude=.git --exclude=tmp --exclude=.scratch --exclude='*.pdf' .
+scp -o HostKeyAlgorithms=+ssh-rsa $env:TEMP\beidou.tgz 7902_13@10.156.34.6:/home/7902_13/
+ssh 7902_13@10.156.34.6 "cd /home/7902_13/beidou && tar xzf ../beidou.tgz"
+```
+
 ## 1. 虚拟机侧（VCS / DC）
 
 | 项 | 说明 |
