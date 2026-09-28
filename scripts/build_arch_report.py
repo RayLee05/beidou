@@ -341,14 +341,14 @@ _FIG = [0]
 
 
 def _renum(text):
-    m = _re.match(r"^(表|图)\s*\d+　?(.*)$", text)
+    m = _re.match(r"^(表|图)\s*(\d+)?\s*(.*)$", text)
     if not m:
         return text
     if m.group(1) == "表":
         _TBL[0] += 1
-        return "表 %d　%s" % (_TBL[0], m.group(2))
+        return "表 %d　%s" % (_TBL[0], m.group(3))
     _FIG[0] += 1
-    return "图 %d　%s" % (_FIG[0], m.group(2))
+    return "图 %d　%s" % (_FIG[0], m.group(3))
 
 
 def _reset():
