@@ -13,8 +13,8 @@
 {
   "format_version": 1,
   "sample_encoding": "2bit-pair",
-  "sample_rate_hz": 16384000,
-  "if_hz": 4096000,
+  "sample_rate_hz": 16368000,
+  "if_hz": 4092000,
   "byte_order": "sample0_msb",
   "start_sample": 0,
   "source_time": "optional BDT/UTC tag",

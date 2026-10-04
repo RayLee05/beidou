@@ -43,6 +43,7 @@ STEPS = [
     ("定点与周期预算", "scripts/fixed_point_budget.py", []),
     ("架构图", "scripts/make_architecture_figure.py", ["--quick"]),
     ("参考模型自检", "scripts/run_ref_model.py", []),
+    ("记录闭环 / RINEX 回读", "scripts/check_records.py", []),
     ("RTL 单元/系统测试", "scripts/run_rtl_unit.py", ["--quick"]),
 ]
 

@@ -86,7 +86,7 @@ def main():
 
     # ②
     box(ax, 0, ROW[2], "acquisition_manager\n任务调度 / 资源仲裁 / 峰值判决", "acq", 7.8)
-    box(ax, 1, ROW[2], "acquisition_engine\n码相位 × 多普勒 × PRN\n(复用混频/相关结构)", "acq", 7.5)
+    box(ax, 1, ROW[2], "acquisition.sv\n回放 + 并行半码片\n多普勒扫描", "acq", 7.5)
     box(ax, 2, ROW[2], "search_result\n成败·PRN·task_id\n码相位·频偏·质量", "acq", 7.6)
     hlink(ax, 0, 1, ROW[2]); hlink(ax, 1, 2, ROW[2])
     seg(ax, [(CX[2], ROW[2] - BH / 2), (CX[2], ROW[3] + BH / 2)], color="#B06A00")
@@ -95,7 +95,7 @@ def main():
     # ③
     box(ax, 0, ROW[3], "channel_manager\n分配 / generation / 重捕获", "trk", 7.8)
     box(ax, 1, ROW[3], "tracking_channel × 12\ncarrier_mixer_nco + code_nco\n"
-                       "code_ram(E/P/L) + correlator_epl\ndll_loop + fll_pll_loop", "trk", 7.4)
+                       "code_ram(E/P/L) + correlator_epl\ntrack_loop", "trk", 7.4)
     box(ax, 2, ROW[3], "channel_status\n分层有效位·质量\n失锁原因·发生时刻", "trk", 7.6)
     hlink(ax, 0, 1, ROW[3], ls="--"); hlink(ax, 1, 2, ROW[3])
     ax.text(CX[3], ROW[3], "共享资源（只读）\n载波 sin/cos ROM：全芯片 1 份\n"

@@ -1,20 +1,33 @@
 {
   "carrier_lut_generated_by": "scripts/gen_carrier_lut.py",
-  "params_version": "0.1.0",
+  "params_version": "0.2.0",
   "code_source": {
-    "kind": "TEST_PATTERN_NOT_ICD",
-    "description": "11 级 m 序列 x^11+x^2+1 截断到 2046 chip",
-    "warning": "仅用于数据通路验证；真实 PRN 必须取自正式 B1I ICD"
+    "kind": "ICD_2.1",
+    "prn": 20,
+    "generator": "sw/b1i_ref/prn_b1i.py (ICD 图 4-1 / 表 4-2)"
   },
-  "nh_source": "TEST_PATTERN_NOT_ICD",
-  "ms_generated": 7,
-  "ms_compared": 6,
-  "code_phase_true_chips": 123.0,
-  "code_phase_init_chips": 123.3,
-  "doppler_true_hz": 1500.0,
-  "doppler_init_hz": 1500.0,
-  "amplitude": 2.6,
-  "spacing_chips": 1,
-  "samples_sha256": "5130675ba197fcb755df73ab85ad9be1e942f7508966bbf4f2b9db18ad1404c2",
-  "expected_sha256": "6215161bf3578da5aa1a5d977a66684584ce4b47eb218ea16e4525f78506baf0"
+  "scenario": {
+    "cn0_dbhz": 45.0,
+    "noise_sigma": 1.0,
+    "seed": 7,
+    "sow0": 345623.4,
+    "ms": 300
+  },
+  "truth_at_sample0": {
+    "code_phase_chips": 687.1767578125,
+    "doppler_hz": -1443.2212857515835,
+    "pseudorange_m": 22683537.470228862,
+    "t_sv": 345623.3243358635
+  },
+  "init_errors": {
+    "code_phase_chips": 0.3,
+    "doppler_hz": 100.0
+  },
+  "init_code_phase_word48": 94486086130074,
+  "init_doppler_word": -352462,
+  "windows": 300,
+  "bytes": 1227600,
+  "final_locked": true,
+  "samples_sha256": "5e6a71d0137ff62964b8106d7e384bfc89227ad78cbe81a0b64aa0c2124e27f2",
+  "expected_sha256": "a66635987bc879dacd053518bd85b6f0f8ec4db4f7a54134ad57de7218750cee"
 }

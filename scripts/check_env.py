@@ -15,7 +15,8 @@ from _common import ROOT, env_banner  # noqa: E402
 
 PY_MODULES = ["numpy", "matplotlib", "pypdf", "fitz", "scipy", "pytest"]
 BINARIES = ["git", "python", "node", "iverilog", "verilator", "yosys",
-            "vcs", "xrun", "vlog", "dc_shell", "genus", "innovus"]
+            "vcs", "xrun", "vlog", "vsim", "xvlog", "xsim", "vivado",
+            "dc_shell", "genus", "innovus"]
 
 
 def main() -> int:

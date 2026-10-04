@@ -69,6 +69,83 @@ def vcs_home() -> str | None:
     return os.environ.get("VCS_HOME")
 
 
+MODELSIM_DIRS = [
+    "C:\\modeltech64_2020.4\\win64",
+    "C:\\modeltech64_10.6c\\win64",
+    "C:\\modeltech64_10.7\\win64",
+    "C:\\questasim64_2021.1\\win64",
+    "C:\\intelFPGA\\20.1\\modelsim_ase\\win32aloem",
+    "C:\\altera\\13.0sp1\\modelsim_ase\\win32aloem",
+    "D:\\modeltech64_2020.4\\win64",
+    "E:\\modeltech64_2020.4\\win64",
+    "E:\\intelFPGA\\20.1\\modelsim_ase\\win32aloem",
+]
+
+
+def modelsim() -> tuple | None:
+    """返回 (vlib, vlog, vsim)；找不到返回 None。环境变量 MODELSIM_HOME 优先。"""
+    dirs = []
+    home = os.environ.get("MODELSIM_HOME")
+    if home:
+        dirs += [home, os.path.join(home, "win64"), os.path.join(home, "bin")]
+    found = shutil.which("vsim")
+    if found:
+        dirs.insert(0, os.path.dirname(found))
+    dirs += MODELSIM_DIRS
+    for d in dirs:
+        tools = tuple(os.path.join(d, n + EXE) for n in ("vlib", "vlog", "vsim"))
+        if all(os.path.isfile(t) for t in tools):
+            return tools
+    return None
+
+
+def _vivado_bin_dirs() -> list:
+    dirs = []
+    home = os.environ.get("XILINX_VIVADO") or os.environ.get("VIVADO_HOME")
+    if home:
+        dirs += [os.path.join(home, "bin"), home]
+    found = shutil.which("xvlog") or shutil.which("xvlog.bat")
+    if found:
+        dirs.insert(0, os.path.dirname(found))
+    roots = [
+        "C:\\Xilinx\\Vivado",
+        "D:\\Xilinx\\Vivado",
+        "E:\\Xilinx\\Vivado",
+        "E:\\fpga\\vivado\\Vivado",
+        "C:\\fpga\\vivado\\Vivado",
+        "C:\\Program Files\\Xilinx\\Vivado",
+    ]
+    for root in roots:
+        if not os.path.isdir(root):
+            continue
+        try:
+            vers = sorted(os.listdir(root), reverse=True)
+        except OSError:
+            continue
+        for v in vers:
+            dirs.append(os.path.join(root, v, "bin"))
+    return dirs
+
+
+def vivado() -> tuple | None:
+    """返回 (xvlog, xelab, xsim)；找不到返回 None。"""
+    for d in _vivado_bin_dirs():
+        names = ("xvlog", "xelab", "xsim")
+        tools = []
+        ok = True
+        for n in names:
+            cand = os.path.join(d, n + EXE)
+            if not os.path.isfile(cand):
+                cand = os.path.join(d, n + ".bat")
+            if not os.path.isfile(cand):
+                ok = False
+                break
+            tools.append(cand)
+        if ok:
+            return tuple(tools)
+    return None
+
+
 def require() -> tuple:
     iv, vp = iverilog(), vvp()
     if not iv or not vp:

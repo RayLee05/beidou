@@ -18,22 +18,22 @@ module tb_sample_unpacker;
 
   always #5 clk = ~clk;
 
+  // 撤销 byte_valid 的同一个下降沿就已经能看到第 1 个样本，
+  // 采样必须从这一拍开始，否则会漏掉首个样本并永远凑不齐 4 个（原 ISSUE-002）
   task automatic send_byte(input [7:0] b);
     begin
       while (!byte_ready) @(negedge clk);
-      @(negedge clk);
       byte_valid = 1'b1;
       data_byte  = b;
       @(negedge clk);
       byte_valid = 1'b0;
-      // 采集 4 个样本
       n = 0;
       while (n < 4) begin
-        @(negedge clk);
         if (sample_valid) begin
           got[n] = sample;
           n = n + 1;
         end
+        @(negedge clk);
       end
       if (!byte_ready) begin
         $display("FAIL: 收完 4 个样本后 byte_ready 应为 1");

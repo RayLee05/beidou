@@ -77,19 +77,30 @@ dc_shell -f scripts/dc_synth.tcl -output_log_file reports/synth/dc.log
 跑之前必须先在 `scripts/dc_synth.tcl` 里填 `target_library` / `link_library`，
 并冻结 `constraints/b1i_rx.sdc` 里的时钟（当前 100 MHz 是占位值）。
 
-## 2. 本机侧（写代码与生成向量）
+## 2. 本机侧（写代码、参考模型、RTL 仿真）
 
-| 工具 | 用途 |
-|---|---|
-| Python 3.12 | 参数校验、定点预算、参考模型、生成 `tb/vectors/` |
-| matplotlib | 架构图 |
-| Icarus Verilog（可选） | 没有 VCS 时的兜底仿真，脚本自动定位 |
+本机已识别的工具（2026-10-04）：
+
+| 工具 | 路径 | 用途 |
+|---|---|---|
+| Python 3 | PATH | 参数、参考模型、向量、`run_all.py` |
+| ModelSim 2020.4 | `C:\modeltech64_2020.4\win64` | **本机主仿真** |
+| Vivado 2020.1 xsim | `E:\fpga\vivado\Vivado\2020.1\bin` | 备选仿真 |
+| Icarus | `C:\iverilog\bin` | 兜底 |
 
 ```powershell
-python scripts\run_all.py            # 全部检查（有 Icarus 时含 RTL 用例）
-python scripts\run_all.py --quick    # 跳过绘图与 RTL 用例
-python scripts\gen_track_vectors.py  # 重新生成 tb/vectors/
+python scripts\run_all.py --quick
+python scripts\run_rtl_unit.py --sim modelsim --quick          # 8 个快用例
+python scripts\run_rtl_unit.py --sim modelsim record_fifo
+python scripts\run_rtl_unit.py --sim modelsim b1i_rx_top       # 顶层冒烟（slow）
+python scripts\run_rtl_unit.py --sim vivado --quick            # 改用 xsim
+# ModelSim GUI：先 cd 到仓库根
+#   do sim/modelsim/sim.do tb_tracking_channel
 ```
+
+脚本自动选择顺序：VCS > ModelSim > Vivado xsim > Icarus。
+找不到时设置 `MODELSIM_HOME` 或 `XILINX_VIVADO`。
+
 
 ## 3. 版本记录要求（REQ-IMPL-007 / REQ-DOC-002）
 

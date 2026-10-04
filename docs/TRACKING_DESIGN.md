@@ -105,7 +105,14 @@ E:\iverilog\app\bin\iverilog.exe -V     # Icarus Verilog version 12.0
 
 有管理员权限时可直接 `E:\iv12.exe /VERYSILENT /DIR=E:\iverilog`。
 
-## 7. 已知问题（ISSUE-001）
+## 7. 已知问题（已关闭）
+
+**ISSUE-001 / ISSUE-002（2026-10-04 关闭）**：现行 48 bit 码 NCO + `track_loop` 下
+`tb_tracking_channel` 300 窗逐位一致；`tb_sample_unpacker` 握手已过。旧现象不再作为打开缺陷。
+
+以下为 2026-09 排查记录，仅供对照。
+
+## 7.1 当时现象（ISSUE-001，已关闭）
 
 **现象**（最新一次运行）：第 1 个 1 ms 窗口的 E/P/L 与 Q 路相关值与定点模型**逐位一致**，
 但 `code_phase` 观测端口读回 0、`freq_word` 差一个更新量；第 2 个窗口起相关值也偏离。

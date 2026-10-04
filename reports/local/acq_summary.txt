@@ -1,0 +1,8 @@
+tb_acquisition  ModelSim 2020.4  2026-10-04 18:15
+PASS  wall=153.66s  sim=516.817 ms
+
+target PRN 10, absent PRN 6, 5 bins, 2659800 bytes
+acq done @1791804 samples: found=1 h=3192 dop=65600 peak=1013221 mean=210098
+handover @109 ms
+after 300 ms tracking: locked=1 code err=0.0058 chip
+absent PRN 6: found=0 peak=656283 mean=207882

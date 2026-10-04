@@ -2,11 +2,11 @@
 
 ## 当前阶段
 
-**P0/P1：需求冻结 + 架构与定点设计（第 1–2 行，12 学时）—— 已完成。**
+**本机可做的功能验证已跑完（2026-10-04）。** 详见 [LOCAL_VERIFICATION.md](LOCAL_VERIFICATION.md)。
 
-**第 3 行：捕获相关与跟踪（16 学时）—— 首版完成（码路径已逐位验证，存在 1 个已知问题见下）。**
-
-未开始：RTL 实现（P2 起）。
+数字核心已接成 12 通道顶层。ModelSim：快用例 8/8、跟踪 L2、顶层冒烟、捕获端到端均 PASS。
+Vivado xsim 快用例 8/8 PASS。软件链路用 SOW 锚点 + dump 越界样本算伪距；捕获移交已改为 FFT+短跟踪（不用真值）；hex→PVT 同口径 |Δr|=35.125 m。RTL 侧 `tx_ms+1`、历元包连续、EPOCH/`sow0_ms` 已对齐。改动未提交未推送。
+ISSUE-001 / ISSUE-002 已关闭（48 bit 码 NCO + 解包握手修复）。后端综合/P&R 仍只在虚拟机 IC 上进行。
 
 ## 完成清单
 
@@ -24,20 +24,22 @@
 
 ## 未完成 / 待确认
 
-- [ ] 确认 IF/Fs 冲突（4.096/16.384 vs 4.092/16.368）。
-- [ ] 获取正式 B1I ICD、PRN/NH/D1 参数与参考码表。
-- [ ] 确认目标工艺、PDK、EDA 工具与目标时钟。
-- [ ] 选定 RTL 仿真器/综合器（当前环境缺失）。
-- [ ] 完成参考模型与确定性测试向量（P1）。
-- [ ] 冻结捕获搜索范围、环路带宽与性能门槛。
+- [x] IF/Fs：以指导书 **4.092 MHz / 16.368 MSps** 为准（params 0.2.0）。
+- [x] B1I ICD 2.1 码表 / NH / BCH：已写入 `prn_b1i.py` / `d1_nav.py`（见 `ICD_EXTRACT.md`）。
+- [x] 本机仿真器：ModelSim 2020.4 + Vivado 2020.1 xsim。
+- [x] 参考模型与确定性向量：`gen_track_vectors.py` / `gen_unit_vectors.py` 已重跑。
+- [ ] 目标工艺、PDK、目标时钟（综合前必须从课程清单读取）。
+- [ ] 捕获门限 / 环路带宽 / 灵敏度及格线（课程基线未冻结）。
+- [ ] 教师 SRAM 样例上的系统级定位评价。
 
-## 环境快照
+## 环境快照（2026-10-04 本机）
 
 | 项 | 值 |
 |---|---|
-| python | 3.12.1（numpy / matplotlib / pypdf / PyMuPDF 可用；pytest 缺失） |
-| RTL 仿真器/综合器 | 未发现（iverilog / verilator / yosys / 商业工具均缺失） |
-| 版本控制 | git 已初始化 |
+| python | 3.14.4（numpy / matplotlib 可用） |
+| RTL 仿真 | ModelSim SE-64 2020.4；Vivado xsim 2020.1 |
+| 正式综合 | 虚拟机 IC 上 VCS + DC（本机不做） |
+| 版本控制 | git，HEAD `9e2f2c5`，工作区有未提交改动 |
 
 ## 本轮证据（P0/P1，2026-09-21）
 
@@ -52,12 +54,13 @@
 > 复现方式：在干净检出中执行 `python scripts/run_all.py`；
 > 报告头部记录参数文件 sha256、git revision 与工具版本。
 
-## 下一轮任务（进入第 3 行：捕获相关与跟踪，16 学时）
+## 下一轮任务
 
-1. 建立定点参考模型：2 bit 解包、PRN/NH 码发生器接口、载波/码 NCO、E/P/L 相关。
-2. 合成无噪声确定性向量，产出单通道捕获 → 跟踪 → Prompt 的黄金结果到 `data/expected/`。
-3. 实现并单测 `sample_unpacker`、`sample_timebase`、`prn_code_rom`（接口先行、码表留空占位）。
-4. 建立波形与断言基线，形成 L0/L1 测试记录。
+1. 教师 SRAM 样例上的 RTL 记录 → 定位（任务包未到）。
+2. REQ-PERF 曲线与课程及格线。
+3. 虚拟机 IC 上综合 / STA / P&R。
+
+> 下面「第 3 行交付记录」起是 2026-09 当时的日志，其中 ISSUE-001/002 与「RTL 未开始」以本节和 [LOCAL_VERIFICATION.md](LOCAL_VERIFICATION.md) 为准。
 
 
 ## 第 3 行（捕获相关与跟踪）交付记录（2026-09-27）
@@ -114,5 +117,5 @@
 - 本地 Icarus 现状：3/5 通过（acquisition、carrier_lut、sample_timebase）；
   未通过的两个是 ISSUE-001（跟踪通道 code_phase）与 ISSUE-002（unpacker 握手）。
 
-**下一步**：`acquisition_manager.sv`（任务调度、峰值确认、allocate/init 移交）→ 修 ISSUE-001/002
-→ 用 ICD 真实码表替换测试图案，重跑 L2 回归。
+**下一步（本机已完成后）**：用任务包 SRAM 样例走顶层；综合/后端到虚拟机 IC。
+本机证据总表见 [LOCAL_VERIFICATION.md](LOCAL_VERIFICATION.md)。

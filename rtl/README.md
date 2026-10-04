@@ -2,19 +2,13 @@
 
 | 子目录 | 内容 |
 |---|---|
-| `include/` | 全局参数头（`b1i_params.svh`），与 `sw/b1i_ref/params.py` 强制一致 |
-| `common/` | `sample_unpacker`、`sample_timebase`、NCO、LUT、FIFO 等基础模块 |
-| `acq/` | `acquisition_manager`、`acquisition_engine` |
-| `track/` | `channel_manager`、`tracking_channel`、`carrier_mixer_nco`、`code_nco`、`correlator_epl`、`dll_loop`、`fll_pll_loop` |
-| `sync/` | `nh_sync`、`d1_frame_sync` |
-| `nav/` | `nav_decoder` |
+| `include/` | `b1i_params.svh`（与 `sw/b1i_ref/params.py` 强制一致）、`b1i_records.svh` |
+| `common/` | 解包、时基、载波表、PRN 发生器、SRAM 读口 |
+| `acq/` | `acquisition.sv`（回放缓冲 + 并行码相位 + 多普勒扫描）。旧版 `acquisition_engine.sv` 不在 filelist |
+| `track/` | 单通道跟踪、`channel_slice`（跟踪+NH+D1） |
+| `ctrl/` | `channel_manager`（搜索表、移交、失锁释放） |
+| `sync/` | `nh_bit_sync`、`d1_frame_sync` |
 | `meas/` | `measurement_engine`、`epoch_aggregator`、`record_fifo` |
-| `b1i_rx_top.sv` | 顶层（接口定义见 `docs/INTERFACES.md`） |
+| `b1i_rx_top.sv` | 12 通道顶层 |
 
-编码约定（P2 起强制）：
-
-1. 仅可综合子集：无浮点、无动态数组、无类、无 `initial` 时序逻辑。
-2. 统一 `clk`/`rst_n`；数据通路由 `sample_valid` 驱动，停顿时不推进样本号。
-3. 所有位宽取自 `include/b1i_params.svh`，禁止在模块内硬编码魔数。
-4. 每个截位/舍入点必须有注释说明依据（见 `docs/FIXED_POINT.md` 第 9 节）。
-5. 每个模块先有 directed test，再有 random test；测试位于 `tb/unit/`。
+源文件清单：`rtl/filelist.f`（VCS / ModelSim / Vivado / Icarus 共用）。

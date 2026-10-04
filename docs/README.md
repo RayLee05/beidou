@@ -23,7 +23,7 @@
 | 运行日志 | `../reports/logs/` | `scripts/run_all.py` |
 | 参数单一来源 | `../sw/b1i_ref/params.py` ↔ `../rtl/include/b1i_params.svh` | — |
 
-根目录两份 PDF 仍是需求原始来源（课程安排 + 基带与位置解算基础），实现时以**正式 B1I ICD 与教师冻结的课程基线**为准。
+`references/` 下的课程 PDF（课程安排、基带与位置解算基础、实验指导书、B1I ICD 2.1）仍是需求原始来源（课程安排 + 基带与位置解算基础），实现时以**正式 B1I ICD 与教师冻结的课程基线**为准。
 
 > 注意：这两份 PDF 与 `VM-IC-SSH连接指南.md` **不入公开仓库**（见根目录 `.gitignore` 与 `README.md` 的“仓库范围说明”）。
 

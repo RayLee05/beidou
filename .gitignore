@@ -15,6 +15,16 @@ reports/build/
 reports/sim/
 reports/synth/
 
+# --- 本机仿真器垃圾（不入库）---
+xsim.dir/
+xsim.*
+xsim_*
+xvlog.*
+xelab.*
+webtalk*
+sim/
+transcript
+
 # --- RTL 仿真/综合中间产物 ---
 *.vcd
 *.fsdb
@@ -44,7 +54,11 @@ id_rsa*
 id_ed25519*
 known_hosts
 authorized_keys
+# --- Office 打开时生成的锁文件 ---
+~$*
+
 # --- 课程内部材料与内网凭据：不入公开仓库 ---
+/references/
 /北斗B1I基带与位置解算基础.pdf
 /集成电路EDA实验课_课程安排.pdf
 /VM-IC-SSH连接指南.md

@@ -1,5 +1,7 @@
 # 定点与周期预算（架构与定点设计阶段）
 
+> **现行参数是 4.092 MHz / 16.368 MSps（16368 样本/ms）。** 下文部分算式仍按早期 PPT 的 16.384 书写，以 `scripts/fixed_point_budget.py` 与 `reports/fixed_point_budget.md` 为准。
+
 > 交付物对应「72 学时安排」第 2 行：**架构与定点设计 → 架构图、接口、位宽与周期预算**。
 > 架构图见 `reports/figures/architecture.png`（由 `scripts/make_architecture_figure.py` 生成）；
 > 接口见 `INTERFACES.md`；本文的每个数字都可由 `scripts/fixed_point_budget.py` 复算，

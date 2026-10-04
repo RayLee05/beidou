@@ -1,0 +1,11 @@
+     3.05           OBSERVATION DATA    M: MIXED            RINEX VERSION / TYPE
+BEIDOU B1I          beidou              20261004 101503 UTC PGM / RUN BY / DATE
+C    1 C2I                                                  SYS / # / OBS TYPES
+     1.000                                                  INTERVAL
+     1                                                      # OF EPOCHS
+                                                            END OF HEADER
+> 2006 01 01 00 00   7.0000000  0  4
+C09  2098541177.764
+C23  2098537716.658
+C34  2098538662.755
+C35  2098543607.392

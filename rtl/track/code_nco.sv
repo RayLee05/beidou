@@ -1,51 +1,41 @@
 // =============================================================================
-// code_nco.sv -- PRN 码相位 NCO（Q(11.21)：整数码片[31:21] + 小数码片[20:0]）
-//   一个码周期 = 2046 << 21 = CODE_PERIOD_WORD；越界即回绕并产生 epoch 脉冲
-//   标称增量 261888 = round(2046/16384 * 2^21)，精确无截断误差
-//   需求: REQ-TRK-002/003   预算: docs/FIXED_POINT.md 第 4/6 节
+// code_nco.sv -- PRN 码相位 NCO（内部 Q(11.37) 48 bit，对外 code_phase 为 Q(11.21)）
+//   每个有效样本：phase <= phase + code_inc；越过 2046 chip 即回绕，并在该样本
+//   同拍给出 code_epoch（组合）。越界样本的相位已属于新码周期（码片 0）。
+//   load 与样本无关，优先级高于 sample_valid（装载拍不推进相位）。
+//   需求: REQ-TRK-002/003   预算: docs/FIXED_POINT.md 第 6 节
 // =============================================================================
 `include "b1i_params.svh"
 
 module code_nco (
-  input  logic                          clk,
-  input  logic                          rst_n,
-  input  logic                          sample_valid,
-  input  logic signed [CODE_PHASE_W-1:0] code_inc,
-  input  logic                          load,
-  input  logic [CODE_PHASE_W-1:0]       phase_init,
-  output logic [CODE_PHASE_W-1:0]       code_phase,
-  output logic [10:0]                   chip_idx,
-  output logic                          code_epoch_tick
+  input  logic                    clk,
+  input  logic                    rst_n,
+  input  logic                    sample_valid,
+  input  logic [CODE_NCO_W-1:0]   code_inc,
+  input  logic                    load,
+  input  logic [CODE_NCO_W-1:0]   phase_init,
+  output logic [CODE_NCO_W-1:0]   phase,        // 已处理样本的相位（寄存）
+  output logic [CODE_NCO_W-1:0]   phase_next,   // 当前样本使用的相位（组合）
+  output logic                    code_epoch    // 当前样本越过码周期（组合，未门控 sample_valid）
 );
 
-  logic signed [CODE_PHASE_W:0] sum;          // 33 bit 有符号，防越界
-  logic [CODE_PHASE_W-1:0]      phase_next;
-  logic                         epoch_c;
+  logic [CODE_NCO_W:0] sum;
 
   always_comb begin
-    sum = $signed({1'b0, code_phase}) + $signed(code_inc);
-    if (sum >= $signed({1'b0, CODE_PERIOD_WORD})) begin
-      sum       = sum - $signed({1'b0, CODE_PERIOD_WORD});
-      epoch_c   = 1'b1;
-    end else if (sum < 0) begin
-      sum       = sum + $signed({1'b0, CODE_PERIOD_WORD});
-      epoch_c   = 1'b1;
+    sum = {1'b0, phase} + {1'b0, code_inc};
+    if (sum >= {1'b0, CODE_NCO_PERIOD}) begin
+      phase_next = sum[CODE_NCO_W-1:0] - CODE_NCO_PERIOD;
+      code_epoch = 1'b1;
     end else begin
-      epoch_c   = 1'b0;
+      phase_next = sum[CODE_NCO_W-1:0];
+      code_epoch = 1'b0;
     end
-    phase_next = sum[CODE_PHASE_W-1:0];
   end
 
-  // 当前样本使用的码相位 = 更新后的相位
-  assign chip_idx         = phase_next[CODE_PHASE_W-1 -: 11];
-  assign code_epoch_tick  = epoch_c;
-
   always_ff @(posedge clk or negedge rst_n) begin
-    if (!rst_n) begin
-      code_phase <= '0;
-    end else if (sample_valid) begin
-      code_phase <= load ? phase_init : phase_next;
-    end
+    if (!rst_n)            phase <= '0;
+    else if (load)         phase <= phase_init;
+    else if (sample_valid) phase <= phase_next;
   end
 
 endmodule

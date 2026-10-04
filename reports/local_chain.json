@@ -1,0 +1,153 @@
+{
+  "banner": {
+    "generated_at": "2026-10-04T20:29:42+08:00",
+    "python": "3.14.4",
+    "platform": "Windows-11-10.0.26300-SP0",
+    "machine": "AMD64",
+    "git_revision": "9e2f2c5",
+    "git_dirty": true
+  },
+  "rows": [
+    {
+      "prn": 34,
+      "locked": true,
+      "dumps": 6999,
+      "fd_err_hz": 0.583443934794559,
+      "d_dll": 886,
+      "bit_synced": true,
+      "n_bits": 349,
+      "n_sf": 1,
+      "decoded": [
+        {
+          "sf_id": 4,
+          "sow": 345618,
+          "fixes": 0,
+          "inv": 1
+        }
+      ],
+      "tx_ms": 345624922,
+      "time_valid": 1,
+      "t_tx_sv": 345624.92215505865,
+      "code_phase": 665321387,
+      "pr_truth_m": 23337299.519369252,
+      "week": 0,
+      "week_valid": 0,
+      "elev": 43.771018477832804,
+      "pr_m": 23082949.37533424,
+      "dpr_m": 8.467575743794441
+    },
+    {
+      "prn": 35,
+      "locked": true,
+      "dumps": 6999,
+      "fd_err_hz": 0.07265368521302662,
+      "d_dll": -81,
+      "bit_synced": true,
+      "n_bits": 349,
+      "n_sf": 1,
+      "decoded": [
+        {
+          "sf_id": 4,
+          "sow": 345618,
+          "fixes": 0,
+          "inv": 1
+        }
+      ],
+      "tx_ms": 345624918,
+      "time_valid": 1,
+      "t_tx_sv": 345624.91859463585,
+      "code_phase": 2551447417,
+      "pr_truth_m": 24404689.625582494,
+      "week": 0,
+      "week_valid": 0,
+      "elev": 27.431339847762626,
+      "pr_m": 24436578.9478449,
+      "dpr_m": 6.265075650066137
+    },
+    {
+      "prn": 9,
+      "locked": true,
+      "dumps": 6999,
+      "fd_err_hz": -0.6625555992497993,
+      "d_dll": -232,
+      "bit_synced": true,
+      "n_bits": 349,
+      "n_sf": 1,
+      "decoded": [
+        {
+          "sf_id": 4,
+          "sow": 345618,
+          "fixes": 0,
+          "inv": 0
+        }
+      ],
+      "tx_ms": 345624867,
+      "time_valid": 1,
+      "t_tx_sv": 345624.8679012708,
+      "code_phase": 3867148296,
+      "pr_truth_m": 39602178.569523595,
+      "week": 0,
+      "week_valid": 0,
+      "elev": 20.56963965577731,
+      "pr_m": 39418754.600098014,
+      "dpr_m": 5.832792364060879
+    },
+    {
+      "prn": 23,
+      "locked": true,
+      "dumps": 6999,
+      "fd_err_hz": -0.18107845010899837,
+      "d_dll": 27,
+      "bit_synced": true,
+      "n_bits": 349,
+      "n_sf": 1,
+      "decoded": [
+        {
+          "sf_id": 4,
+          "sow": 345618,
+          "fixes": 0,
+          "inv": 0
+        }
+      ],
+      "tx_ms": 345624920,
+      "time_valid": 1,
+      "t_tx_sv": 345624.9206449169,
+      "code_phase": 2767192022,
+      "pr_truth_m": 23790027.10131305,
+      "week": 0,
+      "week_valid": 0,
+      "elev": 36.47906364171529,
+      "pr_m": 23699146.836429548,
+      "dpr_m": 9.997778449207544
+    }
+  ],
+  "used_prns": [
+    34,
+    35,
+    9,
+    23
+  ],
+  "pvt": {
+    "xyz": [
+      -2178651.43635095,
+      4388842.195230936,
+      4069499.1699419473
+    ],
+    "dt_s": 0.00011996177965819795,
+    "rms_m": 2.634178031930877e-09,
+    "err_m": 35.12492267598067,
+    "ok": true
+  },
+  "obs": "E:\\code\\eda\\reports\\rinex\\local_chain.obs",
+  "nav": "E:\\code\\eda\\reports\\rinex\\local_chain.nav",
+  "hex": "E:\\code\\eda\\reports\\rinex\\local_chain.hex",
+  "eph": "E:\\code\\eda\\reports\\rinex\\local_chain_eph.json",
+  "sow0": 345618.0,
+  "rx_ecef": [
+    -2178657.082739673,
+    4388876.233581131,
+    4069505.7478750073
+  ],
+  "seed": 3,
+  "sec": 7.0
+}

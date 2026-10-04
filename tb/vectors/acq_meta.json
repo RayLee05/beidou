@@ -1,0 +1,15 @@
+{
+  "target_prn": 10,
+  "interferer_prn": 28,
+  "absent_prn": 6,
+  "cn0_dbhz": 45.0,
+  "doppler_hz_at_0": 289.0284872628934,
+  "dop_min_hz": -500.0,
+  "dop_step_hz": 500.0,
+  "n_bins": 5,
+  "nc": 2,
+  "thr_q4_4": 56,
+  "ms": 650,
+  "bytes": 2659800,
+  "truth_code_phase_at_0": 1554.5877685546875
+}

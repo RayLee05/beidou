@@ -1,0 +1,12 @@
+     3.05           OBSERVATION DATA    C: BDS              RINEX VERSION / TYPE
+BEIDOU B1I          beidou              20261004 122942 UTC PGM / RUN BY / DATE
+C    1 C2I                                                  SYS / # / OBS TYPES
+     1.000                                                  INTERVAL
+     1                                                      # OF EPOCHS
+     BDT                                                    TIME SYSTEM ID
+                                                            END OF HEADER
+> 2006 01 05 96 00  24.0000000  0  4
+C09    39602184.402
+C23    23790037.099
+C34    23337307.987
+C35    24404695.891

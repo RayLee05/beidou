@@ -1,13 +1,13 @@
 {
   "banner": {
-    "generated_at": "2026-09-28T12:02:08+08:00",
-    "python": "3.12.1",
-    "platform": "Windows-11-10.0.26200-SP0",
+    "generated_at": "2026-10-04T18:06:57+08:00",
+    "python": "3.14.4",
+    "platform": "Windows-11-10.0.26300-SP0",
     "machine": "AMD64",
-    "git_revision": "470b8b5",
+    "git_revision": "9e2f2c5",
     "git_dirty": true
   },
-  "params_version": "0.1.0",
+  "params_version": "0.2.0",
   "nco": {
     "phase_w": 32,
     "freq_resolution_hz": 0.003810971975326538,

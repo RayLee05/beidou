@@ -1,0 +1,111 @@
+{
+  "banner": {
+    "generated_at": "2026-10-04T18:15:03+08:00",
+    "python": "3.14.4",
+    "platform": "Windows-11-10.0.26300-SP0",
+    "machine": "AMD64",
+    "git_revision": "9e2f2c5",
+    "git_dirty": true
+  },
+  "rows": [
+    {
+      "prn": 34,
+      "locked": true,
+      "dumps": 6999,
+      "fd_err_hz": 0.6063097666465183,
+      "d_dll": 888,
+      "bit_synced": true,
+      "n_bits": 349,
+      "n_sf": 1,
+      "decoded": [
+        {
+          "sf_id": 4,
+          "sow": 345618,
+          "fixes": 0,
+          "inv": 1
+        }
+      ],
+      "pr_m": 23082940.907766085,
+      "elev": 43.771018477832804
+    },
+    {
+      "prn": 35,
+      "locked": true,
+      "dumps": 6999,
+      "fd_err_hz": 0.09170854508965931,
+      "d_dll": -83,
+      "bit_synced": true,
+      "n_bits": 349,
+      "n_sf": 1,
+      "decoded": [
+        {
+          "sf_id": 4,
+          "sow": 345618,
+          "fixes": 0,
+          "inv": 0
+        }
+      ],
+      "pr_m": 24436572.682770252,
+      "elev": 27.431339847762626
+    },
+    {
+      "prn": 9,
+      "locked": true,
+      "dumps": 6999,
+      "fd_err_hz": -0.673988515175779,
+      "d_dll": -229,
+      "bit_synced": true,
+      "n_bits": 349,
+      "n_sf": 1,
+      "decoded": [
+        {
+          "sf_id": 4,
+          "sow": 345618,
+          "fixes": 0,
+          "inv": 1
+        }
+      ],
+      "pr_m": 39418748.767303675,
+      "elev": 20.56963965577731
+    },
+    {
+      "prn": 23,
+      "locked": true,
+      "dumps": 6999,
+      "fd_err_hz": -0.18870039405965144,
+      "d_dll": 27,
+      "bit_synced": true,
+      "n_bits": 349,
+      "n_sf": 1,
+      "decoded": [
+        {
+          "sf_id": 4,
+          "sow": 345618,
+          "fixes": 0,
+          "inv": 0
+        }
+      ],
+      "pr_m": 23699136.83864898,
+      "elev": 36.47906364171529
+    }
+  ],
+  "used_prns": [
+    34,
+    35,
+    9,
+    23
+  ],
+  "pvt": {
+    "xyz": [
+      -2178657.082739657,
+      4388876.233580912,
+      4069505.7478750153
+    ],
+    "dt_s": 0.00011999999999963594,
+    "rms_m": 5.587935447692871e-09,
+    "err_m": 2.1960953621880402e-07,
+    "ok": true
+  },
+  "obs": "E:\\code\\eda\\reports\\rinex\\local_chain.obs",
+  "nav": "E:\\code\\eda\\reports\\rinex\\local_chain.nav"
+}

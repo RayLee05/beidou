@@ -3,8 +3,8 @@
 | 子目录 | 内容 | 阶段 |
 |---|---|---|
 | `b1i_ref/` | PRN/NH 生成、捕获、DLL/PLL、位同步、D1 解码的定点/浮点参考模型 | P1 起 |
-| `io/` | 2 bit 中频文件与 metadata 解析、样本迭代器 | P1 |
-| `rinex/` | RINEX 3.05 OBS/NAV 生成器与独立 validator | P4 |
+| `io/` | 2 bit 中频文件与 metadata 解析（`if_file.py`） | P1 |
+| `rinex/` | 解析 256 bit 记录，写出 RINEX 3.05 OBS/NAV（`scripts/export_rinex.py`） | P4 |
 | `pvt/` | 单频码定位或教师软件适配层 | P5 |
 | `metrics/` | 捕获率/虚警率/锁定率/BER/伪距误差等指标 | P5 |
 | `config/` | 配置加载与校验（对应 `configs/*.json`） | P1 |

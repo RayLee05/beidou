@@ -6,8 +6,8 @@
 
 数据来源与冻结状态：
   - 课程规格（集成电路EDA实验课_课程安排.pdf 第 7/11 页）：IF/Fs/量化/打包/12 通道/1 ms=16384 样本
-  - B1I ICD 条目（PRN 码表、NH20 序列、D1 字段）：**待提供**，本文件只固定结构、不写入任何自创码表
-  - 来源 PDF 第 10 页给出 IF=4.092 MHz / Fs=16.368 MSps，与课程冲突，见 `docs/requirements.md` 待确认表
+  - B1I ICD 条目（PRN 码表、NH20 序列、D1 字段）：见 prn_b1i.py / d1_nav.py，逐项标注 ICD 页码
+  - fIF/Fs 以实验指导书为准：4.092 MHz / 16.368 MHz（16368 样本/ms）
 
 任何修改必须同时更新：本文件、b1i_params.svh、configs/b1i_default.json、
 docs/requirements.md 的版本记录，并重跑 `scripts/run_all.py`。
@@ -18,8 +18,8 @@ from __future__ import annotations
 from dataclasses import dataclass, asdict, field
 from typing import Dict, Tuple
 
-PARAMS_VERSION = "0.1.0"
-PARAMS_DATE = "2026-09-21"
+PARAMS_VERSION = "0.2.0"
+PARAMS_DATE = "2026-10-04"
 
 
 @dataclass(frozen=True)
@@ -69,18 +69,31 @@ class B1IParams:
     channel_id_w: int = 4                # 12 通道 -> ceil(log2(12)) = 4
     prn_w: int = 6                       # BDS PRN 1..63
 
-    # ---- 码相位定点（Q(11.21)）----
+    # ---- 码相位定点（Q(11.21)，对外观测/测量用）----
     code_frac_w: int = 21                # 小数码片位宽
 
-    # ---- 环路默认系数（Q2.14）----
-    disc_shift_default: int = 12
-    dll_kp_default: int = 328            # ≈ 0.020
-    dll_ki_default: int = 33             # ≈ 0.002
-    pll_kp_default: int = 820            # ≈ 0.050
-    pll_ki_default: int = 33             # ≈ 0.002
-    fll_kp_default: int = 328            # ≈ 0.020
-    lock_thresh_default: int = 8192
-    lock_count_max: int = 200
+    # ---- 码 NCO 内部累加器（Q(11.37)，48 bit）----
+    #   1 LSB 码率 = 2^-37 chip/样本 = 1.19e-4 chip/s，足以表示码多普勒与窄带 DLL 的修正量
+    code_nco_w: int = 48
+    code_nco_frac_w: int = 37
+    code_spacing_default: int = 4        # E/L 相对 P 的偏移，单位 1/8 chip（4 = ±0.5 chip）
+
+    # ---- 环路（见 docs/TRACKING_DESIGN.md 第 4 节的推导）----
+    #   鉴别器按幅度估计归一化：满幅 ≈ 2^norm_w；系数格式见各自注释
+    norm_w: int = 12
+    amp_shift: int = 3                   # 幅度估计一阶平滑：amp += (mag-amp) >> 3
+    amp_min: int = 64
+    pll_kp_default: int = 6685           # Q2.14，Bn≈15 Hz，ζ=0.707
+    pll_ki_default: int = 134            # Q2.14
+    fll_k_default: int = 6685            # Q2.14，FLL 一阶，Bn≈10 Hz
+    dll_kp_default: int = 2099           # Q8.8，Bn≈2 Hz（载波辅助）
+    dll_ki_default: int = 4              # Q8.8，ζ≈1
+    dll_acc_max: int = 131072            # DLL 积分限幅（码 NCO LSB）
+    code_aid_coef: int = 2749            # 载波辅助：code_aid = (dop_word*2749)>>16 ≈ dop_word*32/763
+    code_aid_shift: int = 16
+    lock_block: int = 20                 # 锁定判决块长（dump 个数）
+    lock_on: int = 5                     # 连续通过块数达到即判锁定
+    lock_max: int = 10                   # 判决计数饱和值；计数回到 0 判失锁
 
     # ---- 吞吐与时钟（目标值，待后端冻结）----
     target_clk_hz: float = 100.0e6
@@ -133,12 +146,22 @@ class B1IParams:
                          * (2 ** self.code_frac_w)))
 
     @property
-    def code_inc_min(self) -> int:
-        return self.code_inc_nominal - 3840
+    def code_nco_period(self) -> int:
+        """一个码周期对应的 Q(11.37) 相位字：2046 << 37。"""
+        return self.code_chips_per_period << self.code_nco_frac_w
 
     @property
-    def code_inc_max(self) -> int:
-        return self.code_inc_nominal + 3840
+    def code_nco_inc_nominal(self) -> int:
+        """标称码 NCO 增量 = 2046/16368 × 2^37 = 2^34（每码片 8 样本，精确）。"""
+        return (self.code_chips_per_period << self.code_nco_frac_w) // self.samples_per_ms
+
+    @property
+    def freq_word_if(self) -> int:
+        return 1 << (self.nco_phase_w - 2)          # fIF = Fs/4
+
+    @property
+    def freq_word_dop_max(self) -> int:
+        return 0x2C0000                              # = 2883584 ≈ ±10.99 kHz（±10 kHz + 动态余量）
 
     @property
     def clk_per_sample(self) -> float:
