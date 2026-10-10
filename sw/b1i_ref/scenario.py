@@ -185,7 +185,7 @@ class Scenario:
         return np.interp(t_true, g, np.array(vals))
 
     # -------- 样本
-    def samples(self, n0: int, n: int) -> np.ndarray:
+    def samples(self, n0: int, n: int, *, noise_rng=None) -> np.ndarray:
         """生成第 n0..n0+n-1 个样本（int8，取值 ±1/±3）。"""
         idx = np.arange(n0, n0 + n, dtype=np.int64)
         t_rel = idx / FS                                    # 相对 sow0 的本地时间
@@ -213,7 +213,8 @@ class Scenario:
                 amp = self.noise_sigma * math.sqrt(4.0 * cn0 / FS)
             x += amp * sign * np.cos(2.0 * np.pi * ph)
         if self.noise_sigma > 0:
-            rng = np.random.default_rng([self.seed, n0])
+            # 分块调用可传入同一个 RNG，保持与一次性生成完全相同的噪声序列。
+            rng = noise_rng if noise_rng is not None else np.random.default_rng([self.seed, n0])
             x += rng.normal(0.0, self.noise_sigma, n)
         th = self.quant_threshold * (self.noise_sigma if self.noise_sigma > 0 else 1.0)
         q = np.where(x >= 0, np.where(x >= th, 3, 1), np.where(x < -th, -3, -1))

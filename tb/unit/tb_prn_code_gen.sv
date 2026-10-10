@@ -3,13 +3,12 @@
 
 module tb_prn_code_gen;
 
-  localparam int N_PRN = 5;
-  localparam int PRNS [N_PRN] = '{1, 6, 9, 20, 37};
+  localparam int N_PRN = 63;
 
   logic clk = 1'b0, rst_n;
   always #5 clk = ~clk;
 
-  logic [0:0]  ref_mem [0:N_PRN*2046-1];
+  logic [2045:0] ref_mem [0:N_PRN-1];
   logic        start, busy, done, bad_prn, out_we, out_chip;
   logic [5:0]  prn;
   logic [10:0] out_addr;
@@ -21,9 +20,9 @@ module tb_prn_code_gen;
 
   always @(posedge clk) begin
     if (out_we) begin
-      if (out_chip !== ref_mem[k * 2046 + out_addr][0]) begin
+      if (out_chip !== ref_mem[k][2045 - out_addr]) begin
         if (errors < 10) $display("MISMATCH PRN %0d chip %0d: rtl=%0d ref=%0d",
-                                  PRNS[k], out_addr, out_chip, ref_mem[k * 2046 + out_addr][0]);
+                                  k + 1, out_addr, out_chip, ref_mem[k][2045 - out_addr]);
         errors++;
       end
       writes++;
@@ -38,24 +37,24 @@ module tb_prn_code_gen;
     for (k = 0; k < N_PRN; k++) begin
       writes = 0;
       @(negedge clk);
-      prn = PRNS[k]; start = 1'b1;
+      prn = 6'(k + 1); start = 1'b1;
       @(negedge clk);
       start = 1'b0;
       wait (done);
       @(negedge clk);
       if (writes != 2046) begin
-        $display("ERROR PRN %0d: %0d writes", PRNS[k], writes);
+        $display("ERROR PRN %0d: %0d writes", k + 1, writes);
         errors++;
       end
     end
     // 非法 PRN
     @(negedge clk);
-    prn = 6'd50; start = 1'b1;
+    prn = 6'd0; start = 1'b1;
     @(negedge clk);
     start = 1'b0;
     @(negedge clk);
     if (!bad_prn || busy) begin
-      $display("ERROR: PRN 50 should be rejected");
+      $display("ERROR: PRN 0 should be rejected");
       errors++;
     end
     if (errors == 0) $display("TEST PASSED");

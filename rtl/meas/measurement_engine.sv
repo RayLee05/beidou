@@ -3,7 +3,7 @@
 //   每个完整 dump 更新该通道的活动观测；epoch_pulse 时冻结 12 路快照。
 //   发射时刻：tx_ms = SOW*1000 + (dump_ms - anchor_ms) + 1
 //   （+1：dump 标签是窗口起点，越界时卫星时间已再走 1 ms）
-//   code_phase 为 dump 越界到历元的码片 Q(11.21)，不是 NCO 回绕残差。
+//   code_phase 直接冻结通道 NCO 的 Q11.21 相位，保留越界残差及码率修正。
 //   伪距由软件用 (t_rx - t_tx)*c 计算，RTL 不输出米制伪距。
 //   需求: REQ-MEAS-001/002
 // =============================================================================
@@ -36,72 +36,73 @@ module measurement_engine (
   output logic [11:0]                     n_valid
 );
 
-  logic [N_CHANNELS-1:0][31:0] live_ms, live_dsc, live_dop, live_tx;
-  logic [N_CHANNELS-1:0]       live_ok, live_lk, live_bs, live_tv, live_wv;
-  logic [N_CHANNELS-1:0][3:0]  live_lc;
-  logic [N_CHANNELS-1:0][12:0] live_wk;
-  logic [N_CHANNELS-1:0][31:0] snap_ms, snap_cp, snap_dop, snap_tx;
-  logic [N_CHANNELS-1:0]       snap_ok, snap_lk, snap_bs, snap_tv, snap_wv;
-  logic [N_CHANNELS-1:0][3:0]  snap_lc;
-  logic [N_CHANNELS-1:0][12:0] snap_wk;
-  logic [N_CHANNELS-1:0][2:0]  snap_st;
-  logic [N_CHANNELS-1:0][5:0]  snap_prn;
-  logic [N_CHANNELS-1:0][7:0]  snap_gen;
-  logic [31:0]                 snap_epoch;
+  // 仅完整窗口可更新观测；PRN/generation 一起缓存，防止通道重分配串用旧值。
+  logic [N_CHANNELS-1:0][31:0] live_ms, live_dsc, live_dop;
+  logic [N_CHANNELS-1:0][7:0] live_gen;
+  logic [N_CHANNELS-1:0][PRN_W-1:0] live_prn;
+  logic [N_CHANNELS-1:0] live_ok;
+  logic [N_CHANNELS-1:0][31:0] next_ms, next_dsc, next_dop;
+  logic [N_CHANNELS-1:0][7:0] next_gen;
+  logic [N_CHANNELS-1:0][PRN_W-1:0] next_prn;
+  logic [N_CHANNELS-1:0] next_ok, obs_ok;
+  logic [N_CHANNELS-1:0][31:0] tx_ms;
+  logic [N_CHANNELS-1:0][12:0] tx_week;
+  logic [11:0] valid_count;
+  logic [N_CHANNELS-1:0][255:0] snap_rec;
 
-  function automatic [31:0] cp_frac(input [31:0] ep_sc, input [31:0] dump_sc);
-    logic [31:0] ds;
-    ds = (ep_sc > dump_sc) ? (ep_sc - dump_sc) : 32'd0;
-    if (ds >= SAMPLES_PER_MS) ds = SAMPLES_PER_MS - 32'd1;
-    return ds << 18;
-  endfunction
+  always_comb begin
+    next_ms = live_ms; next_dsc = live_dsc; next_dop = live_dop;
+    next_gen = live_gen; next_prn = live_prn; next_ok = live_ok;
+    valid_count = '0;
+    for (int i = 0; i < N_CHANNELS; i++) begin
+      if (dump_valid[i] && !dump_partial[i]) begin
+        next_ms[i] = dump_ms[i];
+        next_dsc[i] = sample_count;
+        next_dop[i] = dop_word[i];
+        next_gen[i] = generation[i];
+        next_prn[i] = prn[i];
+        next_ok[i] = 1'b1;
+      end
+      if (ch_state[i] == CH_IDLE || ch_state[i] == CH_LOST || !locked[i]
+          || next_gen[i] != generation[i] || next_prn[i] != prn[i]
+          || (sample_count - next_dsc[i]) >= 32'(2 * SAMPLES_PER_MS))
+        next_ok[i] = 1'b0;
+      obs_ok[i] = next_ok[i] && bit_synced[i] && anchor_valid[i];
+      valid_count = valid_count + 12'(obs_ok[i]);
+      tx_ms[i] = 32'(anchor_sow[i]) * 32'd1000
+                 + (next_ms[i] - anchor_ms[i]) + 32'd1;
+      tx_week[i] = week[i];
+      // SOW 字段是周内时间，最后一个子帧的窗口可能跨周。
+      if (tx_ms[i] >= 32'd604800000) begin
+        tx_ms[i] = tx_ms[i] - 32'd604800000;
+        tx_week[i] = week[i] + 13'd1;
+      end
+    end
+  end
 
   always_ff @(posedge clk or negedge rst_n) begin
     if (!rst_n) begin
-      live_ok <= '0; live_dsc <= '0; snap_ok <= '0; n_valid <= '0; snap_epoch <= '0;
+      live_ms <= '0; live_dsc <= '0; live_dop <= '0;
+      live_gen <= '0; live_prn <= '0; live_ok <= '0;
+      snap_rec <= '0; n_valid <= '0;
     end else begin
-      for (int i = 0; i < N_CHANNELS; i++) begin
-        if (dump_valid[i] && !dump_partial[i]) begin
-          live_ms[i]  <= dump_ms[i];
-          live_dsc[i] <= sample_count;
-          live_dop[i] <= dop_word[i];
-          live_lk[i]  <= locked[i];
-          live_lc[i]  <= lock_cnt[i];
-          live_bs[i]  <= bit_synced[i];
-          live_tv[i]  <= anchor_valid[i] && locked[i];
-          live_tx[i]  <= 32'(anchor_sow[i]) * 32'd1000
-                       + (dump_ms[i] - anchor_ms[i]) + 32'd1;
-          live_wk[i]  <= week[i];
-          live_wv[i]  <= week_valid[i];
-          live_ok[i]  <= locked[i];
-        end
-        if (ch_state[i] == CH_IDLE) live_ok[i] <= 1'b0;
-      end
+      live_ms <= next_ms; live_dsc <= next_dsc; live_dop <= next_dop;
+      live_gen <= next_gen; live_prn <= next_prn; live_ok <= next_ok;
       if (epoch_pulse) begin
-        snap_epoch <= epoch_id;
-        snap_ok <= live_ok; snap_lk <= live_lk; snap_bs <= live_bs;
-        snap_tv <= live_tv; snap_wv <= live_wv;
-        snap_ms <= live_ms; snap_dop <= live_dop;
-        snap_tx <= live_tx; snap_lc <= live_lc; snap_wk <= live_wk;
-        for (int i = 0; i < N_CHANNELS; i++)
-          snap_cp[i] <= cp_frac(sample_count,
-            (dump_valid[i] && !dump_partial[i]) ? sample_count : live_dsc[i]);
-        snap_st <= ch_state; snap_prn <= prn; snap_gen <= generation;
-        n_valid <= 12'(live_ok[0]) + 12'(live_ok[1]) + 12'(live_ok[2])
-                 + 12'(live_ok[3]) + 12'(live_ok[4]) + 12'(live_ok[5])
-                 + 12'(live_ok[6]) + 12'(live_ok[7]) + 12'(live_ok[8])
-                 + 12'(live_ok[9]) + 12'(live_ok[10]) + 12'(live_ok[11]);
+        n_valid <= valid_count;
+        for (int i = 0; i < N_CHANNELS; i++) begin
+          // 同拍 dump 先旁路再冻结，时间、频率、码相位属于同一观测。
+          snap_rec[i] <= pack_meas(4'(i), prn[i], generation[i], epoch_id,
+            obs_ok[i] ? tx_ms[i] : 32'd0,
+            next_ok[i] ? code_phase[i] : 32'd0,
+            next_ok[i] ? next_dop[i] : 32'd0,
+            next_ok[i] ? next_ms[i] : 32'd0,
+            obs_ok[i], locked[i], bit_synced[i], obs_ok[i],
+            ch_state[i], lock_cnt[i], tx_week[i], week_valid[i] && obs_ok[i]);
+        end
       end
     end
   end
 
-  always_comb begin
-    for (int i = 0; i < N_CHANNELS; i++) begin
-      meas_rec[i] = pack_meas(4'(i), snap_prn[i], snap_gen[i], snap_epoch,
-                              snap_tx[i], snap_cp[i], snap_dop[i], snap_ms[i],
-                              snap_ok[i], snap_lk[i], snap_bs[i], snap_tv[i],
-                              snap_st[i], snap_lc[i], snap_wk[i], snap_wv[i]);
-    end
-  end
-
+  assign meas_rec = snap_rec;
 endmodule

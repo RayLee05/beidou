@@ -2,7 +2,7 @@
 
 用法: python scripts/gen_unit_vectors.py
 输出（tb/vectors/）:
-  prn_codes.hex        PRN_LIST 中各 PRN 的 2046 个码片（按 PRN 顺序连续排列）
+  prn_codes.hex        PRN 1..63，每行 2046 bit（首码片在 bit 2045）
   nav_bits.hex         帧同步测试的输入比特流（含极性翻转与注入的单比特错误）
   nav_expected.txt     帧同步测试的期望子帧（FraID、SOW、起始比特序号、224 位信息位）
 """
@@ -21,13 +21,14 @@ import numpy as np  # noqa: E402
 from b1i_ref import d1_nav, prn_b1i  # noqa: E402
 
 OUT = os.path.join(ROOT, "tb", "vectors")
-PRN_LIST = (1, 6, 9, 20, 37)
+PRN_LIST = tuple(range(1, 64))
 
 
 def gen_prn() -> None:
     lines = []
     for prn in PRN_LIST:
-        lines += [str(b) for b in prn_b1i.prn_code(prn)]
+        bits = "".join(str(b) for b in prn_b1i.prn_code(prn))
+        lines.append(f"{int(bits, 2):0512x}")  # 一行一个完整 PRN，首码片在 bit 2045。
     write_text(os.path.join(OUT, "prn_codes.hex"), "\n".join(lines) + "\n")
     print(f"prn_codes.hex: PRN {PRN_LIST}")
 

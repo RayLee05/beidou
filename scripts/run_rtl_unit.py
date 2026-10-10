@@ -15,6 +15,7 @@
 from __future__ import annotations
 
 import os
+import argparse
 import re
 import subprocess
 import sys
@@ -33,7 +34,9 @@ TB_FILELIST = os.path.join(ROOT, "tb", "filelist.f")
 INC_DIRS = ["rtl/include", "rtl/common"]
 
 #: 单个用例的仿真墙钟上限（秒）。挂死的 testbench 会被判失败而不是卡住整个套件。
-SIM_TIMEOUT_S = 3600
+SIM_TIMEOUT_S = int(os.environ.get("RTL_SIM_TIMEOUT_S", "600"))
+if SIM_TIMEOUT_S < 1:
+    raise ValueError("RTL_SIM_TIMEOUT_S must be positive")
 
 
 def parse_filelist(path: str) -> list:
@@ -174,7 +177,7 @@ def run_one_xsim(tb: str, tools) -> dict:
 def run_one_iverilog(tb: str, iv: str, vp: str) -> dict:
     name = os.path.splitext(os.path.basename(tb))[0]
     out = os.path.join(BUILD, name + ".vvp")
-    cmd = [iv, "-g2012", "-o", out] + sum((["-I", d] for d in INC_DIRS), [])
+    cmd = [iv, "-g2012", "-s", name, "-o", out] + sum((["-I", d] for d in INC_DIRS), [])
     cmd += rtl_sources() + [tb]
     comp = _run(cmd, 600)
     res = {"name": name, "tb": tb, "tool": "iverilog", "compile_ok": comp.returncode == 0,
@@ -204,20 +207,31 @@ def pick_sim(want: str | None) -> str:
     return "iverilog"
 
 
+def parse_args(args):
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("filter", nargs="?", default="")
+    parser.add_argument("--quick", action="store_true")
+    parser.add_argument("--list", action="store_true")
+    parser.add_argument("--sim", choices=("vcs", "modelsim", "vivado", "iverilog"))
+    return parser.parse_args(args)
+
+
+def result_path(sim: str, filt: str = "", quick: bool = False) -> str:
+    # 定向/快速检查不覆盖完整回归结果，避免把 1/1 误当成全套通过。
+    suffix = re.sub(r"[^A-Za-z0-9_-]", "_", filt) if filt else ("quick" if quick else "")
+    name = f"rtl_unit_results_{sim}_{suffix}.json" if suffix else "rtl_unit_results.json"
+    return os.path.join(REPORTS_DIR, name)
+
+
 def main(argv) -> int:
-    args = [a for a in argv[1:]]
-    quick = "--quick" in args
-    want = None
-    if "--sim" in args:
-        want = args[args.index("--sim") + 1]
-        args.remove("--sim")
-        args.remove(want)
+    args = parse_args(argv[1:])
+    quick, want = args.quick, args.sim
     entries = tb_entries()
-    if "--list" in args:
+    if args.list:
         for tb, tags in entries:
             print(f"  {os.path.splitext(os.path.basename(tb))[0]:<28} {' '.join(sorted(tags))}")
         return 0
-    filt = next((a for a in args if not a.startswith("--")), "")
+    filt = args.filter
     os.makedirs(BUILD, exist_ok=True)
 
     selected = []
@@ -229,6 +243,9 @@ def main(argv) -> int:
             continue
         selected.append(tb)
 
+    if not selected:
+        print(f"未找到匹配的 RTL 用例: {filt!r}")
+        return 1
     sim = pick_sim(want)
     results = []
     if sim == "vcs":
@@ -269,8 +286,9 @@ def main(argv) -> int:
     print(f"RTL 用例: {n_pass}/{len(results)} 通过")
     report = {"banner": env_banner(), "simulator": sim,
               "total": len(results), "passed": n_pass, "results": results}
-    write_json(os.path.join(REPORTS_DIR, "rtl_unit_results.json"), report)
-    print(f"报告: {os.path.join(REPORTS_DIR, 'rtl_unit_results.json')}")
+    path = result_path(sim, filt, quick)
+    write_json(path, report)
+    print(f"测试结果: {path}")
     for r in results:
         if not r["passed"]:
             print(f"\n--- {r['name']} 输出尾部 ---")

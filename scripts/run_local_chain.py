@@ -118,6 +118,30 @@ def decode_from_bits(bits: list) -> list:
     return out
 
 
+def samples_in_blocks(sc, n: int, block_ms: int = 100) -> np.ndarray:
+    """保留 int8 输入流，按块生成浮点中间量，避免 7 s 场景占用数 GB。"""
+    if n < 1 or block_ms < 1:
+        raise ValueError("sample count and block_ms must be positive")
+    out = np.empty(n, dtype=np.int8)
+    rng = np.random.default_rng([sc.seed, 0])
+    block = block_ms * P.samples_per_ms
+    for start in range(0, n, block):
+        stop = min(start + block, n)
+        out[start:stop] = sc.samples(start, stop - start, noise_rng=rng)
+    return out
+
+
+def track_in_blocks(ch, samples, block_ms: int = 100) -> list:
+    """维持通道状态，避免 process 将整个输入复制成 int64。"""
+    if block_ms < 1:
+        raise ValueError("block_ms must be positive")
+    out = []
+    block = block_ms * P.samples_per_ms
+    for start in range(0, len(samples), block):
+        out.extend(ch.process(samples[start:start + block]))
+    return out
+
+
 def main() -> int:
     import argparse
     ap = argparse.ArgumentParser()
@@ -125,6 +149,7 @@ def main() -> int:
     ap.add_argument("--sats", type=int, default=5)
     ap.add_argument("--cn0", type=float, default=45.0)
     ap.add_argument("--seed", type=int, default=3)
+    ap.add_argument("--block-ms", type=int, default=100, help="场景生成和跟踪的分块长度")
     a = ap.parse_args()
 
     rx = scenario.geodetic_to_ecef(39.9, 116.4, 50.0)
@@ -135,7 +160,7 @@ def main() -> int:
         sats=[scenario.SatConfig(e, cn0_dbhz=a.cn0, phase0_cycles=0.15 * (i + 1))
               for i, e in enumerate(ephs)])
     n = int(a.sec * P.f_s_hz)
-    samples = sc.samples(0, n)
+    samples = samples_in_blocks(sc, n, a.block_ms)
     epoch_n = n - 1
     truth = sc.truth(epoch_n)
 
@@ -155,7 +180,7 @@ def main() -> int:
         cp_ho, fd_ho = handover(samples, code)
         ch = TrackingChannel(code, LoopConfig(fll_en=True))
         ch.reset(code_phase_chips=cp_ho, doppler_hz=fd_ho)
-        dumps = [d for d in ch.process(samples) if not d["partial"]]
+        dumps = [d for d in track_in_blocks(ch, samples, a.block_ms) if not d["partial"]]
         ip = [d["i_p"] for d in dumps]
         synced, phase, bits, starts = nh_bits_from_prompt(ip)
         frames = decode_from_bits(bits) if synced else []

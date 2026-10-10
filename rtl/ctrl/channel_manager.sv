@@ -41,6 +41,7 @@ module channel_manager (
   input  logic                       force_alloc,
   input  logic [CHANNEL_ID_W-1:0]    force_ch,
   input  logic [PRN_W-1:0]           force_prn,
+  output logic                       force_handover, // 与强制装载的 ch_init_load 同拍
   // 通道
   input  logic [N_CHANNELS-1:0]      ch_locked,
   input  logic [N_CHANNELS-1:0]      ch_bit_synced,
@@ -118,6 +119,7 @@ module channel_manager (
       acq_start <= 1'b0; acq_abort <= 1'b0; acq_ack <= 1'b0; acq_prn <= '0;
       gen_start <= 1'b0; gen_prn <= '0; gen_to_acq <= 1'b0; gen_ch <= '0;
       ch_enable <= '0; ch_init_load <= '0; ch_clear <= '0;
+      force_handover <= 1'b0;
       ev_hold <= 1'b0; ev_code <= '0; ev_ch <= '0; ev_prn <= '0; ev_gen <= '0; ev_a1 <= '0;
       pe_v <= '0;
       for (int i = 0; i < N_CHANNELS; i++) begin
@@ -131,6 +133,7 @@ module channel_manager (
       gen_start <= 1'b0;
       ch_init_load <= '0;
       ch_clear     <= '0;
+      force_handover <= 1'b0;
       if (ev_take) ev_hold <= 1'b0;
       if ((!ev_hold || ev_take) && first_pe() != 5'd31) begin
         ev_hold <= 1'b1;
@@ -219,7 +222,8 @@ module channel_manager (
         end
         case (st)
           S_IDLE: begin
-            if (force_alloc && force_ch < N_CHANNELS && ch_state[force_ch] == CH_IDLE) begin
+            if (force_alloc && force_prn != 0 && force_ch < N_CHANNELS
+                && ch_state[force_ch] == CH_IDLE) begin
               tgt         <= force_ch;
               cur_prn     <= force_prn;
               gen_prn     <= force_prn;
@@ -313,11 +317,13 @@ module channel_manager (
           end
 
           S_FORCE_GEN: begin
-            if (gen_done) begin
+            if (gen_bad && !gen_start) st <= S_IDLE;
+            else if (gen_done) begin
               ch_prn[tgt]       <= cur_prn;
               ch_state[tgt]     <= CH_PULLIN;
               ch_enable[tgt]    <= 1'b1;
               ch_init_load[tgt] <= 1'b1;
+              force_handover    <= 1'b1;
               ch_gen[tgt]       <= ch_gen[tgt] + 8'd1;
               tmr[tgt]          <= '0;
               nav_tmr[tgt]      <= '0; to_sent[tgt] <= 1'b0; saw_bit[tgt] <= 1'b0;

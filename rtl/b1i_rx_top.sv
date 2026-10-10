@@ -66,6 +66,7 @@ module b1i_rx_top #(
   logic [5:0]  force_prn;
   logic [47:0] force_phase;
   logic signed [31:0] force_dop;
+  logic [N_CHANNELS-1:0][2:0] ch_state;
 
   always_ff @(posedge clk or negedge rst_n) begin
     if (!rst_n) begin
@@ -81,19 +82,22 @@ module b1i_rx_top #(
       if (cfg_valid) begin
         case (cfg_addr)
           8'h00: run      <= cfg_wdata[0];
-          8'h01: n_prns   <= cfg_wdata[3:0];
-          8'h02: prn_list[cfg_wdata[3:0]] <= cfg_wdata[13:8];
+          8'h01: n_prns <= (cfg_wdata[3:0] > N_CHANNELS) ? 4'(N_CHANNELS) : cfg_wdata[3:0];
+          8'h02: if (cfg_wdata[3:0] < N_CHANNELS)
+                   prn_list[cfg_wdata[3:0]] <= cfg_wdata[13:8];
           8'h10: dop_min  <= cfg_wdata;
           8'h11: dop_step <= cfg_wdata;
           8'h12: begin n_bins <= cfg_wdata[7:0]; nc <= cfg_wdata[9:8]; thr <= cfg_wdata[17:10]; end
           8'h13: pullin_to <= cfg_wdata;
           8'h14: lost_to   <= cfg_wdata;
-          8'h15: epoch_ms  <= cfg_wdata;
+          8'h15: epoch_ms <= (cfg_wdata == 0) ? 32'd1 : cfg_wdata;
           8'h16: bit_sync_to   <= cfg_wdata;
           8'h17: frame_sync_to <= cfg_wdata;
           8'h18: sow0_ms       <= cfg_wdata;
           8'h20: begin
-            force_alloc <= cfg_wdata[0];
+            force_alloc <= cfg_wdata[0] && cfg_wdata[7:4] < N_CHANNELS
+                           && cfg_wdata[13:8] != 0 && run
+                           && ch_state[cfg_wdata[7:4]] == CH_IDLE;
             force_ch    <= cfg_wdata[7:4];
             force_prn   <= cfg_wdata[13:8];
           end
@@ -223,7 +227,6 @@ module b1i_rx_top #(
   // ---------------------------------------------------------------- 通道管理
   logic [N_CHANNELS-1:0] ch_enable, ch_init_load, ch_clear;
   logic [N_CHANNELS-1:0][PRN_W-1:0] ch_prn;
-  logic [N_CHANNELS-1:0][2:0] ch_state;
   logic [N_CHANNELS-1:0][7:0] ch_gen;
   logic        ev_valid, ev_ready;
   logic        force_pend;
@@ -244,6 +247,7 @@ module b1i_rx_top #(
     .gen_start(gen_start), .gen_prn(gen_prn), .gen_done(gen_done),
     .gen_busy(gen_busy), .gen_bad(gen_bad), .gen_to_acq(gen_to_acq), .gen_ch(gen_ch),
     .force_alloc(force_alloc), .force_ch(force_ch), .force_prn(force_prn),
+    .force_handover(force_pend),
     .ch_locked(ch_locked), .ch_bit_synced(bit_synced), .ch_frame_synced(frame_synced),
     .ch_enable(ch_enable), .ch_init_load(ch_init_load),
     .ch_clear(ch_clear), .ch_prn(ch_prn), .ch_state(ch_state), .ch_gen(ch_gen),
@@ -296,12 +300,6 @@ module b1i_rx_top #(
     end
   endgenerate
 
-  always_ff @(posedge clk or negedge rst_n) begin
-    if (!rst_n) force_pend <= 1'b0;
-    else if (force_alloc) force_pend <= 1'b1;
-    else if (|ch_init_load) force_pend <= 1'b0;
-  end
-
   // ---------------------------------------------------------------- 测量 / 历元
   logic [N_CHANNELS-1:0][255:0] meas_rec;
   logic [11:0] n_valid;
@@ -331,10 +329,14 @@ module b1i_rx_top #(
   logic [3:0]  meas_idx;
   logic [N_CHANNELS-1:0] nav_pend, par_pend;
   logic [3:0]  nav_sel, par_sel;
+  logic [255:0] queued_epoch;
+  logic [N_CHANNELS-1:0][255:0] queued_meas, queued_nav, queued_par;
+  logic queue_overrun;
+  wire record_slot_ready = !fifo_wr_valid || fifo_wr_ready;
 
   record_fifo #(.DEPTH(32)) u_fifo (
     .clk(clk), .rst_n(rst_n),
-    .wr_valid(fifo_wr_valid && fifo_wr_ready), .wr_ready(fifo_wr_ready),
+    .wr_valid(fifo_wr_valid), .wr_ready(fifo_wr_ready),
     .wr_data(fifo_wr_data),
     .rd_valid(rec_valid), .rd_ready(rec_ready), .rd_data(rec_data),
     .overflow(fifo_ov), .count(fifo_cnt));
@@ -351,34 +353,48 @@ module b1i_rx_top #(
 
   typedef enum logic [2:0] { RS_IDLE, RS_EPOCH, RS_MEAS } rs_t;
   rs_t rs;
+  wire ancillary_slot_ready = record_slot_ready && rs == RS_IDLE && !ep_pend
+                              && !(ep_wait == 0 && ev_valid);
+  wire nav_take = ancillary_slot_ready && par_sel == 15 && nav_sel != 15;
+  wire par_take = ancillary_slot_ready && par_sel != 15;
 
   always_ff @(posedge clk or negedge rst_n) begin
     if (!rst_n) begin
       rs <= RS_IDLE; ep_pend <= 1'b0; ep_wait <= '0; meas_idx <= '0;
       nav_pend <= '0; par_pend <= '0;
       fifo_wr_valid <= 1'b0; fifo_wr_data <= '0;
+      queued_epoch <= '0; queued_meas <= '0; queued_nav <= '0; queued_par <= '0;
+      queue_overrun <= 1'b0;
     end else begin
+      queue_overrun <= 1'b0;
       if (epoch_pulse) ep_wait <= 2'd2;
       else if (ep_wait != 2'd0) begin
         ep_wait <= ep_wait - 2'd1;
-        if (ep_wait == 2'd1) ep_pend <= 1'b1;
-      end
-      for (int i = 0; i < N_CHANNELS; i++) begin
-        if (sf_valid[i]) nav_pend[i] <= 1'b1;
-        if (sf_err[i])   par_pend[i] <= 1'b1;
+        if (ep_wait == 2'd1) begin
+          // 输出阻塞时保留已有整包，新历元无法容纳则显式报错。
+          if (ep_pend || (rs == RS_MEAS
+              && !(record_slot_ready && meas_idx == 4'(N_CHANNELS - 1))))
+            queue_overrun <= 1'b1;
+          else begin
+            queued_epoch <= epoch_rec;
+            queued_meas <= meas_rec;
+            ep_pend <= 1'b1;
+          end
+        end
       end
 
-      fifo_wr_valid <= 1'b0;
-      if (fifo_wr_ready) begin
+      // 单条待发送记录持续保持，直到 FIFO 真正握手；可同拍消费并补充。
+      if (fifo_wr_valid && fifo_wr_ready) fifo_wr_valid <= 1'b0;
+      if (record_slot_ready) begin
         // 历元包连续：EPOCH + 12×MEAS 中途不插 STATUS/NAV
         if (rs == RS_MEAS) begin
           fifo_wr_valid <= 1'b1;
-          fifo_wr_data  <= meas_rec[meas_idx];
+          fifo_wr_data  <= queued_meas[meas_idx];
           if (meas_idx == 4'(N_CHANNELS - 1)) rs <= RS_IDLE;
           else meas_idx <= meas_idx + 4'd1;
         end else if (rs == RS_IDLE && ep_pend) begin
           fifo_wr_valid <= 1'b1;
-          fifo_wr_data  <= epoch_rec;
+          fifo_wr_data  <= queued_epoch;
           ep_pend       <= 1'b0;
           meas_idx      <= 4'd0;
           rs            <= RS_MEAS;
@@ -388,24 +404,43 @@ module b1i_rx_top #(
                                        ev_code, ev_a1, 32'd0, 12'd0);
         end else if (par_sel != 4'd15) begin
           fifo_wr_valid <= 1'b1;
-          fifo_wr_data  <= pack_status(par_sel, ch_prn[par_sel], ch_gen[par_sel],
-                                       sample_count, EV_NAV_PARITY, 32'd0, 32'd0, 12'd0);
+          fifo_wr_data  <= queued_par[par_sel];
           par_pend[par_sel] <= 1'b0;
         end else if (nav_sel != 4'd15) begin
           fifo_wr_valid <= 1'b1;
-          fifo_wr_data  <= pack_nav(nav_sel, ch_prn[nav_sel], ch_gen[nav_sel][3:0],
-                                    sf_id[nav_sel], sf_fixes[nav_sel],
-                                    sf_inverted[nav_sel], sf_info[nav_sel]);
+          fifo_wr_data  <= queued_nav[nav_sel];
           nav_pend[nav_sel] <= 1'b0;
+        end
+      end
+      // 在清除旧 pending 之后处理新事件，避免同拍到达的事件被清掉。
+      for (int i = 0; i < N_CHANNELS; i++) begin
+        if (sf_valid[i]) begin
+          if (nav_pend[i] && !(nav_take && nav_sel == 4'(i)))
+            queue_overrun <= 1'b1;
+          // 队列满时保留旧记录及其通道身份；不得静默用新子帧替换。
+          if (!nav_pend[i] || (nav_take && nav_sel == 4'(i))) begin
+            queued_nav[i] <= pack_nav(4'(i), ch_prn[i], ch_gen[i][3:0], sf_id[i],
+                                      sf_fixes[i], sf_inverted[i], sf_info[i]);
+            nav_pend[i] <= 1'b1;
+          end
+        end
+        if (sf_err[i]) begin
+          if (par_pend[i] && !(par_take && par_sel == 4'(i)))
+            queue_overrun <= 1'b1;
+          else begin
+            queued_par[i] <= pack_status(4'(i), ch_prn[i], ch_gen[i], sample_count,
+                                         EV_NAV_PARITY, 32'd0, 32'd0, 12'd0);
+            par_pend[i] <= 1'b1;
+          end
         end
       end
     end
   end
 
-  assign ev_ready = fifo_wr_ready && ev_valid && (rs == RS_IDLE)
+  assign ev_ready = record_slot_ready && ev_valid && (rs == RS_IDLE)
                     && !ep_pend && (ep_wait == 2'd0);
 
-  assign error_valid = fifo_ov;
-  assign error_code  = fifo_ov ? ERR_FIFO_OVERFLOW : 32'd0;
+  assign error_valid = fifo_ov || queue_overrun;
+  assign error_code  = error_valid ? ERR_FIFO_OVERFLOW : 32'd0;
 
 endmodule

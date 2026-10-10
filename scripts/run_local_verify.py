@@ -15,6 +15,7 @@ from datetime import datetime
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from _common import REPORTS_DIR, ROOT, bootstrap  # noqa: E402
+from run_rtl_unit import parse_args, result_path  # noqa: E402
 
 bootstrap()
 LOCAL = os.path.join(REPORTS_DIR, "local")
@@ -43,10 +44,12 @@ def main() -> int:
         steps.append(["scripts/run_rtl_unit.py", "--sim", "modelsim", "acquisition"])
     for s in steps:
         r = run(s)
-        src = os.path.join(REPORTS_DIR, "rtl_unit_results.json")
-        if "run_rtl_unit" in s[0] and os.path.isfile(src):
-            tag = "acq" if "acquisition" in s else ("vivado" if "vivado" in s else "modelsim")
-            shutil.copy2(src, os.path.join(LOCAL, f"{tag}_{s[-1]}.json"))
+        if "run_rtl_unit" in s[0]:
+            args = parse_args(s[1:])
+            src = result_path(args.sim, args.filter, args.quick)
+            if os.path.isfile(src):
+                scope = args.filter or ("quick" if args.quick else "full")
+                shutil.copy2(src, os.path.join(LOCAL, f"{args.sim}_{scope}.json"))
         rc |= r
     note = os.path.join(LOCAL, "last_run.txt")
     with open(note, "w", encoding="utf-8") as f:

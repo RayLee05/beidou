@@ -3,7 +3,8 @@
 RTL `acquisition_engine` 在同一假设网格上串行搜索；本模块用 FFT 圆相关
 一次性给出全部码相位的相关值，作为捕获结果的参考（golden）。
 
-判决统计量：1 ms 相干积分后的 |I| + |Q|/2（与跟踪环路的幅度估计一致）。
+判决统计量：1 ms 相干积分后的复数模，避免初始载波相位改变最佳频率。
+RTL 的低成本幅度近似须单独验证，不作为浮点真值搜索的统计量。
 """
 
 from __future__ import annotations
@@ -49,7 +50,7 @@ def peak_to_code_phase(peak_sample: int, n_samples: int, code_len: int) -> float
 
 
 def magnitude(iq: np.ndarray) -> np.ndarray:
-    return np.abs(iq.real) + 0.5 * np.abs(iq.imag)
+    return np.abs(iq)
 
 
 def serial_search(samples: np.ndarray, code_bits, doppler_list, threshold: float = 0.0):

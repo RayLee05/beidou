@@ -112,8 +112,12 @@ module d1_frame_sync (
       sf_fixes <= '0; sf_inverted <= 1'b0; frame_synced <= 1'b0;
       anchor_valid <= 1'b0; anchor_ms <= '0; anchor_sow <= '0; week <= '0; week_valid <= 1'b0;
     end else if (clear) begin
-      nbits <= '0; dec <= 1'b0; sf_valid <= 1'b0; sf_err <= 1'b0;
-      frame_synced <= 1'b0; anchor_valid <= 1'b0; week_valid <= 1'b0;
+      // 取消译码与字段检查；cw=19 也不能在下一拍提交旧通道的子帧。
+      sr <= '0; nbits <= '0; sfb <= '0; start_ms_q <= '0; inv_q <= 1'b0;
+      dec <= 1'b0; cw <= '0; info <= '0; ipos <= '0; fixes <= '0; bch_bad <= 1'b0;
+      sf_valid <= 1'b0; sf_err <= 1'b0; sf_id <= '0; sf_sow <= '0; sf_start_ms <= '0; sf_info <= '0;
+      sf_fixes <= '0; sf_inverted <= 1'b0; frame_synced <= 1'b0;
+      anchor_valid <= 1'b0; anchor_ms <= '0; anchor_sow <= '0; week <= '0; week_valid <= 1'b0;
     end else begin
       sf_valid <= 1'b0;
       sf_err   <= 1'b0;

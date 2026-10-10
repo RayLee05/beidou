@@ -2,7 +2,8 @@
 
 用法:
   python scripts/run_all.py            # 全部检查
-  python scripts/run_all.py --quick    # 跳过绘图（无 matplotlib 时）
+  python scripts/run_all.py --quick    # 跳过绘图和慢速 RTL，仍执行快速 RTL
+  python scripts/run_all.py --quick --sim modelsim
 
 每个阶段结束都应运行本脚本，并把 reports/logs/ 下的日志纳入交付证据。
 """
@@ -10,6 +11,7 @@
 from __future__ import annotations
 
 import glob
+import argparse
 import os
 import subprocess
 import sys
@@ -43,13 +45,18 @@ STEPS = [
     ("定点与周期预算", "scripts/fixed_point_budget.py", []),
     ("架构图", "scripts/make_architecture_figure.py", ["--quick"]),
     ("参考模型自检", "scripts/run_ref_model.py", []),
+    ("信号模型回归", "scripts/check_signal_regressions.py", []),
     ("记录闭环 / RINEX 回读", "scripts/check_records.py", []),
-    ("RTL 单元/系统测试", "scripts/run_rtl_unit.py", ["--quick"]),
+    ("RTL 单元/系统测试", "scripts/run_rtl_unit.py", []),
 ]
 
 
 def main(argv) -> int:
-    quick = "--quick" in argv
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--quick", action="store_true", help="跳过绘图和慢速 RTL 用例")
+    parser.add_argument("--sim", choices=("vcs", "modelsim", "vivado", "iverilog"))
+    args = parser.parse_args(argv[1:])
+    quick = args.quick
     banner = env_banner()
     results = []
     log_lines = []
@@ -60,8 +67,14 @@ def main(argv) -> int:
             log_lines.append(f"--- SKIP {name} ---")
             continue
         t0 = datetime.now()
+        extra = []
+        if script.endswith("run_rtl_unit.py"):
+            if quick:
+                extra.append("--quick")
+            if args.sim:
+                extra += ["--sim", args.sim]
         proc = subprocess.run(
-            [sys.executable, os.path.join(ROOT, script)] + [a for a in argv[1:] if a.startswith("--") and a != "--quick"],
+            [sys.executable, os.path.join(ROOT, script)] + extra,
             cwd=ROOT, capture_output=True, text=True, encoding="utf-8", errors="replace",
         )
         dt = (datetime.now() - t0).total_seconds()

@@ -9,6 +9,9 @@ __pycache__/
 data/input/*
 !data/input/.gitkeep
 *.if2
+/student_release/
+/reports/public_run/
+deliverables/**/*.zip
 student_rease/**/output/
 student_rease/**/build/
 student_rease/**/logs/

@@ -1,4 +1,4 @@
-// tb_record_fifo.sv -- 记录 FIFO 入队/出队/满溢出
+// tb_record_fifo.sv -- 记录 FIFO 入队/出队/满时背压
 `include "b1i_params.svh"
 
 module tb_record_fifo;
@@ -17,7 +17,7 @@ module tb_record_fifo;
     .overflow(overflow), .count(count));
 
   integer errors = 0, i;
-  logic [255:0] got [0:3];
+  logic [255:0] got [0:4];
 
   initial begin
     rst_n = 0; wr_valid = 0; wr_data = 0; rd_ready = 0;
@@ -33,13 +33,17 @@ module tb_record_fifo;
     wr_valid = 0;
     if (wr_ready) begin $display("FAIL: full should not be ready"); errors++; end
     wr_valid = 1; wr_data = 256'hDEAD;
+    repeat (3) begin
+      @(negedge clk);
+      if (overflow || wr_ready || count != 4) begin
+        $display("FAIL: held valid while full is legal backpressure"); errors++;
+      end
+    end
+    // full + read: pending DEAD must enqueue exactly once behind the four old records.
+    got[0] = rd_data; rd_ready = 1;
     @(negedge clk);
-    if (!overflow) begin $display("FAIL: expected overflow"); errors++; end
     wr_valid = 0;
-    @(negedge clk);
-    if (overflow) begin $display("FAIL: overflow should pulse"); errors++; end
-
-    for (i = 0; i < 4; i++) begin
+    for (i = 1; i < 5; i++) begin
       if (!rd_valid) begin $display("FAIL: empty too early"); errors++; end
       got[i] = rd_data;
       rd_ready = 1;
@@ -51,6 +55,8 @@ module tb_record_fifo;
       if (got[i] !== 256'(i + 1)) begin
         $display("FAIL: data %0d got %h", i, got[i]); errors++;
       end
+
+    if (got[4] !== 256'hDEAD) begin $display("FAIL: pending record lost"); errors++; end
 
     // 再填满，满时同拍读+写应腾位且不报 overflow
     for (i = 0; i < 4; i++) begin

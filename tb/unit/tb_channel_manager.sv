@@ -17,6 +17,7 @@ module tb_channel_manager;
   logic [5:0] gen_prn;
   logic [3:0] gen_ch;
   logic force_alloc;
+  logic force_handover;
   logic [3:0] force_ch;
   logic [5:0] force_prn;
   logic [11:0] ch_locked, ch_enable, ch_init_load, ch_clear;
@@ -39,6 +40,7 @@ module tb_channel_manager;
     .gen_start(gen_start), .gen_prn(gen_prn), .gen_done(gen_done),
     .gen_busy(gen_busy), .gen_bad(gen_bad), .gen_to_acq(gen_to_acq), .gen_ch(gen_ch),
     .force_alloc(force_alloc), .force_ch(force_ch), .force_prn(force_prn),
+    .force_handover(force_handover),
     .ch_locked(ch_locked), .ch_bit_synced(12'd0), .ch_frame_synced(12'd0),
     .ch_enable(ch_enable), .ch_init_load(ch_init_load),
     .ch_clear(ch_clear), .ch_prn(ch_prn), .ch_state(ch_state), .ch_gen(ch_gen),
@@ -98,7 +100,7 @@ module tb_channel_manager;
     while (!ch_enable[0] && cycles < 40) begin
       @(negedge clk); cycles++;
     end
-    if (!ch_enable[0] || ch_prn[0] != 6'd3 || ch_state[0] != CH_PULLIN) begin
+    if (!ch_enable[0] || ch_prn[0] != 6'd3 || ch_state[0] != CH_PULLIN || !force_handover) begin
       $display("FAIL force: en=%b prn=%0d st=%0d", ch_enable[0], ch_prn[0], ch_state[0]);
       errors++;
     end
@@ -109,7 +111,7 @@ module tb_channel_manager;
     while (!ch_enable[1] && cycles < 80) begin
       @(negedge clk); cycles++;
     end
-    if (!ch_enable[1] || ch_prn[1] != 6'd7) begin
+    if (!ch_enable[1] || ch_prn[1] != 6'd7 || force_handover) begin
       $display("FAIL acq handoff: en1=%b prn1=%0d", ch_enable[1], ch_prn[1]);
       errors++;
     end
