@@ -8,6 +8,10 @@ __pycache__/
 # --- 大体积输入数据（本地保留，不入库）---
 data/input/*
 !data/input/.gitkeep
+*.if2
+student_rease/**/output/
+student_rease/**/build/
+student_rease/**/logs/
 
 # --- 本地工具链与构建产物 ---
 .tools/
