@@ -21,6 +21,7 @@ student_rease/**/logs/
 reports/build/
 reports/sim/
 reports/synth/
+/reports/rtl_unit_results_*.json
 
 # --- 本机仿真器垃圾（不入库）---
 xsim.dir/

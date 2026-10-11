@@ -9,10 +9,11 @@
 `include "b1i_params.svh"
 `include "b1i_records.svh"
 
-module channel_manager (
+module channel_manager #(parameter bit AUTO_SCAN = 1'b0) (
   input  logic                       clk,
   input  logic                       rst_n,
   input  logic                       run,
+  input  logic                       search_enable, // AUTO_SCAN: stop searching at EOF
   input  logic                       ms_tick,
   input  logic [3:0]                 n_prns,
   input  logic [11:0][PRN_W-1:0]     prn_list,
@@ -69,6 +70,7 @@ module channel_manager (
   st_t st;
 
   logic [3:0]  scan;
+  logic [5:0]  auto_prn;
   logic [3:0]  tgt;
   logic [5:0]  cur_prn;
   logic        hit_latched;
@@ -116,6 +118,7 @@ module channel_manager (
     if (!rst_n) begin
       st <= S_IDLE;
       scan <= '0; tgt <= '0; cur_prn <= '0; hit_latched <= 1'b0;
+      auto_prn <= 6'd1;
       acq_start <= 1'b0; acq_abort <= 1'b0; acq_ack <= 1'b0; acq_prn <= '0;
       gen_start <= 1'b0; gen_prn <= '0; gen_to_acq <= 1'b0; gen_ch <= '0;
       ch_enable <= '0; ch_init_load <= '0; ch_clear <= '0;
@@ -220,7 +223,11 @@ module channel_manager (
             end
           end
         end
-        case (st)
+        if (AUTO_SCAN && !search_enable) begin
+          st <= S_IDLE;
+          acq_abort <= acq_busy;
+          hit_latched <= 1'b0;
+        end else case (st)
           S_IDLE: begin
             if (force_alloc && force_prn != 0 && force_ch < N_CHANNELS
                 && ch_state[force_ch] == CH_IDLE) begin
@@ -231,13 +238,19 @@ module channel_manager (
               gen_ch      <= force_ch;
               gen_start   <= 1'b1;
               st          <= S_FORCE_GEN;
-            end else if (n_prns != 4'd0 && first_free() != 4'd15 && !acq_busy) begin
+            end else if ((AUTO_SCAN || n_prns != 4'd0) && first_free() != 4'd15 && !acq_busy) begin
               st <= S_PICK;
             end
           end
 
           S_PICK: begin
-            if (scan >= n_prns) begin
+            if (AUTO_SCAN) begin
+              auto_prn <= (auto_prn == 6'd63) ? 6'd1 : auto_prn + 6'd1;
+              if (!prn_used(auto_prn)) begin
+                cur_prn <= auto_prn; acq_prn <= auto_prn; gen_prn <= auto_prn;
+                gen_to_acq <= 1'b1; gen_start <= 1'b1; st <= S_GEN_ACQ;
+              end
+            end else if (scan >= n_prns) begin
               scan <= '0;
               st   <= S_IDLE;
             end else if (prn_list[scan] != '0 && !prn_used(prn_list[scan])) begin

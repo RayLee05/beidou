@@ -15,11 +15,21 @@ module tb_nh_bit_sync;
   logic [31:0] dump_ms, bit_ms, bit_mag;
   logic [4:0]  bit_phase;
   logic signed [CORR_ACC_W-1:0] i_p;
+  logic [63:0] dump_sample_count, bit_end_sample;
+  logic [47:0] dump_code_phase, bit_end_phase;
+  function automatic logic [63:0] sample_tag(input integer ms);
+    return 64'(ms+1)*64'd16368 + 64'(ms%7);
+  endfunction
+  function automatic logic [47:0] phase_tag(input integer ms);
+    return 48'(ms*17897+17);
+  endfunction
 
   nh_bit_sync #(.BS_BITS(10)) dut (
     .clk(clk), .rst_n(rst_n), .clear(1'b0), .dump_valid(dump_valid), .dump_partial(dump_partial),
     .dump_ms(dump_ms), .i_p(i_p), .synced(synced), .bit_phase(bit_phase), .bit_valid(bit_valid),
-    .bit_val(bit_val), .bit_ms(bit_ms), .bit_mag(bit_mag));
+    .bit_val(bit_val), .bit_ms(bit_ms), .bit_mag(bit_mag),
+    .dump_sample_count(dump_sample_count), .dump_code_phase(dump_code_phase),
+    .bit_end_sample(bit_end_sample), .bit_end_phase(bit_end_phase));
 
   integer errors = 0, nbits = 0, pol = -1, idx;
 
@@ -38,6 +48,9 @@ module tb_nh_bit_sync;
         end
       end
       nbits++;
+      if (bit_end_sample !== sample_tag(int'(bit_ms)+19) || bit_end_phase !== phase_tag(int'(bit_ms)+19)) begin
+        $display("ERROR: NH lost last-window metadata"); errors++;
+      end
     end
   end
 
@@ -54,13 +67,16 @@ module tb_nh_bit_sync;
     $fclose(fd);
 
     rst_n = 1'b0; dump_valid = 0; dump_partial = 0; dump_ms = 0; i_p = 0;
+    dump_sample_count=0; dump_code_phase=0;
     repeat (3) @(negedge clk);
     rst_n = 1'b1;
     for (i = 0; i < n_win; i++) begin
       repeat (60) @(negedge clk);            // 两次 dump 之间留出串行计算时间
       dump_valid = 1; dump_partial = (i == 0); dump_ms = i; i_p = in_mem[i][CORR_ACC_W-1:0];
+      dump_sample_count=sample_tag(i); dump_code_phase=phase_tag(i);
       @(negedge clk);
       dump_valid = 0;
+      dump_sample_count='1; dump_code_phase='1;
     end
     repeat (100) @(negedge clk);
     $display("synced=%0d phase=%0d (expected %0d), %0d bits checked, polarity %0d",

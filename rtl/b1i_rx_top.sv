@@ -11,7 +11,10 @@
 module b1i_rx_top #(
   parameter int N_LANES   = 64,
   parameter int BUF_DEPTH = 33024,
-  parameter bit USE_SRAM  = 1'b0
+  parameter bit USE_SRAM  = 1'b0,
+  parameter bit DIRECT_SAMPLES = 1'b0,
+  parameter bit PUBLIC_RECORDS = 1'b0,
+  parameter bit AUTO_SCAN = 1'b0
 ) (
   input  logic                       clk,
   input  logic                       rst_n,
@@ -19,6 +22,12 @@ module b1i_rx_top #(
   input  logic                       byte_valid,
   input  logic [7:0]                 data_byte,
   output logic                       byte_ready,
+  input  logic                       direct_valid,
+  input  logic signed [SAMPLE_W-1:0] direct_sample,
+  input  logic                       direct_last,
+  input  logic                       direct_input_error,
+  input  logic [63:0]                direct_missing_ticks,
+  output logic                       direct_ready,
   // SRAM 输入（USE_SRAM=1）
   input  logic                       sram_run,
   input  logic                       sram_pace_en,
@@ -50,8 +59,11 @@ module b1i_rx_top #(
 
   assign cfg_ready = 1'b1;
   // 每个历元包最后一条 MEAS（CH11）拉 rec_last，供下游划界
-  assign rec_last = rec_valid && (rec_data[255:252] == REC_MEAS)
-                 && (rec_data[251:248] == 4'(N_CHANNELS - 1));
+  assign rec_last = PUBLIC_RECORDS ? (rec_valid && rec_data[7:0] == 8'd6)
+      : (rec_valid && (rec_data[255:252] == REC_MEAS)
+         && (rec_data[251:248] == 4'(N_CHANNELS - 1)));
+  initial if (PUBLIC_RECORDS && !DIRECT_SAMPLES)
+    $fatal(1, "Public records require a flow-controlled direct sample input");
 
   // ---------------------------------------------------------------- 配置寄存器
   logic        run;
@@ -129,14 +141,35 @@ module b1i_rx_top #(
   logic signed [SAMPLE_W-1:0] unpack_s;
   logic                       sram_sv;
   logic signed [SAMPLE_W-1:0] sram_s;
+  logic public_input_ready, public_overflow, direct_finished;
+  logic acq_input_pause, public_handover_pause;
+  logic [63:0] accepted_samples, hardware_cycles;
+  always_ff @(posedge clk or negedge rst_n) begin
+    if (!rst_n) begin accepted_samples <= '0; hardware_cycles <= '0; direct_finished <= 1'b0; end
+    else begin
+      if (run) hardware_cycles <= hardware_cycles + 64'd1;
+      if (sample_valid) begin
+        accepted_samples <= accepted_samples + 64'd1;
+        if (DIRECT_SAMPLES && direct_last) direct_finished <= 1'b1;
+      end
+    end
+  end
+  assign direct_ready = DIRECT_SAMPLES && !direct_finished
+                        && (!PUBLIC_RECORDS || (public_input_ready && !acq_input_pause
+                                                 && !public_handover_pause));
 
   sample_unpacker u_unpack (
-    .clk(clk), .rst_n(rst_n), .byte_valid(byte_valid & ~USE_SRAM),
+    .clk(clk), .rst_n(rst_n), .byte_valid(byte_valid & ~USE_SRAM & ~DIRECT_SAMPLES),
     .data_byte(data_byte), .byte_ready(unpack_ready),
     .sample_valid(unpack_sv), .sample(unpack_s));
 
   generate
-    if (USE_SRAM) begin : g_sram
+    if (DIRECT_SAMPLES) begin : g_direct
+      assign sample_valid = direct_valid && direct_ready;
+      assign sample = direct_sample;
+      assign byte_ready = 1'b0;
+      assign sram_rd = 1'b0; assign sram_addr = '0; assign sram_done = 1'b0;
+    end else if (USE_SRAM) begin : g_sram
       sram_reader u_sram (
         .clk(clk), .rst_n(rst_n), .run(sram_run), .pace_en(sram_pace_en),
         .pace_inc(sram_pace_inc), .sample_total(sram_sample_total),
@@ -172,7 +205,7 @@ module b1i_rx_top #(
     else if (cfg_valid && cfg_addr == 8'h00 && cfg_wdata[0]) file_done <= 1'b0;
     else if (!USE_SRAM && !run && sample_count != 32'd0) file_done <= 1'b1;
   end
-  assign input_done = USE_SRAM ? sram_done : file_done;
+  assign input_done = DIRECT_SAMPLES ? direct_finished : (USE_SRAM ? sram_done : file_done);
 
   // 可编程历元：每 epoch_ms 个 1 ms 边界
   logic [31:0] ep_div, epoch_id;
@@ -221,11 +254,13 @@ module b1i_rx_top #(
     .start(acq_start), .abort(acq_abort), .ack(acq_ack),
     .dop_min(dop_min), .dop_step(dop_step), .n_bins(n_bins), .nc(nc), .thr(thr),
     .busy(acq_busy), .done(acq_done), .found(acq_found), .ready(acq_ready),
+    .input_pause(acq_input_pause),
     .ho_phase(ho_phase), .res_dop(res_dop), .res_h(res_h),
     .res_peak(res_peak), .res_mean(res_mean));
 
   // ---------------------------------------------------------------- 通道管理
   logic [N_CHANNELS-1:0] ch_enable, ch_init_load, ch_clear;
+  assign public_handover_pause = |ch_init_load;
   logic [N_CHANNELS-1:0][PRN_W-1:0] ch_prn;
   logic [N_CHANNELS-1:0][7:0] ch_gen;
   logic        ev_valid, ev_ready;
@@ -237,8 +272,9 @@ module b1i_rx_top #(
   logic [N_CHANNELS-1:0] dump_valid, dump_partial, bit_synced, sf_valid, sf_err;
   logic [N_CHANNELS-1:0] frame_synced, anchor_valid, week_valid, bit_val;
 
-  channel_manager u_mgr (
+  channel_manager #(.AUTO_SCAN(AUTO_SCAN)) u_mgr (
     .clk(clk), .rst_n(rst_n), .run(run), .ms_tick(ms_tick),
+    .search_enable(!direct_finished),
     .n_prns(n_prns), .prn_list(prn_list), .pullin_to(pullin_to), .lost_to(lost_to),
     .bit_sync_to(bit_sync_to), .frame_sync_to(frame_sync_to),
     .acq_start(acq_start), .acq_abort(acq_abort), .acq_ack(acq_ack),
@@ -265,6 +301,15 @@ module b1i_rx_top #(
   logic [N_CHANNELS-1:0]       sf_inverted;
   logic [N_CHANNELS-1:0][12:0] week;
   logic signed [CORR_ACC_W-1:0] i_p [N_CHANNELS];
+  logic [N_CHANNELS-1:0][25:0] public_ip, public_qp;
+  logic [N_CHANNELS-1:0][47:0] phase_full, phase_after;
+  logic [N_CHANNELS-1:0][31:0] carrier_phase;
+  logic [N_CHANNELS-1:0] code_wrap;
+  logic [N_CHANNELS-1:0][299:0] sf_raw;
+  logic [N_CHANNELS-1:0][9:0][1:0] sf_word_fixes;
+  logic [N_CHANNELS-1:0][9:0][63:0] sf_word_samples;
+  logic [N_CHANNELS-1:0][9:0][47:0] sf_word_phases;
+  logic [N_CHANNELS-1:0][9:0][31:0] sf_word_ms;
 
   assign ch_bit_valid = bit_synced;
   assign ch_nav_valid = frame_synced;
@@ -273,9 +318,10 @@ module b1i_rx_top #(
   generate
     for (gi = 0; gi < N_CHANNELS; gi++) begin : g_ch
       logic signed [CORR_ACC_W-1:0] ie, qe, ip, qp, il, ql;
-      channel_slice u_ch (
+      channel_slice #(.WITH_METADATA(PUBLIC_RECORDS)) u_ch (
         .clk(clk), .rst_n(rst_n), .enable(ch_enable[gi]),
         .sample_valid(sample_valid), .sample(sample),
+        .sample_count(accepted_samples),
         .code_we(gen_we && !gen_to_acq && (gen_ch == 4'(gi))),
         .code_waddr(gen_addr), .code_wdata(gen_chip),
         .init_load(ch_init_load[gi]), .clear(ch_clear[gi]),
@@ -287,16 +333,23 @@ module b1i_rx_top #(
         .fll_k(16'(FLL_K_DEFAULT)), .dll_kp(16'(DLL_KP_DEFAULT)), .dll_ki(16'(DLL_KI_DEFAULT)),
         .dump_valid(dump_valid[gi]), .dump_partial(dump_partial[gi]), .dump_ms(dump_ms[gi]),
         .i_e(ie), .q_e(qe), .i_p(ip), .q_p(qp), .i_l(il), .q_l(ql),
-        .code_phase(code_phase[gi]), .ms_count(ms_count[gi]), .epoch_tick(),
+        .code_phase(code_phase[gi]), .code_phase_full(phase_full[gi]),
+        .code_phase_after_sample(phase_after[gi]), .carrier_phase(carrier_phase[gi]),
+        .ms_count(ms_count[gi]), .epoch_tick(code_wrap[gi]),
         .freq_word(), .dop_word(dop_word[gi]), .locked(ch_locked[gi]), .lock_cnt(lock_cnt[gi]),
         .bit_synced(bit_synced[gi]), .bit_valid(), .bit_val(bit_val[gi]), .bit_ms(bit_ms[gi]),
         .sf_valid(sf_valid[gi]), .sf_id(sf_id[gi]), .sf_sow(sf_sow[gi]),
         .sf_start_ms(sf_start_ms[gi]), .sf_info(sf_info[gi]), .sf_fixes(sf_fixes[gi]),
+        .sf_raw(sf_raw[gi]), .sf_word_fixes(sf_word_fixes[gi]),
+        .sf_word_samples(sf_word_samples[gi]), .sf_word_phases(sf_word_phases[gi]),
+        .sf_word_ms(sf_word_ms[gi]),
         .sf_inverted(sf_inverted[gi]), .frame_synced(frame_synced[gi]),
         .anchor_valid(anchor_valid[gi]), .anchor_ms(anchor_ms[gi]),
         .anchor_sow(anchor_sow[gi]), .week(week[gi]), .week_valid(week_valid[gi]),
         .sf_err(sf_err[gi]));
       assign i_p[gi] = ip;
+      assign public_ip[gi] = ip;
+      assign public_qp[gi] = qp;
     end
   endgenerate
 
@@ -332,13 +385,15 @@ module b1i_rx_top #(
   logic [255:0] queued_epoch;
   logic [N_CHANNELS-1:0][255:0] queued_meas, queued_nav, queued_par;
   logic queue_overrun;
+  logic legacy_valid;
+  logic [255:0] legacy_data;
   wire record_slot_ready = !fifo_wr_valid || fifo_wr_ready;
 
   record_fifo #(.DEPTH(32)) u_fifo (
     .clk(clk), .rst_n(rst_n),
     .wr_valid(fifo_wr_valid), .wr_ready(fifo_wr_ready),
     .wr_data(fifo_wr_data),
-    .rd_valid(rec_valid), .rd_ready(rec_ready), .rd_data(rec_data),
+    .rd_valid(legacy_valid), .rd_ready(PUBLIC_RECORDS ? 1'b1 : rec_ready), .rd_data(legacy_data),
     .overflow(fifo_ov), .count(fifo_cnt));
 
   integer ni;
@@ -440,7 +495,30 @@ module b1i_rx_top #(
   assign ev_ready = record_slot_ready && ev_valid && (rs == RS_IDLE)
                     && !ep_pend && (ep_wait == 2'd0);
 
-  assign error_valid = fifo_ov || queue_overrun;
+  generate if (PUBLIC_RECORDS) begin : g_public
+    public_record_encoder u_records (
+      .clk(clk), .rst_n(rst_n), .sample_count(accepted_samples), .hardware_cycles(hardware_cycles),
+      .finish(direct_finished), .input_error(direct_input_error), .missing_ticks(direct_missing_ticks),
+      .input_ready(public_input_ready), .record_valid(rec_valid), .record_ready(rec_ready),
+      .record_data(rec_data), .overflow(public_overflow),
+      .epoch_valid(ms_tick && ep_div + 32'd1 >= epoch_ms), .epoch_id(epoch_id + 32'd1),
+      .active(ch_enable & ~ch_init_load), .locked(ch_locked), .nh_valid(bit_synced), .frame_valid(frame_synced),
+      .time_valid(anchor_valid), .prn(ch_prn), .generation(ch_gen),
+      .dump_valid(dump_valid), .dump_partial(dump_partial), .code_wrap(code_wrap),
+      .code_ms(ms_count), .dop_word(dop_word), .code_phase(phase_full), .code_after_sample(phase_after),
+      .carrier_phase(carrier_phase), .prompt_i(public_ip), .prompt_q(public_qp), .anchor_sow(anchor_sow),
+      .sf_valid(sf_valid), .sf_id(sf_id), .sf_sow(sf_sow), .sf_info(sf_info), .sf_raw(sf_raw),
+      .sf_word_fixes(sf_word_fixes), .sf_word_samples(sf_word_samples),
+      .sf_word_phases(sf_word_phases), .sf_word_ms(sf_word_ms),
+      .acq_start(acq_start), .acq_done(acq_done), .acq_found(acq_found), .acq_prn(acq_prn),
+      .acq_lag_halfchip(res_h), .acq_dop_word(res_dop), .acq_peak(res_peak),
+      .ev_valid(ev_valid && ev_ready), .ev_code(ev_code), .ev_ch(ev_ch),
+      .ev_prn(ev_prn), .ev_generation(ev_gen));
+  end else begin : g_legacy
+    assign rec_valid = legacy_valid; assign rec_data = legacy_data;
+    assign public_input_ready = 1'b1; assign public_overflow = 1'b0;
+  end endgenerate
+  assign error_valid = PUBLIC_RECORDS ? public_overflow : (fifo_ov || queue_overrun);
   assign error_code  = error_valid ? ERR_FIFO_OVERFLOW : 32'd0;
 
 endmodule

@@ -6,6 +6,7 @@
 
 rtl/common/carrier_lut.sv
 rtl/common/sample_unpacker.sv
+rtl/common/teacher_stream_frontend.sv
 rtl/common/sample_timebase.sv
 rtl/common/prn_code_gen.sv
 rtl/track/carrier_mixer_nco.sv
@@ -23,4 +24,6 @@ rtl/ctrl/channel_manager.sv
 rtl/meas/record_fifo.sv
 rtl/meas/measurement_engine.sv
 rtl/meas/epoch_aggregator.sv
+rtl/meas/public_record_encoder.sv
 rtl/b1i_rx_top.sv
+rtl/student_receiver_core.sv

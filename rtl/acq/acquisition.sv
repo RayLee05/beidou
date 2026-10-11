@@ -46,6 +46,7 @@ module acquisition #(
   output logic                          done,         // 单拍：搜索结束（found 有效）
   output logic                          found,
   output logic                          ready,        // 移交 NCO 已跟上实时流
+  output logic                          input_pause,  // 可停顿源在追赶阶段暂停，保证连续输入也能移交
   output logic [CODE_NCO_W-1:0]         ho_phase,
   output logic signed [FREQ_WORD_W-1:0] res_dop,
   output logic [11:0]                   res_h,
@@ -227,6 +228,7 @@ module acquisition #(
   assign k_total = BW'(WARM) + (nc == 2'd2 ? BW'(2 * SPM) : BW'(SPM));
   assign busy    = (st != S_IDLE);
   assign ready   = (st == S_READY);
+  assign input_pause = (st == S_CATCHUP);
   assign ho_phase = nco_run;
 
   // 第 lane 路的假设 = (h0 - lane) mod 4092

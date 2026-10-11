@@ -11,19 +11,26 @@
 // =============================================================================
 `include "b1i_params.svh"
 
-module d1_frame_sync (
+module d1_frame_sync #(parameter bit WITH_METADATA = 1'b0) (
   input  logic          clk,
   input  logic          rst_n,
   input  logic          clear,
   input  logic          bit_valid,
   input  logic          bit_val,
   input  logic [31:0]   bit_ms,         // 该比特第一个码周期的 ms 标签
+  input  logic [63:0]   bit_end_sample,
+  input  logic [47:0]   bit_end_phase,
   output logic          sf_valid,       // 单拍：一个子帧译码完成
   output logic [2:0]    sf_id,
   output logic [19:0]   sf_sow,
   output logic [31:0]   sf_start_ms,
   output logic [223:0]  sf_info,
   output logic [4:0]    sf_fixes,
+  output logic [299:0]  sf_raw,
+  output logic [9:0][1:0] sf_word_fixes,
+  output logic [9:0][63:0] sf_word_samples,
+  output logic [9:0][47:0] sf_word_phases,
+  output logic [9:0][31:0] sf_word_ms,
   output logic          sf_inverted,
   output logic          frame_synced,   // 已获得至少一个有效子帧
   output logic          anchor_valid,
@@ -47,6 +54,47 @@ module d1_frame_sync (
   logic [8:0]   ipos;           // 下一个信息位写入位置（从 223 递减）
   logic [4:0]   fixes;
   logic         bch_bad;
+  logic [9:0][1:0] word_fixes;
+  logic [3:0] word_idx;
+
+  // Circular history keeps each bit's measured END time. The next preamble
+  // arrives 11 bits after the subframe, so its current NCO state is too late.
+  // Capture the ten word-end entries during BCH decoding, before accepting
+  // another candidate. No reset of the RAM is needed: nbits guards all reads.
+  generate if (WITH_METADATA) begin : g_metadata
+    logic [143:0] tags [0:310];
+    logic [8:0] write_ptr, candidate_ptr;
+    integer read_ptr;
+    always_comb begin
+      read_ptr = int'(candidate_ptr) - (281 - 30 * int'(word_idx));
+      if (read_ptr < 0) read_ptr = read_ptr + 311;
+    end
+    always_ff @(posedge clk or negedge rst_n) begin
+      if (!rst_n) begin
+        write_ptr <= '0; candidate_ptr <= '0;
+        sf_word_samples <= '0; sf_word_phases <= '0; sf_word_ms <= '0;
+      end else if (clear) begin
+        write_ptr <= '0; candidate_ptr <= '0;
+        sf_word_samples <= '0; sf_word_phases <= '0; sf_word_ms <= '0;
+      end else begin
+        if (bit_valid) begin
+          tags[write_ptr] <= {bit_end_sample, bit_end_phase, bit_ms + 32'd20};
+          write_ptr <= (write_ptr == 9'd310) ? 9'd0 : write_ptr + 9'd1;
+          if (nbits >= 9'd310 && !dec &&
+              ((sr[309:299] == PRE && {sr[9:0], bit_val} == PRE) ||
+               (sr[309:299] == ~PRE && {sr[9:0], bit_val} == ~PRE)))
+            candidate_ptr <= write_ptr;
+        end else if (dec) begin
+          {sf_word_samples[word_idx], sf_word_phases[word_idx], sf_word_ms[word_idx]}
+            <= tags[read_ptr];
+        end
+      end
+    end
+  end else begin : g_no_metadata
+    assign sf_word_samples = '0;
+    assign sf_word_phases = '0;
+    assign sf_word_ms = '0;
+  end endgenerate
 
   // ---------------------------------------------------------------- BCH 译码（组合）
   function automatic logic [3:0] bch_syn(input logic [14:0] c);   // c[14] 为第 1 个比特
@@ -84,9 +132,8 @@ module d1_frame_sync (
   // 当前码字：cw=0 为字 1 的码字；cw=2w-1 / 2w 为字 w+1（w=1..9）的码字 1 / 码字 2
   logic [29:0] word;
   logic [14:0] cword;
-  logic [3:0]  word_idx;
   always_comb begin
-    word_idx = (cw == 5'd0) ? 4'd0 : 4'((cw + 5'd1) >> 1);
+    word_idx = (cw == 5'd0 || cw >= 5'd19) ? 4'd0 : 4'((cw + 5'd1) >> 1);
     word = sfb[299 - 30 * word_idx -: 30];             // word[29] 为该字第 1 个比特
     if (cw == 5'd0) begin
       cword = word[14:0];
@@ -108,6 +155,7 @@ module d1_frame_sync (
     if (!rst_n) begin
       sr <= '0; nbits <= '0; sfb <= '0; start_ms_q <= '0; inv_q <= 1'b0;
       dec <= 1'b0; cw <= '0; info <= '0; ipos <= '0; fixes <= '0; bch_bad <= 1'b0;
+      word_fixes <= '0; sf_raw <= '0; sf_word_fixes <= '0;
       sf_valid <= 1'b0; sf_err <= 1'b0; sf_id <= '0; sf_sow <= '0; sf_start_ms <= '0; sf_info <= '0;
       sf_fixes <= '0; sf_inverted <= 1'b0; frame_synced <= 1'b0;
       anchor_valid <= 1'b0; anchor_ms <= '0; anchor_sow <= '0; week <= '0; week_valid <= 1'b0;
@@ -115,6 +163,7 @@ module d1_frame_sync (
       // 取消译码与字段检查；cw=19 也不能在下一拍提交旧通道的子帧。
       sr <= '0; nbits <= '0; sfb <= '0; start_ms_q <= '0; inv_q <= 1'b0;
       dec <= 1'b0; cw <= '0; info <= '0; ipos <= '0; fixes <= '0; bch_bad <= 1'b0;
+      word_fixes <= '0; sf_raw <= '0; sf_word_fixes <= '0;
       sf_valid <= 1'b0; sf_err <= 1'b0; sf_id <= '0; sf_sow <= '0; sf_start_ms <= '0; sf_info <= '0;
       sf_fixes <= '0; sf_inverted <= 1'b0; frame_synced <= 1'b0;
       anchor_valid <= 1'b0; anchor_ms <= '0; anchor_sow <= '0; week <= '0; week_valid <= 1'b0;
@@ -130,10 +179,12 @@ module d1_frame_sync (
             sfb <= sr[309:10]; inv_q <= 1'b0;
             start_ms_q <= bit_ms - 32'd6200;           // 310 个比特之前
             dec <= 1'b1; cw <= '0; ipos <= 9'd223; fixes <= '0; bch_bad <= 1'b0;
+            word_fixes <= '0;
           end else if ((sr[309:299] == ~PRE) && ({sr[9:0], bit_val} == ~PRE)) begin
             sfb <= ~sr[309:10]; inv_q <= 1'b1;
             start_ms_q <= bit_ms - 32'd6200;
             dec <= 1'b1; cw <= '0; ipos <= 9'd223; fixes <= '0; bch_bad <= 1'b0;
+            word_fixes <= '0;
           end
         end
       end else if (dec) begin
@@ -146,7 +197,10 @@ module d1_frame_sync (
           info[ipos -: 11] <= fixed[14:4];
           ipos <= ipos - 9'd11;
         end
-        if (syn != 4'd0) fixes <= fixes + 5'd1;
+        if (syn != 4'd0) begin
+          fixes <= fixes + 5'd1;
+          word_fixes[word_idx] <= word_fixes[word_idx] + 2'd1;
+        end
         if (!bch_ok) bch_bad <= 1'b1;
         if (cw == 5'd18) begin
           dec <= 1'b0;
@@ -163,6 +217,8 @@ module d1_frame_sync (
           sf_start_ms  <= start_ms_q;
           sf_info      <= info;
           sf_fixes     <= fixes;
+          sf_raw       <= sfb;
+          sf_word_fixes <= word_fixes;
           sf_inverted  <= inv_q;
           frame_synced <= 1'b1;
           anchor_valid <= 1'b1;

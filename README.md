@@ -3,8 +3,9 @@
 离线 2 bit 中频样本 → 捕获 → 12 通道跟踪 → NH/D1 同步解调 → 公共历元测量记录 → RINEX 3.05 OBS/NAV，
 再由配套定位软件完成单频码定位；同一份 RTL 继续走综合、布局布线、时序与物理验证。
 
-**当前阶段：本机数字核心已接通并完成定向仿真（2026-10-04）。**
-12 通道顶层 + 捕获/跟踪/NH/D1/测量记录在；本机 ModelSim / Vivado xsim / 软件链路证据见
+**当前阶段：12 通道数字核心和教师流接口已接通，支持 PRN 1–63 自动搜索。**
+捕获/跟踪/NH/D1/测量记录已有定向回归；教师 100 s 输入的完整 RTL 信号验收仍待运行。
+此前本机 ModelSim / Vivado xsim / 软件链路证据见
 [docs/LOCAL_VERIFICATION.md](docs/LOCAL_VERIFICATION.md)。正式综合与后端仍在虚拟机 `IC`。
 
 ## 运行环境
@@ -17,7 +18,7 @@
 
 ```powershell
 python scripts/run_all.py          # 全量检查：环境、参数一致性、定点预算、架构图、参考模型、RTL 用例
-python scripts/run_all.py --quick  # 跳过绘图与 RTL 用例（无 iverilog/VCS 时）
+python scripts/run_all.py --quick  # 参数、参考模型、快速 RTL；跳过绘图和慢速 RTL
 ```
 
 ```bash
@@ -26,6 +27,47 @@ make && make TEST=tb_tracking_channel
 ```
 
 预期输出：4 项检查全部 PASS，日志写入 `reports/logs/run_all-<时间戳>.log`。
+
+## 教师任务包接口
+
+将老师原版任务包保留在 `student_release/`（不入 Git）。本仓库的
+`rtl/student_receiver_core.sv` 已实现同名接口，连接真实捕获、跟踪和同步译码模块；
+编译使用 `rtl/filelist.f`，不要同时编译老师包中的同名空壳。
+
+```powershell
+# 原版教师播放器 + 本仓库 RTL，1 ms 接口检查（含输出停顿）
+python scripts/run_teacher_receiver.py --max-bytes 4092 --stall-period 7
+
+# 完整输入，要求至少四颗星捕获及跟踪、电文和公共历元输出
+python scripts/run_teacher_receiver.py --require-signal-results --timeout 14400
+
+# 单元与系统回归
+python scripts/run_rtl_unit.py --sim modelsim
+```
+
+入口目前支持 ModelSim/Questa（通过 `MODELSIM_HOME` 或 `PATH` 定位），输出在
+`reports/sim/teacher_records.bin`，并调用老师的 `tools/check_records.py`。
+100 s 文件含 409,200,000 字节、1,636,800,000 个样本，事件仿真可能需要数小时；
+短测通过仅证明接口和计数，不代表完整捕获、导航或定位通过。
+
+教师包中的说明与播放器有两处差异，原文件保持不变：
+
+- 原播放器每次传四个文件字节，即 **16 个样本**，但 `sample_index` 每次加 4。
+  默认 `STREAM_MODE=1, TAG_STRIDE=4` 按实际字节顺序解包，并独立统计真正消费的样本；
+  标号跳变在 END 中报告。遵循说明书的四样本输入可选 `STREAM_MODE=0`。
+- 原测试模板在播放器结束后只等待 20 拍，无法保证最后 16 个样本及所有记录排空。
+  仓库测试台等待真实 END 握手。运行入口总传入 `MAX_BYTES`，避免原播放器恰好读取
+  64 KiB 整数倍文件时遗漏 `stream_last`。
+
+公共输出采用教师的 32 字节小端格式：跟踪 schema 3、逐字导航、失锁、公共观测、
+捕获和唯一 END。导航保留极性校正后的原始字（包括纠错前的错误位）、实际信息位、
+每字纠错数，以及字结束时捕获的样本号和 Q11.37 码相位。
+公共观测在同一个真实一秒边界冻结各通道的码相位与代次；只有锁定、NH、帧和时间
+条件同时成立才声明有效。输出反压会暂停样本消费，已有记录保持到握手后再释放。
+连续输入在捕获外推追赶和通道 NCO 装载期间也会暂停，随后从未消费的样本继续。
+运行入口还用老师的译码器流式复核导航原始字、信息位、纠错数和子帧字段；
+超时或验证失败的输出保留为 `.partial.bin`，验证通过后才替换正式 BIN。
+旧字节/SRAM 输入及内部记录格式仍是 `b1i_rx_top` 的默认模式。
 
 ## 目录结构
 

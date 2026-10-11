@@ -42,6 +42,9 @@ module tracking_channel (
   output logic [31:0]                     dump_ms,
   output logic signed [CORR_ACC_W-1:0]    i_e, q_e, i_p, q_p, i_l, q_l,
   output logic [CODE_PHASE_W-1:0]         code_phase,     // Q(11.21)，已处理样本
+  output logic [CODE_NCO_W-1:0]           code_phase_full,
+  output logic [CODE_NCO_W-1:0]           code_phase_after_sample,
+  output logic [NCO_PHASE_W-1:0]          carrier_phase,
   output logic [31:0]                     ms_count,
   output logic                            epoch_tick,     // 越界样本同拍（已门控）
   output logic [FREQ_WORD_W-1:0]          freq_word,
@@ -142,6 +145,9 @@ module tracking_channel (
 
   assign ms_count   = ms_q;
   assign code_phase = cp_q[CODE_NCO_W-1 -: CODE_PHASE_W];
+  assign code_phase_full = cp_q;
+  assign code_phase_after_sample = sv ? cp_next : cp_q;
+  assign carrier_phase = carr_phase;
 
   // ---------------------------------------------------------------- 环路
   track_loop u_loop (

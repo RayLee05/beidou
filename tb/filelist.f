@@ -5,15 +5,21 @@
 
 tb/unit/tb_carrier_lut.sv
 tb/unit/tb_sample_unpacker.sv
+tb/unit/tb_teacher_stream_frontend.sv
 tb/unit/tb_sample_timebase.sv
 tb/unit/tb_prn_code_gen.sv
 tb/unit/tb_nh_bit_sync.sv
+tb/unit/tb_nh_clear.sv
 tb/unit/tb_d1_frame_sync.sv
 tb/unit/tb_record_fifo.sv
+tb/unit/tb_public_record_encoder.sv
 tb/unit/tb_measurement_engine.sv
 tb/unit/tb_d1_clear.sv
 tb/unit/tb_channel_manager.sv
+tb/unit/tb_auto_scan.sv
+tb/unit/tb_acq_input_pause.sv
 tb/system/tb_tracking_channel.sv  // slow
 tb/system/tb_acquisition.sv       // slow
 tb/system/tb_b1i_rx_top.sv        // slow
 tb/system/tb_record_backpressure.sv
+tb/system/tb_public_epoch.sv

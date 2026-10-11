@@ -21,13 +21,17 @@ module nh_bit_sync #(
   input  logic                         dump_valid,
   input  logic                         dump_partial,
   input  logic [31:0]                  dump_ms,
+  input  logic [63:0]                  dump_sample_count,
+  input  logic [47:0]                  dump_code_phase,
   input  logic signed [CORR_ACC_W-1:0] i_p,
   output logic                         synced,
   output logic [4:0]                   bit_phase,  // 位起点标签 mod 20
   output logic                         bit_valid,  // 单拍
   output logic                         bit_val,
   output logic [31:0]                  bit_ms,
-  output logic [31:0]                  bit_mag     // |corr|，位质量
+  output logic [31:0]                  bit_mag,    // |corr|，位质量
+  output logic [63:0]                  bit_end_sample,
+  output logic [47:0]                  bit_end_phase
 );
 
   localparam logic [19:0] NH = 20'b00000100110101001110;   // NH[0] 在最高位（ICD 顺序）
@@ -36,6 +40,8 @@ module nh_bit_sync #(
   logic [4:0]                   nhist;         // 已有完整窗口数（饱和 20）
   logic [4:0]                   m20;           // dump_ms mod 20
   logic [31:0]                  m_tag;
+  logic [63:0]                  sample_tag;
+  logic [47:0]                  phase_tag;
   logic [4:0]                   k;
   logic                         run;
   logic signed [CORR_ACC_W+5:0] corr;
@@ -59,10 +65,14 @@ module nh_bit_sync #(
       nblk <= '0; deciding <= 1'b0; di <= '0; best_i <= '0; best_v <= '0; second_v <= '0;
       synced <= 1'b0; bit_phase <= '0; bit_valid <= 1'b0; bit_val <= 1'b0;
       bit_ms <= '0; bit_mag <= '0;
+      sample_tag <= '0; phase_tag <= '0; bit_end_sample <= '0; bit_end_phase <= '0;
     end else if (clear) begin
-      for (int i = 0; i < 20; i++) E[i] <= '0;
-      nhist <= '0; m20 <= '0; run <= 1'b0; nblk <= '0; deciding <= 1'b0;
-      synced <= 1'b0; bit_valid <= 1'b0;
+      for (int i = 0; i < 20; i++) begin hist[i] <= '0; E[i] <= '0; end
+      nhist <= '0; m20 <= '0; m_tag <= '0; k <= '0; run <= 1'b0; corr <= '0;
+      nblk <= '0; deciding <= 1'b0; di <= '0; best_i <= '0; best_v <= '0; second_v <= '0;
+      synced <= 1'b0; bit_phase <= '0; bit_valid <= 1'b0; bit_val <= 1'b0;
+      bit_ms <= '0; bit_mag <= '0;
+      sample_tag <= '0; phase_tag <= '0; bit_end_sample <= '0; bit_end_phase <= '0;
     end else begin
       bit_valid <= 1'b0;
       if (dump_valid) begin
@@ -72,6 +82,8 @@ module nh_bit_sync #(
           hist[0] <= i_p;
           nhist   <= (nhist == 5'd20) ? nhist : nhist + 5'd1;
           m_tag   <= dump_ms;
+          sample_tag <= dump_sample_count;
+          phase_tag <= dump_code_phase;
           if (nhist >= 5'd19) begin
             run  <= 1'b1;
             k    <= '0;
@@ -95,6 +107,8 @@ module nh_bit_sync #(
             bit_val   <= corr_n[CORR_ACC_W+5];
             bit_ms    <= m_tag - 32'd19;
             bit_mag   <= corr_abs;
+            bit_end_sample <= sample_tag;
+            bit_end_phase <= phase_tag;
           end
         end
         k <= k + 5'd1;
