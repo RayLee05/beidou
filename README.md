@@ -12,7 +12,8 @@
 
 **正式 RTL 仿真与综合在虚拟机 `IC` 上做**（Synopsys VCS + Design Compiler），
 入口是仓库根目录的 `make` 与 `scripts/dc_synth.tcl`；
-本机只用于写代码、跑 Python 参考模型、生成测试向量。详见 [docs/TOOLCHAIN.md](docs/TOOLCHAIN.md)。
+本机可进行代码开发、Python 参考模型、向量生成和 ModelSim/Questa RTL 回归。
+详见 [docs/TOOLCHAIN.md](docs/TOOLCHAIN.md)。
 
 ## 快速开始
 
@@ -30,13 +31,17 @@ make && make TEST=tb_tracking_channel
 
 ## 教师任务包接口
 
-将老师原版任务包保留在 `student_release/`（不入 Git）。本仓库的
+新版任务包位于 `student_release1/student_release/`（不入 Git），运行脚本默认优先选择新版；
+旧包 `student_release/` 仍可通过 `--release` 显式使用。本仓库的
 `rtl/student_receiver_core.sv` 已实现同名接口，连接真实捕获、跟踪和同步译码模块；
 编译使用 `rtl/filelist.f`，不要同时编译老师包中的同名空壳。
 
 ```powershell
-# 原版教师播放器 + 本仓库 RTL，1 ms 接口检查（含输出停顿）
+# 新版教师播放器 + 本仓库 RTL，1 ms 接口检查（含输出停顿）
 python scripts/run_teacher_receiver.py --max-bytes 4092 --stall-period 7
+
+# 独立验证采样顺序、标号、背压与 64 KiB 缓冲区跨越
+python scripts/run_teacher_receiver.py --max-bytes 65540 --check-stream-only
 
 # 完整输入，要求至少四颗星捕获及跟踪、电文和公共历元输出
 python scripts/run_teacher_receiver.py --require-signal-results --timeout 14400
@@ -50,14 +55,17 @@ python scripts/run_rtl_unit.py --sim modelsim
 100 s 文件含 409,200,000 字节、1,636,800,000 个样本，事件仿真可能需要数小时；
 短测通过仅证明接口和计数，不代表完整捕获、导航或定位通过。
 
-教师包中的说明与播放器有两处差异，原文件保持不变：
+2026-10-13 新版教师包已统一输入约定，接收机默认使用 `STREAM_MODE=2, TAG_STRIDE=16`：
 
-- 原播放器每次传四个文件字节，即 **16 个样本**，但 `sample_index` 每次加 4。
-  默认 `STREAM_MODE=1, TAG_STRIDE=4` 按实际字节顺序解包，并独立统计真正消费的样本；
-  标号跳变在 END 中报告。遵循说明书的四样本输入可选 `STREAM_MODE=0`。
-- 原测试模板在播放器结束后只等待 20 拍，无法保证最后 16 个样本及所有记录排空。
-  仓库测试台等待真实 END 握手。运行入口总传入 `MAX_BYTES`，避免原播放器恰好读取
-  64 KiB 整数倍文件时遗漏 `stream_last`。
+- 每次 32 位握手传输 **16 个样本**，`[1:0]` 最早、`[31:30]` 最晚，标号每次增加 16。
+- IF2 文件仍为字节内 MSB-first；新版播放器已重排为总线低位先行，接收端直接解包。
+- 新模板等待 END；仓库也在全部样本及队列排空后结束。入口仍显式提供 `MAX_BYTES`，
+  处理播放器在 64 KiB 整数倍输入上遗漏 `stream_last` 的边界问题。
+- 每次运行先将原播放器解包输出与文件时间顺序逐样本独立比对，检查成功后才运行接收机。
+  `--release student_release` 自动选择已验证旧播放器所需的 `STREAM_MODE=1, TAG_STRIDE=4`；
+  四样本低位先行的旧接口仍可选择 `STREAM_MODE=0`。
+
+新版差异、验证结果和复现命令见 [TEACHER_STREAM_UPDATE.md](docs/TEACHER_STREAM_UPDATE.md)。
 
 公共输出采用教师的 32 字节小端格式：跟踪 schema 3、逐字导航、失锁、公共观测、
 捕获和唯一 END。导航保留极性校正后的原始字（包括纠错前的错误位）、实际信息位、

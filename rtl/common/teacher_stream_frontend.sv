@@ -1,10 +1,12 @@
-// Teacher player MODE=1: four file bytes per transfer, 16 IF2 samples;
+// Current teacher player MODE=2: 16 samples, stream_data[1:0] earliest;
+// sample_index advances by 16. The player already reverses file-byte pairs.
+// Legacy teacher player MODE=1: four file bytes per transfer, 16 IF2 samples;
 // byte 0 is stream_data[7:0], and its most significant pair comes first.
-// Contract MODE=0: four samples in stream_data[7:0], least significant first.
+// Legacy contract MODE=0: four samples in stream_data[7:0], earliest at [1:0].
 // Transfer tags are checked separately from the actual accepted sample count.
 module teacher_stream_frontend #(
-  parameter integer MODE = 1,
-  parameter integer TAG_STRIDE = 4
+  parameter integer MODE = 2,
+  parameter integer TAG_STRIDE = MODE == 2 ? 16 : 4
 ) (
   input logic clk, rst_n, start,
   input logic [31:0] stream_data,
@@ -18,7 +20,7 @@ module teacher_stream_frontend #(
   output logic input_error,
   output logic [63:0] missing_ticks
 );
-  localparam integer SAMPLES = MODE == 1 ? 16 : 4;
+  localparam integer SAMPLES = MODE == 0 ? 4 : 16;
   logic [31:0] word_q;
   logic [4:0] index_q;
   logic full, last_q, active, started;
@@ -28,7 +30,7 @@ module teacher_stream_frontend #(
   wire take_word = stream_valid && stream_ready;
 
   initial begin
-    if (MODE != 0 && MODE != 1) $fatal(1, "Unsupported stream MODE");
+    if (MODE != 0 && MODE != 1 && MODE != 2) $fatal(1, "Unsupported stream MODE");
     if (TAG_STRIDE < 1 || SAMPLES % TAG_STRIDE != 0)
       $fatal(1, "TAG_STRIDE must divide samples per transfer");
   end

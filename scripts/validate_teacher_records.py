@@ -8,6 +8,7 @@ import argparse
 from collections import Counter
 from pathlib import Path
 import sys
+from teacher_release import resolve_release
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -113,7 +114,7 @@ def validate(path: Path, release: Path, expected_samples: int,
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("input", type=Path)
-    parser.add_argument("--release", type=Path, default=ROOT / "student_release")
+    parser.add_argument("--release", type=Path)
     parser.add_argument("--expected-samples", type=int, required=True)
     parser.add_argument("--minimum-acquisitions", type=int, default=0)
     parser.add_argument("--require-signal-results", action="store_true")
@@ -121,7 +122,7 @@ def main() -> None:
     if args.expected_samples <= 0 or args.minimum_acquisitions < 0:
         parser.error("invalid expected samples or acquisition minimum")
     try:
-        result = validate(args.input.resolve(), args.release.resolve(), args.expected_samples,
+        result = validate(args.input.resolve(), resolve_release(args.release), args.expected_samples,
                           args.minimum_acquisitions, args.require_signal_results)
     except (OSError, ImportError, ValueError) as error:
         raise SystemExit(f"FAIL: {error}")

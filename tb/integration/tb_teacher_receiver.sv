@@ -1,7 +1,10 @@
 `timescale 1ns/1ps
 // Uses the original teacher file player. Unlike its template, this bench waits
 // for the accepted END record after the final word has actually been consumed.
-module tb_teacher_receiver;
+module tb_teacher_receiver #(
+  parameter integer STREAM_MODE = 2,
+  parameter integer TAG_STRIDE = STREAM_MODE == 2 ? 16 : 4
+);
   logic clk=0, reset_n=0, start=0;
   always #5 clk=~clk;
   logic [31:0] stream_data;
@@ -16,7 +19,7 @@ module tb_teacher_receiver;
     .clk(clk), .reset_n(reset_n), .start(start), .stream_data(stream_data),
     .stream_valid(stream_valid), .stream_ready(stream_ready), .stream_last(stream_last),
     .sample_index(sample_index), .busy(), .done(player_done), .error(player_error));
-  student_receiver_core dut (.*);
+  student_receiver_core #(.STREAM_MODE(STREAM_MODE), .TAG_STRIDE(TAG_STRIDE)) dut (.*);
   always @(negedge clk) if (reset_n) begin
     cycles++;
     record_ready=(stall_period<2 || cycles%stall_period!=0);

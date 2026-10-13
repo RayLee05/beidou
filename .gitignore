@@ -10,6 +10,7 @@ data/input/*
 !data/input/.gitkeep
 *.if2
 /student_release/
+/student_release1/
 /reports/public_run/
 deliverables/**/*.zip
 student_rease/**/output/

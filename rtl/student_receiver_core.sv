@@ -1,9 +1,9 @@
 // Drop-in implementation of the teacher's student_receiver_core interface.
-// MODE=1 matches the supplied file player's actual byte mapping and tag stride.
-// Use MODE=0 for a producer implementing the documented four-sample contract.
+// MODE=2 matches the corrected teacher player: 16 samples, earliest at [1:0].
+// MODE=1 retains the original player; MODE=0 retains the old four-sample input.
 module student_receiver_core #(
-  parameter integer STREAM_MODE = 1,
-  parameter integer TAG_STRIDE = 4,
+  parameter integer STREAM_MODE = 2,
+  parameter integer TAG_STRIDE = STREAM_MODE == 2 ? 16 : 4,
   parameter integer N_LANES = 64,
   parameter integer BUF_DEPTH = 33024
 ) (

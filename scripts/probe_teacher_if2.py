@@ -8,9 +8,11 @@ from __future__ import annotations
 import argparse
 import os
 import sys
+from pathlib import Path
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from _common import ROOT, SW_DIR, bootstrap, write_json  # noqa: E402
+from teacher_release import resolve_release  # noqa: E402
 
 bootstrap()
 sys.path.insert(0, SW_DIR)
@@ -20,7 +22,6 @@ from b1i_ref import params as _p, prn_b1i  # noqa: E402
 from b1i_ref.acquisition import ncoh_on_grid, coarse_doppler_grid  # noqa: E402
 
 P = _p.P
-IF2 = os.path.join(ROOT, "student_rease", "student_release", "input", "scenario.if2")
 LUT = np.array([-3, -1, 1, 3], dtype=np.int8)
 
 
@@ -40,9 +41,19 @@ def main() -> int:
     ap.add_argument("--ms", type=int, default=10)
     ap.add_argument("--offset-ms", type=int, default=0)
     ap.add_argument("--span", type=float, default=10000.0)
+    ap.add_argument("--release", type=Path)
+    ap.add_argument("--input", type=Path)
     ap.add_argument("--out", default="reports/teacher_probe.json")
     a = ap.parse_args()
-    x = read_samples(IF2, a.offset_ms, a.ms)
+    try:
+        input_path = a.input or resolve_release(a.release) / "input/scenario.if2"
+    except ValueError as error:
+        ap.error(str(error))
+    if a.ms < 1 or a.offset_ms < 0:
+        ap.error("--ms must be positive and --offset-ms nonnegative")
+    x = read_samples(str(input_path), a.offset_ms, a.ms)
+    if len(x) != a.ms * P.samples_per_ms:
+        ap.error("requested IF2 interval exceeds available input")
     grid = coarse_doppler_grid(a.span, 500.0)
     rows = []
     for prn in sorted(prn_b1i.G2_TAPS):
