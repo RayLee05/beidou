@@ -1,0 +1,10 @@
+test_current_and_four_sample_contracts (__main__.TeacherReleaseTests.test_current_and_four_sample_contracts) ... ok
+test_invalid_and_explicit_tag_stride (__main__.TeacherReleaseTests.test_invalid_and_explicit_tag_stride) ... ok
+test_missing_package_does_not_silently_use_another (__main__.TeacherReleaseTests.test_missing_package_does_not_silently_use_another) ... ok
+test_new_nested_package_precedes_original (__main__.TeacherReleaseTests.test_new_nested_package_precedes_original) ... ok
+test_unsupported_contract_requires_explicit_selection (__main__.TeacherReleaseTests.test_unsupported_contract_requires_explicit_selection) ... ok
+
+----------------------------------------------------------------------
+Ran 5 tests in 0.032s
+
+OK

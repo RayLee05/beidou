@@ -1,0 +1,41 @@
+{
+  "date": "2026-10-12",
+  "report_version": "2.0",
+  "rtl_git_revision": "dfaeb882b6e96784633a3e9c6e89eccb30ce1bbd",
+  "rtl_sources_unchanged": true,
+  "report_render_backend": "Microsoft Word 16 native PDF export; documents skill render_docx.py rasterization; Windows LibreOffice unavailable",
+  "reports": [
+    {
+      "file": "01_捕获模块设计报告.docx",
+      "sha256": "aea6ff8b19df22b9e18d1e20add1b3236eeeae4860b756ce29acd1d01cff8a3a",
+      "pages": 7,
+      "figures": 3,
+      "native_math_equations": 5,
+      "all_pages_visually_inspected": true,
+      "png_pages": 7
+    },
+    {
+      "file": "02_码跟踪锁频锁相环报告.docx",
+      "sha256": "a53bcee5954d9e54ebcd554283a437604e749150b87e89402629b28e47396b0c",
+      "pages": 7,
+      "figures": 3,
+      "native_math_equations": 7,
+      "all_pages_visually_inspected": true,
+      "png_pages": 7
+    },
+    {
+      "file": "03_位同步与导航电文解调报告.docx",
+      "sha256": "4816625e8afb4a53d20e18ac9ad18279bbf70a0e9c887c7911b086f1fb616434",
+      "pages": 7,
+      "figures": 2,
+      "native_math_equations": 3,
+      "all_pages_visually_inspected": true,
+      "png_pages": 7
+    }
+  ],
+  "checked_file_links": 46,
+  "rtl_regression": "20/20 PASS on ModelSim SE-64 10.5",
+  "independent_rtl_navigation": "50 NAV words / 5 subframes and 1 END; expected samples 732076990",
+  "independent_software_navigation": "960 NAV words / 96 subframes; six PRNs; 100 s software reference",
+  "report_original_backups": ".scratch/report_revision_20261012/originals"
+}

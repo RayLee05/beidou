@@ -1,0 +1,95 @@
+{
+  "revision_date": "2026-10-13",
+  "implementation_git": "2556e76",
+  "rtl_banner": {
+    "generated_at": "2026-10-13T20:04:51+08:00",
+    "python": "3.12.14",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "machine": "AMD64",
+    "git_revision": "dfaeb88",
+    "git_dirty": true
+  },
+  "note": "Original log version retained. Tested working-tree RTL subsequently committed as 2556e76; 2026-10-12 plot data and software evidence retained separately.",
+  "stream": {
+    "origin": "RTL student_receiver_core with original teacher file player",
+    "release": "D:\\A_workfiles\\codexwork\\beidou\\student_release1\\student_release",
+    "stream": {
+      "mode": "lsb16",
+      "rtl_mode": 2,
+      "tag_stride": 16,
+      "samples_per_transfer": 16,
+      "earliest_pair": "stream_data[1:0]",
+      "package_id": "B1I_PUBLIC_STATIC_SIX_40DBHZ_V1"
+    },
+    "stream_check": {
+      "release": "D:\\A_workfiles\\codexwork\\beidou\\student_release1\\student_release",
+      "input": "D:\\A_workfiles\\codexwork\\beidou\\student_release1\\student_release\\input\\scenario.if2",
+      "mode": "lsb16",
+      "rtl_mode": 2,
+      "tag_stride": 16,
+      "samples_per_transfer": 16,
+      "earliest_pair": "stream_data[1:0]",
+      "package_id": "B1I_PUBLIC_STATIC_SIX_40DBHZ_V1",
+      "compared_samples": 262160,
+      "passed": true,
+      "status": "passed",
+      "reference": "chronological MSB-first file pairs, independent of stream bus layout"
+    },
+    "input": "D:\\A_workfiles\\codexwork\\beidou\\student_release1\\student_release\\input\\scenario.if2",
+    "input_bytes": 65540,
+    "accepted_samples": 262160,
+    "full_input": false,
+    "signal_results_required": false,
+    "output": "D:\\A_workfiles\\codexwork\\beidou\\reports\\sim\\teacher_v2_smoke.bin",
+    "record_count": 1,
+    "validation": {
+      "records": 1,
+      "types": {
+        "end": 1
+      },
+      "detected_prns": [],
+      "locked_tracking": 0,
+      "valid_common": 0,
+      "independently_decoded_subframes": 0
+    }
+  },
+  "validation": {
+    "rtl_navigation": {
+      "records": 51,
+      "types": {
+        "navigation": 50,
+        "end": 1
+      },
+      "detected_prns": [],
+      "locked_tracking": 0,
+      "valid_common": 0,
+      "independently_decoded_subframes": 5
+    },
+    "historical_software": {
+      "records": 601561,
+      "types": {
+        "tracking": 599994,
+        "acquisition": 6,
+        "navigation": 960,
+        "common_observation": 600,
+        "end": 1
+      },
+      "detected_prns": [
+        8,
+        11,
+        13,
+        21,
+        28,
+        39
+      ],
+      "locked_tracking": 593994,
+      "valid_common": 528,
+      "independently_decoded_subframes": 96
+    }
+  },
+  "hashes": {
+    "public_navigation.bin": "d84355feab68bd51d4c44566e35293eefef857581b9a81e008de5fce7834fd5b",
+    "teacher_legacy_smoke.bin": "249823d6949ddd0eb6da666087f4a8835cbd2fbaf1716e580c64027462d824e9",
+    "teacher_v2_smoke.bin": "249823d6949ddd0eb6da666087f4a8835cbd2fbaf1716e580c64027462d824e9"
+  }
+}

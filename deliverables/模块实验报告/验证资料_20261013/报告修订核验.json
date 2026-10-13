@@ -1,0 +1,34 @@
+{
+  "date": "2026-10-13",
+  "renderer": "Microsoft Word PDF export + skill render_docx.py Poppler rasterization, 150 dpi",
+  "visually_inspected_pages": 32,
+  "reports": [
+    {
+      "path": "deliverables\\模块实验报告\\01_捕获模块设计报告.docx",
+      "pages": 8,
+      "native_equations": 5,
+      "sha256": "f627a570f815d477c21c9731b49d9c518abd68e5b073abf7e14aeb6a59604694"
+    },
+    {
+      "path": "deliverables\\模块实验报告\\02_码跟踪锁频锁相环报告.docx",
+      "pages": 8,
+      "native_equations": 7,
+      "sha256": "54f31134658e0bc183d13af843bef1843da3667292f48c375356ba5819ccf00c"
+    },
+    {
+      "path": "deliverables\\模块实验报告\\03_位同步与导航电文解调报告.docx",
+      "pages": 8,
+      "native_equations": 3,
+      "sha256": "5e10de0d67453ce038fc60be76588a837da57677986df51d179c4193012688e3"
+    },
+    {
+      "path": "deliverables\\总体架构方案\\北斗B1I基带处理器_总体架构方案.docx",
+      "pages": 8,
+      "native_equations": 0,
+      "sha256": "67b95c4ebb6172a1e98153e6c1379c65e2b59e2553536efaa0991e33a2f5028c"
+    }
+  ],
+  "all_pages_visually_inspected": true,
+  "final_revision_checks": "32 final pages inspected; 24 unchanged images hash-identical after final edits, 8 changed pages inspected again; no clipping, overlap, orphan pages or missing glyphs.",
+  "local_material_links_verified": 95
+}

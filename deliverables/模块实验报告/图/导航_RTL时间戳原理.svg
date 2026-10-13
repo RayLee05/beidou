@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE svg
+  PUBLIC '-//W3C//DTD SVG 1.0//EN'
+  'http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd'>
+<svg width="730" height="250" preserveAspectRatio="xMinYMin meet" viewBox="0 0 730 250" xmlns="http://www.w3.org/2000/svg" version="1.0" fill-rule="evenodd" xmlns:xlink="http://www.w3.org/1999/xlink">
+	<title>...</title>
+	<desc>...</desc>
+	<clipPath id="clip">
+		<rect x="0" y="0" width="730" height="250"/>
+	</clipPath>
+	<g id="group" transform="scale(1,-1) translate(0,-250)" style="clip-path: url(#clip)">
+		<g transform="">
+			<text x="52" y="225" style="font-family: Helvetica; font-size: 13px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,450) scale(1,-1)">D1 subframe confirmation and measured word END timestamps</text>
+			<rect x="60.0" y="120" width="54.0" height="40" style="stroke: rgb(12%,38%,55%); stroke-linecap: butt; stroke-width: 0.6; fill: rgb(91%,94%,97%); fill-rule: evenodd;"/>
+			<text x="73.0" y="135" style="font-family: Helvetica; font-size: 11px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,270) scale(1,-1)">W1</text>
+			<path d="M 114,95 L 114,118 Z" style="stroke: rgb(12%,38%,55%); stroke-linecap: butt; stroke-width: 0.7;"/>
+			<text x="105.0" y="76" style="font-family: Helvetica; font-size: 10px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,152) scale(1,-1)">30</text>
+			<rect x="114.0" y="120" width="54.0" height="40" style="stroke: rgb(12%,38%,55%); stroke-linecap: butt; stroke-width: 0.6; fill: rgb(91%,94%,97%); fill-rule: evenodd;"/>
+			<text x="127.0" y="135" style="font-family: Helvetica; font-size: 11px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,270) scale(1,-1)">W2</text>
+			<path d="M 168,95 L 168,118 Z" style="stroke: rgb(12%,38%,55%); stroke-linecap: butt; stroke-width: 0.7;"/>
+			<text x="159.0" y="76" style="font-family: Helvetica; font-size: 10px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,152) scale(1,-1)">60</text>
+			<rect x="168.0" y="120" width="54.0" height="40" style="stroke: rgb(12%,38%,55%); stroke-linecap: butt; stroke-width: 0.6; fill: rgb(91%,94%,97%); fill-rule: evenodd;"/>
+			<text x="181.0" y="135" style="font-family: Helvetica; font-size: 11px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,270) scale(1,-1)">W3</text>
+			<path d="M 222,95 L 222,118 Z" style="stroke: rgb(12%,38%,55%); stroke-linecap: butt; stroke-width: 0.7;"/>
+			<text x="213.0" y="76" style="font-family: Helvetica; font-size: 10px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,152) scale(1,-1)">90</text>
+			<rect x="222.0" y="120" width="54.0" height="40" style="stroke: rgb(12%,38%,55%); stroke-linecap: butt; stroke-width: 0.6; fill: rgb(91%,94%,97%); fill-rule: evenodd;"/>
+			<text x="235.0" y="135" style="font-family: Helvetica; font-size: 11px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,270) scale(1,-1)">W4</text>
+			<path d="M 276,95 L 276,118 Z" style="stroke: rgb(12%,38%,55%); stroke-linecap: butt; stroke-width: 0.7;"/>
+			<text x="267.0" y="76" style="font-family: Helvetica; font-size: 10px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,152) scale(1,-1)">120</text>
+			<rect x="276.0" y="120" width="54.0" height="40" style="stroke: rgb(12%,38%,55%); stroke-linecap: butt; stroke-width: 0.6; fill: rgb(91%,94%,97%); fill-rule: evenodd;"/>
+			<text x="289.0" y="135" style="font-family: Helvetica; font-size: 11px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,270) scale(1,-1)">W5</text>
+			<path d="M 330,95 L 330,118 Z" style="stroke: rgb(12%,38%,55%); stroke-linecap: butt; stroke-width: 0.7;"/>
+			<text x="321.0" y="76" style="font-family: Helvetica; font-size: 10px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,152) scale(1,-1)">150</text>
+			<rect x="330.0" y="120" width="54.0" height="40" style="stroke: rgb(12%,38%,55%); stroke-linecap: butt; stroke-width: 0.6; fill: rgb(91%,94%,97%); fill-rule: evenodd;"/>
+			<text x="343.0" y="135" style="font-family: Helvetica; font-size: 11px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,270) scale(1,-1)">W6</text>
+			<path d="M 384,95 L 384,118 Z" style="stroke: rgb(12%,38%,55%); stroke-linecap: butt; stroke-width: 0.7;"/>
+			<text x="375.0" y="76" style="font-family: Helvetica; font-size: 10px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,152) scale(1,-1)">180</text>
+			<rect x="384.0" y="120" width="54.0" height="40" style="stroke: rgb(12%,38%,55%); stroke-linecap: butt; stroke-width: 0.6; fill: rgb(91%,94%,97%); fill-rule: evenodd;"/>
+			<text x="397.0" y="135" style="font-family: Helvetica; font-size: 11px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,270) scale(1,-1)">W7</text>
+			<path d="M 438,95 L 438,118 Z" style="stroke: rgb(12%,38%,55%); stroke-linecap: butt; stroke-width: 0.7;"/>
+			<text x="429.0" y="76" style="font-family: Helvetica; font-size: 10px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,152) scale(1,-1)">210</text>
+			<rect x="438.0" y="120" width="54.0" height="40" style="stroke: rgb(12%,38%,55%); stroke-linecap: butt; stroke-width: 0.6; fill: rgb(91%,94%,97%); fill-rule: evenodd;"/>
+			<text x="451.0" y="135" style="font-family: Helvetica; font-size: 11px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,270) scale(1,-1)">W8</text>
+			<path d="M 492,95 L 492,118 Z" style="stroke: rgb(12%,38%,55%); stroke-linecap: butt; stroke-width: 0.7;"/>
+			<text x="483.0" y="76" style="font-family: Helvetica; font-size: 10px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,152) scale(1,-1)">240</text>
+			<rect x="492.0" y="120" width="54.0" height="40" style="stroke: rgb(12%,38%,55%); stroke-linecap: butt; stroke-width: 0.6; fill: rgb(91%,94%,97%); fill-rule: evenodd;"/>
+			<text x="505.0" y="135" style="font-family: Helvetica; font-size: 11px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,270) scale(1,-1)">W9</text>
+			<path d="M 546,95 L 546,118 Z" style="stroke: rgb(12%,38%,55%); stroke-linecap: butt; stroke-width: 0.7;"/>
+			<text x="537.0" y="76" style="font-family: Helvetica; font-size: 10px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,152) scale(1,-1)">270</text>
+			<rect x="546.0" y="120" width="54.0" height="40" style="stroke: rgb(12%,38%,55%); stroke-linecap: butt; stroke-width: 0.6; fill: rgb(91%,94%,97%); fill-rule: evenodd;"/>
+			<text x="559.0" y="135" style="font-family: Helvetica; font-size: 11px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,270) scale(1,-1)">W10</text>
+			<path d="M 600,95 L 600,118 Z" style="stroke: rgb(12%,38%,55%); stroke-linecap: butt; stroke-width: 0.7;"/>
+			<text x="591.0" y="76" style="font-family: Helvetica; font-size: 10px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,152) scale(1,-1)">300</text>
+			<rect x="600.0" y="120" width="19.799999999999955" height="40" style="stroke: rgb(69%,22%,18%); stroke-linecap: butt; stroke-width: 0.6; fill: rgb(98%,85%,84%); fill-rule: evenodd;"/>
+			<text x="576.0" y="177" style="font-family: Helvetica; font-size: 11px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,354) scale(1,-1)">Next preamble: 11 bits</text>
+			<path d="M 600,57 L 619.8,57 Z" style="stroke: rgb(69%,22%,18%); stroke-linecap: butt; stroke-width: 1.2;"/>
+			<text x="370" y="30" style="font-family: Helvetica; font-size: 11px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,60) scale(1,-1)">Decode starts after the next 11-bit preamble (220 ms)</text>
+			<text x="60" y="193" style="font-family: Helvetica; font-size: 11px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,386) scale(1,-1)">Store actual END sample count and NCO phase at each word boundary.</text>
+			<text x="61" y="76" style="font-family: Helvetica; font-size: 10px;fill: rgb(0%,0%,0%); stroke:none;" transform="translate(0,152) scale(1,-1)">0</text>
+		</g>
+	</g>
+</svg>

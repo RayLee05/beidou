@@ -1,0 +1,42 @@
+{
+  "origin": "RTL student_receiver_core with original teacher file player",
+  "release": "D:\\A_workfiles\\codexwork\\beidou\\student_release",
+  "stream": {
+    "mode": "legacy16",
+    "rtl_mode": 1,
+    "tag_stride": 4,
+    "samples_per_transfer": 16,
+    "earliest_pair": "stream_data[7:6]",
+    "package_id": "B1I_PUBLIC_STATIC_SIX_40DBHZ_V1"
+  },
+  "stream_check": {
+    "release": "D:\\A_workfiles\\codexwork\\beidou\\student_release",
+    "input": "D:\\A_workfiles\\codexwork\\beidou\\student_release\\input\\scenario.if2",
+    "mode": "legacy16",
+    "rtl_mode": 1,
+    "tag_stride": 4,
+    "samples_per_transfer": 16,
+    "earliest_pair": "stream_data[7:6]",
+    "package_id": "B1I_PUBLIC_STATIC_SIX_40DBHZ_V1",
+    "compared_samples": 262160,
+    "passed": true,
+    "reference": "chronological MSB-first file pairs, independent of stream bus layout"
+  },
+  "input": "D:\\A_workfiles\\codexwork\\beidou\\student_release\\input\\scenario.if2",
+  "input_bytes": 65540,
+  "accepted_samples": 262160,
+  "full_input": false,
+  "signal_results_required": false,
+  "output": "D:\\A_workfiles\\codexwork\\beidou\\reports\\sim\\teacher_legacy_smoke.bin",
+  "record_count": 1,
+  "validation": {
+    "records": 1,
+    "types": {
+      "end": 1
+    },
+    "detected_prns": [],
+    "locked_tracking": 0,
+    "valid_common": 0,
+    "independently_decoded_subframes": 0
+  }
+}

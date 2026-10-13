@@ -1,0 +1,748 @@
+{
+  "rtl": {
+    "banner": {
+      "generated_at": "2026-10-12T13:57:00+08:00",
+      "python": "3.12.14",
+      "platform": "Windows-11-10.0.26200-SP0",
+      "machine": "AMD64",
+      "git_revision": "dfaeb88",
+      "git_dirty": true
+    },
+    "total": 20,
+    "passed": 20,
+    "tests": [
+      {
+        "name": "tb_carrier_lut",
+        "passed": true,
+        "details": "TEST PASSED"
+      },
+      {
+        "name": "tb_sample_unpacker",
+        "passed": true,
+        "details": "TEST PASSED"
+      },
+      {
+        "name": "tb_teacher_stream_frontend",
+        "passed": true,
+        "details": "TEST PASSED"
+      },
+      {
+        "name": "tb_sample_timebase",
+        "passed": true,
+        "details": "TEST PASSED"
+      },
+      {
+        "name": "tb_prn_code_gen",
+        "passed": true,
+        "details": "TEST PASSED"
+      },
+      {
+        "name": "tb_nh_bit_sync",
+        "passed": true,
+        "details": "synced=1 phase=13 (expected 13), 59 bits checked, polarity 0\nTEST PASSED"
+      },
+      {
+        "name": "tb_nh_clear",
+        "passed": true,
+        "details": "TEST PASSED"
+      },
+      {
+        "name": "tb_d1_frame_sync",
+        "passed": true,
+        "details": "subframe: id=4 sow=345618 start_ms=3740 fixes=0 inverted=0\nsubframe: id=5 sow=345624 start_ms=9740 fixes=0 inverted=0\nsubframe: id=1 sow=345630 start_ms=15740 fixes=1 inverted=0\nsubframe: id=3 sow=345642 start_ms=27740 fixes=0 inverted=1\nsubframe: id=4 sow=345648 start_ms=33740 fixes=0 inverted=1\n5 subframes, total BCH fixes 1, week=950 valid=1\nTEST PASSED"
+      },
+      {
+        "name": "tb_record_fifo",
+        "passed": true,
+        "details": "TEST PASSED"
+      },
+      {
+        "name": "tb_public_record_encoder",
+        "passed": true,
+        "details": "TEST PASSED"
+      },
+      {
+        "name": "tb_measurement_engine",
+        "passed": true,
+        "details": "TEST PASSED"
+      },
+      {
+        "name": "tb_d1_clear",
+        "passed": true,
+        "details": "TEST PASSED"
+      },
+      {
+        "name": "tb_channel_manager",
+        "passed": true,
+        "details": "TEST PASSED"
+      },
+      {
+        "name": "tb_auto_scan",
+        "passed": true,
+        "details": "TEST PASSED"
+      },
+      {
+        "name": "tb_acq_input_pause",
+        "passed": true,
+        "details": "TEST PASSED"
+      },
+      {
+        "name": "tb_tracking_channel",
+        "passed": true,
+        "details": "vectors: 1227600 bytes, 300 windows\nwin    0: ip=-90081 qp=231313 dop=-352462 locked=0\nwin   50: ip=-420657 qp=261163 dop=-376166 locked=0\nwin  100: ip=-384955 qp=413580 dop=-378249 locked=0\nwin  150: ip=-434532 qp=381377 dop=-378238 locked=0\nwin  200: ip=-479936 qp=199300 dop=-378529 locked=0\nwin  250: ip=-629558 qp=51842 dop=-378886 locked=1\ncompared 300 windows, 0 mismatches, final locked=1\nTEST PASSED"
+      },
+      {
+        "name": "tb_acquisition",
+        "passed": true,
+        "details": "target PRN 10, absent PRN 6, 5 bins, 2659800 bytes\nacq done @1791804 samples: found=1 h=3192 dop=65600 peak=1013221 mean=210098\nabsent PRN 6: found=0 peak=656283 mean=207882\nTEST PASSED"
+      },
+      {
+        "name": "tb_b1i_rx_top",
+        "passed": true,
+        "details": "records=13 epoch=1 meas=12 status=0 last=1 enable0=1\nTEST PASSED"
+      },
+      {
+        "name": "tb_record_backpressure",
+        "passed": true,
+        "details": "TEST PASSED"
+      },
+      {
+        "name": "tb_public_epoch",
+        "passed": true,
+        "details": "TEST PASSED"
+      }
+    ]
+  },
+  "software_acquisition": {
+    "source": "git stash 75dd9df^3:sw/b1i_ref/offline_receiver.py",
+    "source_sha256": "7599a44b9f583d30c40ba260f1b9025ffdabdb33d83ca58f6c1d14ac2206eaab",
+    "input_bytes": 40920,
+    "samples": 163680,
+    "map_matches_archive": true,
+    "max_map_difference": 0.0,
+    "hits": [
+      {
+        "prn": 11,
+        "doppler_hz": -3000.0,
+        "lag_samples": 2024,
+        "peak_power": 5234499.996882414,
+        "peak_ratio": 8.216581636735848,
+        "detected": true
+      },
+      {
+        "prn": 21,
+        "doppler_hz": -1500.0,
+        "lag_samples": 6099,
+        "peak_power": 4121258.8605831303,
+        "peak_ratio": 7.194549247756138,
+        "detected": true
+      },
+      {
+        "prn": 8,
+        "doppler_hz": 500.0,
+        "lag_samples": 12603,
+        "peak_power": 4215746.265309638,
+        "peak_ratio": 6.6079703017892815,
+        "detected": true
+      },
+      {
+        "prn": 13,
+        "doppler_hz": 500.0,
+        "lag_samples": 1563,
+        "peak_power": 4230680.2632284295,
+        "peak_ratio": 6.437128817835963,
+        "detected": true
+      },
+      {
+        "prn": 39,
+        "doppler_hz": 500.0,
+        "lag_samples": 13909,
+        "peak_power": 4063369.6617656103,
+        "peak_ratio": 5.82281045217531,
+        "detected": true
+      },
+      {
+        "prn": 28,
+        "doppler_hz": 500.0,
+        "lag_samples": 6611,
+        "peak_power": 3357102.091210959,
+        "peak_ratio": 5.410818805378128,
+        "detected": true
+      },
+      {
+        "prn": 23,
+        "doppler_hz": 2500.0,
+        "lag_samples": 4256,
+        "peak_power": 846000.1444805489,
+        "peak_ratio": 1.4339259690847468,
+        "detected": false
+      },
+      {
+        "prn": 54,
+        "doppler_hz": 5000.0,
+        "lag_samples": 436,
+        "peak_power": 827799.7490233749,
+        "peak_ratio": 1.3948647089067643,
+        "detected": false
+      },
+      {
+        "prn": 50,
+        "doppler_hz": -9500.0,
+        "lag_samples": 9212,
+        "peak_power": 838951.074912419,
+        "peak_ratio": 1.3819528063484954,
+        "detected": false
+      },
+      {
+        "prn": 43,
+        "doppler_hz": 2500.0,
+        "lag_samples": 11684,
+        "peak_power": 833034.7833712708,
+        "peak_ratio": 1.3721772716556284,
+        "detected": false
+      },
+      {
+        "prn": 38,
+        "doppler_hz": 500.0,
+        "lag_samples": 15668,
+        "peak_power": 842168.5444021478,
+        "peak_ratio": 1.3709773398805585,
+        "detected": false
+      },
+      {
+        "prn": 33,
+        "doppler_hz": -3500.0,
+        "lag_samples": 2064,
+        "peak_power": 836617.269500236,
+        "peak_ratio": 1.3578777516109137,
+        "detected": false
+      },
+      {
+        "prn": 44,
+        "doppler_hz": 2000.0,
+        "lag_samples": 984,
+        "peak_power": 811021.7274587717,
+        "peak_ratio": 1.3547133235807525,
+        "detected": false
+      },
+      {
+        "prn": 37,
+        "doppler_hz": 9500.0,
+        "lag_samples": 16088,
+        "peak_power": 821272.3038497726,
+        "peak_ratio": 1.3484867317850968,
+        "detected": false
+      },
+      {
+        "prn": 47,
+        "doppler_hz": 6000.0,
+        "lag_samples": 14584,
+        "peak_power": 789882.56603139,
+        "peak_ratio": 1.3483078793719463,
+        "detected": false
+      },
+      {
+        "prn": 53,
+        "doppler_hz": 9000.0,
+        "lag_samples": 3356,
+        "peak_power": 854731.019777912,
+        "peak_ratio": 1.3362070755474045,
+        "detected": false
+      },
+      {
+        "prn": 26,
+        "doppler_hz": -3500.0,
+        "lag_samples": 1097,
+        "peak_power": 758104.7718433938,
+        "peak_ratio": 1.3361606994880704,
+        "detected": false
+      },
+      {
+        "prn": 52,
+        "doppler_hz": -10000.0,
+        "lag_samples": 12612,
+        "peak_power": 880447.2424154571,
+        "peak_ratio": 1.3273062007935237,
+        "detected": false
+      },
+      {
+        "prn": 40,
+        "doppler_hz": -7500.0,
+        "lag_samples": 92,
+        "peak_power": 829199.0437814967,
+        "peak_ratio": 1.3270648926628998,
+        "detected": false
+      },
+      {
+        "prn": 61,
+        "doppler_hz": 3000.0,
+        "lag_samples": 15360,
+        "peak_power": 817079.5709080254,
+        "peak_ratio": 1.3233522682971048,
+        "detected": false
+      },
+      {
+        "prn": 1,
+        "doppler_hz": 0.0,
+        "lag_samples": 7572,
+        "peak_power": 862395.9999999995,
+        "peak_ratio": 1.2977337707286243,
+        "detected": false
+      },
+      {
+        "prn": 18,
+        "doppler_hz": -5000.0,
+        "lag_samples": 10497,
+        "peak_power": 783146.6672379599,
+        "peak_ratio": 1.2806572929505247,
+        "detected": false
+      },
+      {
+        "prn": 42,
+        "doppler_hz": 3000.0,
+        "lag_samples": 15502,
+        "peak_power": 797446.5071162821,
+        "peak_ratio": 1.2774551053914838,
+        "detected": false
+      },
+      {
+        "prn": 4,
+        "doppler_hz": 7500.0,
+        "lag_samples": 3045,
+        "peak_power": 750754.7379473394,
+        "peak_ratio": 1.2770837648259914,
+        "detected": false
+      },
+      {
+        "prn": 30,
+        "doppler_hz": 0.0,
+        "lag_samples": 5068,
+        "peak_power": 779675.9999999999,
+        "peak_ratio": 1.2717610444518392,
+        "detected": false
+      },
+      {
+        "prn": 49,
+        "doppler_hz": 1000.0,
+        "lag_samples": 14904,
+        "peak_power": 789581.6709745448,
+        "peak_ratio": 1.2648006938453478,
+        "detected": false
+      },
+      {
+        "prn": 58,
+        "doppler_hz": 10000.0,
+        "lag_samples": 12753,
+        "peak_power": 752653.7736841504,
+        "peak_ratio": 1.2615980208163189,
+        "detected": false
+      },
+      {
+        "prn": 22,
+        "doppler_hz": 5000.0,
+        "lag_samples": 4876,
+        "peak_power": 756711.3982666646,
+        "peak_ratio": 1.2438763581214034,
+        "detected": false
+      },
+      {
+        "prn": 57,
+        "doppler_hz": -7500.0,
+        "lag_samples": 9244,
+        "peak_power": 829211.7378021561,
+        "peak_ratio": 1.241083151968069,
+        "detected": false
+      },
+      {
+        "prn": 45,
+        "doppler_hz": 4500.0,
+        "lag_samples": 11704,
+        "peak_power": 749091.8236426109,
+        "peak_ratio": 1.234095938356594,
+        "detected": false
+      },
+      {
+        "prn": 51,
+        "doppler_hz": -5500.0,
+        "lag_samples": 13968,
+        "peak_power": 825824.1605318268,
+        "peak_ratio": 1.228070353566852,
+        "detected": false
+      },
+      {
+        "prn": 2,
+        "doppler_hz": 2500.0,
+        "lag_samples": 11716,
+        "peak_power": 775260.3447988832,
+        "peak_ratio": 1.2280480731310226,
+        "detected": false
+      },
+      {
+        "prn": 31,
+        "doppler_hz": -2000.0,
+        "lag_samples": 9191,
+        "peak_power": 836337.9988044248,
+        "peak_ratio": 1.223651833224281,
+        "detected": false
+      },
+      {
+        "prn": 24,
+        "doppler_hz": -2500.0,
+        "lag_samples": 14527,
+        "peak_power": 821714.2404485493,
+        "peak_ratio": 1.2181218586598357,
+        "detected": false
+      },
+      {
+        "prn": 15,
+        "doppler_hz": -2000.0,
+        "lag_samples": 13580,
+        "peak_power": 784797.9805059263,
+        "peak_ratio": 1.2069106677993808,
+        "detected": false
+      },
+      {
+        "prn": 59,
+        "doppler_hz": 5500.0,
+        "lag_samples": 5908,
+        "peak_power": 800973.7881923558,
+        "peak_ratio": 1.19816004808847,
+        "detected": false
+      },
+      {
+        "prn": 19,
+        "doppler_hz": -9000.0,
+        "lag_samples": 9960,
+        "peak_power": 891746.5227558168,
+        "peak_ratio": 1.1953868478633303,
+        "detected": false
+      },
+      {
+        "prn": 27,
+        "doppler_hz": 8000.0,
+        "lag_samples": 7920,
+        "peak_power": 777457.0220407981,
+        "peak_ratio": 1.1915779243859967,
+        "detected": false
+      },
+      {
+        "prn": 35,
+        "doppler_hz": 8500.0,
+        "lag_samples": 5008,
+        "peak_power": 738802.3607713451,
+        "peak_ratio": 1.1775507883661434,
+        "detected": false
+      },
+      {
+        "prn": 20,
+        "doppler_hz": 500.0,
+        "lag_samples": 5136,
+        "peak_power": 761176.8631797984,
+        "peak_ratio": 1.176210223823313,
+        "detected": false
+      },
+      {
+        "prn": 14,
+        "doppler_hz": 8000.0,
+        "lag_samples": 4396,
+        "peak_power": 813444.5958886028,
+        "peak_ratio": 1.1707395411065464,
+        "detected": false
+      },
+      {
+        "prn": 7,
+        "doppler_hz": 1000.0,
+        "lag_samples": 8692,
+        "peak_power": 762866.8493655856,
+        "peak_ratio": 1.1650108140476083,
+        "detected": false
+      },
+      {
+        "prn": 48,
+        "doppler_hz": 3500.0,
+        "lag_samples": 1628,
+        "peak_power": 754990.4512337351,
+        "peak_ratio": 1.1616762874863271,
+        "detected": false
+      },
+      {
+        "prn": 41,
+        "doppler_hz": 0.0,
+        "lag_samples": 13340,
+        "peak_power": 759723.9999999999,
+        "peak_ratio": 1.1369369369369373,
+        "detected": false
+      },
+      {
+        "prn": 29,
+        "doppler_hz": -7500.0,
+        "lag_samples": 11660,
+        "peak_power": 792015.5931647872,
+        "peak_ratio": 1.1360270568511925,
+        "detected": false
+      },
+      {
+        "prn": 3,
+        "doppler_hz": -1000.0,
+        "lag_samples": 7108,
+        "peak_power": 732579.0302532028,
+        "peak_ratio": 1.13463478991585,
+        "detected": false
+      },
+      {
+        "prn": 5,
+        "doppler_hz": -1000.0,
+        "lag_samples": 15092,
+        "peak_power": 725015.7296162284,
+        "peak_ratio": 1.1344472666040106,
+        "detected": false
+      },
+      {
+        "prn": 62,
+        "doppler_hz": -7000.0,
+        "lag_samples": 10220,
+        "peak_power": 787409.3378764612,
+        "peak_ratio": 1.132265778839331,
+        "detected": false
+      },
+      {
+        "prn": 9,
+        "doppler_hz": 8000.0,
+        "lag_samples": 9356,
+        "peak_power": 741515.9948272026,
+        "peak_ratio": 1.1284984193249663,
+        "detected": false
+      },
+      {
+        "prn": 56,
+        "doppler_hz": -7500.0,
+        "lag_samples": 10048,
+        "peak_power": 753821.4226340572,
+        "peak_ratio": 1.1263244735762212,
+        "detected": false
+      },
+      {
+        "prn": 32,
+        "doppler_hz": 10000.0,
+        "lag_samples": 2256,
+        "peak_power": 889164.1453883585,
+        "peak_ratio": 1.1212313502833435,
+        "detected": false
+      },
+      {
+        "prn": 46,
+        "doppler_hz": -8000.0,
+        "lag_samples": 6320,
+        "peak_power": 747238.9968381494,
+        "peak_ratio": 1.1157596029365502,
+        "detected": false
+      },
+      {
+        "prn": 34,
+        "doppler_hz": -3500.0,
+        "lag_samples": 7243,
+        "peak_power": 774602.5462613499,
+        "peak_ratio": 1.1094581679473585,
+        "detected": false
+      },
+      {
+        "prn": 17,
+        "doppler_hz": -9500.0,
+        "lag_samples": 6076,
+        "peak_power": 764190.9404572585,
+        "peak_ratio": 1.0988811485989218,
+        "detected": false
+      },
+      {
+        "prn": 16,
+        "doppler_hz": 9500.0,
+        "lag_samples": 16284,
+        "peak_power": 747500.8110473738,
+        "peak_ratio": 1.097208443327227,
+        "detected": false
+      },
+      {
+        "prn": 25,
+        "doppler_hz": 2500.0,
+        "lag_samples": 15288,
+        "peak_power": 765200.823267886,
+        "peak_ratio": 1.096691966837522,
+        "detected": false
+      },
+      {
+        "prn": 36,
+        "doppler_hz": -8500.0,
+        "lag_samples": 13404,
+        "peak_power": 731974.1232779016,
+        "peak_ratio": 1.092191158942113,
+        "detected": false
+      },
+      {
+        "prn": 12,
+        "doppler_hz": 3500.0,
+        "lag_samples": 12636,
+        "peak_power": 755710.4622420059,
+        "peak_ratio": 1.0871074283814492,
+        "detected": false
+      },
+      {
+        "prn": 6,
+        "doppler_hz": 7000.0,
+        "lag_samples": 3933,
+        "peak_power": 731739.8178446498,
+        "peak_ratio": 1.0758604406293637,
+        "detected": false
+      },
+      {
+        "prn": 60,
+        "doppler_hz": -8000.0,
+        "lag_samples": 2075,
+        "peak_power": 751147.4795690242,
+        "peak_ratio": 1.0659444693626345,
+        "detected": false
+      },
+      {
+        "prn": 10,
+        "doppler_hz": 4000.0,
+        "lag_samples": 7552,
+        "peak_power": 728328.0086314866,
+        "peak_ratio": 1.0476171063193498,
+        "detected": false
+      },
+      {
+        "prn": 63,
+        "doppler_hz": -9500.0,
+        "lag_samples": 7167,
+        "peak_power": 740106.3771006225,
+        "peak_ratio": 1.0455611857826423,
+        "detected": false
+      },
+      {
+        "prn": 55,
+        "doppler_hz": -9500.0,
+        "lag_samples": 11704,
+        "peak_power": 748322.7525195421,
+        "peak_ratio": 1.0356851408376049,
+        "detected": false
+      }
+    ]
+  },
+  "software_tracking": [
+    {
+      "prn": 8,
+      "rows": 99999,
+      "start_sample": 28970,
+      "end_sample": 1636795625,
+      "tail_rows": 5000,
+      "doppler_mean_hz": 579.5755361786462,
+      "pll_rms_rad": 0.1447948116455122,
+      "dll_rms_chip": 0.09513977405614613,
+      "lock_metric_gt_half_fraction": 0.993689936899369
+    },
+    {
+      "prn": 11,
+      "rows": 99999,
+      "start_sample": 18392,
+      "end_sample": 1636788548,
+      "tail_rows": 5000,
+      "doppler_mean_hz": -2764.127877763527,
+      "pll_rms_rad": 0.14473503106215935,
+      "dll_rms_chip": 0.09363005555099173,
+      "lock_metric_gt_half_fraction": 0.995089950899509
+    },
+    {
+      "prn": 13,
+      "rows": 99999,
+      "start_sample": 17930,
+      "end_sample": 1636784470,
+      "tail_rows": 5000,
+      "doppler_mean_hz": 690.4032464178295,
+      "pll_rms_rad": 0.14106194813817413,
+      "dll_rms_chip": 0.09671454293172517,
+      "lock_metric_gt_half_fraction": 0.994569945699457
+    },
+    {
+      "prn": 21,
+      "rows": 99999,
+      "start_sample": 22467,
+      "end_sample": 1636791387,
+      "tail_rows": 5000,
+      "doppler_mean_hz": -1582.8933857475433,
+      "pll_rms_rad": 0.1438713505872685,
+      "dll_rms_chip": 0.09370996985364817,
+      "lock_metric_gt_half_fraction": 0.994529945299453
+    },
+    {
+      "prn": 28,
+      "rows": 99999,
+      "start_sample": 22978,
+      "end_sample": 1636789601,
+      "tail_rows": 5000,
+      "doppler_mean_hz": 588.5906592266806,
+      "pll_rms_rad": 0.14457321813166132,
+      "dll_rms_chip": 0.09512260226420483,
+      "lock_metric_gt_half_fraction": 0.995209952099521
+    },
+    {
+      "prn": 39,
+      "rows": 99999,
+      "start_sample": 30276,
+      "end_sample": 1636796874,
+      "tail_rows": 5000,
+      "doppler_mean_hz": 628.1961429682517,
+      "pll_rms_rad": 0.14753120531086053,
+      "dll_rms_chip": 0.09346638764401832,
+      "lock_metric_gt_half_fraction": 0.999189991899919
+    }
+  ],
+  "rtl_navigation_records": {
+    "records": 51,
+    "types": {
+      "navigation": 50,
+      "end": 1
+    },
+    "detected_prns": [],
+    "locked_tracking": 0,
+    "valid_common": 0,
+    "independently_decoded_subframes": 5
+  },
+  "software_records": {
+    "records": 601561,
+    "types": {
+      "tracking": 599994,
+      "acquisition": 6,
+      "navigation": 960,
+      "common_observation": 600,
+      "end": 1
+    },
+    "detected_prns": [
+      8,
+      11,
+      13,
+      21,
+      28,
+      39
+    ],
+    "locked_tracking": 593994,
+    "valid_common": 528,
+    "independently_decoded_subframes": 96
+  },
+  "files": {
+    "student_release/input/scenario.if2": {
+      "size": 409200000,
+      "sha256": "2c47d1533fa54316952496ffb7905742c34a989b0a6276b867fe69566c5027da"
+    },
+    "reports/public_run/software_reference_records.bin": {
+      "size": 19249952,
+      "sha256": "6e1ed00c01dcb654d5a33e9236fc69df619eae485a94b6964901340097fc33d6"
+    },
+    "tb/vectors/acq_meta.json": {
+      "size": 298,
+      "sha256": "b49ffd4815073f70ac6358d3e9f6877d643334ea04ad1b8130a7970ab1722add"
+    },
+    "tb/vectors/track_meta.json": {
+      "size": 908,
+      "sha256": "5b8edbcc5d2a8abba47ef134e60233d541d107da41410cb667d39c6836b4c406"
+    }
+  }
+}

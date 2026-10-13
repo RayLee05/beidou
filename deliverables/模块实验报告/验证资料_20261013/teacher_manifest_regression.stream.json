@@ -1,0 +1,11 @@
+{
+  "release": "D:\\A_workfiles\\codexwork\\beidou\\student_release1\\student_release",
+  "mode": "legacy16",
+  "rtl_mode": 1,
+  "tag_stride": 16,
+  "samples_per_transfer": 16,
+  "earliest_pair": "stream_data[7:6]",
+  "package_id": "B1I_PUBLIC_STATIC_SIX_40DBHZ_V1",
+  "passed": false,
+  "status": "failed"
+}

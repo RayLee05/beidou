@@ -1,141 +1,65 @@
-# -*- coding: utf-8 -*-
-"""生成架构总览图 reports/figures/architecture.png（分层网格 + 正交连线，不穿越方框）。"""
-from __future__ import annotations
-import os, sys
-sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from _common import FIGURES_DIR, bootstrap
-bootstrap()
+"""Generate the current stream-based architecture diagram as SVG and PNG.
 
-import matplotlib
-matplotlib.use("Agg")
-import matplotlib.font_manager as fm
-import matplotlib.patches as mp
-import matplotlib.pyplot as plt
-from b1i_ref.params import P
+The SVG retains text and shapes; Pillow provides a deterministic Word image.
+Run with the workspace dependency runtime (Pillow is required).
+"""
+from pathlib import Path
+from html import escape
+from PIL import Image, ImageDraw, ImageFont
 
-C = {"in": "#D6E4F0", "acq": "#FBE7D0", "trk": "#DDEFD8", "sync": "#E4DCF2",
-     "out": "#F7DDE4", "sw": "#EDEDED", "edge": "#2F4F6B"}
-CX = [13, 38, 63, 88]
-BW, BH = 21, 8.2
-ROW = {1: 64.5, 2: 51.0, 3: 36.5, 4: 22.0, 5: 8.5}
-
-
-def pick_font():
-    avail = {f.name for f in fm.fontManager.ttflist}
-    for n in ("Microsoft YaHei", "SimHei", "SimSun", "DejaVu Sans"):
-        if n in avail:
-            return n
-    return "DejaVu Sans"
-
-
-def box(ax, col, y, text, kind, fs=8.2):
-    ax.add_patch(mp.FancyBboxPatch((CX[col] - BW / 2, y - BH / 2), BW, BH,
-                 boxstyle="round,pad=0.25,rounding_size=1.0",
-                 linewidth=1.1, edgecolor=C["edge"], facecolor=C[kind], zorder=2))
-    ax.text(CX[col], y, text, ha="center", va="center", fontsize=fs, zorder=3, linespacing=1.5)
-
-
-def seg(ax, pts, ls="-", color=None, head=True):
-    col = color or C["edge"]
-    for i in range(len(pts) - 1):
-        p, q = pts[i], pts[i + 1]
-        if i == len(pts) - 2 and head:
-            ax.add_patch(mp.FancyArrowPatch(p, q, arrowstyle="-|>", mutation_scale=11,
-                         linewidth=1.0, color=col, linestyle=ls, zorder=1))
-        else:
-            ax.plot([p[0], q[0]], [p[1], q[1]], color=col, linewidth=1.0,
-                    linestyle=ls, zorder=1)
-
-
-def hlink(ax, a, b, y, ls="-"):
-    seg(ax, [(CX[a] + BW / 2, y), (CX[b] - BW / 2, y)], ls)
+ROOT = Path(__file__).resolve().parents[1]
+OUT = ROOT / 'reports' / 'figures'
+W, H = 1800, 760
 
 
 def main():
-    font = pick_font()
-    plt.rcParams["font.sans-serif"] = [font]
-    plt.rcParams["axes.unicode_minus"] = False
-    fig, ax = plt.subplots(figsize=(17, 10))
-    ax.set_xlim(0, 100); ax.set_ylim(0, 74); ax.axis("off")
-
-    ax.text(50, 72.2, "北斗 B1I 基带信号处理器 —— 总体架构（分层网格）",
-            ha="center", fontsize=16, fontweight="bold", color="#1F3B57")
-    ax.text(50, 69.5,
-            "fIF 4.092 MHz / Fs 16.368 MHz（每码片 8 样本，1 ms = 16368 样本）/ 2 bit / "
-            "12 通道 / 公共输出历元 1 s",
-            ha="center", fontsize=9.5, color="#4A6B85")
-
-    for k, t in [(1, "① 输入与公共时基"), (2, "② 捕获（后台，与跟踪并发）"),
-                 (3, "③ 12 × 跟踪通道"), (4, "④ 同步与解调"), (5, "⑤ 测量与输出")]:
-        ax.text(1.0, ROW[k] + BH / 2 + 1.0, t, ha="left", va="bottom", fontsize=10,
-                fontweight="bold", color="#1F3B57")
-
-    # ①
-    box(ax, 0, ROW[1], "配套 SRAM 模型\n(2 bit 实中频)", "in")
-    box(ax, 1, ROW[1], "sram_reader\n读地址/使能/数据 → s[2:0]", "in")
-    box(ax, 2, ROW[1], "sample_timebase\n样本编号 / 1ms / 20ms / 6s / 1s", "in")
-    box(ax, 3, ROW[1], "配置寄存器\nPRN 表·搜索范围·门限·环路系数\n(写入后立即生效)", "in", 7.4)
-    hlink(ax, 0, 1, ROW[1]); hlink(ax, 1, 2, ROW[1])
-    # 配置寄存器通过 cfg_valid/ready 写入后立即生效，不画连线以免穿越方框
-
-    # 时基总线：sample_timebase -> 捕获引擎 / 跟踪通道
-    ybus = 57.5
-    seg(ax, [(CX[2], ROW[1] - BH / 2), (CX[2], ybus), (CX[1], ybus), (CX[1], ROW[2] + BH / 2)],
-        head=True)
-    ax.text(CX[2] - 8, ybus + 0.6, "时基 sample_valid / ms_tick", fontsize=7.2, color="#4A6B85")
-
-    # ②
-    box(ax, 0, ROW[2], "acquisition_manager\n任务调度 / 资源仲裁 / 峰值判决", "acq", 7.8)
-    box(ax, 1, ROW[2], "acquisition.sv\n回放 + 并行半码片\n多普勒扫描", "acq", 7.5)
-    box(ax, 2, ROW[2], "search_result\n成败·PRN·task_id\n码相位·频偏·质量", "acq", 7.6)
-    hlink(ax, 0, 1, ROW[2]); hlink(ax, 1, 2, ROW[2])
-    seg(ax, [(CX[2], ROW[2] - BH / 2), (CX[2], ROW[3] + BH / 2)], color="#B06A00")
-    ax.text(CX[2] + 0.8, ROW[2] - BH / 2 - 3.4, "allocate / init", fontsize=7.2, color="#B06A00")
-
-    # ③
-    box(ax, 0, ROW[3], "channel_manager\n分配 / generation / 重捕获", "trk", 7.8)
-    box(ax, 1, ROW[3], "tracking_channel × 12\ncarrier_mixer_nco + code_nco\n"
-                       "code_ram(E/P/L) + correlator_epl\ntrack_loop", "trk", 7.4)
-    box(ax, 2, ROW[3], "channel_status\n分层有效位·质量\n失锁原因·发生时刻", "trk", 7.6)
-    hlink(ax, 0, 1, ROW[3], ls="--"); hlink(ax, 1, 2, ROW[3])
-    ax.text(CX[3], ROW[3], "共享资源（只读）\n载波 sin/cos ROM：全芯片 1 份\n"
-                           "PRN 码 RAM：按 ICD 装载\n12 通道只读访问，不在数据流上",
-            ha="center", va="center", fontsize=7.2, color="#4A6B85")
-
-    # ③ -> ④
-    seg(ax, [(CX[1], ROW[3] - BH / 2), (CX[1], ROW[4] + BH / 2)])
-    ax.text(CX[1] + 0.8, ROW[3] - BH / 2 - 3.6, "correlator_result（每 1 ms）", fontsize=7.2, color="#4A6B85")
-
-    # ④
-    box(ax, 0, ROW[4], "nh_sync\n去 NH20 / 位同步", "sync", 7.8)
-    box(ax, 1, ROW[4], "d1_frame_sync\n子帧同步 / 去交织 / BCH(15,11,1)", "sync", 7.5)
-    box(ax, 2, ROW[4], "nav_decoder\nBDT时间 / 星历 / 钟差 / 健康", "sync", 7.6)
-    box(ax, 3, ROW[4], "measurement_engine\n码相位 + 整周期 + 时间锚点", "sync", 7.6)
-    hlink(ax, 0, 1, ROW[4]); hlink(ax, 1, 2, ROW[4]); hlink(ax, 2, 3, ROW[4])
-
-    # ④ -> ⑤（正交下折到左侧）
-    y4 = 15.3
-    seg(ax, [(CX[3] - 6, ROW[4] - BH / 2), (CX[3] - 6, y4), (CX[0], y4), (CX[0], ROW[5] + BH / 2)])
-    ax.text(CX[3] - 5.2, y4 + 0.7, "obs / nav / status", fontsize=7.2, color="#4A6B85")
-
-    # ⑤
-    box(ax, 0, ROW[5], "epoch_aggregator\n公共历元 / 有效性裁决", "out", 7.8)
-    box(ax, 1, ROW[5], "record_fifo\nobs / nav / status + 背压", "out", 7.8)
-    box(ax, 2, ROW[5], "RINEX 3.05 适配器\n(配套软件，非 RTL)", "sw", 7.8)
-    box(ax, 3, ROW[5], "定位软件\n单频码定位(配套)", "sw", 7.8)
-    hlink(ax, 0, 1, ROW[5]); hlink(ax, 1, 2, ROW[5], ls="--"); hlink(ax, 2, 3, ROW[5], ls="--")
-
-    ax.text(50, 1.0, "实线：样本与结果　虚线：控制/复用　"
-                     "失锁：撤销本通道本代次有效数据 → 重捕获（generation 自增）",
-            ha="center", fontsize=9, color="#4A6B85")
-
-    os.makedirs(FIGURES_DIR, exist_ok=True)
-    out = os.path.join(FIGURES_DIR, "architecture.png")
-    fig.savefig(out, dpi=150, bbox_inches="tight", facecolor="white")
-    plt.close(fig)
-    print("字体:", font, "->", out)
-    return 0
+    fonts = [Path('C:/Windows/Fonts/msyh.ttc'), Path('/usr/share/fonts/truetype/noto/NotoSansCJK-Regular.ttc')]
+    face = next((f for f in fonts if f.exists()), None)
+    if face is None:
+        raise FileNotFoundError('A Chinese font is required; configure the fonts list in this script.')
+    image = Image.new('RGB', (W, H), 'white'); draw = ImageDraw.Draw(image)
+    svg = [f'<svg xmlns="http://www.w3.org/2000/svg" width="{W}" height="{H}" viewBox="0 0 {W} {H}">',
+           '<rect width="100%" height="100%" fill="white"/>']
+    def text(x, y, value, size=28):
+        f = ImageFont.truetype(str(face), size)
+        draw.text((x, y), value, font=f, fill='#111111', anchor='mm')
+        svg.append(f'<text x="{x}" y="{y}" text-anchor="middle" dominant-baseline="middle" font-family="Microsoft YaHei,Noto Sans CJK SC,sans-serif" font-size="{size}" fill="#111111">{escape(value)}</text>')
+    def box(x, y, width, height, lines):
+        draw.rectangle((x,y,x+width,y+height),fill='#F5F5F5',outline='#555555',width=2)
+        svg.append(f'<rect x="{x}" y="{y}" width="{width}" height="{height}" fill="#F5F5F5" stroke="#555555" stroke-width="2"/>')
+        for i, line in enumerate(lines):
+            size = 27
+            while ImageFont.truetype(str(face), size).getlength(line) > width - 30:
+                size -= 1
+            text(x+width/2,y+height/2+(i-(len(lines)-1)/2)*38,line,size)
+    def arrow(x1,y1,x2,y2):
+        draw.line((x1,y1,x2,y2),fill='#444444',width=3)
+        if y1 == y2: points=[(x2,y2),(x2-14,y2-8),(x2-14,y2+8)]
+        else: points=[(x2,y2),(x2-8,y2-14),(x2+8,y2-14)]
+        draw.polygon(points,fill='#444444')
+        svg.append(f'<path d="M{x1} {y1} L{x2} {y2}" stroke="#444444" stroke-width="3"/><polygon points="'+ ' '.join(f'{x},{y}' for x,y in points)+'" fill="#444444"/>')
+    text(900,42,'北斗 B1I 接收机当前 RTL 数据流',38)
+    text(900,92,'Fs 16.368 MHz　IF 4.092 MHz　32 位传输含 16 样本　最低两位最早',26)
+    box(40,150,360,130,['教师 IF2 播放器','文件高位优先 → 总线低位优先'])
+    box(480,150,400,130,['teacher_stream_frontend','3 位单样本流与 64 位实际计数'])
+    box(980,150,400,130,['acquisition　64 路相关','有限缓存回放、粗细频点搜索'])
+    box(1450,150,310,130,['channel_manager','码表装载、分配与移交'])
+    arrow(400,215,480,215); arrow(880,215,980,215); arrow(1380,215,1450,215)
+    box(480,355,1280,160,['channel_slice × 12　独立通道状态','tracking_channel：载波／码 NCO、E／P／L、track_loop DLL／FLL／PLL',
+                          'nh_bit_sync → d1_frame_sync：位同步、BCH 译码、字结束元数据'])
+    arrow(680,280,680,355); arrow(1605,280,1605,355)
+    text(1085,320,'实际有效样本广播；管理器装载初值',24)
+    box(480,590,920,105,['public_record_encoder','跟踪、捕获、导航、公共观测、状态、END；32 字节小端记录'])
+    box(1480,590,280,105,['教师工具','独立解码与校验'])
+    arrow(1120,515,1120,590); arrow(1400,642,1480,642)
+    text(247,412,'valid／ready 背压',26); text(247,459,'样本时间随接受推进',26)
+    text(247,506,'末拍 → 排空 → END',26)
+    text(900,735,'SRAM／字节入口为保留路径；当前教师入口采用 DIRECT_SAMPLES 与 PUBLIC_RECORDS',24)
+    svg.append('</svg>'); OUT.mkdir(parents=True,exist_ok=True)
+    (OUT/'architecture.svg').write_text('\n'.join(svg),encoding='utf-8')
+    image.save(OUT/'architecture.png')
+    dest=ROOT/'deliverables/总体架构方案/03_架构图.png'; image.save(dest)
+    print(OUT/'architecture.png'); print(dest)
 
 
-if __name__ == "__main__":
-    raise SystemExit(main())
+if __name__ == '__main__': main()

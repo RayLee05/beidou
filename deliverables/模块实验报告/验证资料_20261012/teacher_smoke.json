@@ -1,0 +1,20 @@
+{
+  "origin": "RTL student_receiver_core with original teacher file player",
+  "input": "D:\\A_workfiles\\codexwork\\beidou\\student_release\\input\\scenario.if2",
+  "input_bytes": 65536,
+  "accepted_samples": 262144,
+  "full_input": false,
+  "signal_results_required": false,
+  "output": "D:\\A_workfiles\\codexwork\\beidou\\.scratch\\report_revision_20261012\\teacher_smoke.bin",
+  "record_count": 1,
+  "validation": {
+    "records": 1,
+    "types": {
+      "end": 1
+    },
+    "detected_prns": [],
+    "locked_tracking": 0,
+    "valid_common": 0,
+    "independently_decoded_subframes": 0
+  }
+}

@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1800" height="760" viewBox="0 0 1800 760">
+<rect width="100%" height="100%" fill="white"/>
+<text x="900" y="42" text-anchor="middle" dominant-baseline="middle" font-family="Microsoft YaHei,Noto Sans CJK SC,sans-serif" font-size="38" fill="#111111">北斗 B1I 接收机当前 RTL 数据流</text>
+<text x="900" y="92" text-anchor="middle" dominant-baseline="middle" font-family="Microsoft YaHei,Noto Sans CJK SC,sans-serif" font-size="26" fill="#111111">Fs 16.368 MHz　IF 4.092 MHz　32 位传输含 16 样本　最低两位最早</text>
+<rect x="40" y="150" width="360" height="130" fill="#F5F5F5" stroke="#555555" stroke-width="2"/>
+<text x="220.0" y="196.0" text-anchor="middle" dominant-baseline="middle" font-family="Microsoft YaHei,Noto Sans CJK SC,sans-serif" font-size="27" fill="#111111">教师 IF2 播放器</text>
+<text x="220.0" y="234.0" text-anchor="middle" dominant-baseline="middle" font-family="Microsoft YaHei,Noto Sans CJK SC,sans-serif" font-size="24" fill="#111111">文件高位优先 → 总线低位优先</text>
+<rect x="480" y="150" width="400" height="130" fill="#F5F5F5" stroke="#555555" stroke-width="2"/>
+<text x="680.0" y="196.0" text-anchor="middle" dominant-baseline="middle" font-family="Microsoft YaHei,Noto Sans CJK SC,sans-serif" font-size="27" fill="#111111">teacher_stream_frontend</text>
+<text x="680.0" y="234.0" text-anchor="middle" dominant-baseline="middle" font-family="Microsoft YaHei,Noto Sans CJK SC,sans-serif" font-size="27" fill="#111111">3 位单样本流与 64 位实际计数</text>
+<rect x="980" y="150" width="400" height="130" fill="#F5F5F5" stroke="#555555" stroke-width="2"/>
+<text x="1180.0" y="196.0" text-anchor="middle" dominant-baseline="middle" font-family="Microsoft YaHei,Noto Sans CJK SC,sans-serif" font-size="27" fill="#111111">acquisition　64 路相关</text>
+<text x="1180.0" y="234.0" text-anchor="middle" dominant-baseline="middle" font-family="Microsoft YaHei,Noto Sans CJK SC,sans-serif" font-size="27" fill="#111111">有限缓存回放、粗细频点搜索</text>
+<rect x="1450" y="150" width="310" height="130" fill="#F5F5F5" stroke="#555555" stroke-width="2"/>
+<text x="1605.0" y="196.0" text-anchor="middle" dominant-baseline="middle" font-family="Microsoft YaHei,Noto Sans CJK SC,sans-serif" font-size="27" fill="#111111">channel_manager</text>
+<text x="1605.0" y="234.0" text-anchor="middle" dominant-baseline="middle" font-family="Microsoft YaHei,Noto Sans CJK SC,sans-serif" font-size="27" fill="#111111">码表装载、分配与移交</text>
+<path d="M400 215 L480 215" stroke="#444444" stroke-width="3"/><polygon points="480,215 466,207 466,223" fill="#444444"/>
+<path d="M880 215 L980 215" stroke="#444444" stroke-width="3"/><polygon points="980,215 966,207 966,223" fill="#444444"/>
+<path d="M1380 215 L1450 215" stroke="#444444" stroke-width="3"/><polygon points="1450,215 1436,207 1436,223" fill="#444444"/>
+<rect x="480" y="355" width="1280" height="160" fill="#F5F5F5" stroke="#555555" stroke-width="2"/>
+<text x="1120.0" y="397.0" text-anchor="middle" dominant-baseline="middle" font-family="Microsoft YaHei,Noto Sans CJK SC,sans-serif" font-size="27" fill="#111111">channel_slice × 12　独立通道状态</text>
+<text x="1120.0" y="435.0" text-anchor="middle" dominant-baseline="middle" font-family="Microsoft YaHei,Noto Sans CJK SC,sans-serif" font-size="27" fill="#111111">tracking_channel：载波／码 NCO、E／P／L、track_loop DLL／FLL／PLL</text>
+<text x="1120.0" y="473.0" text-anchor="middle" dominant-baseline="middle" font-family="Microsoft YaHei,Noto Sans CJK SC,sans-serif" font-size="27" fill="#111111">nh_bit_sync → d1_frame_sync：位同步、BCH 译码、字结束元数据</text>
+<path d="M680 280 L680 355" stroke="#444444" stroke-width="3"/><polygon points="680,355 672,341 688,341" fill="#444444"/>
+<path d="M1605 280 L1605 355" stroke="#444444" stroke-width="3"/><polygon points="1605,355 1597,341 1613,341" fill="#444444"/>
+<text x="1085" y="320" text-anchor="middle" dominant-baseline="middle" font-family="Microsoft YaHei,Noto Sans CJK SC,sans-serif" font-size="24" fill="#111111">实际有效样本广播；管理器装载初值</text>
+<rect x="480" y="590" width="920" height="105" fill="#F5F5F5" stroke="#555555" stroke-width="2"/>
+<text x="940.0" y="623.5" text-anchor="middle" dominant-baseline="middle" font-family="Microsoft YaHei,Noto Sans CJK SC,sans-serif" font-size="27" fill="#111111">public_record_encoder</text>
+<text x="940.0" y="661.5" text-anchor="middle" dominant-baseline="middle" font-family="Microsoft YaHei,Noto Sans CJK SC,sans-serif" font-size="27" fill="#111111">跟踪、捕获、导航、公共观测、状态、END；32 字节小端记录</text>
+<rect x="1480" y="590" width="280" height="105" fill="#F5F5F5" stroke="#555555" stroke-width="2"/>
+<text x="1620.0" y="623.5" text-anchor="middle" dominant-baseline="middle" font-family="Microsoft YaHei,Noto Sans CJK SC,sans-serif" font-size="27" fill="#111111">教师工具</text>
+<text x="1620.0" y="661.5" text-anchor="middle" dominant-baseline="middle" font-family="Microsoft YaHei,Noto Sans CJK SC,sans-serif" font-size="27" fill="#111111">独立解码与校验</text>
+<path d="M1120 515 L1120 590" stroke="#444444" stroke-width="3"/><polygon points="1120,590 1112,576 1128,576" fill="#444444"/>
+<path d="M1400 642 L1480 642" stroke="#444444" stroke-width="3"/><polygon points="1480,642 1466,634 1466,650" fill="#444444"/>
+<text x="247" y="412" text-anchor="middle" dominant-baseline="middle" font-family="Microsoft YaHei,Noto Sans CJK SC,sans-serif" font-size="26" fill="#111111">valid／ready 背压</text>
+<text x="247" y="459" text-anchor="middle" dominant-baseline="middle" font-family="Microsoft YaHei,Noto Sans CJK SC,sans-serif" font-size="26" fill="#111111">样本时间随接受推进</text>
+<text x="247" y="506" text-anchor="middle" dominant-baseline="middle" font-family="Microsoft YaHei,Noto Sans CJK SC,sans-serif" font-size="26" fill="#111111">末拍 → 排空 → END</text>
+<text x="900" y="735" text-anchor="middle" dominant-baseline="middle" font-family="Microsoft YaHei,Noto Sans CJK SC,sans-serif" font-size="24" fill="#111111">SRAM／字节入口为保留路径；当前教师入口采用 DIRECT_SAMPLES 与 PUBLIC_RECORDS</text>
+</svg>

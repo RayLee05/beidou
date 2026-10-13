@@ -1,0 +1,13 @@
+{
+  "release": "D:\\A_workfiles\\codexwork\\beidou\\student_release",
+  "input": "D:\\A_workfiles\\codexwork\\beidou\\student_release\\input\\scenario.if2",
+  "mode": "legacy16",
+  "rtl_mode": 1,
+  "tag_stride": 4,
+  "samples_per_transfer": 16,
+  "earliest_pair": "stream_data[7:6]",
+  "package_id": "B1I_PUBLIC_STATIC_SIX_40DBHZ_V1",
+  "compared_samples": 262160,
+  "passed": true,
+  "reference": "chronological MSB-first file pairs, independent of stream bus layout"
+}
