@@ -1,0 +1,25 @@
+﻿{
+    "energy_ratio":  961,
+    "required_ratio":  100,
+    "source_sha256":  {
+                          "bdi_signal_source.sv":  "e99124f5f18c1801ec75c0f867ea0c64fb33a114159f254d5b01b33e81604a3b",
+                          "prn_code_gen.sv":  "e7ee6a7dd25eb1630ff31d3663916bfefba9ab2be2acbf564b1786c194195488",
+                          "bdi_sliding_correlator.sv":  "2db33a4206b4e0ad0063c4b07ea79174222cf7bf58b34c815c27ecf7c9e74be8",
+                          "tb_single_sat_capture.sv":  "16e1debf08d048ee06ad9f4161358d5cfa0810348b88cb3599df4c9d8bbe3d64",
+                          "bdi_prn_code_pkg.sv":  "b7588757c4f68c46f0355cb267183543c1ab2d1b358dd590fcfe20ea2499bb0b"
+                      },
+    "generated_at":  "2026-10-19T14:57:35.2433426+08:00",
+    "aligned_energy_min":  3281914944,
+    "passed":  true,
+    "simulator":  "ModelSim",
+    "waveform":  "D:/A_workfiles/codexwork/beidou/reports/sim/single_sat_demo/run_20261019_145732_057/capture.wlf",
+    "status":  "passed",
+    "scope":  "single satellite acquisition only",
+    "aligned_code_samples":  49104,
+    "capture_phase":  10,
+    "first_capture_window":  11,
+    "confirmation_windows":  2,
+    "wrong_energy_max":  3415104,
+    "csv":  "D:/A_workfiles/codexwork/beidou/reports/sim/single_sat_demo/run_20261019_145732_057/capture.csv",
+    "accepted_samples":  212784
+}

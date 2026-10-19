@@ -1,0 +1,99 @@
+{
+  "date": "2026-10-19",
+  "scope": "Fill experiment text; retain only waveform blanks; expand single-satellite design",
+  "design": {
+    "preserved_main_body_blocks": 32,
+    "native_equations": 9,
+    "images": 1
+  },
+  "experiment": {
+    "waveform_slots": 4,
+    "tables": 10,
+    "native_equations": 1
+  },
+  "rtl_source_sha256": {
+    "bdi_signal_source.sv": "e99124f5f18c1801ec75c0f867ea0c64fb33a114159f254d5b01b33e81604a3b",
+    "prn_code_gen.sv": "e7ee6a7dd25eb1630ff31d3663916bfefba9ab2be2acbf564b1786c194195488",
+    "bdi_sliding_correlator.sv": "2db33a4206b4e0ad0063c4b07ea79174222cf7bf58b34c815c27ecf7c9e74be8",
+    "tb_single_sat_capture.sv": "16e1debf08d048ee06ad9f4161358d5cfa0810348b88cb3599df4c9d8bbe3d64",
+    "bdi_prn_code_pkg.sv": "b7588757c4f68c46f0355cb267183543c1ab2d1b358dd590fcfe20ea2499bb0b"
+  },
+  "results_json_sha256": "d139abe32587ab6c17802c5833a4681abb49b3a44fbfa324eff7178b420f83a8",
+  "outputs": {
+    "01_捕获模块设计方案.docx": "9b5fdf391da9fef22781fe662efd0e71df6b506f4e605f6ec8a66b845dadcde5",
+    "01_捕获模块实验报告.docx": "6133d6e4c04eb06ef195df296cab4fb96920f4479a0ac004351e3d7eac02a7be"
+  },
+  "skills": [
+    "documents",
+    "writing-technical-design (design and interface consistency)",
+    "experiment-suite (protocol, provenance, results and analysis; no generated numerical placeholders)"
+  ],
+  "archived_user_original_sha256": "cc28bb7364c6422bb2b0697e7475dd3898b5c02146780b079879bb73845edcbc",
+  "original_design_body_unchanged": true,
+  "experiment_checks": {
+    "body_complete": true,
+    "waveform_slots": 4,
+    "waveform_images_preinserted": 0,
+    "table_matches_csv": true,
+    "result_rows": 13,
+    "ratio": 961,
+    "ratio_scope": "Three aligned windows versus the largest energy among the first ten unaligned windows"
+  },
+  "visual_review": {
+    "01_捕获模块设计方案.docx": {
+      "page_count": 7,
+      "pages_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "method": "Native Word read-only PDF export; documents render_docx.py Poppler rasterizer; all page PNGs visually inspected",
+      "result": "PASS; tables and native equations fit; only four intended waveform screenshot slots remain blank",
+      "page_sha256": {
+        "page-1.png": "1ecf6344b1ac2ef935abfe9efef34b6bf1ee04efcb4f090834fb9a08c107d1b7",
+        "page-2.png": "f1809fb71d4c4dba49b62019445401d40201e5ac3afab79451a3ffed51c2bac4",
+        "page-3.png": "801f9e9f25a32c9e0eac010651ac78c6ed015fb1d426a9ba33c2e0871aac0a64",
+        "page-4.png": "eb2d0b72b610669b638bb4deeca7a90c48a877aaebc2cdbaf8d8021bc1d57c0f",
+        "page-5.png": "4bc19c60e3ad43db55d8fc105ad5e71e184cea90ce729c0190cd3cc76d5b059a",
+        "page-6.png": "7c161368f605ff53226f450bb507530553b82783b51f577b4d0114832013fa33",
+        "page-7.png": "d0305da0b0e453ec9782a0aef594ded9f18dd47964d3c13b21b581e4c363756b"
+      }
+    },
+    "01_捕获模块实验报告.docx": {
+      "page_count": 7,
+      "pages_reviewed": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "method": "Native Word read-only PDF export; documents render_docx.py Poppler rasterizer; all page PNGs visually inspected",
+      "result": "PASS; tables and native equations fit; only four intended waveform screenshot slots remain blank",
+      "page_sha256": {
+        "page-1.png": "903d287e9d0e3995de4de5d0dee004b84b4bcbd6e2d50ee54b1f14860459f30f",
+        "page-2.png": "a2729c660dd8d17c1e6b5ba2858039b2ad5035406416820d525d797f34ba44ca",
+        "page-3.png": "e5f3ce5c2a8583e734430b984cf6b3f8fc0bb6081c647eb38250013f6064007a",
+        "page-4.png": "f3ef5a88e872152257d785cd8bcb2cb6b150f48da63785936b1cc4836d164d9e",
+        "page-5.png": "7d3ab8b3823a293eeb0ee4d1e1c49c6db7b1f6c873c970b1ce88900c267b702e",
+        "page-6.png": "8d2cc54d5d0bb0e2d9bb7dbb571f0fc83267c85d2114279021f3a38d41db872d",
+        "page-7.png": "5f4d3df078993ee8ec1035ac20c5e1a0f9d6934f26772fb3fae6274fdc53533d"
+      }
+    }
+  },
+  "evidence": {
+    "fresh_single_satellite_run": "验证资料_20261019/本次单星仿真结果.json",
+    "fresh_per_window_data": "验证资料_20261019/本次单星逐轮结果.csv",
+    "historical_acquisition_rtl": "验证资料_20261013/tb_acquisition.log",
+    "historical_software_reference": "验证资料_20261013/software_capture_recheck.json",
+    "supplementary_teacher_source": "reports/sim/bdi_teacher/bdi_results.json",
+    "supplementary_unit_tests": "reports/rtl_unit_results_modelsim_bdi.json"
+  },
+  "rtl_and_testbench_unchanged": true
+}
