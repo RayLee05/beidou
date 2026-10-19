@@ -18,6 +18,8 @@ tb/unit/tb_d1_clear.sv
 tb/unit/tb_channel_manager.sv
 tb/unit/tb_auto_scan.sv
 tb/unit/tb_acq_input_pause.sv
+tb/unit/tb_acq_sample_storage.sv
+tb/unit/tb_bdi_sliding_correlator.sv
 tb/system/tb_tracking_channel.sv  // slow
 tb/system/tb_acquisition.sv       // slow
 tb/system/tb_b1i_rx_top.sv        // slow

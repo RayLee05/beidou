@@ -17,6 +17,7 @@ rtl/track/track_loop.sv
 rtl/track/tracking_channel.sv
 rtl/common/sram_reader.sv
 rtl/acq/acquisition.sv
+rtl/acq/bdi_sliding_correlator.sv
 rtl/sync/nh_bit_sync.sv
 rtl/sync/d1_frame_sync.sv
 rtl/track/channel_slice.sv

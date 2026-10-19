@@ -11,6 +11,7 @@ data/input/*
 *.if2
 /student_release/
 /student_release1/
+/简化BDI信号模拟源及捕获成功判断标准/
 /reports/public_run/
 deliverables/**/*.zip
 student_rease/**/output/

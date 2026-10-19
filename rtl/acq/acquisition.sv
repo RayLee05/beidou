@@ -1,7 +1,7 @@
 // =============================================================================
 // acquisition.sv -- 捕获引擎：回放缓冲 + N 路并行码相位相关 + 多普勒扫描 + 移交 NCO
 //
-//   1) CAPTURE  从实时样本流截取 BUF_DEPTH 个样本存入回放缓冲（2 bit/样本，同步读 RAM）；
+//   1) CAPTURE  截取 BUF_DEPTH 个有符号样本存入回放缓冲（3 bit/样本，同步读 RAM）；
 //               同时开始计数截取起点之后的实时样本数 Δ。
 //   2) COARSE   对 n_bins 个多普勒格、每格 PASSES 轮回放；每轮 N_LANES 路并行，
 //               第 j 路本地码比第 0 路晚 j 个半码片（延迟线抽头 4j 样本），
@@ -68,31 +68,15 @@ module acquisition #(
   state_t st;
 
   // ---------------------------------------------------------------- 回放缓冲
-  logic [1:0]    buf_mem [0:BUF_DEPTH-1];
+  // Preserve the signed sample verbatim. The simplified teacher source includes
+  // zero; the former four-level IF2 compression silently mapped zero to +3.
+  logic signed [SAMPLE_W-1:0] buf_mem [0:BUF_DEPTH-1];
   logic [BW-1:0] wr_ptr, rd_addr;
-  logic [1:0]    rd_q;
+  logic signed [SAMPLE_W-1:0] rd_q;
   logic          rd_en;
 
-  function automatic logic [1:0] enc2(input logic signed [SAMPLE_W-1:0] s);
-    case (s)
-      -3:      enc2 = 2'b00;
-      -1:      enc2 = 2'b01;
-      1:       enc2 = 2'b10;
-      default: enc2 = 2'b11;
-    endcase
-  endfunction
-
-  function automatic logic signed [SAMPLE_W-1:0] dec2(input logic [1:0] c);
-    case (c)
-      2'b00:   dec2 = -3;
-      2'b01:   dec2 = -1;
-      2'b10:   dec2 = 1;
-      default: dec2 = 3;
-    endcase
-  endfunction
-
   always_ff @(posedge clk) begin
-    if (st == S_CAPTURE && sample_valid) buf_mem[wr_ptr] <= enc2(sample);
+    if (st == S_CAPTURE && sample_valid) buf_mem[wr_ptr] <= sample;
     if (rd_en) rd_q <= buf_mem[rd_addr];
   end
 
@@ -123,7 +107,7 @@ module acquisition #(
   logic signed [FREQ_WORD_W-1:0]              cur_dop;
 
   carrier_mixer_nco u_mix (
-    .clk(clk), .rst_n(rst_n), .sample_valid(pv), .sample(dec2(rd_q)),
+    .clk(clk), .rst_n(rst_n), .sample_valid(pv), .sample(rd_q),
     .freq_word(fw), .load(nco_load), .phase_init(32'd0),
     .phase(carr_unused), .mix_i(mix_i), .mix_q(mix_q));
 
