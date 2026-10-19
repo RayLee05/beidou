@@ -1,0 +1,77 @@
+{
+  "report_version": "2.2",
+  "date": "2026-10-19",
+  "implementation": "7fbbd52",
+  "preserved_original_equations": 5,
+  "preserved_original_images": 3,
+  "total_equations": 7,
+  "total_images": 5,
+  "unchanged_original_project_files": {
+    "rtl\\acq\\acquisition.sv": "ecb3037a41933519e6528d8544c0a11c2422fe4fd0ca348931bc13686aed9806",
+    "rtl\\acq\\bdi_sliding_correlator.sv": "2db33a4206b4e0ad0063c4b07ea79174222cf7bf58b34c815c27ecf7c9e74be8",
+    "deliverables\\模块实验报告\\02_码跟踪锁频锁相环报告.docx": "54f31134658e0bc183d13af843bef1843da3667292f48c375356ba5819ccf00c",
+    "deliverables\\模块实验报告\\03_位同步与导航电文解调报告.docx": "5e10de0d67453ce038fc60be76588a837da57677986df51d179c4193012688e3",
+    "deliverables\\总体架构方案\\北斗B1I基带处理器_总体架构方案.docx": "67b95c4ebb6172a1e98153e6c1379c65e2b59e2553536efaa0991e33a2f5028c"
+  },
+  "single_satellite_result": {
+    "energy_ratio": 961,
+    "required_ratio": 100,
+    "source_sha256": {
+      "bdi_signal_source.sv": "e99124f5f18c1801ec75c0f867ea0c64fb33a114159f254d5b01b33e81604a3b",
+      "prn_code_gen.sv": "e7ee6a7dd25eb1630ff31d3663916bfefba9ab2be2acbf564b1786c194195488",
+      "bdi_sliding_correlator.sv": "2db33a4206b4e0ad0063c4b07ea79174222cf7bf58b34c815c27ecf7c9e74be8",
+      "tb_single_sat_capture.sv": "16e1debf08d048ee06ad9f4161358d5cfa0810348b88cb3599df4c9d8bbe3d64",
+      "bdi_prn_code_pkg.sv": "b7588757c4f68c46f0355cb267183543c1ab2d1b358dd590fcfe20ea2499bb0b"
+    },
+    "generated_at": "2026-10-19T13:42:15.1251227+08:00",
+    "aligned_energy_min": 3281914944,
+    "passed": true,
+    "simulator": "ModelSim",
+    "waveform": "D:/A_workfiles/codexwork/beidou/reports/sim/single_sat_demo/run_20261019_134211_926/capture.wlf",
+    "status": "passed",
+    "scope": "single satellite acquisition only",
+    "aligned_code_samples": 49104,
+    "capture_phase": 10,
+    "first_capture_window": 11,
+    "confirmation_windows": 2,
+    "wrong_energy_max": 3415104,
+    "csv": "D:/A_workfiles/codexwork/beidou/reports/sim/single_sat_demo/run_20261019_134211_926/capture.csv",
+    "accepted_samples": 212784
+  },
+  "report_sha256": "ee0fa5ad6dbc29989de1bef94eaae0ba5f2dea097544ca03657478e92ed06e08",
+  "visual_review": {
+    "renderer": "Microsoft Word native PDF export with packaged render_docx.py Poppler rasterization",
+    "dpi": 150,
+    "pages": 12,
+    "visually_inspected_pages": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12
+    ],
+    "result": "passed",
+    "page_sha256": {
+      "page-1.png": "5c0eee27254d3fc104e508660ac57a057c14a9b971554b0c4d6cf8442c74485d",
+      "page-2.png": "57c9b582552d9af471c0574cc8a39ad67a5464f6c19c4e194b8e264aaccf037f",
+      "page-3.png": "93cadd691e1d8bfff44c18112dc117fc2efbe6bc74f88cb3d62e524147a2c9e1",
+      "page-4.png": "074f888e792289176e96462da3d9952dcba530159a2408b1321bdc47f4812455",
+      "page-5.png": "4a5a72c019a067e3fd3592a5eb752b305b5acc89538aaa6cf0a97ca281abc2ae",
+      "page-6.png": "c162a87c0f88f13e3ec900e2a09a32f9f3c118ed0b9d94643b5f380619237bce",
+      "page-7.png": "e72945f773e0c9c9411d99de06cf48d89812874c8776de370544587fef615670",
+      "page-8.png": "15b88f211873bda3d22597ea85a0ea3549770b6399cca7b62064125b31c2d617",
+      "page-9.png": "a5018a0db05f05367cba08734fa76dd1769b2396f574a1153e47eb3463cb4109",
+      "page-10.png": "222756733e5afbdf072f688bf2e45b48abd9d2367c2f8b76024e519bc6029957",
+      "page-11.png": "425c2ed132d34c79ee7a5e1be8beb101592a49e37d53ac5f8be0b03b17fb52ac",
+      "page-12.png": "fb08e73c8f1bbfac6a64815f7a15f559115e8c0842b504019457373e7e677f24"
+    }
+  },
+  "preserved_original_tables": 7
+}

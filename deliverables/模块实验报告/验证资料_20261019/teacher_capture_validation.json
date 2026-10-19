@@ -1,0 +1,323 @@
+{
+  "status": "passed",
+  "passed": true,
+  "banner": {
+    "generated_at": "2026-10-19T13:29:31+08:00",
+    "python": "3.12.14",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "machine": "AMD64",
+    "git_revision": "e5f1cf1",
+    "git_dirty": true
+  },
+  "simulator": "modelsim",
+  "release": "D:\\A_workfiles\\codexwork\\beidou\\简化BDI信号模拟源及捕获成功判断标准",
+  "scope": "single-PRN noiseless acquisition; no full D1/BCH validation",
+  "source_sha256": {
+    "bdi_prn_code_pkg.sv": "b7588757c4f68c46f0355cb267183543c1ab2d1b358dd590fcfe20ea2499bb0b",
+    "bdi_signal_source.sv": "e99124f5f18c1801ec75c0f867ea0c64fb33a114159f254d5b01b33e81604a3b"
+  },
+  "teacher_prn_matches_independent_generator": true,
+  "source_first_twenty_chips": "00010000001001110001",
+  "results": {
+    "continuous": {
+      "windows": 13,
+      "first_capture_window": 11,
+      "capture_phase": 10,
+      "peak": 57288,
+      "energy_threshold": 67108864,
+      "peak_energy": 3281914944,
+      "maximum_wrong_phase_magnitude": 1848,
+      "maximum_wrong_phase_energy": 3415104,
+      "minimum_peak_energy_ratio": 961.0,
+      "confirmation_windows": 2,
+      "aligned_code_samples_compared": 49104,
+      "accepted_samples": 212784,
+      "rows": [
+        {
+          "window": 1,
+          "phase": 0,
+          "i": 0,
+          "q": -1624,
+          "magnitude": 1624,
+          "energy": 2637376,
+          "capture": 0,
+          "accepted_samples": 16368
+        },
+        {
+          "window": 2,
+          "phase": 1,
+          "i": 0,
+          "q": -56,
+          "magnitude": 56,
+          "energy": 3136,
+          "capture": 0,
+          "accepted_samples": 32736
+        },
+        {
+          "window": 3,
+          "phase": 2,
+          "i": 0,
+          "q": 56,
+          "magnitude": 56,
+          "energy": 3136,
+          "capture": 0,
+          "accepted_samples": 49104
+        },
+        {
+          "window": 4,
+          "phase": 3,
+          "i": 0,
+          "q": -1736,
+          "magnitude": 1736,
+          "energy": 3013696,
+          "capture": 0,
+          "accepted_samples": 65472
+        },
+        {
+          "window": 5,
+          "phase": 4,
+          "i": 0,
+          "q": 1848,
+          "magnitude": 1848,
+          "energy": 3415104,
+          "capture": 0,
+          "accepted_samples": 81840
+        },
+        {
+          "window": 6,
+          "phase": 5,
+          "i": 0,
+          "q": -56,
+          "magnitude": 56,
+          "energy": 3136,
+          "capture": 0,
+          "accepted_samples": 98208
+        },
+        {
+          "window": 7,
+          "phase": 6,
+          "i": 0,
+          "q": -1848,
+          "magnitude": 1848,
+          "energy": 3415104,
+          "capture": 0,
+          "accepted_samples": 114576
+        },
+        {
+          "window": 8,
+          "phase": 7,
+          "i": 0,
+          "q": 1848,
+          "magnitude": 1848,
+          "energy": 3415104,
+          "capture": 0,
+          "accepted_samples": 130944
+        },
+        {
+          "window": 9,
+          "phase": 8,
+          "i": 0,
+          "q": -56,
+          "magnitude": 56,
+          "energy": 3136,
+          "capture": 0,
+          "accepted_samples": 147312
+        },
+        {
+          "window": 10,
+          "phase": 9,
+          "i": 0,
+          "q": -56,
+          "magnitude": 56,
+          "energy": 3136,
+          "capture": 0,
+          "accepted_samples": 163680
+        },
+        {
+          "window": 11,
+          "phase": 10,
+          "i": 0,
+          "q": -57288,
+          "magnitude": 57288,
+          "energy": 3281914944,
+          "capture": 1,
+          "accepted_samples": 180048
+        },
+        {
+          "window": 12,
+          "phase": 10,
+          "i": 0,
+          "q": 57288,
+          "magnitude": 57288,
+          "energy": 3281914944,
+          "capture": 1,
+          "accepted_samples": 196416
+        },
+        {
+          "window": 13,
+          "phase": 10,
+          "i": 0,
+          "q": -57288,
+          "magnitude": 57288,
+          "energy": 3281914944,
+          "capture": 1,
+          "accepted_samples": 212784
+        }
+      ]
+    },
+    "gapped": {
+      "windows": 13,
+      "first_capture_window": 11,
+      "capture_phase": 10,
+      "peak": 57288,
+      "energy_threshold": 67108864,
+      "peak_energy": 3281914944,
+      "maximum_wrong_phase_magnitude": 1848,
+      "maximum_wrong_phase_energy": 3415104,
+      "minimum_peak_energy_ratio": 961.0,
+      "confirmation_windows": 2,
+      "aligned_code_samples_compared": 49104,
+      "accepted_samples": 212784,
+      "rows": [
+        {
+          "window": 1,
+          "phase": 0,
+          "i": 0,
+          "q": -1624,
+          "magnitude": 1624,
+          "energy": 2637376,
+          "capture": 0,
+          "accepted_samples": 16368
+        },
+        {
+          "window": 2,
+          "phase": 1,
+          "i": 0,
+          "q": -56,
+          "magnitude": 56,
+          "energy": 3136,
+          "capture": 0,
+          "accepted_samples": 32736
+        },
+        {
+          "window": 3,
+          "phase": 2,
+          "i": 0,
+          "q": 56,
+          "magnitude": 56,
+          "energy": 3136,
+          "capture": 0,
+          "accepted_samples": 49104
+        },
+        {
+          "window": 4,
+          "phase": 3,
+          "i": 0,
+          "q": -1736,
+          "magnitude": 1736,
+          "energy": 3013696,
+          "capture": 0,
+          "accepted_samples": 65472
+        },
+        {
+          "window": 5,
+          "phase": 4,
+          "i": 0,
+          "q": 1848,
+          "magnitude": 1848,
+          "energy": 3415104,
+          "capture": 0,
+          "accepted_samples": 81840
+        },
+        {
+          "window": 6,
+          "phase": 5,
+          "i": 0,
+          "q": -56,
+          "magnitude": 56,
+          "energy": 3136,
+          "capture": 0,
+          "accepted_samples": 98208
+        },
+        {
+          "window": 7,
+          "phase": 6,
+          "i": 0,
+          "q": -1848,
+          "magnitude": 1848,
+          "energy": 3415104,
+          "capture": 0,
+          "accepted_samples": 114576
+        },
+        {
+          "window": 8,
+          "phase": 7,
+          "i": 0,
+          "q": 1848,
+          "magnitude": 1848,
+          "energy": 3415104,
+          "capture": 0,
+          "accepted_samples": 130944
+        },
+        {
+          "window": 9,
+          "phase": 8,
+          "i": 0,
+          "q": -56,
+          "magnitude": 56,
+          "energy": 3136,
+          "capture": 0,
+          "accepted_samples": 147312
+        },
+        {
+          "window": 10,
+          "phase": 9,
+          "i": 0,
+          "q": -56,
+          "magnitude": 56,
+          "energy": 3136,
+          "capture": 0,
+          "accepted_samples": 163680
+        },
+        {
+          "window": 11,
+          "phase": 10,
+          "i": 0,
+          "q": -57288,
+          "magnitude": 57288,
+          "energy": 3281914944,
+          "capture": 1,
+          "accepted_samples": 180048
+        },
+        {
+          "window": 12,
+          "phase": 10,
+          "i": 0,
+          "q": 57288,
+          "magnitude": 57288,
+          "energy": 3281914944,
+          "capture": 1,
+          "accepted_samples": 196416
+        },
+        {
+          "window": 13,
+          "phase": 10,
+          "i": 0,
+          "q": -57288,
+          "magnitude": 57288,
+          "energy": 3281914944,
+          "capture": 1,
+          "accepted_samples": 212784
+        }
+      ]
+    },
+    "parallel": {
+      "found": 1,
+      "half_chip_phase": 20,
+      "doppler_word": 0,
+      "peak": 2091012,
+      "mean": 31704,
+      "samples": 1168096
+    }
+  }
+}

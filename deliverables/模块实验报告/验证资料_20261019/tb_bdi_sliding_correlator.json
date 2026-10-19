@@ -1,0 +1,26 @@
+{
+  "banner": {
+    "generated_at": "2026-10-19T13:29:31+08:00",
+    "python": "3.12.14",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "machine": "AMD64",
+    "git_revision": "e5f1cf1",
+    "git_dirty": true
+  },
+  "simulator": "modelsim",
+  "total": 1,
+  "passed": 1,
+  "results": [
+    {
+      "name": "tb_bdi_sliding_correlator",
+      "tb": "tb/unit/tb_bdi_sliding_correlator.sv",
+      "tool": "modelsim",
+      "compile_ok": true,
+      "compile_log": "",
+      "run_ok": true,
+      "passed": true,
+      "run_log": "Reading D:/modeltech64_10.5/tcl/vsim/pref.tcl\n\n# 10.5\n\n# vsim -c -lib reports/sim/msim/work tb_bdi_sliding_correlator -do \"onfinish exit; run -all; quit -f\" \n# Start time: 13:29:29 on Oct 19,2026\n# ** Note: (vsim-3813) Design is being optimized due to module recompilation...\n# ** Warning: tb/unit/tb_bdi_sliding_correlator.sv(19): (vopt-2685) [TFMPC] - Too few port connections for 'wrap_search'.  Expected 26, found 6.\n# ** Warning: tb/unit/tb_bdi_sliding_correlator.sv(19): (vopt-2718) [TFMPC] - Missing connection for port 'q_acc'.\n# ** Warning: tb/unit/tb_bdi_sliding_correlator.sv(19): (vopt-2718) [TFMPC] - Missing connection for port 'i_acc'.\n# ** Warning: tb/unit/tb_bdi_sliding_correlator.sv(19): (vopt-2718) [TFMPC] - Missing connection for port 'product_q'.\n# ** Warning: tb/unit/tb_bdi_sliding_correlator.sv(19): (vopt-2718) [TFMPC] - Missing connection for port 'product_i'.\n# ** Warning: tb/unit/tb_bdi_sliding_correlator.sv(19): (vopt-2718) [TFMPC] - Missing connection for port 'local_sin'.\n# ** Warning: tb/unit/tb_bdi_sliding_correlator.sv(19): (vopt-2718) [TFMPC] - Missing connection for port 'local_cos'.\n# ** Warning: tb/unit/tb_bdi_sliding_correlator.sv(19): (vopt-2718) [TFMPC] - Missing connection for port 'local_prn_bit'.\n# ** Warning: tb/unit/tb_bdi_sliding_correlator.sv(19): (vopt-2718) [TFMPC] - Missing connection for port 'local_index'.\n# ** Warning: tb/unit/tb_bdi_sliding_correlator.sv(19): (vopt-2718) [TFMPC] - Missing connection for port 'sample_in_window'.\n# ** Warning: tb/unit/tb_bdi_sliding_correlator.sv(19): (vopt-2718) [TFMPC] - Missing connection for port 'result_window'.\n# ** Warning: tb/unit/tb_bdi_sliding_correlator.sv(19): (vopt-2718) [TFMPC] - Missing connection for port 'result_phase'.\n# ** Warning: tb/unit/tb_bdi_sliding_correlator.sv(19): (vopt-2718) [TFMPC] - Missing connection for port 'energy'.\n# ** Warning: tb/unit/tb_bdi_sliding_correlator.sv(19): (vopt-2718) [TFMPC] - Missing connection for port 'magnitude'.\n# ** Warning: tb/unit/tb_bdi_sliding_correlator.sv(19): (vopt-2718) [TFMPC] - Missing connection for port 'q_result'.\n# ** Warning: tb/unit/tb_bdi_sliding_correlator.sv(19): (vopt-2718) [TFMPC] - Missing connection for port 'i_result'.\n# ** Warning: tb/unit/tb_bdi_sliding_correlator.sv(19): (vopt-2718) [TFMPC] - Missing connection for port 'dump'.\n# ** Warning: tb/unit/tb_bdi_sliding_correlator.sv(19): (vopt-2718) [TFMPC] - Missing connection for port 'capture_phase'.\n# ** Warning: tb/unit/tb_bdi_sliding_correlator.sv(19): (vopt-2718) [TFMPC] - Missing connection for port 'capture'.\n# ** Warning: tb/unit/tb_bdi_sliding_correlator.sv(19): (vopt-2718) [TFMPC] - Missing connection for port 'bad_prn'.\n# ** Warning: tb/unit/tb_bdi_sliding_correlator.sv(19): (vopt-2718) [TFMPC] - Missing connection for port 'ready'.\n# //  ModelSim SE-64 10.5 Feb 13 2016 \n# //\n# //  Copyright 1991-2016 Mentor Graphics Corporation\n# //  All Rights Reserved.\n# //\n# //  ModelSim SE-64 and its associated documentation contain trade\n# //  secrets and commercial or financial information that are the property of\n# //  Mentor Graphics Corporation and are privileged, confidential,\n# //  and exempt from disclosure under the Freedom of Information Act,\n# //  5 U.S.C. Section 552. Furthermore, this information\n# //  is prohibited from disclosure under the Trade Secrets Act,\n# //  18 U.S.C. Section 1905.\n# //\n# Loading sv_std.std\n# Loading work.prn_code_gen_sv_unit(fast)\n# Loading work.tb_bdi_sliding_correlator(fast)\n# onfinish exit\n#  run -all\n# TEST PASSED: zero input, final nonzero sample, >= threshold, invalid gaps, hold/restart/reset\n# ** Note: $finish    : tb/unit/tb_bdi_sliding_correlator.sv(62)\n#    Time: 73728010 ps  Iteration: 0  Instance: /tb_bdi_sliding_correlator\n# End time: 13:29:31 on Oct 19,2026, Elapsed time: 0:00:02\n# Errors: 0, Warnings: 21\n",
+      "seconds": 2.629187
+    }
+  ]
+}
