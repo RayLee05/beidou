@@ -22,6 +22,7 @@ module tb_bdi_teacher_capture;
   wire signed [5:0] pi,pq;
   wire signed [3:0] cos_local,sin_local;
   wire [24:0] mag;
+  wire [48:0] energy;
   always #1 clk=~clk; // compressed waveform time; 16368 accepted samples = nominal 1 ms.
   bdi_signal_source source (
     .clk_16m368(clk),.rst_n(rst_n),.enable(enable_source),.if_sample(if_sample),.if_valid(if_valid),
@@ -35,7 +36,7 @@ module tb_bdi_teacher_capture;
   bdi_sliding_correlator dut (
     .clk(clk),.rst_n(rst_n),.start(start),.if_sample(if_sample),.if_valid(if_valid),
     .ready(ready),.bad_prn(),.capture(capture),.capture_phase(cap_phase),.dump(dump),
-    .i_result(ir),.q_result(qr),.magnitude(mag),.result_phase(result_phase),.candidate_phase(candidate),
+    .i_result(ir),.q_result(qr),.magnitude(mag),.energy(energy),.result_phase(result_phase),.candidate_phase(candidate),
     .result_window(window_id),.sample_in_window(in_window),.local_index(local_index),.local_prn_bit(local_bit),
     .local_cos(cos_local),.local_sin(sin_local),.product_i(pi),.product_q(pq),.i_acc(ia),.q_acc(qa));
   bdi_sliding_correlator #(.PRN(5)) wrong_code (
@@ -110,7 +111,7 @@ module tb_bdi_teacher_capture;
           held_capture=1;
         end
         if(capture!==held_capture || (capture && cap_phase!=10)) $fatal(1,"incorrect capture timing/phase");
-        $fdisplay(fd,"%0d,%0d,%0d,%0d,%0d,%0d,%0d",windows,result_phase,$signed(ir),$signed(qr),mag,capture,samples);
+        $fdisplay(fd,"%0d,%0d,%0d,%0d,%0d,%0d,%0d,%0d",windows,result_phase,$signed(ir),$signed(qr),mag,energy,capture,samples);
         $display("BDI window=%0d phase=%0d I=%0d Q=%0d M=%0d capture=%0d samples=%0d",windows,result_phase,$signed(ir),$signed(qr),mag,capture,samples);
         if(!held_capture) exp_phase=(exp_phase+1)%2046;
         ref_i=0; ref_q=0;
@@ -127,7 +128,7 @@ module tb_bdi_teacher_capture;
     if(!$value$plusargs("GAP_PERIOD=%d",gap_period)) gap_period=0;
     fd=$fopen(output_path,"w"); trace_fd=$fopen(trace_path,"w");
     if(!fd || !trace_fd) $fatal(1,"cannot open BDI evidence files");
-    $fdisplay(fd,"window,phase,i,q,magnitude,capture,accepted_samples");
+    $fdisplay(fd,"window,phase,i,q,magnitude,energy,capture,accepted_samples");
     $fdisplay(trace_fd,"cycle,sample,window,offset,phase,if_sample,tx_prn,local_prn,product_i,product_q,acc_i_before,acc_q_before,result_i_before,result_q_before,dump_after,capture_after,candidate_after,acc_i_after,acc_q_after,result_i_after,result_q_after,magnitude_after");
     if($value$plusargs("WAVE=%s",wave_path)) begin
       $dumpfile(wave_path);

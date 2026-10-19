@@ -5,14 +5,15 @@ module tb_bdi_sliding_correlator;
   wire ready, capture, dump;
   wire signed [23:0] ir,qr;
   wire [24:0] mag;
+  wire [48:0] energy;
   wire [13:0] count;
   wire [31:0] window_id;
   wire [10:0] wrap_phase;
   always #1 clk=~clk;
-  bdi_sliding_correlator #(.AUTO_STEP(1'b0),.THRESHOLD(25'd7)) dut (
+  bdi_sliding_correlator #(.AUTO_STEP(1'b0),.ENERGY_THRESHOLD(49'd49)) dut (
     .clk(clk),.rst_n(rst_n),.start(start),.if_sample(sample),.if_valid(valid),
     .ready(ready),.bad_prn(),.capture(capture),.capture_phase(),.dump(dump),
-    .i_result(ir),.q_result(qr),.magnitude(mag),.result_phase(),.candidate_phase(),
+    .i_result(ir),.q_result(qr),.magnitude(mag),.energy(energy),.result_phase(),.candidate_phase(),
     .result_window(window_id),.sample_in_window(count),.local_index(),.local_prn_bit(),
     .local_cos(),.local_sin(),.product_i(),.product_q(),.i_acc(),.q_acc());
   bdi_sliding_correlator #(.START_PHASE(2045)) wrap_search (
@@ -45,7 +46,7 @@ module tb_bdi_sliding_correlator;
     end
     send(1,1);
     // PRN6 chip 2045 is 1; the final local cosine is +7.
-    if(!dump || ir!=-7 || qr!=0 || mag!=7 || !capture || window_id!=2)
+    if(!dump || ir!=-7 || qr!=0 || mag!=7 || energy!=49 || !capture || window_id!=2)
       $fatal(1,"last-sample inclusion or inclusive threshold failed I=%0d Q=%0d M=%0d",ir,qr,mag);
     repeat(5) begin
       send(0,0);

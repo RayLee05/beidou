@@ -50,7 +50,7 @@ def expected_windows(code: list[int]) -> list[dict]:
         dot = sum((1 - 2 * code[(10 + k) % 2046]) *
                   (1 - 2 * code[(phase + k) % 2046]) for k in range(2046))
         q = (-1 if NH20[window - 1] == 0 else 1) * 28 * dot
-        rows.append(dict(window=window, phase=phase, i=0, q=q, magnitude=abs(q),
+        rows.append(dict(window=window, phase=phase, i=0, q=q, magnitude=abs(q), energy=q*q,
                          capture=int(window >= 11), accepted_samples=window * 16368))
     return rows
 
@@ -63,8 +63,10 @@ def validate_capture(path: Path, code: list[int]) -> dict:
         mismatch = next((i + 1 for i, (a, b) in enumerate(zip(rows, expected)) if a != b), None)
         raise ValueError(f'Independent BDI correlation/window validation failed: rows={len(rows)}, first mismatch={mismatch}')
     return {'windows': 13, 'first_capture_window': 11, 'capture_phase': 10,
-            'peak': 57288, 'threshold': 8192,
+            'peak': 57288, 'energy_threshold': 67108864, 'peak_energy': 57288**2,
             'maximum_wrong_phase_magnitude': max(row['magnitude'] for row in rows[:10]),
+            'maximum_wrong_phase_energy': max(row['energy'] for row in rows[:10]),
+            'minimum_peak_energy_ratio': rows[10]['energy'] / max(row['energy'] for row in rows[:10]),
             'confirmation_windows': 2, 'aligned_code_samples_compared': 49104,
             'accepted_samples': 13 * 16368, 'rows': rows}
 

@@ -4,12 +4,13 @@
 // ICD LFSR and loaded once into a cyclic 2046-chip RAM before ready goes high.
 // Phase is the zero-based local table index at the first sample of a window.
 // A one-quarter-cycle carrier rotation puts the default source peak in Q;
-// capture uses abs(I)+abs(Q), so polarity is not part of the decision.
+// Correlation energy is I^2+Q^2. Its threshold uses squared units, so a
+// navigation/NH sign change does not change the acquisition decision.
 module bdi_sliding_correlator #(
   parameter integer PRN = 6,
   parameter integer START_PHASE = 0,
   parameter bit AUTO_STEP = 1'b1,
-  parameter logic [24:0] THRESHOLD = 25'd8192
+  parameter logic [48:0] ENERGY_THRESHOLD = 49'd67108864 // 8192 squared
 ) (
   input logic clk, rst_n, start,
   input logic signed [1:0] if_sample,
@@ -20,6 +21,7 @@ module bdi_sliding_correlator #(
   output logic dump,
   output logic signed [23:0] i_result, q_result,
   output logic [24:0] magnitude,
+  output logic [48:0] energy,
   output logic [10:0] result_phase, candidate_phase,
   output logic [31:0] result_window,
   output logic [13:0] sample_in_window,
@@ -39,12 +41,14 @@ module bdi_sliding_correlator #(
   logic signed [5:0] mix_i, mix_q;
   logic signed [23:0] next_i, next_q;
   logic [24:0] next_magnitude;
+  logic signed [47:0] square_i, square_q;
+  logic [48:0] next_energy;
   wire accept_start = start && !gen_busy;
 
   initial begin
     if (START_PHASE < 0 || START_PHASE >= 2046 || PRN < 0 || PRN > 63)
       $fatal(1, "Invalid BDI code/search configuration");
-    if (THRESHOLD == 0) $fatal(1, "BDI threshold must be positive");
+    if (ENERGY_THRESHOLD == 0) $fatal(1, "BDI energy threshold must be positive");
   end
 
   prn_code_gen u_prn (
@@ -77,12 +81,16 @@ module bdi_sliding_correlator #(
     next_i = i_acc + {{18{product_i[5]}}, product_i};
     next_q = q_acc + {{18{product_q[5]}}, product_q};
     next_magnitude = abs24(next_i) + abs24(next_q);
+    square_i = next_i * next_i;
+    square_q = next_q * next_q;
+    next_energy = {1'b0, $unsigned(square_i)} + {1'b0, $unsigned(square_q)};
   end
 
   always_ff @(posedge clk or negedge rst_n) begin
     if (!rst_n) begin
       ready <= 1'b0; capture <= 1'b0; capture_phase <= '0;
       dump <= 1'b0; i_result <= '0; q_result <= '0; magnitude <= '0;
+      energy <= '0;
       result_phase <= '0; candidate_phase <= 11'(START_PHASE);
       result_window <= '0; sample_in_window <= '0;
       carrier_phase <= 2'd1; i_acc <= '0; q_acc <= '0;
@@ -91,6 +99,7 @@ module bdi_sliding_correlator #(
       if (accept_start) begin
         ready <= 1'b0; capture <= 1'b0; capture_phase <= '0;
         i_result <= '0; q_result <= '0; magnitude <= '0; result_phase <= '0;
+        energy <= '0;
         result_window <= '0; candidate_phase <= 11'(START_PHASE);
         sample_in_window <= '0; carrier_phase <= 2'd1;
         i_acc <= '0; q_acc <= '0;
@@ -101,10 +110,11 @@ module bdi_sliding_correlator #(
           if (sample_in_window == 14'(WINDOW_SAMPLES - 1)) begin
             // Include the final sample BEFORE latching, thresholding and reset.
             i_result <= next_i; q_result <= next_q; magnitude <= next_magnitude;
+            energy <= next_energy;
             result_phase <= candidate_phase;
             result_window <= result_window + 32'd1; dump <= 1'b1;
             sample_in_window <= '0; i_acc <= '0; q_acc <= '0;
-            if (!capture && next_magnitude >= THRESHOLD) begin
+            if (!capture && next_energy >= ENERGY_THRESHOLD) begin
               capture <= 1'b1; capture_phase <= candidate_phase;
             end else if (!capture && AUTO_STEP) begin
               candidate_phase <= candidate_phase == 11'd2045 ? 11'd0 : candidate_phase + 11'd1;
