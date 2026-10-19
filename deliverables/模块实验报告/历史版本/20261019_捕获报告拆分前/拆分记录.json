@@ -1,0 +1,89 @@
+{
+  "source_sha256": "cc28bb7364c6422bb2b0697e7475dd3898b5c02146780b079879bb73845edcbc",
+  "source_path": "deliverables\\模块实验报告\\01_捕获模块设计报告.docx",
+  "outputs": {
+    "deliverables\\模块实验报告\\01_捕获模块设计方案.docx": "557139b7139098d236d93c9e772de7227e649d28200c57bf60ee0496dcac12fe",
+    "deliverables\\模块实验报告\\01_捕获模块实验报告.docx": "b49c8fc3b1dc8087076b90c777ea41fb7a9342cdf325fb16e0c12a8d34381de6"
+  },
+  "design_native_equations": 6,
+  "design_images": 0,
+  "experiment_images": 0,
+  "blank_image_slots": 4,
+  "removed_result_media": [
+    "word/media/image1.png",
+    "word/media/image2.png",
+    "word/media/image3.png",
+    "word/media/image4.png",
+    "word/media/image5.png"
+  ],
+  "preserved_package_parts": [
+    "word/styles.xml",
+    "word/numbering.xml",
+    "word/settings.xml",
+    "word/theme/theme1.xml",
+    "word/header1.xml",
+    "word/footer1.xml"
+  ],
+  "skill_review": {
+    "skills": [
+      {
+        "name": "experiment-suite",
+        "location": "C:\\Users\\heibai\\.codex\\skills\\experiment-suite",
+        "repository_revision": "744ab2049a7b52ae726c43313468fd518b330980",
+        "skill_blob": "b3446e48dc60cd3a85064de49a0acf351fdf611b",
+        "application": "Design/source/provenance review only; no ML or automatic paper generation"
+      },
+      {
+        "name": "writing-technical-design",
+        "location": "C:\\Users\\heibai\\.codex\\skills\\writing-technical-design",
+        "repository_revision": "7af14d020210ae97aacefaf8f830b248ec131e62",
+        "skill_blob": "5c4c3a8038092adcbb377f1105605e77aab13b1e",
+        "application": "Design/source/provenance review only; no ML or automatic paper generation"
+      }
+    ],
+    "mode": "Review of existing hardware design and actual RTL simulation evidence",
+    "checks": [
+      "User deletions preserved",
+      "RTL parameter and width agreement",
+      "Separate input encodings",
+      "Energy units distinct from amplitude",
+      "Actual simulation provenance verified",
+      "Blank experiment report contains headings and empty slots only"
+    ],
+    "result": "passed",
+    "user_scope_override": "Only two Word documents; experiment results and images remain blank"
+  },
+  "visual_review": {
+    "01_捕获模块设计方案": {
+      "pages": 4,
+      "inspected_pages": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "renderer": "Microsoft Word PDF export and documents skill render_docx.py at 150 dpi",
+      "page_sha256": {
+        "page-1.png": "1ecf6344b1ac2ef935abfe9efef34b6bf1ee04efcb4f090834fb9a08c107d1b7",
+        "page-2.png": "f1809fb71d4c4dba49b62019445401d40201e5ac3afab79451a3ffed51c2bac4",
+        "page-3.png": "801f9e9f25a32c9e0eac010651ac78c6ed015fb1d426a9ba33c2e0871aac0a64",
+        "page-4.png": "a6fc23117744f77b0eea5bbb9f62b7d525c661f870ccbe5a1e21ac3fa731e9f1"
+      },
+      "result": "passed"
+    },
+    "01_捕获模块实验报告": {
+      "pages": 2,
+      "inspected_pages": [
+        1,
+        2
+      ],
+      "renderer": "Microsoft Word PDF export and documents skill render_docx.py at 150 dpi",
+      "page_sha256": {
+        "page-1.png": "91feb6c9ca5e7388aea3800c3570b88b44eaf2345f0afc7ce9e4aeaf494ea519",
+        "page-2.png": "2e7ccb6825a1a124a5dcdc8898791d411984de2b32490150ee7a1c28245b7dd2"
+      },
+      "result": "passed"
+    }
+  },
+  "archived_user_revision": "deliverables\\模块实验报告\\历史版本\\20261019_捕获报告拆分前\\01_捕获模块设计报告_用户修订稿.docx"
+}
