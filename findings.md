@@ -15,6 +15,14 @@
 - `acquisition_engine.sv` 仍不在 `filelist.f`（遗留，不影响现行捕获）。
 - 本机做不了：教师 SRAM、REQ-PERF、虚拟机综合。
 
+## 教师 student_release（2026-10-09）
+- 输入：`scenario.if2` 100 s、6 星、40 dB-Hz、16.368 MSps / 4.092 MHz；量化与字节序与我们 `sample_unpacker` 一致。
+- 顶层固定为 `student_receiver_core`：`stream_data[31:0]/valid/ready/last` + 64 bit `sample_index`，输出 `record_data[255:0]/valid/ready`。
+- 记录格式 `receiver_records_32byte_le_v1`：type 在 bits 7:0，6 类（tracking/navigation/lost/common_observation/acquisition/end），与我们 `b1i_records.svh` 完全不同。
+- 教师 `route_a_position.py` 能从每毫秒 tracking 记录（Prompt I/Q + carrier_phase）软件恢复 D1；common_observation 必须落在整秒样本 `epoch_id*16368000`。
+- 缺 `sim/if2_file_player.sv`、`sim/receiver_tb_template.sv`；README 写每拍 16 样本，json/接口注释写 4 样本，需要确认。
+- 我们的参考模型 20 ms 捕获到 PRN 8/11/13/21/28；第 6 颗未见，疑为 PRN>37（码表只到 37）。
+
 ## 技术决策
 | 决策 | 理由 |
 |------|------|

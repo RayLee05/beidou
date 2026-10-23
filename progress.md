@@ -51,3 +51,10 @@
 - ModelSim `--quick` 8/8、`tb_b1i_rx_top` 1.95 s PASS
 - `run_local_chain --sec 7 --sats 4`：4 星锁定，|Δr|=35.125 m，dt=119.96 µs
 - 未提交、未推送
+
+## 会话：2026-10-09 虚拟机 VCS
+
+- 反向通道连上 IC（VCS I-2014.03）。代码在 `/home/7902_13/beidou`，旧目录改为 `beidou.bak-20260928`。
+- VCS：tb_carrier_lut、8 个快测、tb_tracking_channel、tb_b1i_rx_top 全部 PASS。
+- `tb_acquisition` 也是 `[PASS]`（DONE:0）。VCS 用例到此全部通过。
+- `/opt/Synopsys` 有 VCS、ICC、PrimeTime、Formality、StarRC、Synplify，没有 Design Compiler 目录。`eda.sh` 里的 `dc` 指向 Synplify 的 `dc_shell`。搜到的 `.db` 都是 Synplify 示例库，不能当课程工艺库。未推送。
