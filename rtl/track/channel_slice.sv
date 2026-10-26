@@ -92,7 +92,7 @@ module channel_slice #(parameter bit WITH_METADATA = 1'b0) (
     .bit_end_sample(bit_end_sample), .bit_end_phase(bit_end_phase));
 
   d1_frame_sync #(.WITH_METADATA(WITH_METADATA)) u_d1 (
-    .clk(clk), .rst_n(rst_n), .clear(clear | init_load),
+    .clk(clk), .rst_n(rst_n), .clear(clear | init_load | !bit_synced),
     .bit_valid(bit_valid), .bit_val(bit_val), .bit_ms(bit_ms),
     .bit_end_sample(bit_end_sample), .bit_end_phase(bit_end_phase),
     .sf_valid(sf_valid), .sf_id(sf_id), .sf_sow(sf_sow), .sf_start_ms(sf_start_ms),

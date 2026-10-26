@@ -5,7 +5,9 @@
 //   译码：字 1 前 15 bit 不编码、后 15 bit 为一个码字；字 2-10 奇数位为码字 1、
 //   偶数位为码字 2（ICD 第 19 页）。BCH 除法电路与纠错表按 ICD 图 5-4 / 表 5-2。
 //   输出：224 bit 信息位（info[223] 为首个信息位）、FraID、SOW、子帧起点 ms 标签；
-//   FraID 不在 1..5 的候选丢弃。最新有效子帧建立时间锚点 (anchor_ms, anchor_sow)。
+//   检查 FraID/SOW 范围及相邻有效子帧的时间、编号连续性（允许漏掉两个子帧）。
+//   输入位标签必须相差 20；不连续时撤销同步，当前位作为新历史的第一个位。
+//   持续接收 1200 位而无有效子帧时撤销帧、时间与周数有效标志。
 //   逐位参考：sw/b1i_ref/d1_nav.py / prn_b1i.py
 //   需求: REQ-SYN-004/005/006, REQ-NAV-001/002
 // =============================================================================
@@ -32,7 +34,7 @@ module d1_frame_sync #(parameter bit WITH_METADATA = 1'b0) (
   output logic [9:0][47:0] sf_word_phases,
   output logic [9:0][31:0] sf_word_ms,
   output logic          sf_inverted,
-  output logic          frame_synced,   // 已获得至少一个有效子帧
+  output logic          frame_synced,   // 已获得有效子帧，且未中断或超出保持期
   output logic          anchor_valid,
   output logic [31:0]   anchor_ms,
   output logic [19:0]   anchor_sow,
@@ -56,6 +58,11 @@ module d1_frame_sync #(parameter bit WITH_METADATA = 1'b0) (
   logic         bch_bad;
   logic [9:0][1:0] word_fixes;
   logic [3:0] word_idx;
+  logic have_bit;
+  logic [31:0] last_bit_ms;
+  localparam int FRAME_TIMEOUT_BITS = 1200;
+  logic [10:0] frame_age;
+  wire bit_gap = bit_valid && have_bit && bit_ms != last_bit_ms + 32'd20;
 
   // Circular history keeps each bit's measured END time. The next preamble
   // arrives 11 bits after the subframe, so its current NCO state is too late.
@@ -73,9 +80,10 @@ module d1_frame_sync #(parameter bit WITH_METADATA = 1'b0) (
       if (!rst_n) begin
         write_ptr <= '0; candidate_ptr <= '0;
         sf_word_samples <= '0; sf_word_phases <= '0; sf_word_ms <= '0;
-      end else if (clear) begin
-        write_ptr <= '0; candidate_ptr <= '0;
+      end else if (clear || bit_gap) begin
+        write_ptr <= clear ? 9'd0 : 9'd1; candidate_ptr <= '0;
         sf_word_samples <= '0; sf_word_phases <= '0; sf_word_ms <= '0;
+        if (!clear) tags[0] <= {bit_end_sample, bit_end_phase, bit_ms + 32'd20};
       end else begin
         if (bit_valid) begin
           tags[write_ptr] <= {bit_end_sample, bit_end_phase, bit_ms + 32'd20};
@@ -151,6 +159,28 @@ module d1_frame_sync #(parameter bit WITH_METADATA = 1'b0) (
   wire [19:0] f_sow   = {info[223 - 18 -: 8], info[223 - 26 -: 12]};
   wire [12:0] f_wn    = info[223 - 48 -: 13];          // 子帧 1 字 3 的前 13 bit
 
+  function automatic logic [19:0] next_sow(input logic [19:0] value);
+    return (value >= 20'd604794) ? value - 20'd604794 : value + 20'd6;
+  endfunction
+  function automatic logic [2:0] next_id(input logic [2:0] value);
+    return (value == 3'd5) ? 3'd1 : value + 3'd1;
+  endfunction
+  logic continuity_ok;
+  logic [19:0] check_sow;
+  logic [2:0] check_id;
+  always_comb begin
+    continuity_ok = !anchor_valid;
+    check_sow = anchor_sow;
+    check_id = sf_id;
+    // Unroll three constant comparisons; no divider or general modulo circuit.
+    for (int step = 1; step <= 3; step++) begin
+      check_sow = next_sow(check_sow);
+      check_id = next_id(check_id);
+      if (start_ms_q == anchor_ms + 32'(6000 * step) &&
+          f_sow == check_sow && f_fraid == check_id) continuity_ok = 1'b1;
+    end
+  end
+
   always_ff @(posedge clk or negedge rst_n) begin
     if (!rst_n) begin
       sr <= '0; nbits <= '0; sfb <= '0; start_ms_q <= '0; inv_q <= 1'b0;
@@ -159,7 +189,8 @@ module d1_frame_sync #(parameter bit WITH_METADATA = 1'b0) (
       sf_valid <= 1'b0; sf_err <= 1'b0; sf_id <= '0; sf_sow <= '0; sf_start_ms <= '0; sf_info <= '0;
       sf_fixes <= '0; sf_inverted <= 1'b0; frame_synced <= 1'b0;
       anchor_valid <= 1'b0; anchor_ms <= '0; anchor_sow <= '0; week <= '0; week_valid <= 1'b0;
-    end else if (clear) begin
+      have_bit <= 1'b0; last_bit_ms <= '0; frame_age <= '0;
+    end else if (clear || bit_gap) begin
       // 取消译码与字段检查；cw=19 也不能在下一拍提交旧通道的子帧。
       sr <= '0; nbits <= '0; sfb <= '0; start_ms_q <= '0; inv_q <= 1'b0;
       dec <= 1'b0; cw <= '0; info <= '0; ipos <= '0; fixes <= '0; bch_bad <= 1'b0;
@@ -167,10 +198,20 @@ module d1_frame_sync #(parameter bit WITH_METADATA = 1'b0) (
       sf_valid <= 1'b0; sf_err <= 1'b0; sf_id <= '0; sf_sow <= '0; sf_start_ms <= '0; sf_info <= '0;
       sf_fixes <= '0; sf_inverted <= 1'b0; frame_synced <= 1'b0;
       anchor_valid <= 1'b0; anchor_ms <= '0; anchor_sow <= '0; week <= '0; week_valid <= 1'b0;
+      have_bit <= !clear; last_bit_ms <= clear ? 32'd0 : bit_ms; frame_age <= '0;
+      // Do not bridge missing/duplicate input bits, even if both preambles match.
+      if (!clear) begin sr[0] <= bit_val; nbits <= 9'd1; end
     end else begin
       sf_valid <= 1'b0;
       sf_err   <= 1'b0;
       if (bit_valid) begin
+        have_bit <= 1'b1; last_bit_ms <= bit_ms;
+        if (anchor_valid) begin
+          if (frame_age == 11'(FRAME_TIMEOUT_BITS - 1)) begin
+            frame_synced <= 1'b0; anchor_valid <= 1'b0; week_valid <= 1'b0;
+            frame_age <= '0;
+          end else frame_age <= frame_age + 11'd1;
+        end
         sr    <= {sr[309:0], bit_val};
         nbits <= (nbits == 9'd311) ? nbits : nbits + 9'd1;
         // 用移位后的内容判前导码：新比特成为 sr[0]
@@ -210,7 +251,7 @@ module d1_frame_sync #(parameter bit WITH_METADATA = 1'b0) (
         end
       end else if (cw == 5'd19) begin
         cw <= '0;
-        if (!bch_bad && f_fraid >= 3'd1 && f_fraid <= 3'd5 && f_sow < 20'd604800) begin
+        if (!bch_bad && f_fraid >= 3'd1 && f_fraid <= 3'd5 && f_sow < 20'd604800 && continuity_ok) begin
           sf_valid     <= 1'b1;
           sf_id        <= f_fraid;
           sf_sow       <= f_sow;
@@ -224,6 +265,7 @@ module d1_frame_sync #(parameter bit WITH_METADATA = 1'b0) (
           anchor_valid <= 1'b1;
           anchor_ms    <= start_ms_q;
           anchor_sow   <= f_sow;
+          frame_age    <= '0;
           if (f_fraid == 3'd1) begin
             week <= f_wn;
             week_valid <= 1'b1;

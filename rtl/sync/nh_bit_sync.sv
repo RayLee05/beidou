@@ -8,6 +8,8 @@
 //   3) 已同步：每当 (m+1) mod 20 == p，最近 20 个窗口构成一个数据位：
 //      bit = (corr < 0)，bit_ms = 该位第一个窗口的标签 = m-19
 //   极性由 Costas 环决定（180° 模糊），交给帧同步用前导码判定。
+//   非连续标签、不完整窗口或标签回绕会撤销同步并重新建立完整历史。
+//   dump 之间须为串行相关及相位判决预留至少 41 个空闲时钟。
 //   需求: REQ-SYN-001/002/003
 // =============================================================================
 `include "b1i_params.svh"
@@ -42,6 +44,8 @@ module nh_bit_sync #(
   logic [31:0]                  m_tag;
   logic [63:0]                  sample_tag;
   logic [47:0]                  phase_tag;
+  logic                         have_tag;
+  logic [31:0]                  last_dump_ms;
   logic [4:0]                   k;
   logic                         run;
   logic signed [CORR_ACC_W+5:0] corr;
@@ -52,6 +56,8 @@ module nh_bit_sync #(
   logic [39:0]                  best_v, second_v;
 
   wire [4:0] p_start = (m20 == 5'd19) ? 5'd0 : m20 + 5'd1;   // (m+1) mod 20
+  wire restart_history = dump_valid && (dump_partial ||
+      (have_tag && (dump_ms != last_dump_ms + 32'd1 || dump_ms < last_dump_ms)));
 
   wire signed [CORR_ACC_W+5:0] term =
       NH[19 - k] ? -$signed((CORR_ACC_W+6)'(hist[19 - k])) : $signed((CORR_ACC_W+6)'(hist[19 - k]));
@@ -66,17 +72,29 @@ module nh_bit_sync #(
       synced <= 1'b0; bit_phase <= '0; bit_valid <= 1'b0; bit_val <= 1'b0;
       bit_ms <= '0; bit_mag <= '0;
       sample_tag <= '0; phase_tag <= '0; bit_end_sample <= '0; bit_end_phase <= '0;
-    end else if (clear) begin
+      have_tag <= 1'b0; last_dump_ms <= '0;
+    end else if (clear || restart_history) begin
       for (int i = 0; i < 20; i++) begin hist[i] <= '0; E[i] <= '0; end
       nhist <= '0; m20 <= '0; m_tag <= '0; k <= '0; run <= 1'b0; corr <= '0;
       nblk <= '0; deciding <= 1'b0; di <= '0; best_i <= '0; best_v <= '0; second_v <= '0;
       synced <= 1'b0; bit_phase <= '0; bit_valid <= 1'b0; bit_val <= 1'b0;
       bit_ms <= '0; bit_mag <= '0;
       sample_tag <= '0; phase_tag <= '0; bit_end_sample <= '0; bit_end_phase <= '0;
+      have_tag <= !clear; last_dump_ms <= clear ? 32'd0 : dump_ms;
+      if (!clear) begin
+        m20 <= 5'(dump_ms % 32'd20);
+        // A complete sample after a gap starts the new history immediately.
+        if (!dump_partial) begin
+          hist[0] <= i_p; nhist <= 5'd1; m_tag <= dump_ms;
+          sample_tag <= dump_sample_count; phase_tag <= dump_code_phase;
+        end
+      end
     end else begin
       bit_valid <= 1'b0;
       if (dump_valid) begin
-        m20   <= (dump_ms == 32'd0) ? 5'd0 : ((m20 == 5'd19) ? 5'd0 : m20 + 5'd1);
+        m20 <= !have_tag ? 5'(dump_ms % 32'd20) :
+               ((m20 == 5'd19) ? 5'd0 : m20 + 5'd1);
+        have_tag <= 1'b1; last_dump_ms <= dump_ms;
         if (!dump_partial) begin
           for (int i = 19; i > 0; i--) hist[i] <= hist[i-1];
           hist[0] <= i_p;

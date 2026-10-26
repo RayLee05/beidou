@@ -10,7 +10,10 @@ tb/unit/tb_sample_timebase.sv
 tb/unit/tb_prn_code_gen.sv
 tb/unit/tb_nh_bit_sync.sv
 tb/unit/tb_nh_clear.sv
+tb/unit/tb_nh_continuity.sv
 tb/unit/tb_d1_frame_sync.sv
+tb/unit/tb_d1_robustness.sv
+tb/integration/tb_sync_navigation.sv
 tb/unit/tb_record_fifo.sv
 tb/unit/tb_public_record_encoder.sv
 tb/unit/tb_measurement_engine.sv

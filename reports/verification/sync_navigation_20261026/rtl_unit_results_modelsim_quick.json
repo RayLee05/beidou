@@ -1,0 +1,257 @@
+{
+  "banner": {
+    "generated_at": "2026-10-26T13:27:49+08:00",
+    "python": "3.12.14",
+    "platform": "Windows-11-10.0.26200-SP0",
+    "machine": "AMD64",
+    "git_revision": "527e497",
+    "git_dirty": true
+  },
+  "simulator": "modelsim",
+  "total": 22,
+  "passed": 22,
+  "results": [
+    {
+      "name": "tb_carrier_lut",
+      "tb": "tb/unit/tb_carrier_lut.sv",
+      "tool": "modelsim",
+      "compile_ok": true,
+      "compile_log": "",
+      "run_ok": true,
+      "passed": true,
+      "run_log": "Reading D:/modeltech64_10.5/tcl/vsim/pref.tcl\n\n# 10.5\n\n# vsim -c -lib reports/sim/msim/work tb_carrier_lut -do \"onfinish exit; run -all; quit -f\" \n# Start time: 13:26:50 on Oct 26,2026\n# ** Note: (vsim-3812) Design is being optimized...\n# //  ModelSim SE-64 10.5 Feb 13 2016 \n# //\n# //  Copyright 1991-2016 Mentor Graphics Corporation\n# //  All Rights Reserved.\n# //\n# //  ModelSim SE-64 and its associated documentation contain trade\n# //  secrets and commercial or financial information that are the property of\n# //  Mentor Graphics Corporation and are privileged, confidential,\n# //  and exempt from disclosure under the Freedom of Information Act,\n# //  5 U.S.C. Section 552. Furthermore, this information\n# //  is prohibited from disclosure under the Trade Secrets Act,\n# //  18 U.S.C. Section 1905.\n# //\n# Loading sv_std.std\n# Loading work.carrier_lut_sv_unit(fast)\n# Loading work.tb_carrier_lut_sv_unit(fast)\n# Loading work.tb_carrier_lut(fast)\n# onfinish exit\n#  run -all\n# TEST PASSED\n# ** Note: $finish    : tb/unit/tb_carrier_lut.sv(39)\n#    Time: 6 ns  Iteration: 0  Instance: /tb_carrier_lut\n# End time: 13:26:51 on Oct 26,2026, Elapsed time: 0:00:01\n# Errors: 0, Warnings: 0\n",
+      "seconds": 2.705922
+    },
+    {
+      "name": "tb_sample_unpacker",
+      "tb": "tb/unit/tb_sample_unpacker.sv",
+      "tool": "modelsim",
+      "compile_ok": true,
+      "compile_log": "",
+      "run_ok": true,
+      "passed": true,
+      "run_log": "Reading D:/modeltech64_10.5/tcl/vsim/pref.tcl\n\n# 10.5\n\n# vsim -c -lib reports/sim/msim/work tb_sample_unpacker -do \"onfinish exit; run -all; quit -f\" \n# Start time: 13:26:52 on Oct 26,2026\n# ** Note: (vsim-3812) Design is being optimized...\n# //  ModelSim SE-64 10.5 Feb 13 2016 \n# //\n# //  Copyright 1991-2016 Mentor Graphics Corporation\n# //  All Rights Reserved.\n# //\n# //  ModelSim SE-64 and its associated documentation contain trade\n# //  secrets and commercial or financial information that are the property of\n# //  Mentor Graphics Corporation and are privileged, confidential,\n# //  and exempt from disclosure under the Freedom of Information Act,\n# //  5 U.S.C. Section 552. Furthermore, this information\n# //  is prohibited from disclosure under the Trade Secrets Act,\n# //  18 U.S.C. Section 1905.\n# //\n# Loading sv_std.std\n# Loading work.sample_unpacker_sv_unit(fast)\n# Loading work.tb_sample_unpacker_sv_unit(fast)\n# Loading work.tb_sample_unpacker(fast)\n# onfinish exit\n#  run -all\n# TEST PASSED\n# ** Note: $finish    : tb/unit/tb_sample_unpacker.sv(66)\n#    Time: 130 ns  Iteration: 1  Instance: /tb_sample_unpacker\n# End time: 13:26:54 on Oct 26,2026, Elapsed time: 0:00:02\n# Errors: 0, Warnings: 0\n",
+      "seconds": 2.613116
+    },
+    {
+      "name": "tb_teacher_stream_frontend",
+      "tb": "tb/unit/tb_teacher_stream_frontend.sv",
+      "tool": "modelsim",
+      "compile_ok": true,
+      "compile_log": "",
+      "run_ok": true,
+      "passed": true,
+      "run_log": "Reading D:/modeltech64_10.5/tcl/vsim/pref.tcl\n\n# 10.5\n\n# vsim -c -lib reports/sim/msim/work tb_teacher_stream_frontend -do \"onfinish exit; run -all; quit -f\" \n# Start time: 13:26:55 on Oct 26,2026\n# ** Note: (vsim-3812) Design is being optimized...\n# //  ModelSim SE-64 10.5 Feb 13 2016 \n# //\n# //  Copyright 1991-2016 Mentor Graphics Corporation\n# //  All Rights Reserved.\n# //\n# //  ModelSim SE-64 and its associated documentation contain trade\n# //  secrets and commercial or financial information that are the property of\n# //  Mentor Graphics Corporation and are privileged, confidential,\n# //  and exempt from disclosure under the Freedom of Information Act,\n# //  5 U.S.C. Section 552. Furthermore, this information\n# //  is prohibited from disclosure under the Trade Secrets Act,\n# //  18 U.S.C. Section 1905.\n# //\n# Loading sv_std.std\n# Loading work.tb_teacher_stream_frontend(fast)\n# onfinish exit\n#  run -all\n# TEST PASSED\n# ** Note: $finish    : tb/unit/tb_teacher_stream_frontend.sv(64)\n#    Time: 2390 ns  Iteration: 1  Instance: /tb_teacher_stream_frontend\n# End time: 13:26:57 on Oct 26,2026, Elapsed time: 0:00:02\n# Errors: 0, Warnings: 0\n",
+      "seconds": 2.638947
+    },
+    {
+      "name": "tb_sample_timebase",
+      "tb": "tb/unit/tb_sample_timebase.sv",
+      "tool": "modelsim",
+      "compile_ok": true,
+      "compile_log": "",
+      "run_ok": true,
+      "passed": true,
+      "run_log": "Reading D:/modeltech64_10.5/tcl/vsim/pref.tcl\n\n# 10.5\n\n# vsim -c -lib reports/sim/msim/work tb_sample_timebase -do \"onfinish exit; run -all; quit -f\" \n# Start time: 13:26:58 on Oct 26,2026\n# ** Note: (vsim-3812) Design is being optimized...\n# //  ModelSim SE-64 10.5 Feb 13 2016 \n# //\n# //  Copyright 1991-2016 Mentor Graphics Corporation\n# //  All Rights Reserved.\n# //\n# //  ModelSim SE-64 and its associated documentation contain trade\n# //  secrets and commercial or financial information that are the property of\n# //  Mentor Graphics Corporation and are privileged, confidential,\n# //  and exempt from disclosure under the Freedom of Information Act,\n# //  5 U.S.C. Section 552. Furthermore, this information\n# //  is prohibited from disclosure under the Trade Secrets Act,\n# //  18 U.S.C. Section 1905.\n# //\n# Loading sv_std.std\n# Loading work.sample_timebase_sv_unit(fast)\n# Loading work.tb_sample_timebase_sv_unit(fast)\n# Loading work.tb_sample_timebase(fast)\n# onfinish exit\n#  run -all\n# TEST PASSED\n# ** Note: $finish    : tb/unit/tb_sample_timebase.sv(66)\n#    Time: 3273636 ns  Iteration: 0  Instance: /tb_sample_timebase\n# End time: 13:27:00 on Oct 26,2026, Elapsed time: 0:00:02\n# Errors: 0, Warnings: 0\n",
+      "seconds": 2.818658
+    },
+    {
+      "name": "tb_prn_code_gen",
+      "tb": "tb/unit/tb_prn_code_gen.sv",
+      "tool": "modelsim",
+      "compile_ok": true,
+      "compile_log": "",
+      "run_ok": true,
+      "passed": true,
+      "run_log": "Reading D:/modeltech64_10.5/tcl/vsim/pref.tcl\n\n# 10.5\n\n# vsim -c -lib reports/sim/msim/work tb_prn_code_gen -do \"onfinish exit; run -all; quit -f\" \n# Start time: 13:27:00 on Oct 26,2026\n# ** Note: (vsim-3812) Design is being optimized...\n# //  ModelSim SE-64 10.5 Feb 13 2016 \n# //\n# //  Copyright 1991-2016 Mentor Graphics Corporation\n# //  All Rights Reserved.\n# //\n# //  ModelSim SE-64 and its associated documentation contain trade\n# //  secrets and commercial or financial information that are the property of\n# //  Mentor Graphics Corporation and are privileged, confidential,\n# //  and exempt from disclosure under the Freedom of Information Act,\n# //  5 U.S.C. Section 552. Furthermore, this information\n# //  is prohibited from disclosure under the Trade Secrets Act,\n# //  18 U.S.C. Section 1905.\n# //\n# Loading sv_std.std\n# Loading work.prn_code_gen_sv_unit(fast)\n# Loading work.tb_prn_code_gen_sv_unit(fast)\n# Loading work.tb_prn_code_gen(fast)\n# onfinish exit\n#  run -all\n# TEST PASSED\n# ** Note: $finish    : tb/unit/tb_prn_code_gen.sv(62)\n#    Time: 1290300 ns  Iteration: 1  Instance: /tb_prn_code_gen\n# End time: 13:27:02 on Oct 26,2026, Elapsed time: 0:00:02\n# Errors: 0, Warnings: 0\n",
+      "seconds": 2.696469
+    },
+    {
+      "name": "tb_nh_bit_sync",
+      "tb": "tb/unit/tb_nh_bit_sync.sv",
+      "tool": "modelsim",
+      "compile_ok": true,
+      "compile_log": "",
+      "run_ok": true,
+      "passed": true,
+      "run_log": "Reading D:/modeltech64_10.5/tcl/vsim/pref.tcl\n\n# 10.5\n\n# vsim -c -lib reports/sim/msim/work tb_nh_bit_sync -do \"onfinish exit; run -all; quit -f\" \n# Start time: 13:27:03 on Oct 26,2026\n# ** Note: (vsim-3812) Design is being optimized...\n# //  ModelSim SE-64 10.5 Feb 13 2016 \n# //\n# //  Copyright 1991-2016 Mentor Graphics Corporation\n# //  All Rights Reserved.\n# //\n# //  ModelSim SE-64 and its associated documentation contain trade\n# //  secrets and commercial or financial information that are the property of\n# //  Mentor Graphics Corporation and are privileged, confidential,\n# //  and exempt from disclosure under the Freedom of Information Act,\n# //  5 U.S.C. Section 552. Furthermore, this information\n# //  is prohibited from disclosure under the Trade Secrets Act,\n# //  18 U.S.C. Section 1905.\n# //\n# Loading sv_std.std\n# Loading work.nh_bit_sync_sv_unit(fast)\n# Loading work.tb_nh_bit_sync_sv_unit(fast)\n# Loading work.tb_nh_bit_sync(fast)\n# onfinish exit\n#  run -all\n# synced=1 phase=13 (expected 13), 59 bits checked, polarity 0\n# TEST PASSED\n# ** Note: $finish    : tb/unit/tb_nh_bit_sync.sv(88)\n#    Time: 855030 ns  Iteration: 1  Instance: /tb_nh_bit_sync\n# End time: 13:27:05 on Oct 26,2026, Elapsed time: 0:00:02\n# Errors: 0, Warnings: 0\n",
+      "seconds": 2.678726
+    },
+    {
+      "name": "tb_nh_clear",
+      "tb": "tb/unit/tb_nh_clear.sv",
+      "tool": "modelsim",
+      "compile_ok": true,
+      "compile_log": "",
+      "run_ok": true,
+      "passed": true,
+      "run_log": "Reading D:/modeltech64_10.5/tcl/vsim/pref.tcl\n\n# 10.5\n\n# vsim -c -lib reports/sim/msim/work tb_nh_clear -do \"onfinish exit; run -all; quit -f\" \n# Start time: 13:27:06 on Oct 26,2026\n# ** Note: (vsim-3812) Design is being optimized...\n# //  ModelSim SE-64 10.5 Feb 13 2016 \n# //\n# //  Copyright 1991-2016 Mentor Graphics Corporation\n# //  All Rights Reserved.\n# //\n# //  ModelSim SE-64 and its associated documentation contain trade\n# //  secrets and commercial or financial information that are the property of\n# //  Mentor Graphics Corporation and are privileged, confidential,\n# //  and exempt from disclosure under the Freedom of Information Act,\n# //  5 U.S.C. Section 552. Furthermore, this information\n# //  is prohibited from disclosure under the Trade Secrets Act,\n# //  18 U.S.C. Section 1905.\n# //\n# Loading sv_std.std\n# Loading work.nh_bit_sync_sv_unit(fast)\n# Loading work.tb_nh_clear_sv_unit(fast)\n# Loading work.tb_nh_clear(fast)\n# onfinish exit\n#  run -all\n# TEST PASSED\n# ** Note: $finish    : tb/unit/tb_nh_clear.sv(33)\n#    Time: 670 ns  Iteration: 1  Instance: /tb_nh_clear\n# End time: 13:27:08 on Oct 26,2026, Elapsed time: 0:00:02\n# Errors: 0, Warnings: 0\n",
+      "seconds": 2.686248
+    },
+    {
+      "name": "tb_nh_continuity",
+      "tb": "tb/unit/tb_nh_continuity.sv",
+      "tool": "modelsim",
+      "compile_ok": true,
+      "compile_log": "",
+      "run_ok": true,
+      "passed": true,
+      "run_log": "Reading D:/modeltech64_10.5/tcl/vsim/pref.tcl\n\n# 10.5\n\n# vsim -c -lib reports/sim/msim/work tb_nh_continuity -do \"onfinish exit; run -all; quit -f\" \n# Start time: 13:27:08 on Oct 26,2026\n# ** Note: (vsim-3812) Design is being optimized...\n# //  ModelSim SE-64 10.5 Feb 13 2016 \n# //\n# //  Copyright 1991-2016 Mentor Graphics Corporation\n# //  All Rights Reserved.\n# //\n# //  ModelSim SE-64 and its associated documentation contain trade\n# //  secrets and commercial or financial information that are the property of\n# //  Mentor Graphics Corporation and are privileged, confidential,\n# //  and exempt from disclosure under the Freedom of Information Act,\n# //  5 U.S.C. Section 552. Furthermore, this information\n# //  is prohibited from disclosure under the Trade Secrets Act,\n# //  18 U.S.C. Section 1905.\n# //\n# Loading sv_std.std\n# Loading work.nh_bit_sync_sv_unit(fast)\n# Loading work.tb_nh_continuity_sv_unit(fast)\n# Loading work.tb_nh_continuity(fast)\n# onfinish exit\n#  run -all\n# 20 NH phases, inverted polarity, noise, full-scale input, gap/partial/duplicate recovery: 346 bits checked\n# TEST PASSED\n# ** Note: $finish    : tb/unit/tb_nh_continuity.sv(87)\n#    Time: 5858080 ns  Iteration: 1  Instance: /tb_nh_continuity\n# End time: 13:27:10 on Oct 26,2026, Elapsed time: 0:00:02\n# Errors: 0, Warnings: 0\n",
+      "seconds": 2.734677
+    },
+    {
+      "name": "tb_d1_frame_sync",
+      "tb": "tb/unit/tb_d1_frame_sync.sv",
+      "tool": "modelsim",
+      "compile_ok": true,
+      "compile_log": "",
+      "run_ok": true,
+      "passed": true,
+      "run_log": "Reading D:/modeltech64_10.5/tcl/vsim/pref.tcl\n\n# 10.5\n\n# vsim -c -lib reports/sim/msim/work tb_d1_frame_sync -do \"onfinish exit; run -all; quit -f\" \n# Start time: 13:27:11 on Oct 26,2026\n# ** Note: (vsim-3812) Design is being optimized...\n# //  ModelSim SE-64 10.5 Feb 13 2016 \n# //\n# //  Copyright 1991-2016 Mentor Graphics Corporation\n# //  All Rights Reserved.\n# //\n# //  ModelSim SE-64 and its associated documentation contain trade\n# //  secrets and commercial or financial information that are the property of\n# //  Mentor Graphics Corporation and are privileged, confidential,\n# //  and exempt from disclosure under the Freedom of Information Act,\n# //  5 U.S.C. Section 552. Furthermore, this information\n# //  is prohibited from disclosure under the Trade Secrets Act,\n# //  18 U.S.C. Section 1905.\n# //\n# Loading sv_std.std\n# Loading work.d1_frame_sync_sv_unit(fast)\n# Loading work.tb_d1_frame_sync_sv_unit(fast)\n# Loading work.tb_d1_frame_sync(fast)\n# Loading work.public_record_encoder_sv_unit(fast)\n# Loading work.public_record_encoder(fast)\n# onfinish exit\n#  run -all\n# subframe: id=4 sow=345618 start_ms=3740 fixes=0 inverted=0\n# subframe: id=5 sow=345624 start_ms=9740 fixes=0 inverted=0\n# subframe: id=1 sow=345630 start_ms=15740 fixes=1 inverted=0\n# subframe: id=3 sow=345642 start_ms=27740 fixes=0 inverted=1\n# subframe: id=4 sow=345648 start_ms=33740 fixes=0 inverted=1\n# 5 subframes, total BCH fixes 1, week=950 valid=1\n# TEST PASSED\n# ** Note: $finish    : tb/unit/tb_d1_frame_sync.sv(164)\n#    Time: 695500 ns  Iteration: 1  Instance: /tb_d1_frame_sync\n# End time: 13:27:13 on Oct 26,2026, Elapsed time: 0:00:02\n# Errors: 0, Warnings: 0\n",
+      "seconds": 2.575033
+    },
+    {
+      "name": "tb_d1_robustness",
+      "tb": "tb/unit/tb_d1_robustness.sv",
+      "tool": "modelsim",
+      "compile_ok": true,
+      "compile_log": "",
+      "run_ok": true,
+      "passed": true,
+      "run_log": "Reading D:/modeltech64_10.5/tcl/vsim/pref.tcl\n\n# 10.5\n\n# vsim -c -lib reports/sim/msim/work tb_d1_robustness -do \"onfinish exit; run -all; quit -f\" \n# Start time: 13:27:14 on Oct 26,2026\n# ** Note: (vsim-3812) Design is being optimized...\n# //  ModelSim SE-64 10.5 Feb 13 2016 \n# //\n# //  Copyright 1991-2016 Mentor Graphics Corporation\n# //  All Rights Reserved.\n# //\n# //  ModelSim SE-64 and its associated documentation contain trade\n# //  secrets and commercial or financial information that are the property of\n# //  Mentor Graphics Corporation and are privileged, confidential,\n# //  and exempt from disclosure under the Freedom of Information Act,\n# //  5 U.S.C. Section 552. Furthermore, this information\n# //  is prohibited from disclosure under the Trade Secrets Act,\n# //  18 U.S.C. Section 1905.\n# //\n# Loading sv_std.std\n# Loading work.d1_frame_sync_sv_unit(fast)\n# Loading work.tb_d1_robustness(fast)\n# onfinish exit\n#  run -all\n# D1 gaps/duplicates, SOW/FraID continuity and rollover, timeout recovery: PASS\n# 285 protected-bit errors corrected; 3020 word-end metadata entries checked\n# TEST PASSED\n# ** Note: $finish    : tb/unit/tb_d1_robustness.sv(140)\n#    Time: 3024080 ns  Iteration: 1  Instance: /tb_d1_robustness\n# End time: 13:27:16 on Oct 26,2026, Elapsed time: 0:00:02\n# Errors: 0, Warnings: 0\n",
+      "seconds": 3.073253
+    },
+    {
+      "name": "tb_sync_navigation",
+      "tb": "tb/integration/tb_sync_navigation.sv",
+      "tool": "modelsim",
+      "compile_ok": true,
+      "compile_log": "",
+      "run_ok": true,
+      "passed": true,
+      "run_log": "Reading D:/modeltech64_10.5/tcl/vsim/pref.tcl\n\n# 10.5\n\n# vsim -c -lib reports/sim/msim/work tb_sync_navigation -do \"onfinish exit; run -all; quit -f\" \n# Start time: 13:27:17 on Oct 26,2026\n# ** Note: (vsim-3812) Design is being optimized...\n# //  ModelSim SE-64 10.5 Feb 13 2016 \n# //\n# //  Copyright 1991-2016 Mentor Graphics Corporation\n# //  All Rights Reserved.\n# //\n# //  ModelSim SE-64 and its associated documentation contain trade\n# //  secrets and commercial or financial information that are the property of\n# //  Mentor Graphics Corporation and are privileged, confidential,\n# //  and exempt from disclosure under the Freedom of Information Act,\n# //  5 U.S.C. Section 552. Furthermore, this information\n# //  is prohibited from disclosure under the Trade Secrets Act,\n# //  18 U.S.C. Section 1905.\n# //\n# Loading sv_std.std\n# Loading work.d1_frame_sync_sv_unit(fast)\n# Loading work.nh_bit_sync_sv_unit(fast)\n# Loading work.tb_sync_navigation_sv_unit(fast)\n# Loading work.tb_sync_navigation(fast)\n# onfinish exit\n#  run -all\n# NH->D1: id=4 sow=345618 start_ms=3753 fixes=0 inverted=0\n# NH->D1: id=5 sow=345624 start_ms=9753 fixes=0 inverted=0\n# NH->D1: id=1 sow=345630 start_ms=15753 fixes=1 inverted=0\n# NH->D1: id=3 sow=345642 start_ms=27753 fixes=0 inverted=1\n# NH->D1: id=4 sow=345648 start_ms=33753 fixes=0 inverted=1\n# 44750 Prompt windows, 2227 recovered bits, 5 subframes, 50 measured word ends, 1 BCH correction\n# NH loss invalidates downstream navigation time: PASS\n# TEST PASSED\n# ** Note: $finish    : tb/integration/tb_sync_navigation.sv(122)\n#    Time: 27298570 ns  Iteration: 1  Instance: /tb_sync_navigation\n# End time: 13:27:19 on Oct 26,2026, Elapsed time: 0:00:02\n# Errors: 0, Warnings: 0\n",
+      "seconds": 3.34985
+    },
+    {
+      "name": "tb_record_fifo",
+      "tb": "tb/unit/tb_record_fifo.sv",
+      "tool": "modelsim",
+      "compile_ok": true,
+      "compile_log": "",
+      "run_ok": true,
+      "passed": true,
+      "run_log": "Reading D:/modeltech64_10.5/tcl/vsim/pref.tcl\n\n# 10.5\n\n# vsim -c -lib reports/sim/msim/work tb_record_fifo -do \"onfinish exit; run -all; quit -f\" \n# Start time: 13:27:20 on Oct 26,2026\n# ** Note: (vsim-3812) Design is being optimized...\n# //  ModelSim SE-64 10.5 Feb 13 2016 \n# //\n# //  Copyright 1991-2016 Mentor Graphics Corporation\n# //  All Rights Reserved.\n# //\n# //  ModelSim SE-64 and its associated documentation contain trade\n# //  secrets and commercial or financial information that are the property of\n# //  Mentor Graphics Corporation and are privileged, confidential,\n# //  and exempt from disclosure under the Freedom of Information Act,\n# //  5 U.S.C. Section 552. Furthermore, this information\n# //  is prohibited from disclosure under the Trade Secrets Act,\n# //  18 U.S.C. Section 1905.\n# //\n# Loading sv_std.std\n# Loading work.record_fifo_sv_unit(fast)\n# Loading work.tb_record_fifo_sv_unit(fast)\n# Loading work.tb_record_fifo(fast)\n# onfinish exit\n#  run -all\n# TEST PASSED\n# ** Note: $finish    : tb/unit/tb_record_fifo.sv(77)\n#    Time: 210 ns  Iteration: 1  Instance: /tb_record_fifo\n# End time: 13:27:22 on Oct 26,2026, Elapsed time: 0:00:02\n# Errors: 0, Warnings: 0\n",
+      "seconds": 2.585799
+    },
+    {
+      "name": "tb_public_record_encoder",
+      "tb": "tb/unit/tb_public_record_encoder.sv",
+      "tool": "modelsim",
+      "compile_ok": true,
+      "compile_log": "",
+      "run_ok": true,
+      "passed": true,
+      "run_log": "Reading D:/modeltech64_10.5/tcl/vsim/pref.tcl\n\n# 10.5\n\n# vsim -c -lib reports/sim/msim/work tb_public_record_encoder -do \"onfinish exit; run -all; quit -f\" \n# Start time: 13:27:23 on Oct 26,2026\n# ** Note: (vsim-3812) Design is being optimized...\n# //  ModelSim SE-64 10.5 Feb 13 2016 \n# //\n# //  Copyright 1991-2016 Mentor Graphics Corporation\n# //  All Rights Reserved.\n# //\n# //  ModelSim SE-64 and its associated documentation contain trade\n# //  secrets and commercial or financial information that are the property of\n# //  Mentor Graphics Corporation and are privileged, confidential,\n# //  and exempt from disclosure under the Freedom of Information Act,\n# //  5 U.S.C. Section 552. Furthermore, this information\n# //  is prohibited from disclosure under the Trade Secrets Act,\n# //  18 U.S.C. Section 1905.\n# //\n# Loading sv_std.std\n# Loading work.public_record_encoder_sv_unit(fast)\n# Loading work.tb_public_record_encoder_sv_unit(fast)\n# Loading work.tb_public_record_encoder(fast)\n# onfinish exit\n#  run -all\n# TEST PASSED\n# ** Note: $finish    : tb/unit/tb_public_record_encoder.sv(117)\n#    Time: 3430 ns  Iteration: 1  Instance: /tb_public_record_encoder\n# End time: 13:27:25 on Oct 26,2026, Elapsed time: 0:00:02\n# Errors: 0, Warnings: 0\n",
+      "seconds": 2.632998
+    },
+    {
+      "name": "tb_measurement_engine",
+      "tb": "tb/unit/tb_measurement_engine.sv",
+      "tool": "modelsim",
+      "compile_ok": true,
+      "compile_log": "",
+      "run_ok": true,
+      "passed": true,
+      "run_log": "Reading D:/modeltech64_10.5/tcl/vsim/pref.tcl\n\n# 10.5\n\n# vsim -c -lib reports/sim/msim/work tb_measurement_engine -do \"onfinish exit; run -all; quit -f\" \n# Start time: 13:27:25 on Oct 26,2026\n# ** Note: (vsim-3812) Design is being optimized...\n# //  ModelSim SE-64 10.5 Feb 13 2016 \n# //\n# //  Copyright 1991-2016 Mentor Graphics Corporation\n# //  All Rights Reserved.\n# //\n# //  ModelSim SE-64 and its associated documentation contain trade\n# //  secrets and commercial or financial information that are the property of\n# //  Mentor Graphics Corporation and are privileged, confidential,\n# //  and exempt from disclosure under the Freedom of Information Act,\n# //  5 U.S.C. Section 552. Furthermore, this information\n# //  is prohibited from disclosure under the Trade Secrets Act,\n# //  18 U.S.C. Section 1905.\n# //\n# Loading sv_std.std\n# Loading work.measurement_engine_sv_unit(fast)\n# Loading work.tb_measurement_engine_sv_unit(fast)\n# Loading work.tb_measurement_engine(fast)\n# onfinish exit\n#  run -all\n# TEST PASSED\n# ** Note: $finish    : tb/unit/tb_measurement_engine.sv(82)\n#    Time: 130 ns  Iteration: 1  Instance: /tb_measurement_engine\n# End time: 13:27:27 on Oct 26,2026, Elapsed time: 0:00:02\n# Errors: 0, Warnings: 0\n",
+      "seconds": 2.545983
+    },
+    {
+      "name": "tb_d1_clear",
+      "tb": "tb/unit/tb_d1_clear.sv",
+      "tool": "modelsim",
+      "compile_ok": true,
+      "compile_log": "",
+      "run_ok": true,
+      "passed": true,
+      "run_log": "Reading D:/modeltech64_10.5/tcl/vsim/pref.tcl\n\n# 10.5\n\n# vsim -c -lib reports/sim/msim/work tb_d1_clear -do \"onfinish exit; run -all; quit -f\" \n# Start time: 13:27:28 on Oct 26,2026\n# ** Note: (vsim-3812) Design is being optimized...\n# ** Warning: tb/unit/tb_d1_clear.sv(10): (vopt-2685) [TFMPC] - Too few port connections for 'dut'.  Expected 27, found 20.\n# ** Warning: tb/unit/tb_d1_clear.sv(10): (vopt-2718) [TFMPC] - Missing connection for port 'sf_word_ms'.\n# ** Warning: tb/unit/tb_d1_clear.sv(10): (vopt-2718) [TFMPC] - Missing connection for port 'sf_word_phases'.\n# ** Warning: tb/unit/tb_d1_clear.sv(10): (vopt-2718) [TFMPC] - Missing connection for port 'sf_word_samples'.\n# ** Warning: tb/unit/tb_d1_clear.sv(10): (vopt-2718) [TFMPC] - Missing connection for port 'sf_word_fixes'.\n# ** Warning: tb/unit/tb_d1_clear.sv(10): (vopt-2718) [TFMPC] - Missing connection for port 'sf_raw'.\n# ** Warning: tb/unit/tb_d1_clear.sv(10): (vopt-2718) [TFMPC] - Missing connection for port 'bit_end_phase'.\n# ** Warning: tb/unit/tb_d1_clear.sv(10): (vopt-2718) [TFMPC] - Missing connection for port 'bit_end_sample'.\n# //  ModelSim SE-64 10.5 Feb 13 2016 \n# //\n# //  Copyright 1991-2016 Mentor Graphics Corporation\n# //  All Rights Reserved.\n# //\n# //  ModelSim SE-64 and its associated documentation contain trade\n# //  secrets and commercial or financial information that are the property of\n# //  Mentor Graphics Corporation and are privileged, confidential,\n# //  and exempt from disclosure under the Freedom of Information Act,\n# //  5 U.S.C. Section 552. Furthermore, this information\n# //  is prohibited from disclosure under the Trade Secrets Act,\n# //  18 U.S.C. Section 1905.\n# //\n# Loading sv_std.std\n# Loading work.d1_frame_sync_sv_unit(fast)\n# Loading work.tb_d1_clear(fast)\n# onfinish exit\n#  run -all\n# TEST PASSED\n# ** Note: $finish    : tb/unit/tb_d1_clear.sv(42)\n#    Time: 16 us  Iteration: 1  Instance: /tb_d1_clear\n# End time: 13:27:30 on Oct 26,2026, Elapsed time: 0:00:02\n# Errors: 0, Warnings: 8\n",
+      "seconds": 2.567901
+    },
+    {
+      "name": "tb_channel_manager",
+      "tb": "tb/unit/tb_channel_manager.sv",
+      "tool": "modelsim",
+      "compile_ok": true,
+      "compile_log": "",
+      "run_ok": true,
+      "passed": true,
+      "run_log": "Reading D:/modeltech64_10.5/tcl/vsim/pref.tcl\n\n# 10.5\n\n# vsim -c -lib reports/sim/msim/work tb_channel_manager -do \"onfinish exit; run -all; quit -f\" \n# Start time: 13:27:31 on Oct 26,2026\n# ** Note: (vsim-3812) Design is being optimized...\n# ** Warning: tb/unit/tb_channel_manager.sv(33): (vopt-2685) [TFMPC] - Too few port connections for 'dut'.  Expected 46, found 45.\n# ** Warning: tb/unit/tb_channel_manager.sv(33): (vopt-2718) [TFMPC] - Missing connection for port 'search_enable'.\n# //  ModelSim SE-64 10.5 Feb 13 2016 \n# //\n# //  Copyright 1991-2016 Mentor Graphics Corporation\n# //  All Rights Reserved.\n# //\n# //  ModelSim SE-64 and its associated documentation contain trade\n# //  secrets and commercial or financial information that are the property of\n# //  Mentor Graphics Corporation and are privileged, confidential,\n# //  and exempt from disclosure under the Freedom of Information Act,\n# //  5 U.S.C. Section 552. Furthermore, this information\n# //  is prohibited from disclosure under the Trade Secrets Act,\n# //  18 U.S.C. Section 1905.\n# //\n# Loading sv_std.std\n# Loading work.channel_manager_sv_unit(fast)\n# Loading work.tb_channel_manager_sv_unit(fast)\n# Loading work.tb_channel_manager(fast)\n# onfinish exit\n#  run -all\n# TEST PASSED\n# ** Note: $finish    : tb/unit/tb_channel_manager.sv(146)\n#    Time: 505 ns  Iteration: 1  Instance: /tb_channel_manager\n# End time: 13:27:32 on Oct 26,2026, Elapsed time: 0:00:01\n# Errors: 0, Warnings: 2\n",
+      "seconds": 2.625096
+    },
+    {
+      "name": "tb_auto_scan",
+      "tb": "tb/unit/tb_auto_scan.sv",
+      "tool": "modelsim",
+      "compile_ok": true,
+      "compile_log": "",
+      "run_ok": true,
+      "passed": true,
+      "run_log": "Reading D:/modeltech64_10.5/tcl/vsim/pref.tcl\n\n# 10.5\n\n# vsim -c -lib reports/sim/msim/work tb_auto_scan -do \"onfinish exit; run -all; quit -f\" \n# Start time: 13:27:33 on Oct 26,2026\n# ** Note: (vsim-3812) Design is being optimized...\n# //  ModelSim SE-64 10.5 Feb 13 2016 \n# //\n# //  Copyright 1991-2016 Mentor Graphics Corporation\n# //  All Rights Reserved.\n# //\n# //  ModelSim SE-64 and its associated documentation contain trade\n# //  secrets and commercial or financial information that are the property of\n# //  Mentor Graphics Corporation and are privileged, confidential,\n# //  and exempt from disclosure under the Freedom of Information Act,\n# //  5 U.S.C. Section 552. Furthermore, this information\n# //  is prohibited from disclosure under the Trade Secrets Act,\n# //  18 U.S.C. Section 1905.\n# //\n# Loading sv_std.std\n# Loading work.channel_manager_sv_unit(fast)\n# Loading work.tb_auto_scan_sv_unit(fast)\n# Loading work.tb_auto_scan(fast)\n# onfinish exit\n#  run -all\n# TEST PASSED\n# ** Note: $finish    : tb/unit/tb_auto_scan.sv(55)\n#    Time: 7905 ns  Iteration: 2  Instance: /tb_auto_scan\n# End time: 13:27:35 on Oct 26,2026, Elapsed time: 0:00:02\n# Errors: 0, Warnings: 0\n",
+      "seconds": 2.556337
+    },
+    {
+      "name": "tb_acq_input_pause",
+      "tb": "tb/unit/tb_acq_input_pause.sv",
+      "tool": "modelsim",
+      "compile_ok": true,
+      "compile_log": "",
+      "run_ok": true,
+      "passed": true,
+      "run_log": "Reading D:/modeltech64_10.5/tcl/vsim/pref.tcl\n\n# 10.5\n\n# vsim -c -lib reports/sim/msim/work tb_acq_input_pause -do \"onfinish exit; run -all; quit -f\" \n# Start time: 13:27:36 on Oct 26,2026\n# ** Note: (vsim-3812) Design is being optimized...\n# //  ModelSim SE-64 10.5 Feb 13 2016 \n# //\n# //  Copyright 1991-2016 Mentor Graphics Corporation\n# //  All Rights Reserved.\n# //\n# //  ModelSim SE-64 and its associated documentation contain trade\n# //  secrets and commercial or financial information that are the property of\n# //  Mentor Graphics Corporation and are privileged, confidential,\n# //  and exempt from disclosure under the Freedom of Information Act,\n# //  5 U.S.C. Section 552. Furthermore, this information\n# //  is prohibited from disclosure under the Trade Secrets Act,\n# //  18 U.S.C. Section 1905.\n# //\n# Loading sv_std.std\n# Loading work.code_ram_sv_unit(fast)\n# Loading work.code_nco_sv_unit(fast)\n# Loading work.carrier_lut_sv_unit(fast)\n# Loading work.carrier_mixer_nco_sv_unit(fast)\n# Loading work.acquisition_sv_unit(fast)\n# Loading work.tb_acq_input_pause_sv_unit(fast)\n# Loading work.tb_acq_input_pause(fast)\n# onfinish exit\n#  run -all\n# TEST PASSED\n# ** Note: $finish    : tb/unit/tb_acq_input_pause.sv(34)\n#    Time: 110 ns  Iteration: 1  Instance: /tb_acq_input_pause\n# End time: 13:27:37 on Oct 26,2026, Elapsed time: 0:00:01\n# Errors: 0, Warnings: 0\n",
+      "seconds": 2.548087
+    },
+    {
+      "name": "tb_acq_sample_storage",
+      "tb": "tb/unit/tb_acq_sample_storage.sv",
+      "tool": "modelsim",
+      "compile_ok": true,
+      "compile_log": "",
+      "run_ok": true,
+      "passed": true,
+      "run_log": "Reading D:/modeltech64_10.5/tcl/vsim/pref.tcl\n\n# 10.5\n\n# vsim -c -lib reports/sim/msim/work tb_acq_sample_storage -do \"onfinish exit; run -all; quit -f\" \n# Start time: 13:27:38 on Oct 26,2026\n# ** Note: (vsim-3812) Design is being optimized...\n# //  ModelSim SE-64 10.5 Feb 13 2016 \n# //\n# //  Copyright 1991-2016 Mentor Graphics Corporation\n# //  All Rights Reserved.\n# //\n# //  ModelSim SE-64 and its associated documentation contain trade\n# //  secrets and commercial or financial information that are the property of\n# //  Mentor Graphics Corporation and are privileged, confidential,\n# //  and exempt from disclosure under the Freedom of Information Act,\n# //  5 U.S.C. Section 552. Furthermore, this information\n# //  is prohibited from disclosure under the Trade Secrets Act,\n# //  18 U.S.C. Section 1905.\n# //\n# Loading sv_std.std\n# Loading work.code_ram_sv_unit(fast)\n# Loading work.code_nco_sv_unit(fast)\n# Loading work.carrier_lut_sv_unit(fast)\n# Loading work.carrier_mixer_nco_sv_unit(fast)\n# Loading work.acquisition_sv_unit(fast)\n# Loading work.tb_acq_sample_storage(fast)\n# onfinish exit\n#  run -all\n# TEST PASSED: all eight signed 3-bit levels, including zero, survive capture/replay\n# ** Note: $finish    : tb/unit/tb_acq_sample_storage.sv(32)\n#    Time: 33388 ns  Iteration: 1  Instance: /tb_acq_sample_storage\n# End time: 13:27:40 on Oct 26,2026, Elapsed time: 0:00:02\n# Errors: 0, Warnings: 0\n",
+      "seconds": 2.639551
+    },
+    {
+      "name": "tb_bdi_sliding_correlator",
+      "tb": "tb/unit/tb_bdi_sliding_correlator.sv",
+      "tool": "modelsim",
+      "compile_ok": true,
+      "compile_log": "",
+      "run_ok": true,
+      "passed": true,
+      "run_log": "Reading D:/modeltech64_10.5/tcl/vsim/pref.tcl\n\n# 10.5\n\n# vsim -c -lib reports/sim/msim/work tb_bdi_sliding_correlator -do \"onfinish exit; run -all; quit -f\" \n# Start time: 13:27:41 on Oct 26,2026\n# ** Note: (vsim-3812) Design is being optimized...\n# ** Warning: tb/unit/tb_bdi_sliding_correlator.sv(19): (vopt-2685) [TFMPC] - Too few port connections for 'wrap_search'.  Expected 26, found 6.\n# ** Warning: tb/unit/tb_bdi_sliding_correlator.sv(19): (vopt-2718) [TFMPC] - Missing connection for port 'q_acc'.\n# ** Warning: tb/unit/tb_bdi_sliding_correlator.sv(19): (vopt-2718) [TFMPC] - Missing connection for port 'i_acc'.\n# ** Warning: tb/unit/tb_bdi_sliding_correlator.sv(19): (vopt-2718) [TFMPC] - Missing connection for port 'product_q'.\n# ** Warning: tb/unit/tb_bdi_sliding_correlator.sv(19): (vopt-2718) [TFMPC] - Missing connection for port 'product_i'.\n# ** Warning: tb/unit/tb_bdi_sliding_correlator.sv(19): (vopt-2718) [TFMPC] - Missing connection for port 'local_sin'.\n# ** Warning: tb/unit/tb_bdi_sliding_correlator.sv(19): (vopt-2718) [TFMPC] - Missing connection for port 'local_cos'.\n# ** Warning: tb/unit/tb_bdi_sliding_correlator.sv(19): (vopt-2718) [TFMPC] - Missing connection for port 'local_prn_bit'.\n# ** Warning: tb/unit/tb_bdi_sliding_correlator.sv(19): (vopt-2718) [TFMPC] - Missing connection for port 'local_index'.\n# ** Warning: tb/unit/tb_bdi_sliding_correlator.sv(19): (vopt-2718) [TFMPC] - Missing connection for port 'sample_in_window'.\n# ** Warning: tb/unit/tb_bdi_sliding_correlator.sv(19): (vopt-2718) [TFMPC] - Missing connection for port 'result_window'.\n# ** Warning: tb/unit/tb_bdi_sliding_correlator.sv(19): (vopt-2718) [TFMPC] - Missing connection for port 'result_phase'.\n# ** Warning: tb/unit/tb_bdi_sliding_correlator.sv(19): (vopt-2718) [TFMPC] - Missing connection for port 'energy'.\n# ** Warning: tb/unit/tb_bdi_sliding_correlator.sv(19): (vopt-2718) [TFMPC] - Missing connection for port 'magnitude'.\n# ** Warning: tb/unit/tb_bdi_sliding_correlator.sv(19): (vopt-2718) [TFMPC] - Missing connection for port 'q_result'.\n# ** Warning: tb/unit/tb_bdi_sliding_correlator.sv(19): (vopt-2718) [TFMPC] - Missing connection for port 'i_result'.\n# ** Warning: tb/unit/tb_bdi_sliding_correlator.sv(19): (vopt-2718) [TFMPC] - Missing connection for port 'dump'.\n# ** Warning: tb/unit/tb_bdi_sliding_correlator.sv(19): (vopt-2718) [TFMPC] - Missing connection for port 'capture_phase'.\n# ** Warning: tb/unit/tb_bdi_sliding_correlator.sv(19): (vopt-2718) [TFMPC] - Missing connection for port 'capture'.\n# ** Warning: tb/unit/tb_bdi_sliding_correlator.sv(19): (vopt-2718) [TFMPC] - Missing connection for port 'bad_prn'.\n# ** Warning: tb/unit/tb_bdi_sliding_correlator.sv(19): (vopt-2718) [TFMPC] - Missing connection for port 'ready'.\n# //  ModelSim SE-64 10.5 Feb 13 2016 \n# //\n# //  Copyright 1991-2016 Mentor Graphics Corporation\n# //  All Rights Reserved.\n# //\n# //  ModelSim SE-64 and its associated documentation contain trade\n# //  secrets and commercial or financial information that are the property of\n# //  Mentor Graphics Corporation and are privileged, confidential,\n# //  and exempt from disclosure under the Freedom of Information Act,\n# //  5 U.S.C. Section 552. Furthermore, this information\n# //  is prohibited from disclosure under the Trade Secrets Act,\n# //  18 U.S.C. Section 1905.\n# //\n# Loading sv_std.std\n# Loading work.prn_code_gen_sv_unit(fast)\n# Loading work.tb_bdi_sliding_correlator(fast)\n# onfinish exit\n#  run -all\n# TEST PASSED: zero input, final nonzero sample, >= threshold, invalid gaps, hold/restart/reset\n# ** Note: $finish    : tb/unit/tb_bdi_sliding_correlator.sv(62)\n#    Time: 73728010 ps  Iteration: 0  Instance: /tb_bdi_sliding_correlator\n# End time: 13:27:43 on Oct 26,2026, Elapsed time: 0:00:02\n# Errors: 0, Warnings: 21\n",
+      "seconds": 2.583298
+    },
+    {
+      "name": "tb_record_backpressure",
+      "tb": "tb/system/tb_record_backpressure.sv",
+      "tool": "modelsim",
+      "compile_ok": true,
+      "compile_log": "",
+      "run_ok": true,
+      "passed": true,
+      "run_log": "Reading D:/modeltech64_10.5/tcl/vsim/pref.tcl\n\n# 10.5\n\n# vsim -c -lib reports/sim/msim/work tb_record_backpressure -do \"onfinish exit; run -all; quit -f\" \n# Start time: 13:27:43 on Oct 26,2026\n# ** Note: (vsim-3812) Design is being optimized...\n# ** Warning: tb/system/tb_record_backpressure.sv(14): (vopt-2685) [TFMPC] - Too few port connections for 'dut'.  Expected 34, found 28.\n# ** Warning: tb/system/tb_record_backpressure.sv(14): (vopt-2718) [TFMPC] - Missing connection for port 'direct_ready'.\n# ** Warning: tb/system/tb_record_backpressure.sv(14): (vopt-2718) [TFMPC] - Missing connection for port 'direct_missing_ticks'.\n# ** Warning: tb/system/tb_record_backpressure.sv(14): (vopt-2718) [TFMPC] - Missing connection for port 'direct_input_error'.\n# ** Warning: tb/system/tb_record_backpressure.sv(14): (vopt-2718) [TFMPC] - Missing connection for port 'direct_last'.\n# ** Warning: tb/system/tb_record_backpressure.sv(14): (vopt-2718) [TFMPC] - Missing connection for port 'direct_sample'.\n# ** Warning: tb/system/tb_record_backpressure.sv(14): (vopt-2718) [TFMPC] - Missing connection for port 'direct_valid'.\n# //  ModelSim SE-64 10.5 Feb 13 2016 \n# //\n# //  Copyright 1991-2016 Mentor Graphics Corporation\n# //  All Rights Reserved.\n# //\n# //  ModelSim SE-64 and its associated documentation contain trade\n# //  secrets and commercial or financial information that are the property of\n# //  Mentor Graphics Corporation and are privileged, confidential,\n# //  and exempt from disclosure under the Freedom of Information Act,\n# //  5 U.S.C. Section 552. Furthermore, this information\n# //  is prohibited from disclosure under the Trade Secrets Act,\n# //  18 U.S.C. Section 1905.\n# //\n# Loading sv_std.std\n# Loading work.record_fifo_sv_unit(fast)\n# Loading work.epoch_aggregator_sv_unit(fast)\n# Loading work.measurement_engine_sv_unit(fast)\n# Loading work.channel_manager_sv_unit(fast)\n# Loading work.code_ram_sv_unit(fast)\n# Loading work.code_nco_sv_unit(fast)\n# Loading work.carrier_lut_sv_unit(fast)\n# Loading work.carrier_mixer_nco_sv_unit(fast)\n# Loading work.acquisition_sv_unit(fast)\n# Loading work.prn_code_gen_sv_unit(fast)\n# Loading work.sample_timebase_sv_unit(fast)\n# Loading work.sample_unpacker_sv_unit(fast)\n# Loading work.b1i_rx_top_sv_unit(fast)\n# Loading work.tb_record_backpressure_sv_unit(fast)\n# Loading work.tb_record_backpressure(fast)\n# Loading work.d1_frame_sync_sv_unit(fast)\n# Loading work.nh_bit_sync_sv_unit(fast)\n# Loading work.track_loop_sv_unit(fast)\n# Loading work.correlator_epl_sv_unit(fast)\n# Loading work.tracking_channel_sv_unit(fast)\n# Loading work.channel_slice_sv_unit(fast)\n# Loading work.channel_slice(fast)\n# onfinish exit\n#  run -all\n# TEST PASSED\n# ** Note: $finish    : tb/system/tb_record_backpressure.sv(114)\n#    Time: 1639260 ns  Iteration: 1  Instance: /tb_record_backpressure\n# End time: 13:27:46 on Oct 26,2026, Elapsed time: 0:00:03\n# Errors: 0, Warnings: 7\n",
+      "seconds": 3.12282
+    },
+    {
+      "name": "tb_public_epoch",
+      "tb": "tb/system/tb_public_epoch.sv",
+      "tool": "modelsim",
+      "compile_ok": true,
+      "compile_log": "",
+      "run_ok": true,
+      "passed": true,
+      "run_log": "Reading D:/modeltech64_10.5/tcl/vsim/pref.tcl\n\n# 10.5\n\n# vsim -c -lib reports/sim/msim/work tb_public_epoch -do \"onfinish exit; run -all; quit -f\" \n# Start time: 13:27:47 on Oct 26,2026\n# ** Note: (vsim-3812) Design is being optimized...\n# //  ModelSim SE-64 10.5 Feb 13 2016 \n# //\n# //  Copyright 1991-2016 Mentor Graphics Corporation\n# //  All Rights Reserved.\n# //\n# //  ModelSim SE-64 and its associated documentation contain trade\n# //  secrets and commercial or financial information that are the property of\n# //  Mentor Graphics Corporation and are privileged, confidential,\n# //  and exempt from disclosure under the Freedom of Information Act,\n# //  5 U.S.C. Section 552. Furthermore, this information\n# //  is prohibited from disclosure under the Trade Secrets Act,\n# //  18 U.S.C. Section 1905.\n# //\n# Loading sv_std.std\n# Loading work.public_record_encoder_sv_unit(fast)\n# Loading work.record_fifo_sv_unit(fast)\n# Loading work.epoch_aggregator_sv_unit(fast)\n# Loading work.measurement_engine_sv_unit(fast)\n# Loading work.channel_manager_sv_unit(fast)\n# Loading work.code_ram_sv_unit(fast)\n# Loading work.code_nco_sv_unit(fast)\n# Loading work.carrier_lut_sv_unit(fast)\n# Loading work.carrier_mixer_nco_sv_unit(fast)\n# Loading work.acquisition_sv_unit(fast)\n# Loading work.prn_code_gen_sv_unit(fast)\n# Loading work.sample_timebase_sv_unit(fast)\n# Loading work.sample_unpacker_sv_unit(fast)\n# Loading work.b1i_rx_top_sv_unit(fast)\n# Loading work.tb_public_epoch_sv_unit(fast)\n# Loading work.tb_public_epoch(fast)\n# Loading work.d1_frame_sync_sv_unit(fast)\n# Loading work.nh_bit_sync_sv_unit(fast)\n# Loading work.track_loop_sv_unit(fast)\n# Loading work.correlator_epl_sv_unit(fast)\n# Loading work.tracking_channel_sv_unit(fast)\n# Loading work.channel_slice_sv_unit(fast)\n# Loading work.channel_slice(fast)\n# onfinish exit\n#  run -all\n# TEST PASSED\n# ** Note: $finish    : tb/system/tb_public_epoch.sv(81)\n#    Time: 378960 ns  Iteration: 1  Instance: /tb_public_epoch\n# End time: 13:27:49 on Oct 26,2026, Elapsed time: 0:00:02\n# Errors: 0, Warnings: 0\n",
+      "seconds": 2.878198
+    }
+  ]
+}

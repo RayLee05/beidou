@@ -5,6 +5,8 @@
   prn_codes.hex        PRN 1..63，每行 2046 bit（首码片在 bit 2045）
   nav_bits.hex         帧同步测试的输入比特流（含极性翻转与注入的单比特错误）
   nav_expected.txt     帧同步测试的期望子帧（FraID、SOW、起始比特序号、224 位信息位）
+  sync_frames.hex      周内秒回绕及不连续/非法字段的合法 BCH 编码子帧
+  sync_frames_expected.txt  上述子帧的 FraID、SOW 和 224 位信息
 """
 
 from __future__ import annotations
@@ -92,11 +94,41 @@ def gen_bitsync() -> None:
     print(f"bs_input.hex: {n_win} windows, bit phase {p0}")
 
 
+def gen_sync_frames() -> None:
+    """D1 robustness: week rollover and BCH-valid but inconsistent headers."""
+    frames, infos = [], []
+    for k in range(12):
+        fid = (3 + k) % 5 + 1
+        sow = (604788 + 6*k) % 604800
+        frame = d1_nav.encode_subframe(fid, {"SOW": sow, "WN": 951, "Pnum": 3})
+        info, fixes, ok = d1_nav.decode_subframe(frame)
+        assert ok and fixes == 0
+        frames.append(frame)
+        infos.append((fid, sow, info))
+    # Re-encode all affected codewords: range and continuity tests must not
+    # rely on corrupt parity or on an uncorrectable two-bit BCH assumption.
+    for fid, sow in [(5, 604788), (3, 604794), (0, 604794), (5, 604800)]:
+        info = list(infos[1][2])
+        info[15:18] = [int(b) for b in f"{fid:03b}"]
+        info[18:38] = [int(b) for b in f"{sow:020b}"]
+        frame = prn_b1i.encode_word(info[:26], first_word=True)
+        for w in range(9):
+            frame += prn_b1i.encode_word(info[26+22*w:48+22*w], first_word=False)
+        frames.append(frame)
+        infos.append((fid, sow, info))
+    write_text(os.path.join(OUT, "sync_frames.hex"), "".join(
+        f"{int(''.join(map(str, frame)), 2):075x}\n" for frame in frames))
+    write_text(os.path.join(OUT, "sync_frames_expected.txt"), "".join(
+        f"{fid} {sow} {int(''.join(map(str, info)), 2):056x}\n" for fid, sow, info in infos))
+    print(f"sync_frames.hex: {len(frames)} frames (12 consecutive, 4 invalid headers)")
+
+
 def main() -> int:
     os.makedirs(OUT, exist_ok=True)
     gen_prn()
     gen_nav()
     gen_bitsync()
+    gen_sync_frames()
     return 0
 
 

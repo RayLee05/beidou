@@ -1,0 +1,32 @@
+Reading D:/modeltech64_10.5/tcl/vsim/pref.tcl
+
+# 10.5
+
+# vsim -c -lib reports/sim/navigation/run_20261026_133850_886753/work tb_d1_robustness -do "onfinish exit; run -all; quit -f"
+# Start time: 13:39:06 on Oct 26,2026
+# ** Note: (vsim-3812) Design is being optimized...
+# //  ModelSim SE-64 10.5 Feb 13 2016
+# //
+# //  Copyright 1991-2016 Mentor Graphics Corporation
+# //  All Rights Reserved.
+# //
+# //  ModelSim SE-64 and its associated documentation contain trade
+# //  secrets and commercial or financial information that are the property of
+# //  Mentor Graphics Corporation and are privileged, confidential,
+# //  and exempt from disclosure under the Freedom of Information Act,
+# //  5 U.S.C. Section 552. Furthermore, this information
+# //  is prohibited from disclosure under the Trade Secrets Act,
+# //  18 U.S.C. Section 1905.
+# //
+# Loading sv_std.std
+# Loading work.d1_frame_sync_sv_unit(fast)
+# Loading work.tb_d1_robustness(fast)
+# onfinish exit
+#  run -all
+# D1 gaps/duplicates, SOW/FraID continuity and rollover, timeout recovery: PASS
+# 285 protected-bit errors corrected; 3020 word-end metadata entries checked
+# TEST PASSED
+# ** Note: $finish    : tb/unit/tb_d1_robustness.sv(140)
+#    Time: 3024080 ns  Iteration: 1  Instance: /tb_d1_robustness
+# End time: 13:39:08 on Oct 26,2026, Elapsed time: 0:00:02
+# Errors: 0, Warnings: 0
