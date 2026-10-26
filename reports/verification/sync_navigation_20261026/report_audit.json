@@ -1,0 +1,123 @@
+{
+  "date": "2026-10-26",
+  "code_commit": "72753477c352fbcf4d1741f239ee472807036c9e",
+  "original_sha256": {
+    "03_位同步与导航电文解调报告.docx": "5e10de0d67453ce038fc60be76588a837da57677986df51d179c4193012688e3",
+    "03_位同步与导航电文解调报告.md": "43b479466113aee49620a83ff7c558b60c8f777077526f6689448963f7c55365"
+  },
+  "output_sha256": {
+    "03_位同步与导航电文解调报告.docx": "0636b7b311e49ecfe57c3da0f6350d9bcf7e6a99979140f971b2e9bd3210c625",
+    "03_位同步与导航电文解调报告.md": "c5a271ef22bab4c16d504afe9849a95669a031736b96661fe351dc778ae877f6"
+  },
+  "waveform_slots": 3,
+  "native_equations": 3,
+  "data_source": "reports/verification/sync_navigation_20261026/summary.json",
+  "rtl_passed": 7,
+  "quick_passed": 22,
+  "top_smoke_passed": 1,
+  "chain_subframes": [
+    {
+      "id": "4",
+      "sow": "345618",
+      "start_ms": "3753",
+      "fixes": "0",
+      "inverted": "0",
+      "information": "e2411518480c00000000000000000000000000000000000000000000",
+      "raw": "e241151ca00d29d000000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "id": "5",
+      "sow": "345624",
+      "start_ms": "9753",
+      "fixes": "0",
+      "inverted": "0",
+      "information": "e2415518600c00000000000000000000000000000000000000000000",
+      "raw": "e2415520a00f037000000000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "id": "1",
+      "sow": "345630",
+      "start_ms": "15753",
+      "fixes": "1",
+      "inverted": "0",
+      "information": "e240551878101db2a3003500000000000000000000007dd440107e21",
+      "raw": "e2405504a01aa1143b388fad190020000000000000000000000000001541a6a22375c04abfb"
+    },
+    {
+      "id": "3",
+      "sow": "345642",
+      "start_ms": "27753",
+      "fixes": "0",
+      "inverted": "1",
+      "information": "e240d518a9460139e3a280002bff6b43ffea82319e37178a28be60dc",
+      "raw": "e240d530b12368450570a56a20220a555dcf2677dd514a989c18cf1fa1c92b909892af1f067"
+    },
+    {
+      "id": "4",
+      "sow": "345648",
+      "start_ms": "33753",
+      "fixes": "0",
+      "inverted": "1",
+      "information": "e2411518c00c00000000000000000000000000000000000000000000",
+      "raw": "e241151ca02d0b5000000000000000000000000000000000000000000000000000000000000"
+    }
+  ],
+  "provenance": "Actual ModelSim execution on generated Prompt/bit inputs; no RF or hardware measurement claims",
+  "user_modified_files_preserved": [
+    ".gitignore",
+    "Makefile",
+    "README.md",
+    "deliverables/模块实验报告/01_捕获模块实验报告.docx",
+    "deliverables/模块实验报告/01_捕获模块设计方案.docx",
+    "deliverables/模块实验报告/02_码跟踪实验报告.docx",
+    "deliverables/模块实验报告/02_码跟踪模块设计方案.docx",
+    "docs/TOOLCHAIN.md",
+    "scripts/README.md"
+  ],
+  "archive_check": "DOCX is byte-identical to prior GitHub report; Markdown text is identical allowing CRLF/LF; raw local original digests retained above",
+  "source_hashes_match_verified_execution": true,
+  "table_matches_actual_csv": true,
+  "screenshot_signals_recorded": [
+    "i_p",
+    "synced",
+    "bit_phase",
+    "bit_valid",
+    "bit_val",
+    "bit_ms",
+    "sf_valid",
+    "sf_id",
+    "sf_sow",
+    "sf_fixes",
+    "sf_inverted",
+    "dump_partial",
+    "frame_synced",
+    "anchor_valid",
+    "week_valid"
+  ],
+  "waveform_sha256": "0c0f02c673eaf9369681dabe135d168f4f6cc413cd100e8bb364b2f50c1c20d7",
+  "visual_qa": {
+    "pages": 8,
+    "pages_reviewed": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8
+    ],
+    "renderer": "Native Word read-only PDF export; documents 26.1025.11240 render_docx.py with bundled Poppler",
+    "result": "PASS; equations, tables and timestamp diagram fit; three intentional waveform slots",
+    "page_sha256": {
+      "page-1.png": "8f25b10617b1b979ee7e6efb36cf488511273f6e7c0c5f3a5bc968bee75d26cd",
+      "page-2.png": "a6b063d3da6576a4c12c15618a207645d8a7ab385479fc5bd0d33f6c9649c461",
+      "page-3.png": "9d02faf18317b27108061e868b657ce35c92b8e59f80f18ec4cf2cb0270ea281",
+      "page-4.png": "20b07c1511201d052a0b048d8db7a3464963f71cbad8107164e66a5dae0afe72",
+      "page-5.png": "fee95ae30598d4a80263b98dda94ada3d8649b2a66ae89e12fc4ebef8afd2a26",
+      "page-6.png": "46be85e77086d644464bae64218026b9b1bf7405cb29e9b54d8fc4c490741346",
+      "page-7.png": "a5351db3b8a3acbd90423a1bb16480382ec52b0b72032585522f736726709094",
+      "page-8.png": "207aa78a59bb311b74b372eebf1ff28046da942c860127b892d5304c9aee1ca5"
+    }
+  }
+}
