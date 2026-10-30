@@ -9,7 +9,8 @@
 //      bit = (corr < 0)，bit_ms = 该位第一个窗口的标签 = m-19
 //   极性由 Costas 环决定（180° 模糊），交给帧同步用前导码判定。
 //   非连续标签、不完整窗口或标签回绕会撤销同步并重新建立完整历史。
-//   dump 之间须为串行相关及相位判决预留至少 41 个空闲时钟。
+//   新的毫秒标签对 20 取余用 8 拍、每拍 4 位完成，不在 dump 当拍做 32 位除法。
+//   连续标签只把 5 位相位加 1。dump 之间须留至少 41 个空闲时钟。
 //   需求: REQ-SYN-001/002/003
 // =============================================================================
 `include "b1i_params.svh"
@@ -46,6 +47,10 @@ module nh_bit_sync #(
   logic [47:0]                  phase_tag;
   logic                         have_tag;
   logic [31:0]                  last_dump_ms;
+  logic                         mod_busy;
+  logic [2:0]                   mod_step;
+  logic [31:0]                  mod_rest;
+  logic [4:0]                   mod_rem;
   logic [4:0]                   k;
   logic                         run;
   logic signed [CORR_ACC_W+5:0] corr;
@@ -58,6 +63,20 @@ module nh_bit_sync #(
   wire [4:0] p_start = (m20 == 5'd19) ? 5'd0 : m20 + 5'd1;   // (m+1) mod 20
   wire restart_history = dump_valid && (dump_partial ||
       (have_tag && (dump_ms != last_dump_ms + 32'd1 || dump_ms < last_dump_ms)));
+
+  // 9 位对 20 取余。输入最大为 {余数 0..19, 4'hF} = 319。
+  function automatic logic [4:0] rem20_9(input logic [8:0] value);
+    logic [8:0] left;
+    left = value;
+    if (left >= 9'd160) left = left - 9'd160;
+    if (left >= 9'd80)  left = left - 9'd80;
+    if (left >= 9'd40)  left = left - 9'd40;
+    if (left >= 9'd20)  left = left - 9'd20;
+    return left[4:0];
+  endfunction
+
+  wire [8:0] mod_chunk = {mod_rem, mod_rest[31:28]};
+  wire [4:0] mod_next  = rem20_9(mod_chunk);
 
   wire signed [CORR_ACC_W+5:0] term =
       NH[19 - k] ? -$signed((CORR_ACC_W+6)'(hist[19 - k])) : $signed((CORR_ACC_W+6)'(hist[19 - k]));
@@ -73,6 +92,7 @@ module nh_bit_sync #(
       bit_ms <= '0; bit_mag <= '0;
       sample_tag <= '0; phase_tag <= '0; bit_end_sample <= '0; bit_end_phase <= '0;
       have_tag <= 1'b0; last_dump_ms <= '0;
+      mod_busy <= 1'b0; mod_step <= '0; mod_rest <= '0; mod_rem <= '0;
     end else if (clear || restart_history) begin
       for (int i = 0; i < 20; i++) begin hist[i] <= '0; E[i] <= '0; end
       nhist <= '0; m20 <= '0; m_tag <= '0; k <= '0; run <= 1'b0; corr <= '0;
@@ -81,8 +101,8 @@ module nh_bit_sync #(
       bit_ms <= '0; bit_mag <= '0;
       sample_tag <= '0; phase_tag <= '0; bit_end_sample <= '0; bit_end_phase <= '0;
       have_tag <= !clear; last_dump_ms <= clear ? 32'd0 : dump_ms;
+      mod_busy <= !clear; mod_step <= '0; mod_rest <= clear ? 32'd0 : dump_ms; mod_rem <= '0;
       if (!clear) begin
-        m20 <= 5'(dump_ms % 32'd20);
         // A complete sample after a gap starts the new history immediately.
         if (!dump_partial) begin
           hist[0] <= i_p; nhist <= 5'd1; m_tag <= dump_ms;
@@ -91,9 +111,20 @@ module nh_bit_sync #(
       end
     end else begin
       bit_valid <= 1'b0;
+      if (dump_valid && !have_tag) begin
+        mod_busy <= 1'b1; mod_step <= '0; mod_rest <= dump_ms; mod_rem <= '0;
+      end else if (mod_busy && !dump_valid) begin
+        mod_rem  <= mod_next;
+        mod_rest <= {mod_rest[27:0], 4'b0};
+        if (mod_step == 3'd7) begin
+          m20 <= mod_next;
+          mod_busy <= 1'b0;
+        end else begin
+          mod_step <= mod_step + 3'd1;
+        end
+      end
       if (dump_valid) begin
-        m20 <= !have_tag ? 5'(dump_ms % 32'd20) :
-               ((m20 == 5'd19) ? 5'd0 : m20 + 5'd1);
+        if (have_tag) m20 <= (m20 == 5'd19) ? 5'd0 : m20 + 5'd1;
         have_tag <= 1'b1; last_dump_ms <= dump_ms;
         if (!dump_partial) begin
           for (int i = 19; i > 0; i--) hist[i] <= hist[i-1];
