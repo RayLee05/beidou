@@ -1,0 +1,14 @@
++incdir+../rtl/include
++incdir+../rtl/common
+../rtl/common/carrier_lut.sv
+../rtl/common/prn_code_gen.sv
+../rtl/track/carrier_mixer_nco.sv
+../rtl/track/code_nco.sv
+../rtl/track/code_ram.sv
+../rtl/track/correlator_epl.sv
+../rtl/track/track_loop.sv
+../rtl/track/tracking_channel.sv
+../rtl/sync/nh_bit_sync.sv
+rtl/bds_acquisition.sv
+rtl/bds_channel.sv
+rtl/bds_bb_6ch_core.sv

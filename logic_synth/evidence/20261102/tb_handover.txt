@@ -1,0 +1,40 @@
+Reading D:/modeltech64_10.5/tcl/vsim/pref.tcl
+
+# 10.5
+
+# vsim -c -lib build/work tb_handover -do "onfinish exit; run -all; quit -f"
+# Start time: 15:07:56 on Nov 02,2026
+# ** Note: (vsim-8009) Loading existing optimized design _opt
+# //  ModelSim SE-64 10.5 Feb 13 2016
+# //
+# //  Copyright 1991-2016 Mentor Graphics Corporation
+# //  All Rights Reserved.
+# //
+# //  ModelSim SE-64 and its associated documentation contain trade
+# //  secrets and commercial or financial information that are the property of
+# //  Mentor Graphics Corporation and are privileged, confidential,
+# //  and exempt from disclosure under the Freedom of Information Act,
+# //  5 U.S.C. Section 552. Furthermore, this information
+# //  is prohibited from disclosure under the Trade Secrets Act,
+# //  18 U.S.C. Section 1905.
+# //
+# Loading sv_std.std
+# Loading work.code_ram_sv_unit(fast)
+# Loading work.code_nco_sv_unit(fast)
+# Loading work.carrier_lut_sv_unit(fast)
+# Loading work.carrier_mixer_nco_sv_unit(fast)
+# Loading work.bds_acquisition_sv_unit(fast)
+# Loading work.tb_handover_sv_unit(fast)
+# Loading work.tb_handover(fast)
+# onfinish exit
+#  run -all
+# HANDOVER PASS backlog=0 sparse=0 dop=0 cycles=1
+# HANDOVER PASS backlog=1 sparse=0 dop=131200 cycles=1
+# HANDOVER PASS backlog=5 sparse=0 dop=-131200 cycles=5
+# HANDOVER PASS backlog=37 sparse=0 dop=1300000 cycles=37
+# HANDOVER PASS backlog=9 sparse=1 dop=-1300000 cycles=7
+# TEST PASSED
+# ** Note: $finish    : D:/A_workfiles/codexwork/beidou/logic_synth/sim/tb_handover.sv(59)
+#    Time: 1060 ns  Iteration: 1  Instance: /tb_handover
+# End time: 15:07:58 on Nov 02,2026, Elapsed time: 0:00:02
+# Errors: 0, Warnings: 0

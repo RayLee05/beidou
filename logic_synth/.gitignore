@@ -1,0 +1,10 @@
+build/
+output/
+activity/
+logs/*
+reports/*.log
+reports/*.json
+reports/*.rpt
+!sim/
+!sim/*.sv
+!sim/*.f

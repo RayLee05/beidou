@@ -1,0 +1,22 @@
+Source: successful read-only SSH status/tail query on 2026-11-02.
+This is an excerpt, not the full remote log. Full fetch later failed authentication.
+Job: core-channel-20261102-v1
+Remote: /home/7902_13/beidou_runs/laptop-acvp5joo/core-channel-20261102-v1
+PID reported at launch: 14339
+
+EXIT_CODE=137
+Information: Building the design 'bds_acquisition' instantiated from design 'bds_channel' with
+    the parameters "N_LANES=64,BUF_DEPTH=33024". (HDL-193)
+Command exited with non-zero status 137
+    Command being timed: "timeout -s KILL 7200 dc_shell -f scripts/synth_core.tcl"
+    User time (seconds): 8.91
+    System time (seconds): 6.57
+    Percent of CPU this job got: 59%
+    Elapsed (wall clock) time (h:mm:ss or m:ss): 0:26.25
+    Maximum resident set size (kbytes): 1534096
+    Swaps: 0
+    Exit status: 137
+
+Interpretation: did not reach the 7200-second timeout. SIGKILL is suspected;
+OOM is plausible from memory pressure but NOT confirmed by kernel logs.
+No valid mapped-area/timing result was obtained. v2 was packed locally only.

@@ -1,0 +1,37 @@
+Model Technology ModelSim SE-64 vlog 10.5 Compiler 2016.02 Feb 13 2016
+Start time: 15:07:54 on Nov 02,2026
+vlog -sv -work build/work -timescale 1ns/1ps -f rtl/core.f D:\A_workfiles\codexwork\beidou\logic_synth\sim\tb_handover.sv D:\A_workfiles\codexwork\beidou\logic_synth\sim\tb_six_channel_control.sv D:\A_workfiles\codexwork\beidou\logic_synth\sim\tb_six_signal.sv
+-- Compiling package carrier_lut_sv_unit
+-- Compiling module carrier_lut
+-- Compiling package prn_code_gen_sv_unit
+-- Compiling module prn_code_gen
+-- Compiling package carrier_mixer_nco_sv_unit
+-- Compiling module carrier_mixer_nco
+-- Compiling package code_nco_sv_unit
+-- Compiling module code_nco
+-- Compiling package code_ram_sv_unit
+-- Compiling module code_ram
+-- Compiling package correlator_epl_sv_unit
+-- Compiling module correlator_epl
+-- Compiling package track_loop_sv_unit
+-- Compiling module track_loop
+-- Compiling package tracking_channel_sv_unit
+-- Compiling module tracking_channel
+-- Compiling package nh_bit_sync_sv_unit
+-- Compiling module nh_bit_sync
+-- Compiling package bds_acquisition_sv_unit
+-- Compiling module bds_acquisition
+-- Compiling package bds_channel_sv_unit
+-- Compiling module bds_channel
+-- Compiling module bds_bb_6ch_core
+-- Compiling package tb_handover_sv_unit
+-- Compiling module tb_handover
+-- Compiling module tb_six_channel_control
+-- Compiling module tb_six_signal
+
+Top level modules:
+	tb_handover
+	tb_six_channel_control
+	tb_six_signal
+End time: 15:07:54 on Nov 02,2026, Elapsed time: 0:00:00
+Errors: 0, Warnings: 0
