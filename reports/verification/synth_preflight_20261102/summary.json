@@ -1,0 +1,49 @@
+{
+  "date": "2026-11-02",
+  "source_revision": "1d4d947",
+  "remote": "vm-ic / IC",
+  "connected": true,
+  "connection_caveat": "Intermittent TCP timeout or public-key rejection remains; later password fallback did not authenticate",
+  "dc_version": "K-2015.06",
+  "vcs_version": "I-2014.03",
+  "basic_compile_probe": {
+    "passed": true,
+    "top": "synth_env_probe",
+    "scope": "8-bit counter, not receiver, no PAD",
+    "library": "tcbn28hpcplusbwp40p140tt0p9v25c",
+    "library_cells": 1000,
+    "mapped_cells": 17,
+    "sequential_cells": 8,
+    "unmapped_cells": 0,
+    "cell_area": 31.752,
+    "area_unit": "as defined by library"
+  },
+  "compile_ultra_probe": {
+    "passed": false,
+    "return": 0,
+    "reason": "Unmapped GTECH remained; not a valid mapping result"
+  },
+  "library_audit": {
+    "selected_corner_dbs_read": [
+      "TT 0.9V 25C",
+      "SS 0.81V 125C",
+      "FF 0.99V -40C"
+    ],
+    "deployed_root": "/home/share/libs/tsmc28",
+    "verilog_models_found": 0,
+    "dedicated_tsmc28_io_db_found": false,
+    "io_application_pdf_found": true,
+    "original_package_location_from_manifest": "/home/user002/Public/TSMC28",
+    "original_package_access_confirmed": false
+  },
+  "local_vm": {
+    "path": "E:/BaiduNetdiskDownload/617/EDA.vmx",
+    "configured_memory_gb": 8,
+    "host_free_memory_gb_at_check": 3.6,
+    "running": false,
+    "suspended_state_present": true,
+    "eda_tools_and_license_inside_guest_verified": false
+  },
+  "formal_six_channel_synthesis_complete": false,
+  "user_modified_files_preserved": true
+}
