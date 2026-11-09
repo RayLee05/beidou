@@ -6,3 +6,7 @@
 *.dat binary
 *.vcd binary
 *.fsdb binary
+
+# Preserve exact tool evidence bytes so SHA256SUMS survives cloning on Windows.
+# Raw tool formatting includes trailing spaces and terminal blank lines.
+logic_synth/evidence/20261109/* -text whitespace=-blank-at-eol,-blank-at-eof

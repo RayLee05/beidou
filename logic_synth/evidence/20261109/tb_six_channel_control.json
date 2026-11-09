@@ -1,0 +1,30 @@
+{
+  "tool": "D:\\modeltech64_10.5\\win64\\vsim.exe",
+  "results": [
+    {
+      "name": "tb_six_channel_control",
+      "passed": true,
+      "seconds": 3.97
+    }
+  ],
+  "rtl_sha256": {
+    "logic_synth/rtl/bds_acquisition.sv": "8c76301d99eb9eea5197dcbdebab1686783576d874bde1c74b6e2edb77a405f3",
+    "logic_synth/rtl/bds_bb_6ch_core.sv": "12c78648e0867a6b1f58c160c5f1377743d82445045fa379ed0dd6445aeb79f2",
+    "logic_synth/rtl/bds_bb_6ch_pad_top.sv": "16440ea68ac7e1d31f04d98f1565ff994224f9ffefd2c411417a9912186a894e",
+    "logic_synth/rtl/bds_channel.sv": "460da707db22617ee02b145e6e58fe2f85289fdc91d1ed6f30282ccc1a1a4bb2",
+    "logic_synth/rtl/bds_pad_probe.sv": "0f792432bb525512da0f40b39565fb1a1665118c7fe1691473af890e8d1aa4bb",
+    "logic_synth/rtl/core.f": "7727b5f30fffd10466af2d50ad89a952716424bde93bbcbd08b685db433bc6a8",
+    "rtl/include/b1i_params.svh": "ac16e7455da3f52a0aff7308b926d72f552780c87c5fbbc30a051b108cf9fc64",
+    "rtl/common/carrier_lut_table.svh": "5f7daa9649bee2361a26e34992604145c038d3fd0df021df769dbecea36dc404",
+    "rtl/common/carrier_lut.sv": "4fcf8923ac0259c90a3486f18d18b7a5b47d6144dbbdb95e928d3be76705d18e",
+    "rtl/common/prn_code_gen.sv": "e7ee6a7dd25eb1630ff31d3663916bfefba9ab2be2acbf564b1786c194195488",
+    "rtl/track/carrier_mixer_nco.sv": "2c6ebba56a603b6308864bbc5ecbfd9a992df66568c943067ed1ca079a81650a",
+    "rtl/track/code_nco.sv": "01e7f771cab95e80f0f1bb6e24a14975cc16d1dc9e7195950f52d42cbb87032e",
+    "rtl/track/code_ram.sv": "a88fd3e9041e8818957fc0b7691bce71de9dca1294f5f0a079514a6cf901c580",
+    "rtl/track/correlator_epl.sv": "12e452b197ea095e993e591b7ef4d5b16a870b6cd22616a72bf54a9880e98b79",
+    "rtl/track/track_loop.sv": "55216efa9c9cd1db38fd3ea01728cb0fbcf9140f2dda84ff642d82364f90b080",
+    "rtl/track/tracking_channel.sv": "1a7293ac76d2651094029a4a143ec7948dfecce1e6c0cfcf311e3d60ff72edea",
+    "rtl/sync/nh_bit_sync.sv": "1c2bae81fa3dac232ffe1a0546c83602099697a52f0009f002078ec5e448904d"
+  },
+  "tb_sha256": "20f7e492ebec8c22e42bc47be1d86f5cb2fce7d59fb1951c9283161c2279830c"
+}

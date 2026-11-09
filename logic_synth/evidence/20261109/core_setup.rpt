@@ -1,0 +1,2116 @@
+ 
+****************************************
+Report : timing
+        -path full
+        -delay max
+        -max_paths 20
+Design : bds_channel
+Version: K-2015.06
+Date   : Mon Nov  9 14:43:55 2026
+****************************************
+
+ # A fanout number of 1000 was used for high fanout net computations.
+
+Operating Conditions: tt0p9v25c   Library: tcbn28hpcplusbwp40p140tt0p9v25c
+Wire Load Model Mode: segmented
+
+  Startpoint: cfg_write (input port clocked by clk)
+  Endpoint: u_track/code_inc_reg[33]
+            (rising edge-triggered flip-flop clocked by clk)
+  Path Group: clk
+  Path Type: max
+
+  Des/Clust/Port     Wire Load Model       Library
+  ------------------------------------------------
+  bds_channel        ZeroWireload          tcbn28hpcplusbwp40p140tt0p9v25c
+  tracking_channel   ZeroWireload          tcbn28hpcplusbwp40p140tt0p9v25c
+  tracking_channel_DW02_mult_0
+                     ZeroWireload          tcbn28hpcplusbwp40p140tt0p9v25c
+  track_loop         ZeroWireload          tcbn28hpcplusbwp40p140tt0p9v25c
+  tracking_channel_DW01_add_3
+                     ZeroWireload          tcbn28hpcplusbwp40p140tt0p9v25c
+
+  Point                                                   Incr       Path
+  --------------------------------------------------------------------------
+  clock clk (rise edge)                                   0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  input external delay                                    5.00       5.00 f
+  cfg_write (in)                                          0.00       5.00 f
+  U248/ZN (INVD1BWP40P140)                                0.07       5.07 r
+  U247/ZN (ND4D1BWP40P140)                                0.05       5.12 f
+  U222/ZN (INVD1BWP40P140)                                0.03       5.16 r
+  U214/Z (CKBD1BWP40P140)                                 0.04       5.20 r
+  U164/Z (CKAN2D1BWP40P140)                               0.03       5.22 r
+  u_track/init_doppler[5] (tracking_channel)              0.00       5.22 r
+  u_track/U497/Z (OR2D0BWP40P140)                         0.02       5.24 r
+  u_track/U498/ZN (NR4D0BWP40P140)                        0.01       5.25 f
+  u_track/U499/ZN (ND4D0BWP40P140)                        0.02       5.27 r
+  u_track/U500/ZN (AOI31D0BWP40P140)                      0.02       5.29 f
+  u_track/U91/ZN (INVD1BWP40P140)                         0.01       5.30 r
+  u_track/U501/ZN (AOI21D0BWP40P140)                      0.01       5.32 f
+  u_track/U505/ZN (AOI31D0BWP40P140)                      0.02       5.34 r
+  u_track/U41/Z (OR2D1BWP40P140)                          0.03       5.37 r
+  u_track/U26/ZN (INVD1BWP40P140)                         0.03       5.40 f
+  u_track/U231/Z (CKAN2D1BWP40P140)                       0.07       5.47 f
+  u_track/mult_132/A[2] (tracking_channel_DW02_mult_0)
+                                                          0.00       5.47 f
+  u_track/mult_132/U42/Z (CKAN2D1BWP40P140)               0.04       5.51 f
+  u_track/mult_132/S2_3_5/CO (FA1D1BWP40P140)             0.04       5.55 f
+  u_track/mult_132/S2_4_5/CO (FA1D1BWP40P140)             0.04       5.59 f
+  u_track/mult_132/S2_5_5/CO (FA1D1BWP40P140)             0.04       5.64 f
+  u_track/mult_132/S2_6_5/CO (FA1D1BWP40P140)             0.04       5.68 f
+  u_track/mult_132/S2_7_5/CO (FA1D1BWP40P140)             0.04       5.72 f
+  u_track/mult_132/S2_8_5/CO (FA1D1BWP40P140)             0.04       5.77 f
+  u_track/mult_132/S2_9_5/CO (FA1D1BWP40P140)             0.04       5.81 f
+  u_track/mult_132/S2_10_5/CO (FA1D1BWP40P140)            0.04       5.85 f
+  u_track/mult_132/S2_11_5/CO (FA1D1BWP40P140)            0.04       5.89 f
+  u_track/mult_132/S2_12_5/CO (FA1D1BWP40P140)            0.04       5.94 f
+  u_track/mult_132/S2_13_5/CO (FA1D1BWP40P140)            0.04       5.98 f
+  u_track/mult_132/S2_14_5/CO (FA1D1BWP40P140)            0.04       6.02 f
+  u_track/mult_132/S2_15_5/CO (FA1D1BWP40P140)            0.04       6.07 f
+  u_track/mult_132/S2_16_5/S (FA1D1BWP40P140)             0.07       6.14 r
+  u_track/mult_132/S2_17_4/S (FA1D1BWP40P140)             0.06       6.20 f
+  u_track/mult_132/S2_18_3/CO (FA1D1BWP40P140)            0.04       6.24 f
+  u_track/mult_132/S2_19_3/CO (FA1D1BWP40P140)            0.04       6.28 f
+  u_track/mult_132/S2_20_3/CO (FA1D1BWP40P140)            0.04       6.33 f
+  u_track/mult_132/S2_21_3/CO (FA1D1BWP40P140)            0.04       6.37 f
+  u_track/mult_132/S2_22_3/CO (FA1D1BWP40P140)            0.04       6.41 f
+  u_track/mult_132/S2_23_3/CO (FA1D1BWP40P140)            0.04       6.46 f
+  u_track/mult_132/S2_24_3/CO (FA1D1BWP40P140)            0.04       6.50 f
+  u_track/mult_132/S2_25_3/CO (FA1D1BWP40P140)            0.04       6.54 f
+  u_track/mult_132/S2_26_3/CO (FA1D1BWP40P140)            0.04       6.59 f
+  u_track/mult_132/S2_27_3/CO (FA1D1BWP40P140)            0.04       6.63 f
+  u_track/mult_132/S2_28_3/CO (FA1D1BWP40P140)            0.04       6.68 f
+  u_track/mult_132/S2_29_3/S (FA1D1BWP40P140)             0.07       6.75 r
+  u_track/mult_132/S2_30_2/S (FA1D1BWP40P140)             0.06       6.81 f
+  u_track/mult_132/U35/Z (XOR2UD1BWP40P140)               0.03       6.84 f
+  u_track/mult_132/U16/Z (XOR2UD1BWP40P140)               0.03       6.87 f
+  u_track/mult_132/FS_1/A[30] (tracking_channel_DW01_add_3)
+                                                          0.00       6.87 f
+  u_track/mult_132/FS_1/U62/ZN (CKND2D0BWP40P140)         0.02       6.89 r
+  u_track/mult_132/FS_1/U8/ZN (INVD1BWP40P140)            0.01       6.91 f
+  u_track/mult_132/FS_1/U55/ZN (AOI21D0BWP40P140)         0.03       6.93 r
+  u_track/mult_132/FS_1/U50/ZN (OAI21D0BWP40P140)         0.03       6.96 f
+  u_track/mult_132/FS_1/U45/ZN (AOI21D0BWP40P140)         0.03       6.99 r
+  u_track/mult_132/FS_1/U40/ZN (OAI21D0BWP40P140)         0.03       7.03 f
+  u_track/mult_132/FS_1/U35/ZN (AOI21D0BWP40P140)         0.03       7.06 r
+  u_track/mult_132/FS_1/U30/ZN (OAI21D0BWP40P140)         0.03       7.09 f
+  u_track/mult_132/FS_1/U25/ZN (AOI21D0BWP40P140)         0.03       7.12 r
+  u_track/mult_132/FS_1/U20/ZN (OAI21D0BWP40P140)         0.03       7.15 f
+  u_track/mult_132/FS_1/U15/ZN (AOI21D0BWP40P140)         0.03       7.19 r
+  u_track/mult_132/FS_1/U13/ZN (CKND2D0BWP40P140)         0.01       7.20 f
+  u_track/mult_132/FS_1/U12/ZN (MOAI22D0BWP40P140)        0.03       7.24 f
+  u_track/mult_132/FS_1/U10/ZN (ND2OPTIBD1BWP40P140)      0.01       7.25 r
+  u_track/mult_132/FS_1/U9/ZN (XNR2UD1BWP40P140)          0.06       7.31 r
+  u_track/mult_132/FS_1/SUM[42] (tracking_channel_DW01_add_3)
+                                                          0.00       7.31 r
+  u_track/mult_132/PRODUCT[44] (tracking_channel_DW02_mult_0)
+                                                          0.00       7.31 r
+  u_track/U177/ZN (AOI22D1BWP40P140)                      0.02       7.33 f
+  u_track/U176/ZN (IOA21D1BWP40P140)                      0.01       7.34 r
+  u_track/code_inc_reg[33]/D (DFCNQD1BWP40P140)           0.00       7.34 r
+  data arrival time                                                  7.34
+
+  clock clk (rise edge)                                  61.09      61.09
+  clock network delay (ideal)                             0.00      61.09
+  clock uncertainty                                      -0.50      60.59
+  u_track/code_inc_reg[33]/CP (DFCNQD1BWP40P140)          0.00      60.59 r
+  library setup time                                     -0.01      60.58
+  data required time                                                60.58
+  --------------------------------------------------------------------------
+  data required time                                                60.58
+  data arrival time                                                 -7.34
+  --------------------------------------------------------------------------
+  slack (MET)                                                       53.24
+
+
+  Startpoint: cfg_write (input port clocked by clk)
+  Endpoint: u_track/code_inc_reg[32]
+            (rising edge-triggered flip-flop clocked by clk)
+  Path Group: clk
+  Path Type: max
+
+  Des/Clust/Port     Wire Load Model       Library
+  ------------------------------------------------
+  bds_channel        ZeroWireload          tcbn28hpcplusbwp40p140tt0p9v25c
+  tracking_channel   ZeroWireload          tcbn28hpcplusbwp40p140tt0p9v25c
+  tracking_channel_DW02_mult_0
+                     ZeroWireload          tcbn28hpcplusbwp40p140tt0p9v25c
+  track_loop         ZeroWireload          tcbn28hpcplusbwp40p140tt0p9v25c
+  tracking_channel_DW01_add_3
+                     ZeroWireload          tcbn28hpcplusbwp40p140tt0p9v25c
+
+  Point                                                   Incr       Path
+  --------------------------------------------------------------------------
+  clock clk (rise edge)                                   0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  input external delay                                    5.00       5.00 f
+  cfg_write (in)                                          0.00       5.00 f
+  U248/ZN (INVD1BWP40P140)                                0.07       5.07 r
+  U247/ZN (ND4D1BWP40P140)                                0.05       5.12 f
+  U222/ZN (INVD1BWP40P140)                                0.03       5.16 r
+  U214/Z (CKBD1BWP40P140)                                 0.04       5.20 r
+  U164/Z (CKAN2D1BWP40P140)                               0.03       5.22 r
+  u_track/init_doppler[5] (tracking_channel)              0.00       5.22 r
+  u_track/U497/Z (OR2D0BWP40P140)                         0.02       5.24 r
+  u_track/U498/ZN (NR4D0BWP40P140)                        0.01       5.25 f
+  u_track/U499/ZN (ND4D0BWP40P140)                        0.02       5.27 r
+  u_track/U500/ZN (AOI31D0BWP40P140)                      0.02       5.29 f
+  u_track/U91/ZN (INVD1BWP40P140)                         0.01       5.30 r
+  u_track/U501/ZN (AOI21D0BWP40P140)                      0.01       5.32 f
+  u_track/U505/ZN (AOI31D0BWP40P140)                      0.02       5.34 r
+  u_track/U41/Z (OR2D1BWP40P140)                          0.03       5.37 r
+  u_track/U26/ZN (INVD1BWP40P140)                         0.03       5.40 f
+  u_track/U231/Z (CKAN2D1BWP40P140)                       0.07       5.47 f
+  u_track/mult_132/A[2] (tracking_channel_DW02_mult_0)
+                                                          0.00       5.47 f
+  u_track/mult_132/U42/Z (CKAN2D1BWP40P140)               0.04       5.51 f
+  u_track/mult_132/S2_3_5/CO (FA1D1BWP40P140)             0.04       5.55 f
+  u_track/mult_132/S2_4_5/CO (FA1D1BWP40P140)             0.04       5.59 f
+  u_track/mult_132/S2_5_5/CO (FA1D1BWP40P140)             0.04       5.64 f
+  u_track/mult_132/S2_6_5/CO (FA1D1BWP40P140)             0.04       5.68 f
+  u_track/mult_132/S2_7_5/CO (FA1D1BWP40P140)             0.04       5.72 f
+  u_track/mult_132/S2_8_5/CO (FA1D1BWP40P140)             0.04       5.77 f
+  u_track/mult_132/S2_9_5/CO (FA1D1BWP40P140)             0.04       5.81 f
+  u_track/mult_132/S2_10_5/CO (FA1D1BWP40P140)            0.04       5.85 f
+  u_track/mult_132/S2_11_5/CO (FA1D1BWP40P140)            0.04       5.89 f
+  u_track/mult_132/S2_12_5/CO (FA1D1BWP40P140)            0.04       5.94 f
+  u_track/mult_132/S2_13_5/CO (FA1D1BWP40P140)            0.04       5.98 f
+  u_track/mult_132/S2_14_5/CO (FA1D1BWP40P140)            0.04       6.02 f
+  u_track/mult_132/S2_15_5/CO (FA1D1BWP40P140)            0.04       6.07 f
+  u_track/mult_132/S2_16_5/S (FA1D1BWP40P140)             0.07       6.14 r
+  u_track/mult_132/S2_17_4/S (FA1D1BWP40P140)             0.06       6.20 f
+  u_track/mult_132/S2_18_3/CO (FA1D1BWP40P140)            0.04       6.24 f
+  u_track/mult_132/S2_19_3/CO (FA1D1BWP40P140)            0.04       6.28 f
+  u_track/mult_132/S2_20_3/CO (FA1D1BWP40P140)            0.04       6.33 f
+  u_track/mult_132/S2_21_3/CO (FA1D1BWP40P140)            0.04       6.37 f
+  u_track/mult_132/S2_22_3/CO (FA1D1BWP40P140)            0.04       6.41 f
+  u_track/mult_132/S2_23_3/CO (FA1D1BWP40P140)            0.04       6.46 f
+  u_track/mult_132/S2_24_3/CO (FA1D1BWP40P140)            0.04       6.50 f
+  u_track/mult_132/S2_25_3/CO (FA1D1BWP40P140)            0.04       6.54 f
+  u_track/mult_132/S2_26_3/CO (FA1D1BWP40P140)            0.04       6.59 f
+  u_track/mult_132/S2_27_3/CO (FA1D1BWP40P140)            0.04       6.63 f
+  u_track/mult_132/S2_28_3/CO (FA1D1BWP40P140)            0.04       6.68 f
+  u_track/mult_132/S2_29_3/S (FA1D1BWP40P140)             0.07       6.75 r
+  u_track/mult_132/S2_30_2/S (FA1D1BWP40P140)             0.06       6.81 f
+  u_track/mult_132/U35/Z (XOR2UD1BWP40P140)               0.03       6.84 f
+  u_track/mult_132/U16/Z (XOR2UD1BWP40P140)               0.03       6.87 f
+  u_track/mult_132/FS_1/A[30] (tracking_channel_DW01_add_3)
+                                                          0.00       6.87 f
+  u_track/mult_132/FS_1/U62/ZN (CKND2D0BWP40P140)         0.02       6.89 r
+  u_track/mult_132/FS_1/U8/ZN (INVD1BWP40P140)            0.01       6.91 f
+  u_track/mult_132/FS_1/U55/ZN (AOI21D0BWP40P140)         0.03       6.93 r
+  u_track/mult_132/FS_1/U50/ZN (OAI21D0BWP40P140)         0.03       6.96 f
+  u_track/mult_132/FS_1/U45/ZN (AOI21D0BWP40P140)         0.03       6.99 r
+  u_track/mult_132/FS_1/U40/ZN (OAI21D0BWP40P140)         0.03       7.03 f
+  u_track/mult_132/FS_1/U35/ZN (AOI21D0BWP40P140)         0.03       7.06 r
+  u_track/mult_132/FS_1/U30/ZN (OAI21D0BWP40P140)         0.03       7.09 f
+  u_track/mult_132/FS_1/U25/ZN (AOI21D0BWP40P140)         0.03       7.12 r
+  u_track/mult_132/FS_1/U20/ZN (OAI21D0BWP40P140)         0.03       7.15 f
+  u_track/mult_132/FS_1/U15/ZN (AOI21D0BWP40P140)         0.03       7.19 r
+  u_track/mult_132/FS_1/U13/ZN (CKND2D0BWP40P140)         0.01       7.20 f
+  u_track/mult_132/FS_1/U12/ZN (MOAI22D0BWP40P140)        0.03       7.24 f
+  u_track/mult_132/FS_1/U10/ZN (ND2OPTIBD1BWP40P140)      0.01       7.25 r
+  u_track/mult_132/FS_1/U9/ZN (XNR2UD1BWP40P140)          0.06       7.31 r
+  u_track/mult_132/FS_1/SUM[42] (tracking_channel_DW01_add_3)
+                                                          0.00       7.31 r
+  u_track/mult_132/PRODUCT[44] (tracking_channel_DW02_mult_0)
+                                                          0.00       7.31 r
+  u_track/U175/ZN (AOI22D1BWP40P140)                      0.02       7.33 f
+  u_track/U174/ZN (IOA21D1BWP40P140)                      0.01       7.34 r
+  u_track/code_inc_reg[32]/D (DFCNQD1BWP40P140)           0.00       7.34 r
+  data arrival time                                                  7.34
+
+  clock clk (rise edge)                                  61.09      61.09
+  clock network delay (ideal)                             0.00      61.09
+  clock uncertainty                                      -0.50      60.59
+  u_track/code_inc_reg[32]/CP (DFCNQD1BWP40P140)          0.00      60.59 r
+  library setup time                                     -0.01      60.58
+  data required time                                                60.58
+  --------------------------------------------------------------------------
+  data required time                                                60.58
+  data arrival time                                                 -7.34
+  --------------------------------------------------------------------------
+  slack (MET)                                                       53.24
+
+
+  Startpoint: cfg_write (input port clocked by clk)
+  Endpoint: u_track/code_inc_reg[31]
+            (rising edge-triggered flip-flop clocked by clk)
+  Path Group: clk
+  Path Type: max
+
+  Des/Clust/Port     Wire Load Model       Library
+  ------------------------------------------------
+  bds_channel        ZeroWireload          tcbn28hpcplusbwp40p140tt0p9v25c
+  tracking_channel   ZeroWireload          tcbn28hpcplusbwp40p140tt0p9v25c
+  tracking_channel_DW02_mult_0
+                     ZeroWireload          tcbn28hpcplusbwp40p140tt0p9v25c
+  track_loop         ZeroWireload          tcbn28hpcplusbwp40p140tt0p9v25c
+  tracking_channel_DW01_add_3
+                     ZeroWireload          tcbn28hpcplusbwp40p140tt0p9v25c
+
+  Point                                                   Incr       Path
+  --------------------------------------------------------------------------
+  clock clk (rise edge)                                   0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  input external delay                                    5.00       5.00 f
+  cfg_write (in)                                          0.00       5.00 f
+  U248/ZN (INVD1BWP40P140)                                0.07       5.07 r
+  U247/ZN (ND4D1BWP40P140)                                0.05       5.12 f
+  U222/ZN (INVD1BWP40P140)                                0.03       5.16 r
+  U214/Z (CKBD1BWP40P140)                                 0.04       5.20 r
+  U164/Z (CKAN2D1BWP40P140)                               0.03       5.22 r
+  u_track/init_doppler[5] (tracking_channel)              0.00       5.22 r
+  u_track/U497/Z (OR2D0BWP40P140)                         0.02       5.24 r
+  u_track/U498/ZN (NR4D0BWP40P140)                        0.01       5.25 f
+  u_track/U499/ZN (ND4D0BWP40P140)                        0.02       5.27 r
+  u_track/U500/ZN (AOI31D0BWP40P140)                      0.02       5.29 f
+  u_track/U91/ZN (INVD1BWP40P140)                         0.01       5.30 r
+  u_track/U501/ZN (AOI21D0BWP40P140)                      0.01       5.32 f
+  u_track/U505/ZN (AOI31D0BWP40P140)                      0.02       5.34 r
+  u_track/U41/Z (OR2D1BWP40P140)                          0.03       5.37 r
+  u_track/U26/ZN (INVD1BWP40P140)                         0.03       5.40 f
+  u_track/U231/Z (CKAN2D1BWP40P140)                       0.07       5.47 f
+  u_track/mult_132/A[2] (tracking_channel_DW02_mult_0)
+                                                          0.00       5.47 f
+  u_track/mult_132/U42/Z (CKAN2D1BWP40P140)               0.04       5.51 f
+  u_track/mult_132/S2_3_5/CO (FA1D1BWP40P140)             0.04       5.55 f
+  u_track/mult_132/S2_4_5/CO (FA1D1BWP40P140)             0.04       5.59 f
+  u_track/mult_132/S2_5_5/CO (FA1D1BWP40P140)             0.04       5.64 f
+  u_track/mult_132/S2_6_5/CO (FA1D1BWP40P140)             0.04       5.68 f
+  u_track/mult_132/S2_7_5/CO (FA1D1BWP40P140)             0.04       5.72 f
+  u_track/mult_132/S2_8_5/CO (FA1D1BWP40P140)             0.04       5.77 f
+  u_track/mult_132/S2_9_5/CO (FA1D1BWP40P140)             0.04       5.81 f
+  u_track/mult_132/S2_10_5/CO (FA1D1BWP40P140)            0.04       5.85 f
+  u_track/mult_132/S2_11_5/CO (FA1D1BWP40P140)            0.04       5.89 f
+  u_track/mult_132/S2_12_5/CO (FA1D1BWP40P140)            0.04       5.94 f
+  u_track/mult_132/S2_13_5/CO (FA1D1BWP40P140)            0.04       5.98 f
+  u_track/mult_132/S2_14_5/CO (FA1D1BWP40P140)            0.04       6.02 f
+  u_track/mult_132/S2_15_5/CO (FA1D1BWP40P140)            0.04       6.07 f
+  u_track/mult_132/S2_16_5/S (FA1D1BWP40P140)             0.07       6.14 r
+  u_track/mult_132/S2_17_4/S (FA1D1BWP40P140)             0.06       6.20 f
+  u_track/mult_132/S2_18_3/CO (FA1D1BWP40P140)            0.04       6.24 f
+  u_track/mult_132/S2_19_3/CO (FA1D1BWP40P140)            0.04       6.28 f
+  u_track/mult_132/S2_20_3/CO (FA1D1BWP40P140)            0.04       6.33 f
+  u_track/mult_132/S2_21_3/CO (FA1D1BWP40P140)            0.04       6.37 f
+  u_track/mult_132/S2_22_3/CO (FA1D1BWP40P140)            0.04       6.41 f
+  u_track/mult_132/S2_23_3/CO (FA1D1BWP40P140)            0.04       6.46 f
+  u_track/mult_132/S2_24_3/CO (FA1D1BWP40P140)            0.04       6.50 f
+  u_track/mult_132/S2_25_3/CO (FA1D1BWP40P140)            0.04       6.54 f
+  u_track/mult_132/S2_26_3/CO (FA1D1BWP40P140)            0.04       6.59 f
+  u_track/mult_132/S2_27_3/CO (FA1D1BWP40P140)            0.04       6.63 f
+  u_track/mult_132/S2_28_3/CO (FA1D1BWP40P140)            0.04       6.68 f
+  u_track/mult_132/S2_29_3/S (FA1D1BWP40P140)             0.07       6.75 r
+  u_track/mult_132/S2_30_2/S (FA1D1BWP40P140)             0.06       6.81 f
+  u_track/mult_132/U35/Z (XOR2UD1BWP40P140)               0.03       6.84 f
+  u_track/mult_132/U16/Z (XOR2UD1BWP40P140)               0.03       6.87 f
+  u_track/mult_132/FS_1/A[30] (tracking_channel_DW01_add_3)
+                                                          0.00       6.87 f
+  u_track/mult_132/FS_1/U62/ZN (CKND2D0BWP40P140)         0.02       6.89 r
+  u_track/mult_132/FS_1/U8/ZN (INVD1BWP40P140)            0.01       6.91 f
+  u_track/mult_132/FS_1/U55/ZN (AOI21D0BWP40P140)         0.03       6.93 r
+  u_track/mult_132/FS_1/U50/ZN (OAI21D0BWP40P140)         0.03       6.96 f
+  u_track/mult_132/FS_1/U45/ZN (AOI21D0BWP40P140)         0.03       6.99 r
+  u_track/mult_132/FS_1/U40/ZN (OAI21D0BWP40P140)         0.03       7.03 f
+  u_track/mult_132/FS_1/U35/ZN (AOI21D0BWP40P140)         0.03       7.06 r
+  u_track/mult_132/FS_1/U30/ZN (OAI21D0BWP40P140)         0.03       7.09 f
+  u_track/mult_132/FS_1/U25/ZN (AOI21D0BWP40P140)         0.03       7.12 r
+  u_track/mult_132/FS_1/U20/ZN (OAI21D0BWP40P140)         0.03       7.15 f
+  u_track/mult_132/FS_1/U15/ZN (AOI21D0BWP40P140)         0.03       7.19 r
+  u_track/mult_132/FS_1/U13/ZN (CKND2D0BWP40P140)         0.01       7.20 f
+  u_track/mult_132/FS_1/U12/ZN (MOAI22D0BWP40P140)        0.03       7.24 f
+  u_track/mult_132/FS_1/U10/ZN (ND2OPTIBD1BWP40P140)      0.01       7.25 r
+  u_track/mult_132/FS_1/U9/ZN (XNR2UD1BWP40P140)          0.06       7.31 r
+  u_track/mult_132/FS_1/SUM[42] (tracking_channel_DW01_add_3)
+                                                          0.00       7.31 r
+  u_track/mult_132/PRODUCT[44] (tracking_channel_DW02_mult_0)
+                                                          0.00       7.31 r
+  u_track/U173/ZN (AOI22D1BWP40P140)                      0.02       7.33 f
+  u_track/U172/ZN (IOA21D1BWP40P140)                      0.01       7.34 r
+  u_track/code_inc_reg[31]/D (DFCNQD1BWP40P140)           0.00       7.34 r
+  data arrival time                                                  7.34
+
+  clock clk (rise edge)                                  61.09      61.09
+  clock network delay (ideal)                             0.00      61.09
+  clock uncertainty                                      -0.50      60.59
+  u_track/code_inc_reg[31]/CP (DFCNQD1BWP40P140)          0.00      60.59 r
+  library setup time                                     -0.01      60.58
+  data required time                                                60.58
+  --------------------------------------------------------------------------
+  data required time                                                60.58
+  data arrival time                                                 -7.34
+  --------------------------------------------------------------------------
+  slack (MET)                                                       53.24
+
+
+  Startpoint: cfg_write (input port clocked by clk)
+  Endpoint: u_track/code_inc_reg[30]
+            (rising edge-triggered flip-flop clocked by clk)
+  Path Group: clk
+  Path Type: max
+
+  Des/Clust/Port     Wire Load Model       Library
+  ------------------------------------------------
+  bds_channel        ZeroWireload          tcbn28hpcplusbwp40p140tt0p9v25c
+  tracking_channel   ZeroWireload          tcbn28hpcplusbwp40p140tt0p9v25c
+  tracking_channel_DW02_mult_0
+                     ZeroWireload          tcbn28hpcplusbwp40p140tt0p9v25c
+  track_loop         ZeroWireload          tcbn28hpcplusbwp40p140tt0p9v25c
+  tracking_channel_DW01_add_3
+                     ZeroWireload          tcbn28hpcplusbwp40p140tt0p9v25c
+
+  Point                                                   Incr       Path
+  --------------------------------------------------------------------------
+  clock clk (rise edge)                                   0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  input external delay                                    5.00       5.00 f
+  cfg_write (in)                                          0.00       5.00 f
+  U248/ZN (INVD1BWP40P140)                                0.07       5.07 r
+  U247/ZN (ND4D1BWP40P140)                                0.05       5.12 f
+  U222/ZN (INVD1BWP40P140)                                0.03       5.16 r
+  U214/Z (CKBD1BWP40P140)                                 0.04       5.20 r
+  U164/Z (CKAN2D1BWP40P140)                               0.03       5.22 r
+  u_track/init_doppler[5] (tracking_channel)              0.00       5.22 r
+  u_track/U497/Z (OR2D0BWP40P140)                         0.02       5.24 r
+  u_track/U498/ZN (NR4D0BWP40P140)                        0.01       5.25 f
+  u_track/U499/ZN (ND4D0BWP40P140)                        0.02       5.27 r
+  u_track/U500/ZN (AOI31D0BWP40P140)                      0.02       5.29 f
+  u_track/U91/ZN (INVD1BWP40P140)                         0.01       5.30 r
+  u_track/U501/ZN (AOI21D0BWP40P140)                      0.01       5.32 f
+  u_track/U505/ZN (AOI31D0BWP40P140)                      0.02       5.34 r
+  u_track/U41/Z (OR2D1BWP40P140)                          0.03       5.37 r
+  u_track/U26/ZN (INVD1BWP40P140)                         0.03       5.40 f
+  u_track/U231/Z (CKAN2D1BWP40P140)                       0.07       5.47 f
+  u_track/mult_132/A[2] (tracking_channel_DW02_mult_0)
+                                                          0.00       5.47 f
+  u_track/mult_132/U42/Z (CKAN2D1BWP40P140)               0.04       5.51 f
+  u_track/mult_132/S2_3_5/CO (FA1D1BWP40P140)             0.04       5.55 f
+  u_track/mult_132/S2_4_5/CO (FA1D1BWP40P140)             0.04       5.59 f
+  u_track/mult_132/S2_5_5/CO (FA1D1BWP40P140)             0.04       5.64 f
+  u_track/mult_132/S2_6_5/CO (FA1D1BWP40P140)             0.04       5.68 f
+  u_track/mult_132/S2_7_5/CO (FA1D1BWP40P140)             0.04       5.72 f
+  u_track/mult_132/S2_8_5/CO (FA1D1BWP40P140)             0.04       5.77 f
+  u_track/mult_132/S2_9_5/CO (FA1D1BWP40P140)             0.04       5.81 f
+  u_track/mult_132/S2_10_5/CO (FA1D1BWP40P140)            0.04       5.85 f
+  u_track/mult_132/S2_11_5/CO (FA1D1BWP40P140)            0.04       5.89 f
+  u_track/mult_132/S2_12_5/CO (FA1D1BWP40P140)            0.04       5.94 f
+  u_track/mult_132/S2_13_5/CO (FA1D1BWP40P140)            0.04       5.98 f
+  u_track/mult_132/S2_14_5/CO (FA1D1BWP40P140)            0.04       6.02 f
+  u_track/mult_132/S2_15_5/CO (FA1D1BWP40P140)            0.04       6.07 f
+  u_track/mult_132/S2_16_5/S (FA1D1BWP40P140)             0.07       6.14 r
+  u_track/mult_132/S2_17_4/S (FA1D1BWP40P140)             0.06       6.20 f
+  u_track/mult_132/S2_18_3/CO (FA1D1BWP40P140)            0.04       6.24 f
+  u_track/mult_132/S2_19_3/CO (FA1D1BWP40P140)            0.04       6.28 f
+  u_track/mult_132/S2_20_3/CO (FA1D1BWP40P140)            0.04       6.33 f
+  u_track/mult_132/S2_21_3/CO (FA1D1BWP40P140)            0.04       6.37 f
+  u_track/mult_132/S2_22_3/CO (FA1D1BWP40P140)            0.04       6.41 f
+  u_track/mult_132/S2_23_3/CO (FA1D1BWP40P140)            0.04       6.46 f
+  u_track/mult_132/S2_24_3/CO (FA1D1BWP40P140)            0.04       6.50 f
+  u_track/mult_132/S2_25_3/CO (FA1D1BWP40P140)            0.04       6.54 f
+  u_track/mult_132/S2_26_3/CO (FA1D1BWP40P140)            0.04       6.59 f
+  u_track/mult_132/S2_27_3/CO (FA1D1BWP40P140)            0.04       6.63 f
+  u_track/mult_132/S2_28_3/CO (FA1D1BWP40P140)            0.04       6.68 f
+  u_track/mult_132/S2_29_3/S (FA1D1BWP40P140)             0.07       6.75 r
+  u_track/mult_132/S2_30_2/S (FA1D1BWP40P140)             0.06       6.81 f
+  u_track/mult_132/U35/Z (XOR2UD1BWP40P140)               0.03       6.84 f
+  u_track/mult_132/U16/Z (XOR2UD1BWP40P140)               0.03       6.87 f
+  u_track/mult_132/FS_1/A[30] (tracking_channel_DW01_add_3)
+                                                          0.00       6.87 f
+  u_track/mult_132/FS_1/U62/ZN (CKND2D0BWP40P140)         0.02       6.89 r
+  u_track/mult_132/FS_1/U8/ZN (INVD1BWP40P140)            0.01       6.91 f
+  u_track/mult_132/FS_1/U55/ZN (AOI21D0BWP40P140)         0.03       6.93 r
+  u_track/mult_132/FS_1/U50/ZN (OAI21D0BWP40P140)         0.03       6.96 f
+  u_track/mult_132/FS_1/U45/ZN (AOI21D0BWP40P140)         0.03       6.99 r
+  u_track/mult_132/FS_1/U40/ZN (OAI21D0BWP40P140)         0.03       7.03 f
+  u_track/mult_132/FS_1/U35/ZN (AOI21D0BWP40P140)         0.03       7.06 r
+  u_track/mult_132/FS_1/U30/ZN (OAI21D0BWP40P140)         0.03       7.09 f
+  u_track/mult_132/FS_1/U25/ZN (AOI21D0BWP40P140)         0.03       7.12 r
+  u_track/mult_132/FS_1/U20/ZN (OAI21D0BWP40P140)         0.03       7.15 f
+  u_track/mult_132/FS_1/U15/ZN (AOI21D0BWP40P140)         0.03       7.19 r
+  u_track/mult_132/FS_1/U13/ZN (CKND2D0BWP40P140)         0.01       7.20 f
+  u_track/mult_132/FS_1/U12/ZN (MOAI22D0BWP40P140)        0.03       7.24 f
+  u_track/mult_132/FS_1/U10/ZN (ND2OPTIBD1BWP40P140)      0.01       7.25 r
+  u_track/mult_132/FS_1/U9/ZN (XNR2UD1BWP40P140)          0.06       7.31 r
+  u_track/mult_132/FS_1/SUM[42] (tracking_channel_DW01_add_3)
+                                                          0.00       7.31 r
+  u_track/mult_132/PRODUCT[44] (tracking_channel_DW02_mult_0)
+                                                          0.00       7.31 r
+  u_track/U171/ZN (AOI22D1BWP40P140)                      0.02       7.33 f
+  u_track/U170/ZN (IOA21D1BWP40P140)                      0.01       7.34 r
+  u_track/code_inc_reg[30]/D (DFCNQD1BWP40P140)           0.00       7.34 r
+  data arrival time                                                  7.34
+
+  clock clk (rise edge)                                  61.09      61.09
+  clock network delay (ideal)                             0.00      61.09
+  clock uncertainty                                      -0.50      60.59
+  u_track/code_inc_reg[30]/CP (DFCNQD1BWP40P140)          0.00      60.59 r
+  library setup time                                     -0.01      60.58
+  data required time                                                60.58
+  --------------------------------------------------------------------------
+  data required time                                                60.58
+  data arrival time                                                 -7.34
+  --------------------------------------------------------------------------
+  slack (MET)                                                       53.24
+
+
+  Startpoint: cfg_write (input port clocked by clk)
+  Endpoint: u_track/code_inc_reg[29]
+            (rising edge-triggered flip-flop clocked by clk)
+  Path Group: clk
+  Path Type: max
+
+  Des/Clust/Port     Wire Load Model       Library
+  ------------------------------------------------
+  bds_channel        ZeroWireload          tcbn28hpcplusbwp40p140tt0p9v25c
+  tracking_channel   ZeroWireload          tcbn28hpcplusbwp40p140tt0p9v25c
+  tracking_channel_DW02_mult_0
+                     ZeroWireload          tcbn28hpcplusbwp40p140tt0p9v25c
+  track_loop         ZeroWireload          tcbn28hpcplusbwp40p140tt0p9v25c
+  tracking_channel_DW01_add_3
+                     ZeroWireload          tcbn28hpcplusbwp40p140tt0p9v25c
+
+  Point                                                   Incr       Path
+  --------------------------------------------------------------------------
+  clock clk (rise edge)                                   0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  input external delay                                    5.00       5.00 f
+  cfg_write (in)                                          0.00       5.00 f
+  U248/ZN (INVD1BWP40P140)                                0.07       5.07 r
+  U247/ZN (ND4D1BWP40P140)                                0.05       5.12 f
+  U222/ZN (INVD1BWP40P140)                                0.03       5.16 r
+  U214/Z (CKBD1BWP40P140)                                 0.04       5.20 r
+  U164/Z (CKAN2D1BWP40P140)                               0.03       5.22 r
+  u_track/init_doppler[5] (tracking_channel)              0.00       5.22 r
+  u_track/U497/Z (OR2D0BWP40P140)                         0.02       5.24 r
+  u_track/U498/ZN (NR4D0BWP40P140)                        0.01       5.25 f
+  u_track/U499/ZN (ND4D0BWP40P140)                        0.02       5.27 r
+  u_track/U500/ZN (AOI31D0BWP40P140)                      0.02       5.29 f
+  u_track/U91/ZN (INVD1BWP40P140)                         0.01       5.30 r
+  u_track/U501/ZN (AOI21D0BWP40P140)                      0.01       5.32 f
+  u_track/U505/ZN (AOI31D0BWP40P140)                      0.02       5.34 r
+  u_track/U41/Z (OR2D1BWP40P140)                          0.03       5.37 r
+  u_track/U26/ZN (INVD1BWP40P140)                         0.03       5.40 f
+  u_track/U231/Z (CKAN2D1BWP40P140)                       0.07       5.47 f
+  u_track/mult_132/A[2] (tracking_channel_DW02_mult_0)
+                                                          0.00       5.47 f
+  u_track/mult_132/U42/Z (CKAN2D1BWP40P140)               0.04       5.51 f
+  u_track/mult_132/S2_3_5/CO (FA1D1BWP40P140)             0.04       5.55 f
+  u_track/mult_132/S2_4_5/CO (FA1D1BWP40P140)             0.04       5.59 f
+  u_track/mult_132/S2_5_5/CO (FA1D1BWP40P140)             0.04       5.64 f
+  u_track/mult_132/S2_6_5/CO (FA1D1BWP40P140)             0.04       5.68 f
+  u_track/mult_132/S2_7_5/CO (FA1D1BWP40P140)             0.04       5.72 f
+  u_track/mult_132/S2_8_5/CO (FA1D1BWP40P140)             0.04       5.77 f
+  u_track/mult_132/S2_9_5/CO (FA1D1BWP40P140)             0.04       5.81 f
+  u_track/mult_132/S2_10_5/CO (FA1D1BWP40P140)            0.04       5.85 f
+  u_track/mult_132/S2_11_5/CO (FA1D1BWP40P140)            0.04       5.89 f
+  u_track/mult_132/S2_12_5/CO (FA1D1BWP40P140)            0.04       5.94 f
+  u_track/mult_132/S2_13_5/CO (FA1D1BWP40P140)            0.04       5.98 f
+  u_track/mult_132/S2_14_5/CO (FA1D1BWP40P140)            0.04       6.02 f
+  u_track/mult_132/S2_15_5/CO (FA1D1BWP40P140)            0.04       6.07 f
+  u_track/mult_132/S2_16_5/S (FA1D1BWP40P140)             0.07       6.14 r
+  u_track/mult_132/S2_17_4/S (FA1D1BWP40P140)             0.06       6.20 f
+  u_track/mult_132/S2_18_3/CO (FA1D1BWP40P140)            0.04       6.24 f
+  u_track/mult_132/S2_19_3/CO (FA1D1BWP40P140)            0.04       6.28 f
+  u_track/mult_132/S2_20_3/CO (FA1D1BWP40P140)            0.04       6.33 f
+  u_track/mult_132/S2_21_3/CO (FA1D1BWP40P140)            0.04       6.37 f
+  u_track/mult_132/S2_22_3/CO (FA1D1BWP40P140)            0.04       6.41 f
+  u_track/mult_132/S2_23_3/CO (FA1D1BWP40P140)            0.04       6.46 f
+  u_track/mult_132/S2_24_3/CO (FA1D1BWP40P140)            0.04       6.50 f
+  u_track/mult_132/S2_25_3/CO (FA1D1BWP40P140)            0.04       6.54 f
+  u_track/mult_132/S2_26_3/CO (FA1D1BWP40P140)            0.04       6.59 f
+  u_track/mult_132/S2_27_3/CO (FA1D1BWP40P140)            0.04       6.63 f
+  u_track/mult_132/S2_28_3/CO (FA1D1BWP40P140)            0.04       6.68 f
+  u_track/mult_132/S2_29_3/S (FA1D1BWP40P140)             0.07       6.75 r
+  u_track/mult_132/S2_30_2/S (FA1D1BWP40P140)             0.06       6.81 f
+  u_track/mult_132/U35/Z (XOR2UD1BWP40P140)               0.03       6.84 f
+  u_track/mult_132/U16/Z (XOR2UD1BWP40P140)               0.03       6.87 f
+  u_track/mult_132/FS_1/A[30] (tracking_channel_DW01_add_3)
+                                                          0.00       6.87 f
+  u_track/mult_132/FS_1/U62/ZN (CKND2D0BWP40P140)         0.02       6.89 r
+  u_track/mult_132/FS_1/U8/ZN (INVD1BWP40P140)            0.01       6.91 f
+  u_track/mult_132/FS_1/U55/ZN (AOI21D0BWP40P140)         0.03       6.93 r
+  u_track/mult_132/FS_1/U50/ZN (OAI21D0BWP40P140)         0.03       6.96 f
+  u_track/mult_132/FS_1/U45/ZN (AOI21D0BWP40P140)         0.03       6.99 r
+  u_track/mult_132/FS_1/U40/ZN (OAI21D0BWP40P140)         0.03       7.03 f
+  u_track/mult_132/FS_1/U35/ZN (AOI21D0BWP40P140)         0.03       7.06 r
+  u_track/mult_132/FS_1/U30/ZN (OAI21D0BWP40P140)         0.03       7.09 f
+  u_track/mult_132/FS_1/U25/ZN (AOI21D0BWP40P140)         0.03       7.12 r
+  u_track/mult_132/FS_1/U20/ZN (OAI21D0BWP40P140)         0.03       7.15 f
+  u_track/mult_132/FS_1/U15/ZN (AOI21D0BWP40P140)         0.03       7.19 r
+  u_track/mult_132/FS_1/U13/ZN (CKND2D0BWP40P140)         0.01       7.20 f
+  u_track/mult_132/FS_1/U12/ZN (MOAI22D0BWP40P140)        0.03       7.24 f
+  u_track/mult_132/FS_1/U10/ZN (ND2OPTIBD1BWP40P140)      0.01       7.25 r
+  u_track/mult_132/FS_1/U9/ZN (XNR2UD1BWP40P140)          0.06       7.31 r
+  u_track/mult_132/FS_1/SUM[42] (tracking_channel_DW01_add_3)
+                                                          0.00       7.31 r
+  u_track/mult_132/PRODUCT[44] (tracking_channel_DW02_mult_0)
+                                                          0.00       7.31 r
+  u_track/U169/ZN (AOI22D1BWP40P140)                      0.02       7.33 f
+  u_track/U168/ZN (IOA21D1BWP40P140)                      0.01       7.34 r
+  u_track/code_inc_reg[29]/D (DFCNQD1BWP40P140)           0.00       7.34 r
+  data arrival time                                                  7.34
+
+  clock clk (rise edge)                                  61.09      61.09
+  clock network delay (ideal)                             0.00      61.09
+  clock uncertainty                                      -0.50      60.59
+  u_track/code_inc_reg[29]/CP (DFCNQD1BWP40P140)          0.00      60.59 r
+  library setup time                                     -0.01      60.58
+  data required time                                                60.58
+  --------------------------------------------------------------------------
+  data required time                                                60.58
+  data arrival time                                                 -7.34
+  --------------------------------------------------------------------------
+  slack (MET)                                                       53.24
+
+
+  Startpoint: cfg_write (input port clocked by clk)
+  Endpoint: u_track/code_inc_reg[28]
+            (rising edge-triggered flip-flop clocked by clk)
+  Path Group: clk
+  Path Type: max
+
+  Des/Clust/Port     Wire Load Model       Library
+  ------------------------------------------------
+  bds_channel        ZeroWireload          tcbn28hpcplusbwp40p140tt0p9v25c
+  tracking_channel   ZeroWireload          tcbn28hpcplusbwp40p140tt0p9v25c
+  tracking_channel_DW02_mult_0
+                     ZeroWireload          tcbn28hpcplusbwp40p140tt0p9v25c
+  track_loop         ZeroWireload          tcbn28hpcplusbwp40p140tt0p9v25c
+  tracking_channel_DW01_add_3
+                     ZeroWireload          tcbn28hpcplusbwp40p140tt0p9v25c
+
+  Point                                                   Incr       Path
+  --------------------------------------------------------------------------
+  clock clk (rise edge)                                   0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  input external delay                                    5.00       5.00 f
+  cfg_write (in)                                          0.00       5.00 f
+  U248/ZN (INVD1BWP40P140)                                0.07       5.07 r
+  U247/ZN (ND4D1BWP40P140)                                0.05       5.12 f
+  U222/ZN (INVD1BWP40P140)                                0.03       5.16 r
+  U214/Z (CKBD1BWP40P140)                                 0.04       5.20 r
+  U164/Z (CKAN2D1BWP40P140)                               0.03       5.22 r
+  u_track/init_doppler[5] (tracking_channel)              0.00       5.22 r
+  u_track/U497/Z (OR2D0BWP40P140)                         0.02       5.24 r
+  u_track/U498/ZN (NR4D0BWP40P140)                        0.01       5.25 f
+  u_track/U499/ZN (ND4D0BWP40P140)                        0.02       5.27 r
+  u_track/U500/ZN (AOI31D0BWP40P140)                      0.02       5.29 f
+  u_track/U91/ZN (INVD1BWP40P140)                         0.01       5.30 r
+  u_track/U501/ZN (AOI21D0BWP40P140)                      0.01       5.32 f
+  u_track/U505/ZN (AOI31D0BWP40P140)                      0.02       5.34 r
+  u_track/U41/Z (OR2D1BWP40P140)                          0.03       5.37 r
+  u_track/U26/ZN (INVD1BWP40P140)                         0.03       5.40 f
+  u_track/U231/Z (CKAN2D1BWP40P140)                       0.07       5.47 f
+  u_track/mult_132/A[2] (tracking_channel_DW02_mult_0)
+                                                          0.00       5.47 f
+  u_track/mult_132/U42/Z (CKAN2D1BWP40P140)               0.04       5.51 f
+  u_track/mult_132/S2_3_5/CO (FA1D1BWP40P140)             0.04       5.55 f
+  u_track/mult_132/S2_4_5/CO (FA1D1BWP40P140)             0.04       5.59 f
+  u_track/mult_132/S2_5_5/CO (FA1D1BWP40P140)             0.04       5.64 f
+  u_track/mult_132/S2_6_5/CO (FA1D1BWP40P140)             0.04       5.68 f
+  u_track/mult_132/S2_7_5/CO (FA1D1BWP40P140)             0.04       5.72 f
+  u_track/mult_132/S2_8_5/CO (FA1D1BWP40P140)             0.04       5.77 f
+  u_track/mult_132/S2_9_5/CO (FA1D1BWP40P140)             0.04       5.81 f
+  u_track/mult_132/S2_10_5/CO (FA1D1BWP40P140)            0.04       5.85 f
+  u_track/mult_132/S2_11_5/CO (FA1D1BWP40P140)            0.04       5.89 f
+  u_track/mult_132/S2_12_5/CO (FA1D1BWP40P140)            0.04       5.94 f
+  u_track/mult_132/S2_13_5/CO (FA1D1BWP40P140)            0.04       5.98 f
+  u_track/mult_132/S2_14_5/CO (FA1D1BWP40P140)            0.04       6.02 f
+  u_track/mult_132/S2_15_5/CO (FA1D1BWP40P140)            0.04       6.07 f
+  u_track/mult_132/S2_16_5/S (FA1D1BWP40P140)             0.07       6.14 r
+  u_track/mult_132/S2_17_4/S (FA1D1BWP40P140)             0.06       6.20 f
+  u_track/mult_132/S2_18_3/CO (FA1D1BWP40P140)            0.04       6.24 f
+  u_track/mult_132/S2_19_3/CO (FA1D1BWP40P140)            0.04       6.28 f
+  u_track/mult_132/S2_20_3/CO (FA1D1BWP40P140)            0.04       6.33 f
+  u_track/mult_132/S2_21_3/CO (FA1D1BWP40P140)            0.04       6.37 f
+  u_track/mult_132/S2_22_3/CO (FA1D1BWP40P140)            0.04       6.41 f
+  u_track/mult_132/S2_23_3/CO (FA1D1BWP40P140)            0.04       6.46 f
+  u_track/mult_132/S2_24_3/CO (FA1D1BWP40P140)            0.04       6.50 f
+  u_track/mult_132/S2_25_3/CO (FA1D1BWP40P140)            0.04       6.54 f
+  u_track/mult_132/S2_26_3/CO (FA1D1BWP40P140)            0.04       6.59 f
+  u_track/mult_132/S2_27_3/CO (FA1D1BWP40P140)            0.04       6.63 f
+  u_track/mult_132/S2_28_3/CO (FA1D1BWP40P140)            0.04       6.68 f
+  u_track/mult_132/S2_29_3/S (FA1D1BWP40P140)             0.07       6.75 r
+  u_track/mult_132/S2_30_2/S (FA1D1BWP40P140)             0.06       6.81 f
+  u_track/mult_132/U35/Z (XOR2UD1BWP40P140)               0.03       6.84 f
+  u_track/mult_132/U16/Z (XOR2UD1BWP40P140)               0.03       6.87 f
+  u_track/mult_132/FS_1/A[30] (tracking_channel_DW01_add_3)
+                                                          0.00       6.87 f
+  u_track/mult_132/FS_1/U62/ZN (CKND2D0BWP40P140)         0.02       6.89 r
+  u_track/mult_132/FS_1/U8/ZN (INVD1BWP40P140)            0.01       6.91 f
+  u_track/mult_132/FS_1/U55/ZN (AOI21D0BWP40P140)         0.03       6.93 r
+  u_track/mult_132/FS_1/U50/ZN (OAI21D0BWP40P140)         0.03       6.96 f
+  u_track/mult_132/FS_1/U45/ZN (AOI21D0BWP40P140)         0.03       6.99 r
+  u_track/mult_132/FS_1/U40/ZN (OAI21D0BWP40P140)         0.03       7.03 f
+  u_track/mult_132/FS_1/U35/ZN (AOI21D0BWP40P140)         0.03       7.06 r
+  u_track/mult_132/FS_1/U30/ZN (OAI21D0BWP40P140)         0.03       7.09 f
+  u_track/mult_132/FS_1/U25/ZN (AOI21D0BWP40P140)         0.03       7.12 r
+  u_track/mult_132/FS_1/U20/ZN (OAI21D0BWP40P140)         0.03       7.15 f
+  u_track/mult_132/FS_1/U15/ZN (AOI21D0BWP40P140)         0.03       7.19 r
+  u_track/mult_132/FS_1/U13/ZN (CKND2D0BWP40P140)         0.01       7.20 f
+  u_track/mult_132/FS_1/U12/ZN (MOAI22D0BWP40P140)        0.03       7.24 f
+  u_track/mult_132/FS_1/U10/ZN (ND2OPTIBD1BWP40P140)      0.01       7.25 r
+  u_track/mult_132/FS_1/U9/ZN (XNR2UD1BWP40P140)          0.06       7.31 r
+  u_track/mult_132/FS_1/SUM[42] (tracking_channel_DW01_add_3)
+                                                          0.00       7.31 r
+  u_track/mult_132/PRODUCT[44] (tracking_channel_DW02_mult_0)
+                                                          0.00       7.31 r
+  u_track/U167/ZN (AOI22D1BWP40P140)                      0.02       7.33 f
+  u_track/U166/ZN (IOA21D1BWP40P140)                      0.01       7.34 r
+  u_track/code_inc_reg[28]/D (DFCNQD1BWP40P140)           0.00       7.34 r
+  data arrival time                                                  7.34
+
+  clock clk (rise edge)                                  61.09      61.09
+  clock network delay (ideal)                             0.00      61.09
+  clock uncertainty                                      -0.50      60.59
+  u_track/code_inc_reg[28]/CP (DFCNQD1BWP40P140)          0.00      60.59 r
+  library setup time                                     -0.01      60.58
+  data required time                                                60.58
+  --------------------------------------------------------------------------
+  data required time                                                60.58
+  data arrival time                                                 -7.34
+  --------------------------------------------------------------------------
+  slack (MET)                                                       53.24
+
+
+  Startpoint: cfg_write (input port clocked by clk)
+  Endpoint: u_track/code_inc_reg[34]
+            (rising edge-triggered flip-flop clocked by clk)
+  Path Group: clk
+  Path Type: max
+
+  Des/Clust/Port     Wire Load Model       Library
+  ------------------------------------------------
+  bds_channel        ZeroWireload          tcbn28hpcplusbwp40p140tt0p9v25c
+  tracking_channel   ZeroWireload          tcbn28hpcplusbwp40p140tt0p9v25c
+  tracking_channel_DW02_mult_0
+                     ZeroWireload          tcbn28hpcplusbwp40p140tt0p9v25c
+  track_loop         ZeroWireload          tcbn28hpcplusbwp40p140tt0p9v25c
+  tracking_channel_DW01_add_3
+                     ZeroWireload          tcbn28hpcplusbwp40p140tt0p9v25c
+
+  Point                                                   Incr       Path
+  --------------------------------------------------------------------------
+  clock clk (rise edge)                                   0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  input external delay                                    5.00       5.00 f
+  cfg_write (in)                                          0.00       5.00 f
+  U248/ZN (INVD1BWP40P140)                                0.07       5.07 r
+  U247/ZN (ND4D1BWP40P140)                                0.05       5.12 f
+  U222/ZN (INVD1BWP40P140)                                0.03       5.16 r
+  U214/Z (CKBD1BWP40P140)                                 0.04       5.20 r
+  U164/Z (CKAN2D1BWP40P140)                               0.03       5.22 r
+  u_track/init_doppler[5] (tracking_channel)              0.00       5.22 r
+  u_track/U497/Z (OR2D0BWP40P140)                         0.02       5.24 r
+  u_track/U498/ZN (NR4D0BWP40P140)                        0.01       5.25 f
+  u_track/U499/ZN (ND4D0BWP40P140)                        0.02       5.27 r
+  u_track/U500/ZN (AOI31D0BWP40P140)                      0.02       5.29 f
+  u_track/U91/ZN (INVD1BWP40P140)                         0.01       5.30 r
+  u_track/U501/ZN (AOI21D0BWP40P140)                      0.01       5.32 f
+  u_track/U505/ZN (AOI31D0BWP40P140)                      0.02       5.34 r
+  u_track/U41/Z (OR2D1BWP40P140)                          0.03       5.37 r
+  u_track/U26/ZN (INVD1BWP40P140)                         0.03       5.40 f
+  u_track/U231/Z (CKAN2D1BWP40P140)                       0.07       5.47 f
+  u_track/mult_132/A[2] (tracking_channel_DW02_mult_0)
+                                                          0.00       5.47 f
+  u_track/mult_132/U42/Z (CKAN2D1BWP40P140)               0.04       5.51 f
+  u_track/mult_132/S2_3_5/CO (FA1D1BWP40P140)             0.04       5.55 f
+  u_track/mult_132/S2_4_5/CO (FA1D1BWP40P140)             0.04       5.59 f
+  u_track/mult_132/S2_5_5/CO (FA1D1BWP40P140)             0.04       5.64 f
+  u_track/mult_132/S2_6_5/CO (FA1D1BWP40P140)             0.04       5.68 f
+  u_track/mult_132/S2_7_5/CO (FA1D1BWP40P140)             0.04       5.72 f
+  u_track/mult_132/S2_8_5/CO (FA1D1BWP40P140)             0.04       5.77 f
+  u_track/mult_132/S2_9_5/CO (FA1D1BWP40P140)             0.04       5.81 f
+  u_track/mult_132/S2_10_5/CO (FA1D1BWP40P140)            0.04       5.85 f
+  u_track/mult_132/S2_11_5/CO (FA1D1BWP40P140)            0.04       5.89 f
+  u_track/mult_132/S2_12_5/CO (FA1D1BWP40P140)            0.04       5.94 f
+  u_track/mult_132/S2_13_5/CO (FA1D1BWP40P140)            0.04       5.98 f
+  u_track/mult_132/S2_14_5/CO (FA1D1BWP40P140)            0.04       6.02 f
+  u_track/mult_132/S2_15_5/CO (FA1D1BWP40P140)            0.04       6.07 f
+  u_track/mult_132/S2_16_5/S (FA1D1BWP40P140)             0.07       6.14 r
+  u_track/mult_132/S2_17_4/S (FA1D1BWP40P140)             0.06       6.20 f
+  u_track/mult_132/S2_18_3/CO (FA1D1BWP40P140)            0.04       6.24 f
+  u_track/mult_132/S2_19_3/CO (FA1D1BWP40P140)            0.04       6.28 f
+  u_track/mult_132/S2_20_3/CO (FA1D1BWP40P140)            0.04       6.33 f
+  u_track/mult_132/S2_21_3/CO (FA1D1BWP40P140)            0.04       6.37 f
+  u_track/mult_132/S2_22_3/CO (FA1D1BWP40P140)            0.04       6.41 f
+  u_track/mult_132/S2_23_3/CO (FA1D1BWP40P140)            0.04       6.46 f
+  u_track/mult_132/S2_24_3/CO (FA1D1BWP40P140)            0.04       6.50 f
+  u_track/mult_132/S2_25_3/CO (FA1D1BWP40P140)            0.04       6.54 f
+  u_track/mult_132/S2_26_3/CO (FA1D1BWP40P140)            0.04       6.59 f
+  u_track/mult_132/S2_27_3/CO (FA1D1BWP40P140)            0.04       6.63 f
+  u_track/mult_132/S2_28_3/CO (FA1D1BWP40P140)            0.04       6.68 f
+  u_track/mult_132/S2_29_3/S (FA1D1BWP40P140)             0.07       6.75 r
+  u_track/mult_132/S2_30_2/S (FA1D1BWP40P140)             0.06       6.81 f
+  u_track/mult_132/U35/Z (XOR2UD1BWP40P140)               0.03       6.84 f
+  u_track/mult_132/U16/Z (XOR2UD1BWP40P140)               0.03       6.87 f
+  u_track/mult_132/FS_1/A[30] (tracking_channel_DW01_add_3)
+                                                          0.00       6.87 f
+  u_track/mult_132/FS_1/U62/ZN (CKND2D0BWP40P140)         0.02       6.89 r
+  u_track/mult_132/FS_1/U8/ZN (INVD1BWP40P140)            0.01       6.91 f
+  u_track/mult_132/FS_1/U55/ZN (AOI21D0BWP40P140)         0.03       6.93 r
+  u_track/mult_132/FS_1/U50/ZN (OAI21D0BWP40P140)         0.03       6.96 f
+  u_track/mult_132/FS_1/U45/ZN (AOI21D0BWP40P140)         0.03       6.99 r
+  u_track/mult_132/FS_1/U40/ZN (OAI21D0BWP40P140)         0.03       7.03 f
+  u_track/mult_132/FS_1/U35/ZN (AOI21D0BWP40P140)         0.03       7.06 r
+  u_track/mult_132/FS_1/U30/ZN (OAI21D0BWP40P140)         0.03       7.09 f
+  u_track/mult_132/FS_1/U25/ZN (AOI21D0BWP40P140)         0.03       7.12 r
+  u_track/mult_132/FS_1/U20/ZN (OAI21D0BWP40P140)         0.03       7.15 f
+  u_track/mult_132/FS_1/U15/ZN (AOI21D0BWP40P140)         0.03       7.19 r
+  u_track/mult_132/FS_1/U13/ZN (CKND2D0BWP40P140)         0.01       7.20 f
+  u_track/mult_132/FS_1/U12/ZN (MOAI22D0BWP40P140)        0.03       7.24 f
+  u_track/mult_132/FS_1/U10/ZN (ND2OPTIBD1BWP40P140)      0.01       7.25 r
+  u_track/mult_132/FS_1/U9/ZN (XNR2UD1BWP40P140)          0.04       7.29 f
+  u_track/mult_132/FS_1/SUM[42] (tracking_channel_DW01_add_3)
+                                                          0.00       7.29 f
+  u_track/mult_132/PRODUCT[44] (tracking_channel_DW02_mult_0)
+                                                          0.00       7.29 f
+  u_track/U165/ZN (INVD1BWP40P140)                        0.02       7.31 r
+  u_track/U164/ZN (AOI22D1BWP40P140)                      0.01       7.32 f
+  u_track/U163/ZN (IOA21D1BWP40P140)                      0.01       7.33 r
+  u_track/code_inc_reg[34]/D (DFSNQD2BWP40P140)           0.00       7.33 r
+  data arrival time                                                  7.33
+
+  clock clk (rise edge)                                  61.09      61.09
+  clock network delay (ideal)                             0.00      61.09
+  clock uncertainty                                      -0.50      60.59
+  u_track/code_inc_reg[34]/CP (DFSNQD2BWP40P140)          0.00      60.59 r
+  library setup time                                     -0.01      60.58
+  data required time                                                60.58
+  --------------------------------------------------------------------------
+  data required time                                                60.58
+  data arrival time                                                 -7.33
+  --------------------------------------------------------------------------
+  slack (MET)                                                       53.25
+
+
+  Startpoint: cfg_write (input port clocked by clk)
+  Endpoint: u_track/code_inc_reg[27]
+            (rising edge-triggered flip-flop clocked by clk)
+  Path Group: clk
+  Path Type: max
+
+  Des/Clust/Port     Wire Load Model       Library
+  ------------------------------------------------
+  bds_channel        ZeroWireload          tcbn28hpcplusbwp40p140tt0p9v25c
+  tracking_channel   ZeroWireload          tcbn28hpcplusbwp40p140tt0p9v25c
+  tracking_channel_DW02_mult_0
+                     ZeroWireload          tcbn28hpcplusbwp40p140tt0p9v25c
+  track_loop         ZeroWireload          tcbn28hpcplusbwp40p140tt0p9v25c
+  tracking_channel_DW01_add_3
+                     ZeroWireload          tcbn28hpcplusbwp40p140tt0p9v25c
+
+  Point                                                   Incr       Path
+  --------------------------------------------------------------------------
+  clock clk (rise edge)                                   0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  input external delay                                    5.00       5.00 f
+  cfg_write (in)                                          0.00       5.00 f
+  U248/ZN (INVD1BWP40P140)                                0.07       5.07 r
+  U247/ZN (ND4D1BWP40P140)                                0.05       5.12 f
+  U222/ZN (INVD1BWP40P140)                                0.03       5.16 r
+  U214/Z (CKBD1BWP40P140)                                 0.04       5.20 r
+  U164/Z (CKAN2D1BWP40P140)                               0.03       5.22 r
+  u_track/init_doppler[5] (tracking_channel)              0.00       5.22 r
+  u_track/U497/Z (OR2D0BWP40P140)                         0.02       5.24 r
+  u_track/U498/ZN (NR4D0BWP40P140)                        0.01       5.25 f
+  u_track/U499/ZN (ND4D0BWP40P140)                        0.02       5.27 r
+  u_track/U500/ZN (AOI31D0BWP40P140)                      0.02       5.29 f
+  u_track/U91/ZN (INVD1BWP40P140)                         0.01       5.30 r
+  u_track/U501/ZN (AOI21D0BWP40P140)                      0.01       5.32 f
+  u_track/U505/ZN (AOI31D0BWP40P140)                      0.02       5.34 r
+  u_track/U41/Z (OR2D1BWP40P140)                          0.03       5.37 r
+  u_track/U26/ZN (INVD1BWP40P140)                         0.03       5.40 f
+  u_track/U231/Z (CKAN2D1BWP40P140)                       0.07       5.47 f
+  u_track/mult_132/A[2] (tracking_channel_DW02_mult_0)
+                                                          0.00       5.47 f
+  u_track/mult_132/U42/Z (CKAN2D1BWP40P140)               0.04       5.51 f
+  u_track/mult_132/S2_3_5/CO (FA1D1BWP40P140)             0.04       5.55 f
+  u_track/mult_132/S2_4_5/CO (FA1D1BWP40P140)             0.04       5.59 f
+  u_track/mult_132/S2_5_5/CO (FA1D1BWP40P140)             0.04       5.64 f
+  u_track/mult_132/S2_6_5/CO (FA1D1BWP40P140)             0.04       5.68 f
+  u_track/mult_132/S2_7_5/CO (FA1D1BWP40P140)             0.04       5.72 f
+  u_track/mult_132/S2_8_5/CO (FA1D1BWP40P140)             0.04       5.77 f
+  u_track/mult_132/S2_9_5/CO (FA1D1BWP40P140)             0.04       5.81 f
+  u_track/mult_132/S2_10_5/CO (FA1D1BWP40P140)            0.04       5.85 f
+  u_track/mult_132/S2_11_5/CO (FA1D1BWP40P140)            0.04       5.89 f
+  u_track/mult_132/S2_12_5/CO (FA1D1BWP40P140)            0.04       5.94 f
+  u_track/mult_132/S2_13_5/CO (FA1D1BWP40P140)            0.04       5.98 f
+  u_track/mult_132/S2_14_5/CO (FA1D1BWP40P140)            0.04       6.02 f
+  u_track/mult_132/S2_15_5/CO (FA1D1BWP40P140)            0.04       6.07 f
+  u_track/mult_132/S2_16_5/S (FA1D1BWP40P140)             0.07       6.14 r
+  u_track/mult_132/S2_17_4/S (FA1D1BWP40P140)             0.06       6.20 f
+  u_track/mult_132/S2_18_3/CO (FA1D1BWP40P140)            0.04       6.24 f
+  u_track/mult_132/S2_19_3/CO (FA1D1BWP40P140)            0.04       6.28 f
+  u_track/mult_132/S2_20_3/CO (FA1D1BWP40P140)            0.04       6.33 f
+  u_track/mult_132/S2_21_3/CO (FA1D1BWP40P140)            0.04       6.37 f
+  u_track/mult_132/S2_22_3/CO (FA1D1BWP40P140)            0.04       6.41 f
+  u_track/mult_132/S2_23_3/CO (FA1D1BWP40P140)            0.04       6.46 f
+  u_track/mult_132/S2_24_3/CO (FA1D1BWP40P140)            0.04       6.50 f
+  u_track/mult_132/S2_25_3/CO (FA1D1BWP40P140)            0.04       6.54 f
+  u_track/mult_132/S2_26_3/CO (FA1D1BWP40P140)            0.04       6.59 f
+  u_track/mult_132/S2_27_3/CO (FA1D1BWP40P140)            0.04       6.63 f
+  u_track/mult_132/S2_28_3/CO (FA1D1BWP40P140)            0.04       6.68 f
+  u_track/mult_132/S2_29_3/S (FA1D1BWP40P140)             0.07       6.75 r
+  u_track/mult_132/S2_30_2/S (FA1D1BWP40P140)             0.06       6.81 f
+  u_track/mult_132/U35/Z (XOR2UD1BWP40P140)               0.03       6.84 f
+  u_track/mult_132/U16/Z (XOR2UD1BWP40P140)               0.03       6.87 f
+  u_track/mult_132/FS_1/A[30] (tracking_channel_DW01_add_3)
+                                                          0.00       6.87 f
+  u_track/mult_132/FS_1/U62/ZN (CKND2D0BWP40P140)         0.02       6.89 r
+  u_track/mult_132/FS_1/U8/ZN (INVD1BWP40P140)            0.01       6.91 f
+  u_track/mult_132/FS_1/U55/ZN (AOI21D0BWP40P140)         0.03       6.93 r
+  u_track/mult_132/FS_1/U50/ZN (OAI21D0BWP40P140)         0.03       6.96 f
+  u_track/mult_132/FS_1/U45/ZN (AOI21D0BWP40P140)         0.03       6.99 r
+  u_track/mult_132/FS_1/U40/ZN (OAI21D0BWP40P140)         0.03       7.03 f
+  u_track/mult_132/FS_1/U35/ZN (AOI21D0BWP40P140)         0.03       7.06 r
+  u_track/mult_132/FS_1/U30/ZN (OAI21D0BWP40P140)         0.03       7.09 f
+  u_track/mult_132/FS_1/U25/ZN (AOI21D0BWP40P140)         0.03       7.12 r
+  u_track/mult_132/FS_1/U20/ZN (OAI21D0BWP40P140)         0.03       7.15 f
+  u_track/mult_132/FS_1/U15/ZN (AOI21D0BWP40P140)         0.03       7.19 r
+  u_track/mult_132/FS_1/U13/ZN (CKND2D0BWP40P140)         0.01       7.20 f
+  u_track/mult_132/FS_1/U12/ZN (MOAI22D0BWP40P140)        0.03       7.24 f
+  u_track/mult_132/FS_1/U11/Z (XOR2UD1BWP40P140)          0.03       7.26 r
+  u_track/mult_132/FS_1/SUM[41] (tracking_channel_DW01_add_3)
+                                                          0.00       7.26 r
+  u_track/mult_132/PRODUCT[43] (tracking_channel_DW02_mult_0)
+                                                          0.00       7.26 r
+  u_track/U160/ZN (AOI22D1BWP40P140)                      0.02       7.28 f
+  u_track/U159/ZN (IOA21D1BWP40P140)                      0.01       7.29 r
+  u_track/code_inc_reg[27]/D (DFCNQD1BWP40P140)           0.00       7.29 r
+  data arrival time                                                  7.29
+
+  clock clk (rise edge)                                  61.09      61.09
+  clock network delay (ideal)                             0.00      61.09
+  clock uncertainty                                      -0.50      60.59
+  u_track/code_inc_reg[27]/CP (DFCNQD1BWP40P140)          0.00      60.59 r
+  library setup time                                     -0.01      60.58
+  data required time                                                60.58
+  --------------------------------------------------------------------------
+  data required time                                                60.58
+  data arrival time                                                 -7.29
+  --------------------------------------------------------------------------
+  slack (MET)                                                       53.29
+
+
+  Startpoint: cfg_write (input port clocked by clk)
+  Endpoint: u_track/code_inc_reg[26]
+            (rising edge-triggered flip-flop clocked by clk)
+  Path Group: clk
+  Path Type: max
+
+  Des/Clust/Port     Wire Load Model       Library
+  ------------------------------------------------
+  bds_channel        ZeroWireload          tcbn28hpcplusbwp40p140tt0p9v25c
+  tracking_channel   ZeroWireload          tcbn28hpcplusbwp40p140tt0p9v25c
+  tracking_channel_DW02_mult_0
+                     ZeroWireload          tcbn28hpcplusbwp40p140tt0p9v25c
+  track_loop         ZeroWireload          tcbn28hpcplusbwp40p140tt0p9v25c
+  tracking_channel_DW01_add_3
+                     ZeroWireload          tcbn28hpcplusbwp40p140tt0p9v25c
+
+  Point                                                   Incr       Path
+  --------------------------------------------------------------------------
+  clock clk (rise edge)                                   0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  input external delay                                    5.00       5.00 f
+  cfg_write (in)                                          0.00       5.00 f
+  U248/ZN (INVD1BWP40P140)                                0.07       5.07 r
+  U247/ZN (ND4D1BWP40P140)                                0.05       5.12 f
+  U222/ZN (INVD1BWP40P140)                                0.03       5.16 r
+  U214/Z (CKBD1BWP40P140)                                 0.04       5.20 r
+  U164/Z (CKAN2D1BWP40P140)                               0.03       5.22 r
+  u_track/init_doppler[5] (tracking_channel)              0.00       5.22 r
+  u_track/U497/Z (OR2D0BWP40P140)                         0.02       5.24 r
+  u_track/U498/ZN (NR4D0BWP40P140)                        0.01       5.25 f
+  u_track/U499/ZN (ND4D0BWP40P140)                        0.02       5.27 r
+  u_track/U500/ZN (AOI31D0BWP40P140)                      0.02       5.29 f
+  u_track/U91/ZN (INVD1BWP40P140)                         0.01       5.30 r
+  u_track/U501/ZN (AOI21D0BWP40P140)                      0.01       5.32 f
+  u_track/U505/ZN (AOI31D0BWP40P140)                      0.02       5.34 r
+  u_track/U41/Z (OR2D1BWP40P140)                          0.03       5.37 r
+  u_track/U26/ZN (INVD1BWP40P140)                         0.03       5.40 f
+  u_track/U231/Z (CKAN2D1BWP40P140)                       0.07       5.47 f
+  u_track/mult_132/A[2] (tracking_channel_DW02_mult_0)
+                                                          0.00       5.47 f
+  u_track/mult_132/U42/Z (CKAN2D1BWP40P140)               0.04       5.51 f
+  u_track/mult_132/S2_3_5/CO (FA1D1BWP40P140)             0.04       5.55 f
+  u_track/mult_132/S2_4_5/CO (FA1D1BWP40P140)             0.04       5.59 f
+  u_track/mult_132/S2_5_5/CO (FA1D1BWP40P140)             0.04       5.64 f
+  u_track/mult_132/S2_6_5/CO (FA1D1BWP40P140)             0.04       5.68 f
+  u_track/mult_132/S2_7_5/CO (FA1D1BWP40P140)             0.04       5.72 f
+  u_track/mult_132/S2_8_5/CO (FA1D1BWP40P140)             0.04       5.77 f
+  u_track/mult_132/S2_9_5/CO (FA1D1BWP40P140)             0.04       5.81 f
+  u_track/mult_132/S2_10_5/CO (FA1D1BWP40P140)            0.04       5.85 f
+  u_track/mult_132/S2_11_5/CO (FA1D1BWP40P140)            0.04       5.89 f
+  u_track/mult_132/S2_12_5/CO (FA1D1BWP40P140)            0.04       5.94 f
+  u_track/mult_132/S2_13_5/CO (FA1D1BWP40P140)            0.04       5.98 f
+  u_track/mult_132/S2_14_5/CO (FA1D1BWP40P140)            0.04       6.02 f
+  u_track/mult_132/S2_15_5/CO (FA1D1BWP40P140)            0.04       6.07 f
+  u_track/mult_132/S2_16_5/S (FA1D1BWP40P140)             0.07       6.14 r
+  u_track/mult_132/S2_17_4/S (FA1D1BWP40P140)             0.06       6.20 f
+  u_track/mult_132/S2_18_3/CO (FA1D1BWP40P140)            0.04       6.24 f
+  u_track/mult_132/S2_19_3/CO (FA1D1BWP40P140)            0.04       6.28 f
+  u_track/mult_132/S2_20_3/CO (FA1D1BWP40P140)            0.04       6.33 f
+  u_track/mult_132/S2_21_3/CO (FA1D1BWP40P140)            0.04       6.37 f
+  u_track/mult_132/S2_22_3/CO (FA1D1BWP40P140)            0.04       6.41 f
+  u_track/mult_132/S2_23_3/CO (FA1D1BWP40P140)            0.04       6.46 f
+  u_track/mult_132/S2_24_3/CO (FA1D1BWP40P140)            0.04       6.50 f
+  u_track/mult_132/S2_25_3/CO (FA1D1BWP40P140)            0.04       6.54 f
+  u_track/mult_132/S2_26_3/CO (FA1D1BWP40P140)            0.04       6.59 f
+  u_track/mult_132/S2_27_3/CO (FA1D1BWP40P140)            0.04       6.63 f
+  u_track/mult_132/S2_28_3/CO (FA1D1BWP40P140)            0.04       6.68 f
+  u_track/mult_132/S2_29_3/S (FA1D1BWP40P140)             0.07       6.75 r
+  u_track/mult_132/S2_30_2/S (FA1D1BWP40P140)             0.06       6.81 f
+  u_track/mult_132/U35/Z (XOR2UD1BWP40P140)               0.03       6.84 f
+  u_track/mult_132/U16/Z (XOR2UD1BWP40P140)               0.03       6.87 f
+  u_track/mult_132/FS_1/A[30] (tracking_channel_DW01_add_3)
+                                                          0.00       6.87 f
+  u_track/mult_132/FS_1/U62/ZN (CKND2D0BWP40P140)         0.02       6.89 r
+  u_track/mult_132/FS_1/U8/ZN (INVD1BWP40P140)            0.01       6.91 f
+  u_track/mult_132/FS_1/U55/ZN (AOI21D0BWP40P140)         0.03       6.93 r
+  u_track/mult_132/FS_1/U50/ZN (OAI21D0BWP40P140)         0.03       6.96 f
+  u_track/mult_132/FS_1/U45/ZN (AOI21D0BWP40P140)         0.03       6.99 r
+  u_track/mult_132/FS_1/U40/ZN (OAI21D0BWP40P140)         0.03       7.03 f
+  u_track/mult_132/FS_1/U35/ZN (AOI21D0BWP40P140)         0.03       7.06 r
+  u_track/mult_132/FS_1/U30/ZN (OAI21D0BWP40P140)         0.03       7.09 f
+  u_track/mult_132/FS_1/U25/ZN (AOI21D0BWP40P140)         0.03       7.12 r
+  u_track/mult_132/FS_1/U20/ZN (OAI21D0BWP40P140)         0.03       7.15 f
+  u_track/mult_132/FS_1/U15/ZN (AOI21D0BWP40P140)         0.03       7.19 r
+  u_track/mult_132/FS_1/U14/Z (XOR3UD0BWP40P140)          0.04       7.23 r
+  u_track/mult_132/FS_1/SUM[40] (tracking_channel_DW01_add_3)
+                                                          0.00       7.23 r
+  u_track/mult_132/PRODUCT[42] (tracking_channel_DW02_mult_0)
+                                                          0.00       7.23 r
+  u_track/U187/ZN (AOI22D1BWP40P140)                      0.02       7.24 f
+  u_track/U186/ZN (IOA21D1BWP40P140)                      0.01       7.25 r
+  u_track/code_inc_reg[26]/D (DFCNQD1BWP40P140)           0.00       7.25 r
+  data arrival time                                                  7.25
+
+  clock clk (rise edge)                                  61.09      61.09
+  clock network delay (ideal)                             0.00      61.09
+  clock uncertainty                                      -0.50      60.59
+  u_track/code_inc_reg[26]/CP (DFCNQD1BWP40P140)          0.00      60.59 r
+  library setup time                                     -0.01      60.58
+  data required time                                                60.58
+  --------------------------------------------------------------------------
+  data required time                                                60.58
+  data arrival time                                                 -7.25
+  --------------------------------------------------------------------------
+  slack (MET)                                                       53.33
+
+
+  Startpoint: cfg_write (input port clocked by clk)
+  Endpoint: u_track/code_inc_reg[25]
+            (rising edge-triggered flip-flop clocked by clk)
+  Path Group: clk
+  Path Type: max
+
+  Des/Clust/Port     Wire Load Model       Library
+  ------------------------------------------------
+  bds_channel        ZeroWireload          tcbn28hpcplusbwp40p140tt0p9v25c
+  tracking_channel   ZeroWireload          tcbn28hpcplusbwp40p140tt0p9v25c
+  tracking_channel_DW02_mult_0
+                     ZeroWireload          tcbn28hpcplusbwp40p140tt0p9v25c
+  track_loop         ZeroWireload          tcbn28hpcplusbwp40p140tt0p9v25c
+  tracking_channel_DW01_add_3
+                     ZeroWireload          tcbn28hpcplusbwp40p140tt0p9v25c
+
+  Point                                                   Incr       Path
+  --------------------------------------------------------------------------
+  clock clk (rise edge)                                   0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  input external delay                                    5.00       5.00 f
+  cfg_write (in)                                          0.00       5.00 f
+  U248/ZN (INVD1BWP40P140)                                0.07       5.07 r
+  U247/ZN (ND4D1BWP40P140)                                0.05       5.12 f
+  U222/ZN (INVD1BWP40P140)                                0.03       5.16 r
+  U214/Z (CKBD1BWP40P140)                                 0.04       5.20 r
+  U164/Z (CKAN2D1BWP40P140)                               0.03       5.22 r
+  u_track/init_doppler[5] (tracking_channel)              0.00       5.22 r
+  u_track/U497/Z (OR2D0BWP40P140)                         0.02       5.24 r
+  u_track/U498/ZN (NR4D0BWP40P140)                        0.01       5.25 f
+  u_track/U499/ZN (ND4D0BWP40P140)                        0.02       5.27 r
+  u_track/U500/ZN (AOI31D0BWP40P140)                      0.02       5.29 f
+  u_track/U91/ZN (INVD1BWP40P140)                         0.01       5.30 r
+  u_track/U501/ZN (AOI21D0BWP40P140)                      0.01       5.32 f
+  u_track/U505/ZN (AOI31D0BWP40P140)                      0.02       5.34 r
+  u_track/U41/Z (OR2D1BWP40P140)                          0.03       5.37 r
+  u_track/U26/ZN (INVD1BWP40P140)                         0.03       5.40 f
+  u_track/U231/Z (CKAN2D1BWP40P140)                       0.07       5.47 f
+  u_track/mult_132/A[2] (tracking_channel_DW02_mult_0)
+                                                          0.00       5.47 f
+  u_track/mult_132/U42/Z (CKAN2D1BWP40P140)               0.04       5.51 f
+  u_track/mult_132/S2_3_5/CO (FA1D1BWP40P140)             0.04       5.55 f
+  u_track/mult_132/S2_4_5/CO (FA1D1BWP40P140)             0.04       5.59 f
+  u_track/mult_132/S2_5_5/CO (FA1D1BWP40P140)             0.04       5.64 f
+  u_track/mult_132/S2_6_5/CO (FA1D1BWP40P140)             0.04       5.68 f
+  u_track/mult_132/S2_7_5/CO (FA1D1BWP40P140)             0.04       5.72 f
+  u_track/mult_132/S2_8_5/CO (FA1D1BWP40P140)             0.04       5.77 f
+  u_track/mult_132/S2_9_5/CO (FA1D1BWP40P140)             0.04       5.81 f
+  u_track/mult_132/S2_10_5/CO (FA1D1BWP40P140)            0.04       5.85 f
+  u_track/mult_132/S2_11_5/CO (FA1D1BWP40P140)            0.04       5.89 f
+  u_track/mult_132/S2_12_5/CO (FA1D1BWP40P140)            0.04       5.94 f
+  u_track/mult_132/S2_13_5/CO (FA1D1BWP40P140)            0.04       5.98 f
+  u_track/mult_132/S2_14_5/CO (FA1D1BWP40P140)            0.04       6.02 f
+  u_track/mult_132/S2_15_5/CO (FA1D1BWP40P140)            0.04       6.07 f
+  u_track/mult_132/S2_16_5/S (FA1D1BWP40P140)             0.07       6.14 r
+  u_track/mult_132/S2_17_4/S (FA1D1BWP40P140)             0.06       6.20 f
+  u_track/mult_132/S2_18_3/CO (FA1D1BWP40P140)            0.04       6.24 f
+  u_track/mult_132/S2_19_3/CO (FA1D1BWP40P140)            0.04       6.28 f
+  u_track/mult_132/S2_20_3/CO (FA1D1BWP40P140)            0.04       6.33 f
+  u_track/mult_132/S2_21_3/CO (FA1D1BWP40P140)            0.04       6.37 f
+  u_track/mult_132/S2_22_3/CO (FA1D1BWP40P140)            0.04       6.41 f
+  u_track/mult_132/S2_23_3/CO (FA1D1BWP40P140)            0.04       6.46 f
+  u_track/mult_132/S2_24_3/CO (FA1D1BWP40P140)            0.04       6.50 f
+  u_track/mult_132/S2_25_3/CO (FA1D1BWP40P140)            0.04       6.54 f
+  u_track/mult_132/S2_26_3/CO (FA1D1BWP40P140)            0.04       6.59 f
+  u_track/mult_132/S2_27_3/CO (FA1D1BWP40P140)            0.04       6.63 f
+  u_track/mult_132/S2_28_3/CO (FA1D1BWP40P140)            0.04       6.68 f
+  u_track/mult_132/S2_29_3/S (FA1D1BWP40P140)             0.07       6.75 r
+  u_track/mult_132/S2_30_2/S (FA1D1BWP40P140)             0.06       6.81 f
+  u_track/mult_132/U35/Z (XOR2UD1BWP40P140)               0.03       6.84 f
+  u_track/mult_132/U16/Z (XOR2UD1BWP40P140)               0.03       6.87 f
+  u_track/mult_132/FS_1/A[30] (tracking_channel_DW01_add_3)
+                                                          0.00       6.87 f
+  u_track/mult_132/FS_1/U62/ZN (CKND2D0BWP40P140)         0.02       6.89 r
+  u_track/mult_132/FS_1/U8/ZN (INVD1BWP40P140)            0.01       6.91 f
+  u_track/mult_132/FS_1/U55/ZN (AOI21D0BWP40P140)         0.03       6.93 r
+  u_track/mult_132/FS_1/U50/ZN (OAI21D0BWP40P140)         0.03       6.96 f
+  u_track/mult_132/FS_1/U45/ZN (AOI21D0BWP40P140)         0.03       6.99 r
+  u_track/mult_132/FS_1/U40/ZN (OAI21D0BWP40P140)         0.03       7.03 f
+  u_track/mult_132/FS_1/U35/ZN (AOI21D0BWP40P140)         0.03       7.06 r
+  u_track/mult_132/FS_1/U30/ZN (OAI21D0BWP40P140)         0.03       7.09 f
+  u_track/mult_132/FS_1/U25/ZN (AOI21D0BWP40P140)         0.03       7.12 r
+  u_track/mult_132/FS_1/U20/ZN (OAI21D0BWP40P140)         0.03       7.15 f
+  u_track/mult_132/FS_1/U16/Z (XOR2UD0BWP40P140)          0.02       7.17 r
+  u_track/mult_132/FS_1/SUM[39] (tracking_channel_DW01_add_3)
+                                                          0.00       7.17 r
+  u_track/mult_132/PRODUCT[41] (tracking_channel_DW02_mult_0)
+                                                          0.00       7.17 r
+  u_track/U197/ZN (AOI22D1BWP40P140)                      0.02       7.19 f
+  u_track/U196/ZN (IOA21D1BWP40P140)                      0.01       7.20 r
+  u_track/code_inc_reg[25]/D (DFCNQD1BWP40P140)           0.00       7.20 r
+  data arrival time                                                  7.20
+
+  clock clk (rise edge)                                  61.09      61.09
+  clock network delay (ideal)                             0.00      61.09
+  clock uncertainty                                      -0.50      60.59
+  u_track/code_inc_reg[25]/CP (DFCNQD1BWP40P140)          0.00      60.59 r
+  library setup time                                     -0.01      60.58
+  data required time                                                60.58
+  --------------------------------------------------------------------------
+  data required time                                                60.58
+  data arrival time                                                 -7.20
+  --------------------------------------------------------------------------
+  slack (MET)                                                       53.38
+
+
+  Startpoint: cfg_write (input port clocked by clk)
+  Endpoint: u_track/code_inc_reg[24]
+            (rising edge-triggered flip-flop clocked by clk)
+  Path Group: clk
+  Path Type: max
+
+  Des/Clust/Port     Wire Load Model       Library
+  ------------------------------------------------
+  bds_channel        ZeroWireload          tcbn28hpcplusbwp40p140tt0p9v25c
+  tracking_channel   ZeroWireload          tcbn28hpcplusbwp40p140tt0p9v25c
+  tracking_channel_DW02_mult_0
+                     ZeroWireload          tcbn28hpcplusbwp40p140tt0p9v25c
+  track_loop         ZeroWireload          tcbn28hpcplusbwp40p140tt0p9v25c
+  tracking_channel_DW01_add_3
+                     ZeroWireload          tcbn28hpcplusbwp40p140tt0p9v25c
+
+  Point                                                   Incr       Path
+  --------------------------------------------------------------------------
+  clock clk (rise edge)                                   0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  input external delay                                    5.00       5.00 f
+  cfg_write (in)                                          0.00       5.00 f
+  U248/ZN (INVD1BWP40P140)                                0.07       5.07 r
+  U247/ZN (ND4D1BWP40P140)                                0.05       5.12 f
+  U222/ZN (INVD1BWP40P140)                                0.03       5.16 r
+  U214/Z (CKBD1BWP40P140)                                 0.04       5.20 r
+  U164/Z (CKAN2D1BWP40P140)                               0.03       5.22 r
+  u_track/init_doppler[5] (tracking_channel)              0.00       5.22 r
+  u_track/U497/Z (OR2D0BWP40P140)                         0.02       5.24 r
+  u_track/U498/ZN (NR4D0BWP40P140)                        0.01       5.25 f
+  u_track/U499/ZN (ND4D0BWP40P140)                        0.02       5.27 r
+  u_track/U500/ZN (AOI31D0BWP40P140)                      0.02       5.29 f
+  u_track/U91/ZN (INVD1BWP40P140)                         0.01       5.30 r
+  u_track/U501/ZN (AOI21D0BWP40P140)                      0.01       5.32 f
+  u_track/U505/ZN (AOI31D0BWP40P140)                      0.02       5.34 r
+  u_track/U41/Z (OR2D1BWP40P140)                          0.03       5.37 r
+  u_track/U26/ZN (INVD1BWP40P140)                         0.03       5.40 f
+  u_track/U231/Z (CKAN2D1BWP40P140)                       0.07       5.47 f
+  u_track/mult_132/A[2] (tracking_channel_DW02_mult_0)
+                                                          0.00       5.47 f
+  u_track/mult_132/U42/Z (CKAN2D1BWP40P140)               0.04       5.51 f
+  u_track/mult_132/S2_3_5/CO (FA1D1BWP40P140)             0.04       5.55 f
+  u_track/mult_132/S2_4_5/CO (FA1D1BWP40P140)             0.04       5.59 f
+  u_track/mult_132/S2_5_5/CO (FA1D1BWP40P140)             0.04       5.64 f
+  u_track/mult_132/S2_6_5/CO (FA1D1BWP40P140)             0.04       5.68 f
+  u_track/mult_132/S2_7_5/CO (FA1D1BWP40P140)             0.04       5.72 f
+  u_track/mult_132/S2_8_5/CO (FA1D1BWP40P140)             0.04       5.77 f
+  u_track/mult_132/S2_9_5/CO (FA1D1BWP40P140)             0.04       5.81 f
+  u_track/mult_132/S2_10_5/CO (FA1D1BWP40P140)            0.04       5.85 f
+  u_track/mult_132/S2_11_5/CO (FA1D1BWP40P140)            0.04       5.89 f
+  u_track/mult_132/S2_12_5/CO (FA1D1BWP40P140)            0.04       5.94 f
+  u_track/mult_132/S2_13_5/CO (FA1D1BWP40P140)            0.04       5.98 f
+  u_track/mult_132/S2_14_5/CO (FA1D1BWP40P140)            0.04       6.02 f
+  u_track/mult_132/S2_15_5/CO (FA1D1BWP40P140)            0.04       6.07 f
+  u_track/mult_132/S2_16_5/S (FA1D1BWP40P140)             0.07       6.14 r
+  u_track/mult_132/S2_17_4/S (FA1D1BWP40P140)             0.06       6.20 f
+  u_track/mult_132/S2_18_3/CO (FA1D1BWP40P140)            0.04       6.24 f
+  u_track/mult_132/S2_19_3/CO (FA1D1BWP40P140)            0.04       6.28 f
+  u_track/mult_132/S2_20_3/CO (FA1D1BWP40P140)            0.04       6.33 f
+  u_track/mult_132/S2_21_3/CO (FA1D1BWP40P140)            0.04       6.37 f
+  u_track/mult_132/S2_22_3/CO (FA1D1BWP40P140)            0.04       6.41 f
+  u_track/mult_132/S2_23_3/CO (FA1D1BWP40P140)            0.04       6.46 f
+  u_track/mult_132/S2_24_3/CO (FA1D1BWP40P140)            0.04       6.50 f
+  u_track/mult_132/S2_25_3/CO (FA1D1BWP40P140)            0.04       6.54 f
+  u_track/mult_132/S2_26_3/CO (FA1D1BWP40P140)            0.04       6.59 f
+  u_track/mult_132/S2_27_3/CO (FA1D1BWP40P140)            0.04       6.63 f
+  u_track/mult_132/S2_28_3/CO (FA1D1BWP40P140)            0.04       6.68 f
+  u_track/mult_132/S2_29_3/S (FA1D1BWP40P140)             0.07       6.75 r
+  u_track/mult_132/S2_30_2/S (FA1D1BWP40P140)             0.06       6.81 f
+  u_track/mult_132/U35/Z (XOR2UD1BWP40P140)               0.03       6.84 f
+  u_track/mult_132/U16/Z (XOR2UD1BWP40P140)               0.03       6.87 f
+  u_track/mult_132/FS_1/A[30] (tracking_channel_DW01_add_3)
+                                                          0.00       6.87 f
+  u_track/mult_132/FS_1/U62/ZN (CKND2D0BWP40P140)         0.02       6.89 r
+  u_track/mult_132/FS_1/U8/ZN (INVD1BWP40P140)            0.01       6.91 f
+  u_track/mult_132/FS_1/U55/ZN (AOI21D0BWP40P140)         0.03       6.93 r
+  u_track/mult_132/FS_1/U50/ZN (OAI21D0BWP40P140)         0.03       6.96 f
+  u_track/mult_132/FS_1/U45/ZN (AOI21D0BWP40P140)         0.03       6.99 r
+  u_track/mult_132/FS_1/U40/ZN (OAI21D0BWP40P140)         0.03       7.03 f
+  u_track/mult_132/FS_1/U35/ZN (AOI21D0BWP40P140)         0.03       7.06 r
+  u_track/mult_132/FS_1/U30/ZN (OAI21D0BWP40P140)         0.03       7.09 f
+  u_track/mult_132/FS_1/U25/ZN (AOI21D0BWP40P140)         0.03       7.12 r
+  u_track/mult_132/FS_1/U21/ZN (XNR2UD0BWP40P140)         0.02       7.15 r
+  u_track/mult_132/FS_1/SUM[38] (tracking_channel_DW01_add_3)
+                                                          0.00       7.15 r
+  u_track/mult_132/PRODUCT[40] (tracking_channel_DW02_mult_0)
+                                                          0.00       7.15 r
+  u_track/U185/ZN (AOI22D1BWP40P140)                      0.02       7.16 f
+  u_track/U184/ZN (IOA21D1BWP40P140)                      0.01       7.18 r
+  u_track/code_inc_reg[24]/D (DFCNQD1BWP40P140)           0.00       7.18 r
+  data arrival time                                                  7.18
+
+  clock clk (rise edge)                                  61.09      61.09
+  clock network delay (ideal)                             0.00      61.09
+  clock uncertainty                                      -0.50      60.59
+  u_track/code_inc_reg[24]/CP (DFCNQD1BWP40P140)          0.00      60.59 r
+  library setup time                                     -0.01      60.58
+  data required time                                                60.58
+  --------------------------------------------------------------------------
+  data required time                                                60.58
+  data arrival time                                                 -7.18
+  --------------------------------------------------------------------------
+  slack (MET)                                                       53.41
+
+
+  Startpoint: cfg_write (input port clocked by clk)
+  Endpoint: u_track/code_inc_reg[23]
+            (rising edge-triggered flip-flop clocked by clk)
+  Path Group: clk
+  Path Type: max
+
+  Des/Clust/Port     Wire Load Model       Library
+  ------------------------------------------------
+  bds_channel        ZeroWireload          tcbn28hpcplusbwp40p140tt0p9v25c
+  tracking_channel   ZeroWireload          tcbn28hpcplusbwp40p140tt0p9v25c
+  tracking_channel_DW02_mult_0
+                     ZeroWireload          tcbn28hpcplusbwp40p140tt0p9v25c
+  track_loop         ZeroWireload          tcbn28hpcplusbwp40p140tt0p9v25c
+  tracking_channel_DW01_add_3
+                     ZeroWireload          tcbn28hpcplusbwp40p140tt0p9v25c
+
+  Point                                                   Incr       Path
+  --------------------------------------------------------------------------
+  clock clk (rise edge)                                   0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  input external delay                                    5.00       5.00 f
+  cfg_write (in)                                          0.00       5.00 f
+  U248/ZN (INVD1BWP40P140)                                0.07       5.07 r
+  U247/ZN (ND4D1BWP40P140)                                0.05       5.12 f
+  U222/ZN (INVD1BWP40P140)                                0.03       5.16 r
+  U214/Z (CKBD1BWP40P140)                                 0.04       5.20 r
+  U164/Z (CKAN2D1BWP40P140)                               0.03       5.22 r
+  u_track/init_doppler[5] (tracking_channel)              0.00       5.22 r
+  u_track/U497/Z (OR2D0BWP40P140)                         0.02       5.24 r
+  u_track/U498/ZN (NR4D0BWP40P140)                        0.01       5.25 f
+  u_track/U499/ZN (ND4D0BWP40P140)                        0.02       5.27 r
+  u_track/U500/ZN (AOI31D0BWP40P140)                      0.02       5.29 f
+  u_track/U91/ZN (INVD1BWP40P140)                         0.01       5.30 r
+  u_track/U501/ZN (AOI21D0BWP40P140)                      0.01       5.32 f
+  u_track/U505/ZN (AOI31D0BWP40P140)                      0.02       5.34 r
+  u_track/U41/Z (OR2D1BWP40P140)                          0.03       5.37 r
+  u_track/U26/ZN (INVD1BWP40P140)                         0.03       5.40 f
+  u_track/U231/Z (CKAN2D1BWP40P140)                       0.07       5.47 f
+  u_track/mult_132/A[2] (tracking_channel_DW02_mult_0)
+                                                          0.00       5.47 f
+  u_track/mult_132/U42/Z (CKAN2D1BWP40P140)               0.04       5.51 f
+  u_track/mult_132/S2_3_5/CO (FA1D1BWP40P140)             0.04       5.55 f
+  u_track/mult_132/S2_4_5/CO (FA1D1BWP40P140)             0.04       5.59 f
+  u_track/mult_132/S2_5_5/CO (FA1D1BWP40P140)             0.04       5.64 f
+  u_track/mult_132/S2_6_5/CO (FA1D1BWP40P140)             0.04       5.68 f
+  u_track/mult_132/S2_7_5/CO (FA1D1BWP40P140)             0.04       5.72 f
+  u_track/mult_132/S2_8_5/CO (FA1D1BWP40P140)             0.04       5.77 f
+  u_track/mult_132/S2_9_5/CO (FA1D1BWP40P140)             0.04       5.81 f
+  u_track/mult_132/S2_10_5/CO (FA1D1BWP40P140)            0.04       5.85 f
+  u_track/mult_132/S2_11_5/CO (FA1D1BWP40P140)            0.04       5.89 f
+  u_track/mult_132/S2_12_5/CO (FA1D1BWP40P140)            0.04       5.94 f
+  u_track/mult_132/S2_13_5/CO (FA1D1BWP40P140)            0.04       5.98 f
+  u_track/mult_132/S2_14_5/CO (FA1D1BWP40P140)            0.04       6.02 f
+  u_track/mult_132/S2_15_5/CO (FA1D1BWP40P140)            0.04       6.07 f
+  u_track/mult_132/S2_16_5/S (FA1D1BWP40P140)             0.07       6.14 r
+  u_track/mult_132/S2_17_4/S (FA1D1BWP40P140)             0.06       6.20 f
+  u_track/mult_132/S2_18_3/CO (FA1D1BWP40P140)            0.04       6.24 f
+  u_track/mult_132/S2_19_3/CO (FA1D1BWP40P140)            0.04       6.28 f
+  u_track/mult_132/S2_20_3/CO (FA1D1BWP40P140)            0.04       6.33 f
+  u_track/mult_132/S2_21_3/CO (FA1D1BWP40P140)            0.04       6.37 f
+  u_track/mult_132/S2_22_3/CO (FA1D1BWP40P140)            0.04       6.41 f
+  u_track/mult_132/S2_23_3/CO (FA1D1BWP40P140)            0.04       6.46 f
+  u_track/mult_132/S2_24_3/CO (FA1D1BWP40P140)            0.04       6.50 f
+  u_track/mult_132/S2_25_3/CO (FA1D1BWP40P140)            0.04       6.54 f
+  u_track/mult_132/S2_26_3/CO (FA1D1BWP40P140)            0.04       6.59 f
+  u_track/mult_132/S2_27_3/CO (FA1D1BWP40P140)            0.04       6.63 f
+  u_track/mult_132/S2_28_3/CO (FA1D1BWP40P140)            0.04       6.68 f
+  u_track/mult_132/S2_29_3/S (FA1D1BWP40P140)             0.07       6.75 r
+  u_track/mult_132/S2_30_2/S (FA1D1BWP40P140)             0.06       6.81 f
+  u_track/mult_132/U35/Z (XOR2UD1BWP40P140)               0.03       6.84 f
+  u_track/mult_132/U16/Z (XOR2UD1BWP40P140)               0.03       6.87 f
+  u_track/mult_132/FS_1/A[30] (tracking_channel_DW01_add_3)
+                                                          0.00       6.87 f
+  u_track/mult_132/FS_1/U62/ZN (CKND2D0BWP40P140)         0.02       6.89 r
+  u_track/mult_132/FS_1/U8/ZN (INVD1BWP40P140)            0.01       6.91 f
+  u_track/mult_132/FS_1/U55/ZN (AOI21D0BWP40P140)         0.03       6.93 r
+  u_track/mult_132/FS_1/U50/ZN (OAI21D0BWP40P140)         0.03       6.96 f
+  u_track/mult_132/FS_1/U45/ZN (AOI21D0BWP40P140)         0.03       6.99 r
+  u_track/mult_132/FS_1/U40/ZN (OAI21D0BWP40P140)         0.03       7.03 f
+  u_track/mult_132/FS_1/U35/ZN (AOI21D0BWP40P140)         0.03       7.06 r
+  u_track/mult_132/FS_1/U30/ZN (OAI21D0BWP40P140)         0.03       7.09 f
+  u_track/mult_132/FS_1/U26/Z (XOR2UD0BWP40P140)          0.02       7.11 r
+  u_track/mult_132/FS_1/SUM[37] (tracking_channel_DW01_add_3)
+                                                          0.00       7.11 r
+  u_track/mult_132/PRODUCT[39] (tracking_channel_DW02_mult_0)
+                                                          0.00       7.11 r
+  u_track/U195/ZN (AOI22D1BWP40P140)                      0.02       7.13 f
+  u_track/U194/ZN (IOA21D1BWP40P140)                      0.01       7.14 r
+  u_track/code_inc_reg[23]/D (DFCNQD1BWP40P140)           0.00       7.14 r
+  data arrival time                                                  7.14
+
+  clock clk (rise edge)                                  61.09      61.09
+  clock network delay (ideal)                             0.00      61.09
+  clock uncertainty                                      -0.50      60.59
+  u_track/code_inc_reg[23]/CP (DFCNQD1BWP40P140)          0.00      60.59 r
+  library setup time                                     -0.01      60.58
+  data required time                                                60.58
+  --------------------------------------------------------------------------
+  data required time                                                60.58
+  data arrival time                                                 -7.14
+  --------------------------------------------------------------------------
+  slack (MET)                                                       53.44
+
+
+  Startpoint: cfg_write (input port clocked by clk)
+  Endpoint: u_track/code_inc_reg[22]
+            (rising edge-triggered flip-flop clocked by clk)
+  Path Group: clk
+  Path Type: max
+
+  Des/Clust/Port     Wire Load Model       Library
+  ------------------------------------------------
+  bds_channel        ZeroWireload          tcbn28hpcplusbwp40p140tt0p9v25c
+  tracking_channel   ZeroWireload          tcbn28hpcplusbwp40p140tt0p9v25c
+  tracking_channel_DW02_mult_0
+                     ZeroWireload          tcbn28hpcplusbwp40p140tt0p9v25c
+  track_loop         ZeroWireload          tcbn28hpcplusbwp40p140tt0p9v25c
+  tracking_channel_DW01_add_3
+                     ZeroWireload          tcbn28hpcplusbwp40p140tt0p9v25c
+
+  Point                                                   Incr       Path
+  --------------------------------------------------------------------------
+  clock clk (rise edge)                                   0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  input external delay                                    5.00       5.00 f
+  cfg_write (in)                                          0.00       5.00 f
+  U248/ZN (INVD1BWP40P140)                                0.07       5.07 r
+  U247/ZN (ND4D1BWP40P140)                                0.05       5.12 f
+  U222/ZN (INVD1BWP40P140)                                0.03       5.16 r
+  U214/Z (CKBD1BWP40P140)                                 0.04       5.20 r
+  U164/Z (CKAN2D1BWP40P140)                               0.03       5.22 r
+  u_track/init_doppler[5] (tracking_channel)              0.00       5.22 r
+  u_track/U497/Z (OR2D0BWP40P140)                         0.02       5.24 r
+  u_track/U498/ZN (NR4D0BWP40P140)                        0.01       5.25 f
+  u_track/U499/ZN (ND4D0BWP40P140)                        0.02       5.27 r
+  u_track/U500/ZN (AOI31D0BWP40P140)                      0.02       5.29 f
+  u_track/U91/ZN (INVD1BWP40P140)                         0.01       5.30 r
+  u_track/U501/ZN (AOI21D0BWP40P140)                      0.01       5.32 f
+  u_track/U505/ZN (AOI31D0BWP40P140)                      0.02       5.34 r
+  u_track/U41/Z (OR2D1BWP40P140)                          0.03       5.37 r
+  u_track/U26/ZN (INVD1BWP40P140)                         0.03       5.40 f
+  u_track/U231/Z (CKAN2D1BWP40P140)                       0.07       5.47 f
+  u_track/mult_132/A[2] (tracking_channel_DW02_mult_0)
+                                                          0.00       5.47 f
+  u_track/mult_132/U42/Z (CKAN2D1BWP40P140)               0.04       5.51 f
+  u_track/mult_132/S2_3_5/CO (FA1D1BWP40P140)             0.04       5.55 f
+  u_track/mult_132/S2_4_5/CO (FA1D1BWP40P140)             0.04       5.59 f
+  u_track/mult_132/S2_5_5/CO (FA1D1BWP40P140)             0.04       5.64 f
+  u_track/mult_132/S2_6_5/CO (FA1D1BWP40P140)             0.04       5.68 f
+  u_track/mult_132/S2_7_5/CO (FA1D1BWP40P140)             0.04       5.72 f
+  u_track/mult_132/S2_8_5/CO (FA1D1BWP40P140)             0.04       5.77 f
+  u_track/mult_132/S2_9_5/CO (FA1D1BWP40P140)             0.04       5.81 f
+  u_track/mult_132/S2_10_5/CO (FA1D1BWP40P140)            0.04       5.85 f
+  u_track/mult_132/S2_11_5/CO (FA1D1BWP40P140)            0.04       5.89 f
+  u_track/mult_132/S2_12_5/CO (FA1D1BWP40P140)            0.04       5.94 f
+  u_track/mult_132/S2_13_5/CO (FA1D1BWP40P140)            0.04       5.98 f
+  u_track/mult_132/S2_14_5/CO (FA1D1BWP40P140)            0.04       6.02 f
+  u_track/mult_132/S2_15_5/CO (FA1D1BWP40P140)            0.04       6.07 f
+  u_track/mult_132/S2_16_5/S (FA1D1BWP40P140)             0.07       6.14 r
+  u_track/mult_132/S2_17_4/S (FA1D1BWP40P140)             0.06       6.20 f
+  u_track/mult_132/S2_18_3/CO (FA1D1BWP40P140)            0.04       6.24 f
+  u_track/mult_132/S2_19_3/CO (FA1D1BWP40P140)            0.04       6.28 f
+  u_track/mult_132/S2_20_3/CO (FA1D1BWP40P140)            0.04       6.33 f
+  u_track/mult_132/S2_21_3/CO (FA1D1BWP40P140)            0.04       6.37 f
+  u_track/mult_132/S2_22_3/CO (FA1D1BWP40P140)            0.04       6.41 f
+  u_track/mult_132/S2_23_3/CO (FA1D1BWP40P140)            0.04       6.46 f
+  u_track/mult_132/S2_24_3/CO (FA1D1BWP40P140)            0.04       6.50 f
+  u_track/mult_132/S2_25_3/CO (FA1D1BWP40P140)            0.04       6.54 f
+  u_track/mult_132/S2_26_3/CO (FA1D1BWP40P140)            0.04       6.59 f
+  u_track/mult_132/S2_27_3/CO (FA1D1BWP40P140)            0.04       6.63 f
+  u_track/mult_132/S2_28_3/CO (FA1D1BWP40P140)            0.04       6.68 f
+  u_track/mult_132/S2_29_3/S (FA1D1BWP40P140)             0.07       6.75 r
+  u_track/mult_132/S2_30_2/S (FA1D1BWP40P140)             0.06       6.81 f
+  u_track/mult_132/U35/Z (XOR2UD1BWP40P140)               0.03       6.84 f
+  u_track/mult_132/U16/Z (XOR2UD1BWP40P140)               0.03       6.87 f
+  u_track/mult_132/FS_1/A[30] (tracking_channel_DW01_add_3)
+                                                          0.00       6.87 f
+  u_track/mult_132/FS_1/U62/ZN (CKND2D0BWP40P140)         0.02       6.89 r
+  u_track/mult_132/FS_1/U8/ZN (INVD1BWP40P140)            0.01       6.91 f
+  u_track/mult_132/FS_1/U55/ZN (AOI21D0BWP40P140)         0.03       6.93 r
+  u_track/mult_132/FS_1/U50/ZN (OAI21D0BWP40P140)         0.03       6.96 f
+  u_track/mult_132/FS_1/U45/ZN (AOI21D0BWP40P140)         0.03       6.99 r
+  u_track/mult_132/FS_1/U40/ZN (OAI21D0BWP40P140)         0.03       7.03 f
+  u_track/mult_132/FS_1/U35/ZN (AOI21D0BWP40P140)         0.03       7.06 r
+  u_track/mult_132/FS_1/U31/ZN (XNR2UD0BWP40P140)         0.02       7.08 r
+  u_track/mult_132/FS_1/SUM[36] (tracking_channel_DW01_add_3)
+                                                          0.00       7.08 r
+  u_track/mult_132/PRODUCT[38] (tracking_channel_DW02_mult_0)
+                                                          0.00       7.08 r
+  u_track/U183/ZN (AOI22D1BWP40P140)                      0.02       7.10 f
+  u_track/U182/ZN (IOA21D1BWP40P140)                      0.01       7.11 r
+  u_track/code_inc_reg[22]/D (DFCNQD1BWP40P140)           0.00       7.11 r
+  data arrival time                                                  7.11
+
+  clock clk (rise edge)                                  61.09      61.09
+  clock network delay (ideal)                             0.00      61.09
+  clock uncertainty                                      -0.50      60.59
+  u_track/code_inc_reg[22]/CP (DFCNQD1BWP40P140)          0.00      60.59 r
+  library setup time                                     -0.01      60.58
+  data required time                                                60.58
+  --------------------------------------------------------------------------
+  data required time                                                60.58
+  data arrival time                                                 -7.11
+  --------------------------------------------------------------------------
+  slack (MET)                                                       53.47
+
+
+  Startpoint: cfg_write (input port clocked by clk)
+  Endpoint: u_track/code_inc_reg[21]
+            (rising edge-triggered flip-flop clocked by clk)
+  Path Group: clk
+  Path Type: max
+
+  Des/Clust/Port     Wire Load Model       Library
+  ------------------------------------------------
+  bds_channel        ZeroWireload          tcbn28hpcplusbwp40p140tt0p9v25c
+  tracking_channel   ZeroWireload          tcbn28hpcplusbwp40p140tt0p9v25c
+  tracking_channel_DW02_mult_0
+                     ZeroWireload          tcbn28hpcplusbwp40p140tt0p9v25c
+  track_loop         ZeroWireload          tcbn28hpcplusbwp40p140tt0p9v25c
+  tracking_channel_DW01_add_3
+                     ZeroWireload          tcbn28hpcplusbwp40p140tt0p9v25c
+
+  Point                                                   Incr       Path
+  --------------------------------------------------------------------------
+  clock clk (rise edge)                                   0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  input external delay                                    5.00       5.00 f
+  cfg_write (in)                                          0.00       5.00 f
+  U248/ZN (INVD1BWP40P140)                                0.07       5.07 r
+  U247/ZN (ND4D1BWP40P140)                                0.05       5.12 f
+  U222/ZN (INVD1BWP40P140)                                0.03       5.16 r
+  U214/Z (CKBD1BWP40P140)                                 0.04       5.20 r
+  U164/Z (CKAN2D1BWP40P140)                               0.03       5.22 r
+  u_track/init_doppler[5] (tracking_channel)              0.00       5.22 r
+  u_track/U497/Z (OR2D0BWP40P140)                         0.02       5.24 r
+  u_track/U498/ZN (NR4D0BWP40P140)                        0.01       5.25 f
+  u_track/U499/ZN (ND4D0BWP40P140)                        0.02       5.27 r
+  u_track/U500/ZN (AOI31D0BWP40P140)                      0.02       5.29 f
+  u_track/U91/ZN (INVD1BWP40P140)                         0.01       5.30 r
+  u_track/U501/ZN (AOI21D0BWP40P140)                      0.01       5.32 f
+  u_track/U505/ZN (AOI31D0BWP40P140)                      0.02       5.34 r
+  u_track/U41/Z (OR2D1BWP40P140)                          0.03       5.37 r
+  u_track/U26/ZN (INVD1BWP40P140)                         0.03       5.40 f
+  u_track/U231/Z (CKAN2D1BWP40P140)                       0.07       5.47 f
+  u_track/mult_132/A[2] (tracking_channel_DW02_mult_0)
+                                                          0.00       5.47 f
+  u_track/mult_132/U42/Z (CKAN2D1BWP40P140)               0.04       5.51 f
+  u_track/mult_132/S2_3_5/CO (FA1D1BWP40P140)             0.04       5.55 f
+  u_track/mult_132/S2_4_5/CO (FA1D1BWP40P140)             0.04       5.59 f
+  u_track/mult_132/S2_5_5/CO (FA1D1BWP40P140)             0.04       5.64 f
+  u_track/mult_132/S2_6_5/CO (FA1D1BWP40P140)             0.04       5.68 f
+  u_track/mult_132/S2_7_5/CO (FA1D1BWP40P140)             0.04       5.72 f
+  u_track/mult_132/S2_8_5/CO (FA1D1BWP40P140)             0.04       5.77 f
+  u_track/mult_132/S2_9_5/CO (FA1D1BWP40P140)             0.04       5.81 f
+  u_track/mult_132/S2_10_5/CO (FA1D1BWP40P140)            0.04       5.85 f
+  u_track/mult_132/S2_11_5/CO (FA1D1BWP40P140)            0.04       5.89 f
+  u_track/mult_132/S2_12_5/CO (FA1D1BWP40P140)            0.04       5.94 f
+  u_track/mult_132/S2_13_5/CO (FA1D1BWP40P140)            0.04       5.98 f
+  u_track/mult_132/S2_14_5/CO (FA1D1BWP40P140)            0.04       6.02 f
+  u_track/mult_132/S2_15_5/CO (FA1D1BWP40P140)            0.04       6.07 f
+  u_track/mult_132/S2_16_5/S (FA1D1BWP40P140)             0.07       6.14 r
+  u_track/mult_132/S2_17_4/S (FA1D1BWP40P140)             0.06       6.20 f
+  u_track/mult_132/S2_18_3/CO (FA1D1BWP40P140)            0.04       6.24 f
+  u_track/mult_132/S2_19_3/CO (FA1D1BWP40P140)            0.04       6.28 f
+  u_track/mult_132/S2_20_3/CO (FA1D1BWP40P140)            0.04       6.33 f
+  u_track/mult_132/S2_21_3/CO (FA1D1BWP40P140)            0.04       6.37 f
+  u_track/mult_132/S2_22_3/CO (FA1D1BWP40P140)            0.04       6.41 f
+  u_track/mult_132/S2_23_3/CO (FA1D1BWP40P140)            0.04       6.46 f
+  u_track/mult_132/S2_24_3/CO (FA1D1BWP40P140)            0.04       6.50 f
+  u_track/mult_132/S2_25_3/CO (FA1D1BWP40P140)            0.04       6.54 f
+  u_track/mult_132/S2_26_3/CO (FA1D1BWP40P140)            0.04       6.59 f
+  u_track/mult_132/S2_27_3/CO (FA1D1BWP40P140)            0.04       6.63 f
+  u_track/mult_132/S2_28_3/CO (FA1D1BWP40P140)            0.04       6.68 f
+  u_track/mult_132/S2_29_3/S (FA1D1BWP40P140)             0.07       6.75 r
+  u_track/mult_132/S2_30_2/S (FA1D1BWP40P140)             0.06       6.81 f
+  u_track/mult_132/U35/Z (XOR2UD1BWP40P140)               0.03       6.84 f
+  u_track/mult_132/U16/Z (XOR2UD1BWP40P140)               0.03       6.87 f
+  u_track/mult_132/FS_1/A[30] (tracking_channel_DW01_add_3)
+                                                          0.00       6.87 f
+  u_track/mult_132/FS_1/U62/ZN (CKND2D0BWP40P140)         0.02       6.89 r
+  u_track/mult_132/FS_1/U8/ZN (INVD1BWP40P140)            0.01       6.91 f
+  u_track/mult_132/FS_1/U55/ZN (AOI21D0BWP40P140)         0.03       6.93 r
+  u_track/mult_132/FS_1/U50/ZN (OAI21D0BWP40P140)         0.03       6.96 f
+  u_track/mult_132/FS_1/U45/ZN (AOI21D0BWP40P140)         0.03       6.99 r
+  u_track/mult_132/FS_1/U40/ZN (OAI21D0BWP40P140)         0.03       7.03 f
+  u_track/mult_132/FS_1/U36/Z (XOR2UD0BWP40P140)          0.02       7.05 r
+  u_track/mult_132/FS_1/SUM[35] (tracking_channel_DW01_add_3)
+                                                          0.00       7.05 r
+  u_track/mult_132/PRODUCT[37] (tracking_channel_DW02_mult_0)
+                                                          0.00       7.05 r
+  u_track/U193/ZN (AOI22D1BWP40P140)                      0.02       7.06 f
+  u_track/U192/ZN (IOA21D1BWP40P140)                      0.01       7.07 r
+  u_track/code_inc_reg[21]/D (DFCNQD1BWP40P140)           0.00       7.07 r
+  data arrival time                                                  7.07
+
+  clock clk (rise edge)                                  61.09      61.09
+  clock network delay (ideal)                             0.00      61.09
+  clock uncertainty                                      -0.50      60.59
+  u_track/code_inc_reg[21]/CP (DFCNQD1BWP40P140)          0.00      60.59 r
+  library setup time                                     -0.01      60.58
+  data required time                                                60.58
+  --------------------------------------------------------------------------
+  data required time                                                60.58
+  data arrival time                                                 -7.07
+  --------------------------------------------------------------------------
+  slack (MET)                                                       53.51
+
+
+  Startpoint: cfg_write (input port clocked by clk)
+  Endpoint: u_track/code_inc_reg[20]
+            (rising edge-triggered flip-flop clocked by clk)
+  Path Group: clk
+  Path Type: max
+
+  Des/Clust/Port     Wire Load Model       Library
+  ------------------------------------------------
+  bds_channel        ZeroWireload          tcbn28hpcplusbwp40p140tt0p9v25c
+  tracking_channel   ZeroWireload          tcbn28hpcplusbwp40p140tt0p9v25c
+  tracking_channel_DW02_mult_0
+                     ZeroWireload          tcbn28hpcplusbwp40p140tt0p9v25c
+  track_loop         ZeroWireload          tcbn28hpcplusbwp40p140tt0p9v25c
+  tracking_channel_DW01_add_3
+                     ZeroWireload          tcbn28hpcplusbwp40p140tt0p9v25c
+
+  Point                                                   Incr       Path
+  --------------------------------------------------------------------------
+  clock clk (rise edge)                                   0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  input external delay                                    5.00       5.00 f
+  cfg_write (in)                                          0.00       5.00 f
+  U248/ZN (INVD1BWP40P140)                                0.07       5.07 r
+  U247/ZN (ND4D1BWP40P140)                                0.05       5.12 f
+  U222/ZN (INVD1BWP40P140)                                0.03       5.16 r
+  U214/Z (CKBD1BWP40P140)                                 0.04       5.20 r
+  U164/Z (CKAN2D1BWP40P140)                               0.03       5.22 r
+  u_track/init_doppler[5] (tracking_channel)              0.00       5.22 r
+  u_track/U497/Z (OR2D0BWP40P140)                         0.02       5.24 r
+  u_track/U498/ZN (NR4D0BWP40P140)                        0.01       5.25 f
+  u_track/U499/ZN (ND4D0BWP40P140)                        0.02       5.27 r
+  u_track/U500/ZN (AOI31D0BWP40P140)                      0.02       5.29 f
+  u_track/U91/ZN (INVD1BWP40P140)                         0.01       5.30 r
+  u_track/U501/ZN (AOI21D0BWP40P140)                      0.01       5.32 f
+  u_track/U505/ZN (AOI31D0BWP40P140)                      0.02       5.34 r
+  u_track/U41/Z (OR2D1BWP40P140)                          0.03       5.37 r
+  u_track/U26/ZN (INVD1BWP40P140)                         0.03       5.40 f
+  u_track/U231/Z (CKAN2D1BWP40P140)                       0.07       5.47 f
+  u_track/mult_132/A[2] (tracking_channel_DW02_mult_0)
+                                                          0.00       5.47 f
+  u_track/mult_132/U42/Z (CKAN2D1BWP40P140)               0.04       5.51 f
+  u_track/mult_132/S2_3_5/CO (FA1D1BWP40P140)             0.04       5.55 f
+  u_track/mult_132/S2_4_5/CO (FA1D1BWP40P140)             0.04       5.59 f
+  u_track/mult_132/S2_5_5/CO (FA1D1BWP40P140)             0.04       5.64 f
+  u_track/mult_132/S2_6_5/CO (FA1D1BWP40P140)             0.04       5.68 f
+  u_track/mult_132/S2_7_5/CO (FA1D1BWP40P140)             0.04       5.72 f
+  u_track/mult_132/S2_8_5/CO (FA1D1BWP40P140)             0.04       5.77 f
+  u_track/mult_132/S2_9_5/CO (FA1D1BWP40P140)             0.04       5.81 f
+  u_track/mult_132/S2_10_5/CO (FA1D1BWP40P140)            0.04       5.85 f
+  u_track/mult_132/S2_11_5/CO (FA1D1BWP40P140)            0.04       5.89 f
+  u_track/mult_132/S2_12_5/CO (FA1D1BWP40P140)            0.04       5.94 f
+  u_track/mult_132/S2_13_5/CO (FA1D1BWP40P140)            0.04       5.98 f
+  u_track/mult_132/S2_14_5/CO (FA1D1BWP40P140)            0.04       6.02 f
+  u_track/mult_132/S2_15_5/CO (FA1D1BWP40P140)            0.04       6.07 f
+  u_track/mult_132/S2_16_5/S (FA1D1BWP40P140)             0.07       6.14 r
+  u_track/mult_132/S2_17_4/S (FA1D1BWP40P140)             0.06       6.20 f
+  u_track/mult_132/S2_18_3/CO (FA1D1BWP40P140)            0.04       6.24 f
+  u_track/mult_132/S2_19_3/CO (FA1D1BWP40P140)            0.04       6.28 f
+  u_track/mult_132/S2_20_3/CO (FA1D1BWP40P140)            0.04       6.33 f
+  u_track/mult_132/S2_21_3/CO (FA1D1BWP40P140)            0.04       6.37 f
+  u_track/mult_132/S2_22_3/CO (FA1D1BWP40P140)            0.04       6.41 f
+  u_track/mult_132/S2_23_3/CO (FA1D1BWP40P140)            0.04       6.46 f
+  u_track/mult_132/S2_24_3/CO (FA1D1BWP40P140)            0.04       6.50 f
+  u_track/mult_132/S2_25_3/CO (FA1D1BWP40P140)            0.04       6.54 f
+  u_track/mult_132/S2_26_3/CO (FA1D1BWP40P140)            0.04       6.59 f
+  u_track/mult_132/S2_27_3/CO (FA1D1BWP40P140)            0.04       6.63 f
+  u_track/mult_132/S2_28_3/CO (FA1D1BWP40P140)            0.04       6.68 f
+  u_track/mult_132/S2_29_3/S (FA1D1BWP40P140)             0.07       6.75 r
+  u_track/mult_132/S2_30_2/S (FA1D1BWP40P140)             0.06       6.81 f
+  u_track/mult_132/U35/Z (XOR2UD1BWP40P140)               0.03       6.84 f
+  u_track/mult_132/U16/Z (XOR2UD1BWP40P140)               0.03       6.87 f
+  u_track/mult_132/FS_1/A[30] (tracking_channel_DW01_add_3)
+                                                          0.00       6.87 f
+  u_track/mult_132/FS_1/U62/ZN (CKND2D0BWP40P140)         0.02       6.89 r
+  u_track/mult_132/FS_1/U8/ZN (INVD1BWP40P140)            0.01       6.91 f
+  u_track/mult_132/FS_1/U55/ZN (AOI21D0BWP40P140)         0.03       6.93 r
+  u_track/mult_132/FS_1/U50/ZN (OAI21D0BWP40P140)         0.03       6.96 f
+  u_track/mult_132/FS_1/U45/ZN (AOI21D0BWP40P140)         0.03       6.99 r
+  u_track/mult_132/FS_1/U41/ZN (XNR2UD0BWP40P140)         0.02       7.02 r
+  u_track/mult_132/FS_1/SUM[34] (tracking_channel_DW01_add_3)
+                                                          0.00       7.02 r
+  u_track/mult_132/PRODUCT[36] (tracking_channel_DW02_mult_0)
+                                                          0.00       7.02 r
+  u_track/U181/ZN (AOI22D1BWP40P140)                      0.02       7.04 f
+  u_track/U180/ZN (IOA21D1BWP40P140)                      0.01       7.05 r
+  u_track/code_inc_reg[20]/D (DFCNQD1BWP40P140)           0.00       7.05 r
+  data arrival time                                                  7.05
+
+  clock clk (rise edge)                                  61.09      61.09
+  clock network delay (ideal)                             0.00      61.09
+  clock uncertainty                                      -0.50      60.59
+  u_track/code_inc_reg[20]/CP (DFCNQD1BWP40P140)          0.00      60.59 r
+  library setup time                                     -0.01      60.58
+  data required time                                                60.58
+  --------------------------------------------------------------------------
+  data required time                                                60.58
+  data arrival time                                                 -7.05
+  --------------------------------------------------------------------------
+  slack (MET)                                                       53.53
+
+
+  Startpoint: cfg_write (input port clocked by clk)
+  Endpoint: u_track/code_inc_reg[19]
+            (rising edge-triggered flip-flop clocked by clk)
+  Path Group: clk
+  Path Type: max
+
+  Des/Clust/Port     Wire Load Model       Library
+  ------------------------------------------------
+  bds_channel        ZeroWireload          tcbn28hpcplusbwp40p140tt0p9v25c
+  tracking_channel   ZeroWireload          tcbn28hpcplusbwp40p140tt0p9v25c
+  tracking_channel_DW02_mult_0
+                     ZeroWireload          tcbn28hpcplusbwp40p140tt0p9v25c
+  track_loop         ZeroWireload          tcbn28hpcplusbwp40p140tt0p9v25c
+  tracking_channel_DW01_add_3
+                     ZeroWireload          tcbn28hpcplusbwp40p140tt0p9v25c
+
+  Point                                                   Incr       Path
+  --------------------------------------------------------------------------
+  clock clk (rise edge)                                   0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  input external delay                                    5.00       5.00 f
+  cfg_write (in)                                          0.00       5.00 f
+  U248/ZN (INVD1BWP40P140)                                0.07       5.07 r
+  U247/ZN (ND4D1BWP40P140)                                0.05       5.12 f
+  U222/ZN (INVD1BWP40P140)                                0.03       5.16 r
+  U214/Z (CKBD1BWP40P140)                                 0.04       5.20 r
+  U164/Z (CKAN2D1BWP40P140)                               0.03       5.22 r
+  u_track/init_doppler[5] (tracking_channel)              0.00       5.22 r
+  u_track/U497/Z (OR2D0BWP40P140)                         0.02       5.24 r
+  u_track/U498/ZN (NR4D0BWP40P140)                        0.01       5.25 f
+  u_track/U499/ZN (ND4D0BWP40P140)                        0.02       5.27 r
+  u_track/U500/ZN (AOI31D0BWP40P140)                      0.02       5.29 f
+  u_track/U91/ZN (INVD1BWP40P140)                         0.01       5.30 r
+  u_track/U501/ZN (AOI21D0BWP40P140)                      0.01       5.32 f
+  u_track/U505/ZN (AOI31D0BWP40P140)                      0.02       5.34 r
+  u_track/U41/Z (OR2D1BWP40P140)                          0.03       5.37 r
+  u_track/U26/ZN (INVD1BWP40P140)                         0.03       5.40 f
+  u_track/U242/Z (CKAN2D1BWP40P140)                       0.06       5.46 f
+  u_track/mult_132/A[1] (tracking_channel_DW02_mult_0)
+                                                          0.00       5.46 f
+  u_track/mult_132/U41/Z (CKAN2D1BWP40P140)               0.04       5.49 f
+  u_track/mult_132/S2_2_4/CO (FA1D1BWP40P140)             0.04       5.53 f
+  u_track/mult_132/S2_3_4/CO (FA1D1BWP40P140)             0.04       5.58 f
+  u_track/mult_132/S2_4_4/S (FA1D1BWP40P140)              0.07       5.65 r
+  u_track/mult_132/S2_5_3/S (FA1D1BWP40P140)              0.06       5.71 f
+  u_track/mult_132/S2_6_2/CO (FA1D1BWP40P140)             0.04       5.75 f
+  u_track/mult_132/S2_7_2/CO (FA1D1BWP40P140)             0.04       5.79 f
+  u_track/mult_132/S2_8_2/CO (FA1D1BWP40P140)             0.04       5.83 f
+  u_track/mult_132/S2_9_2/CO (FA1D1BWP40P140)             0.04       5.88 f
+  u_track/mult_132/S2_10_2/CO (FA1D1BWP40P140)            0.04       5.92 f
+  u_track/mult_132/S2_11_2/CO (FA1D1BWP40P140)            0.04       5.96 f
+  u_track/mult_132/S2_12_2/CO (FA1D1BWP40P140)            0.04       6.01 f
+  u_track/mult_132/S2_13_2/CO (FA1D1BWP40P140)            0.04       6.05 f
+  u_track/mult_132/S2_14_2/CO (FA1D1BWP40P140)            0.04       6.09 f
+  u_track/mult_132/S2_15_2/CO (FA1D1BWP40P140)            0.04       6.14 f
+  u_track/mult_132/S2_16_2/CO (FA1D1BWP40P140)            0.04       6.18 f
+  u_track/mult_132/S2_17_2/CO (FA1D1BWP40P140)            0.04       6.22 f
+  u_track/mult_132/S2_18_2/CO (FA1D1BWP40P140)            0.04       6.26 f
+  u_track/mult_132/S2_19_2/CO (FA1D1BWP40P140)            0.04       6.31 f
+  u_track/mult_132/S2_20_2/CO (FA1D1BWP40P140)            0.04       6.35 f
+  u_track/mult_132/S2_21_2/CO (FA1D1BWP40P140)            0.04       6.40 f
+  u_track/mult_132/S2_22_2/CO (FA1D1BWP40P140)            0.04       6.44 f
+  u_track/mult_132/S2_23_2/CO (FA1D1BWP40P140)            0.04       6.48 f
+  u_track/mult_132/S2_24_2/CO (FA1D1BWP40P140)            0.04       6.53 f
+  u_track/mult_132/S2_25_2/CO (FA1D1BWP40P140)            0.04       6.57 f
+  u_track/mult_132/S2_26_2/CO (FA1D1BWP40P140)            0.04       6.61 f
+  u_track/mult_132/S2_27_2/CO (FA1D1BWP40P140)            0.04       6.66 f
+  u_track/mult_132/S2_28_2/CO (FA1D1BWP40P140)            0.04       6.70 f
+  u_track/mult_132/S2_29_2/CO (FA1D1BWP40P140)            0.04       6.75 f
+  u_track/mult_132/S2_30_2/S (FA1D1BWP40P140)             0.07       6.82 r
+  u_track/mult_132/U35/Z (XOR2UD1BWP40P140)               0.03       6.84 r
+  u_track/mult_132/U16/Z (XOR2UD1BWP40P140)               0.03       6.88 r
+  u_track/mult_132/FS_1/A[30] (tracking_channel_DW01_add_3)
+                                                          0.00       6.88 r
+  u_track/mult_132/FS_1/U62/ZN (CKND2D0BWP40P140)         0.02       6.89 f
+  u_track/mult_132/FS_1/U8/ZN (INVD1BWP40P140)            0.01       6.91 r
+  u_track/mult_132/FS_1/U55/ZN (AOI21D0BWP40P140)         0.02       6.93 f
+  u_track/mult_132/FS_1/U50/ZN (OAI21D0BWP40P140)         0.03       6.96 r
+  u_track/mult_132/FS_1/U46/Z (XOR2UD0BWP40P140)          0.02       6.98 r
+  u_track/mult_132/FS_1/SUM[33] (tracking_channel_DW01_add_3)
+                                                          0.00       6.98 r
+  u_track/mult_132/PRODUCT[35] (tracking_channel_DW02_mult_0)
+                                                          0.00       6.98 r
+  u_track/U191/ZN (AOI22D1BWP40P140)                      0.02       7.00 f
+  u_track/U190/ZN (IOA21D1BWP40P140)                      0.01       7.01 r
+  u_track/code_inc_reg[19]/D (DFCNQD1BWP40P140)           0.00       7.01 r
+  data arrival time                                                  7.01
+
+  clock clk (rise edge)                                  61.09      61.09
+  clock network delay (ideal)                             0.00      61.09
+  clock uncertainty                                      -0.50      60.59
+  u_track/code_inc_reg[19]/CP (DFCNQD1BWP40P140)          0.00      60.59 r
+  library setup time                                     -0.01      60.58
+  data required time                                                60.58
+  --------------------------------------------------------------------------
+  data required time                                                60.58
+  data arrival time                                                 -7.01
+  --------------------------------------------------------------------------
+  slack (MET)                                                       53.57
+
+
+  Startpoint: cfg_write (input port clocked by clk)
+  Endpoint: u_track/code_inc_reg[18]
+            (rising edge-triggered flip-flop clocked by clk)
+  Path Group: clk
+  Path Type: max
+
+  Des/Clust/Port     Wire Load Model       Library
+  ------------------------------------------------
+  bds_channel        ZeroWireload          tcbn28hpcplusbwp40p140tt0p9v25c
+  tracking_channel   ZeroWireload          tcbn28hpcplusbwp40p140tt0p9v25c
+  tracking_channel_DW02_mult_0
+                     ZeroWireload          tcbn28hpcplusbwp40p140tt0p9v25c
+  track_loop         ZeroWireload          tcbn28hpcplusbwp40p140tt0p9v25c
+  tracking_channel_DW01_add_3
+                     ZeroWireload          tcbn28hpcplusbwp40p140tt0p9v25c
+
+  Point                                                   Incr       Path
+  --------------------------------------------------------------------------
+  clock clk (rise edge)                                   0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  input external delay                                    5.00       5.00 f
+  cfg_write (in)                                          0.00       5.00 f
+  U248/ZN (INVD1BWP40P140)                                0.07       5.07 r
+  U247/ZN (ND4D1BWP40P140)                                0.05       5.12 f
+  U222/ZN (INVD1BWP40P140)                                0.03       5.16 r
+  U214/Z (CKBD1BWP40P140)                                 0.04       5.20 r
+  U164/Z (CKAN2D1BWP40P140)                               0.03       5.22 r
+  u_track/init_doppler[5] (tracking_channel)              0.00       5.22 r
+  u_track/U497/Z (OR2D0BWP40P140)                         0.02       5.24 r
+  u_track/U498/ZN (NR4D0BWP40P140)                        0.01       5.25 f
+  u_track/U499/ZN (ND4D0BWP40P140)                        0.02       5.27 r
+  u_track/U500/ZN (AOI31D0BWP40P140)                      0.02       5.29 f
+  u_track/U91/ZN (INVD1BWP40P140)                         0.01       5.30 r
+  u_track/U501/ZN (AOI21D0BWP40P140)                      0.01       5.32 f
+  u_track/U505/ZN (AOI31D0BWP40P140)                      0.02       5.34 r
+  u_track/U41/Z (OR2D1BWP40P140)                          0.03       5.37 r
+  u_track/U26/ZN (INVD1BWP40P140)                         0.03       5.40 f
+  u_track/U231/Z (CKAN2D1BWP40P140)                       0.07       5.47 f
+  u_track/mult_132/A[2] (tracking_channel_DW02_mult_0)
+                                                          0.00       5.47 f
+  u_track/mult_132/U42/Z (CKAN2D1BWP40P140)               0.04       5.51 f
+  u_track/mult_132/S2_3_5/CO (FA1D1BWP40P140)             0.04       5.55 f
+  u_track/mult_132/S2_4_5/CO (FA1D1BWP40P140)             0.04       5.59 f
+  u_track/mult_132/S2_5_5/CO (FA1D1BWP40P140)             0.04       5.64 f
+  u_track/mult_132/S2_6_5/CO (FA1D1BWP40P140)             0.04       5.68 f
+  u_track/mult_132/S2_7_5/CO (FA1D1BWP40P140)             0.04       5.72 f
+  u_track/mult_132/S2_8_5/CO (FA1D1BWP40P140)             0.04       5.77 f
+  u_track/mult_132/S2_9_5/CO (FA1D1BWP40P140)             0.04       5.81 f
+  u_track/mult_132/S2_10_5/CO (FA1D1BWP40P140)            0.04       5.85 f
+  u_track/mult_132/S2_11_5/CO (FA1D1BWP40P140)            0.04       5.89 f
+  u_track/mult_132/S2_12_5/CO (FA1D1BWP40P140)            0.04       5.94 f
+  u_track/mult_132/S2_13_5/CO (FA1D1BWP40P140)            0.04       5.98 f
+  u_track/mult_132/S2_14_5/CO (FA1D1BWP40P140)            0.04       6.02 f
+  u_track/mult_132/S2_15_5/CO (FA1D1BWP40P140)            0.04       6.07 f
+  u_track/mult_132/S2_16_5/S (FA1D1BWP40P140)             0.07       6.14 r
+  u_track/mult_132/S2_17_4/S (FA1D1BWP40P140)             0.06       6.20 f
+  u_track/mult_132/S2_18_3/CO (FA1D1BWP40P140)            0.04       6.24 f
+  u_track/mult_132/S2_19_3/CO (FA1D1BWP40P140)            0.04       6.28 f
+  u_track/mult_132/S2_20_3/CO (FA1D1BWP40P140)            0.04       6.33 f
+  u_track/mult_132/S2_21_3/CO (FA1D1BWP40P140)            0.04       6.37 f
+  u_track/mult_132/S2_22_3/CO (FA1D1BWP40P140)            0.04       6.41 f
+  u_track/mult_132/S2_23_3/CO (FA1D1BWP40P140)            0.04       6.46 f
+  u_track/mult_132/S2_24_3/CO (FA1D1BWP40P140)            0.04       6.50 f
+  u_track/mult_132/S2_25_3/CO (FA1D1BWP40P140)            0.04       6.54 f
+  u_track/mult_132/S2_26_3/CO (FA1D1BWP40P140)            0.04       6.59 f
+  u_track/mult_132/S2_27_3/CO (FA1D1BWP40P140)            0.04       6.63 f
+  u_track/mult_132/S2_28_3/CO (FA1D1BWP40P140)            0.04       6.68 f
+  u_track/mult_132/S2_29_3/S (FA1D1BWP40P140)             0.07       6.75 r
+  u_track/mult_132/S2_30_2/S (FA1D1BWP40P140)             0.06       6.81 f
+  u_track/mult_132/U35/Z (XOR2UD1BWP40P140)               0.03       6.84 f
+  u_track/mult_132/U16/Z (XOR2UD1BWP40P140)               0.03       6.87 f
+  u_track/mult_132/FS_1/A[30] (tracking_channel_DW01_add_3)
+                                                          0.00       6.87 f
+  u_track/mult_132/FS_1/U62/ZN (CKND2D0BWP40P140)         0.02       6.89 r
+  u_track/mult_132/FS_1/U8/ZN (INVD1BWP40P140)            0.01       6.91 f
+  u_track/mult_132/FS_1/U55/ZN (AOI21D0BWP40P140)         0.03       6.93 r
+  u_track/mult_132/FS_1/U51/ZN (XNR2UD0BWP40P140)         0.02       6.95 r
+  u_track/mult_132/FS_1/SUM[32] (tracking_channel_DW01_add_3)
+                                                          0.00       6.95 r
+  u_track/mult_132/PRODUCT[34] (tracking_channel_DW02_mult_0)
+                                                          0.00       6.95 r
+  u_track/U179/ZN (AOI22D1BWP40P140)                      0.02       6.97 f
+  u_track/U178/ZN (IOA21D1BWP40P140)                      0.01       6.98 r
+  u_track/code_inc_reg[18]/D (DFCNQD1BWP40P140)           0.00       6.98 r
+  data arrival time                                                  6.98
+
+  clock clk (rise edge)                                  61.09      61.09
+  clock network delay (ideal)                             0.00      61.09
+  clock uncertainty                                      -0.50      60.59
+  u_track/code_inc_reg[18]/CP (DFCNQD1BWP40P140)          0.00      60.59 r
+  library setup time                                     -0.01      60.58
+  data required time                                                60.58
+  --------------------------------------------------------------------------
+  data required time                                                60.58
+  data arrival time                                                 -6.98
+  --------------------------------------------------------------------------
+  slack (MET)                                                       53.60
+
+
+  Startpoint: cfg_write (input port clocked by clk)
+  Endpoint: u_track/code_inc_reg[17]
+            (rising edge-triggered flip-flop clocked by clk)
+  Path Group: clk
+  Path Type: max
+
+  Des/Clust/Port     Wire Load Model       Library
+  ------------------------------------------------
+  bds_channel        ZeroWireload          tcbn28hpcplusbwp40p140tt0p9v25c
+  tracking_channel   ZeroWireload          tcbn28hpcplusbwp40p140tt0p9v25c
+  tracking_channel_DW02_mult_0
+                     ZeroWireload          tcbn28hpcplusbwp40p140tt0p9v25c
+  track_loop         ZeroWireload          tcbn28hpcplusbwp40p140tt0p9v25c
+  tracking_channel_DW01_add_3
+                     ZeroWireload          tcbn28hpcplusbwp40p140tt0p9v25c
+
+  Point                                                   Incr       Path
+  --------------------------------------------------------------------------
+  clock clk (rise edge)                                   0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  input external delay                                    5.00       5.00 f
+  cfg_write (in)                                          0.00       5.00 f
+  U248/ZN (INVD1BWP40P140)                                0.07       5.07 r
+  U247/ZN (ND4D1BWP40P140)                                0.05       5.12 f
+  U222/ZN (INVD1BWP40P140)                                0.03       5.16 r
+  U214/Z (CKBD1BWP40P140)                                 0.04       5.20 r
+  U164/Z (CKAN2D1BWP40P140)                               0.03       5.22 r
+  u_track/init_doppler[5] (tracking_channel)              0.00       5.22 r
+  u_track/U497/Z (OR2D0BWP40P140)                         0.02       5.24 r
+  u_track/U498/ZN (NR4D0BWP40P140)                        0.01       5.25 f
+  u_track/U499/ZN (ND4D0BWP40P140)                        0.02       5.27 r
+  u_track/U500/ZN (AOI31D0BWP40P140)                      0.02       5.29 f
+  u_track/U91/ZN (INVD1BWP40P140)                         0.01       5.30 r
+  u_track/U501/ZN (AOI21D0BWP40P140)                      0.01       5.32 f
+  u_track/U505/ZN (AOI31D0BWP40P140)                      0.02       5.34 r
+  u_track/U41/Z (OR2D1BWP40P140)                          0.03       5.37 r
+  u_track/U26/ZN (INVD1BWP40P140)                         0.03       5.40 f
+  u_track/U242/Z (CKAN2D1BWP40P140)                       0.06       5.46 f
+  u_track/mult_132/A[1] (tracking_channel_DW02_mult_0)
+                                                          0.00       5.46 f
+  u_track/mult_132/U41/Z (CKAN2D1BWP40P140)               0.04       5.49 f
+  u_track/mult_132/S2_2_4/CO (FA1D1BWP40P140)             0.04       5.53 f
+  u_track/mult_132/S2_3_4/CO (FA1D1BWP40P140)             0.04       5.58 f
+  u_track/mult_132/S2_4_4/S (FA1D1BWP40P140)              0.07       5.65 r
+  u_track/mult_132/S2_5_3/S (FA1D1BWP40P140)              0.06       5.71 f
+  u_track/mult_132/S2_6_2/CO (FA1D1BWP40P140)             0.04       5.75 f
+  u_track/mult_132/S2_7_2/CO (FA1D1BWP40P140)             0.04       5.79 f
+  u_track/mult_132/S2_8_2/CO (FA1D1BWP40P140)             0.04       5.83 f
+  u_track/mult_132/S2_9_2/CO (FA1D1BWP40P140)             0.04       5.88 f
+  u_track/mult_132/S2_10_2/CO (FA1D1BWP40P140)            0.04       5.92 f
+  u_track/mult_132/S2_11_2/CO (FA1D1BWP40P140)            0.04       5.96 f
+  u_track/mult_132/S2_12_2/CO (FA1D1BWP40P140)            0.04       6.01 f
+  u_track/mult_132/S2_13_2/CO (FA1D1BWP40P140)            0.04       6.05 f
+  u_track/mult_132/S2_14_2/CO (FA1D1BWP40P140)            0.04       6.09 f
+  u_track/mult_132/S2_15_2/CO (FA1D1BWP40P140)            0.04       6.14 f
+  u_track/mult_132/S2_16_2/CO (FA1D1BWP40P140)            0.04       6.18 f
+  u_track/mult_132/S2_17_2/CO (FA1D1BWP40P140)            0.04       6.22 f
+  u_track/mult_132/S2_18_2/CO (FA1D1BWP40P140)            0.04       6.26 f
+  u_track/mult_132/S2_19_2/CO (FA1D1BWP40P140)            0.04       6.31 f
+  u_track/mult_132/S2_20_2/CO (FA1D1BWP40P140)            0.04       6.35 f
+  u_track/mult_132/S2_21_2/CO (FA1D1BWP40P140)            0.04       6.40 f
+  u_track/mult_132/S2_22_2/CO (FA1D1BWP40P140)            0.04       6.44 f
+  u_track/mult_132/S2_23_2/CO (FA1D1BWP40P140)            0.04       6.48 f
+  u_track/mult_132/S2_24_2/CO (FA1D1BWP40P140)            0.04       6.53 f
+  u_track/mult_132/S2_25_2/CO (FA1D1BWP40P140)            0.04       6.57 f
+  u_track/mult_132/S2_26_2/CO (FA1D1BWP40P140)            0.04       6.61 f
+  u_track/mult_132/S2_27_2/CO (FA1D1BWP40P140)            0.04       6.66 f
+  u_track/mult_132/S2_28_2/CO (FA1D1BWP40P140)            0.04       6.70 f
+  u_track/mult_132/S2_29_2/CO (FA1D1BWP40P140)            0.04       6.75 f
+  u_track/mult_132/S2_30_2/S (FA1D1BWP40P140)             0.07       6.82 r
+  u_track/mult_132/U35/Z (XOR2UD1BWP40P140)               0.03       6.84 r
+  u_track/mult_132/U31/Z (CKAN2D1BWP40P140)               0.03       6.87 r
+  u_track/mult_132/FS_1/B[31] (tracking_channel_DW01_add_3)
+                                                          0.00       6.87 r
+  u_track/mult_132/FS_1/U59/Z (AN2D0BWP40P140)            0.02       6.90 r
+  u_track/mult_132/FS_1/U57/ZN (NR2D0BWP40P140)           0.01       6.90 f
+  u_track/mult_132/FS_1/U56/Z (XOR2UD0BWP40P140)          0.03       6.93 r
+  u_track/mult_132/FS_1/SUM[31] (tracking_channel_DW01_add_3)
+                                                          0.00       6.93 r
+  u_track/mult_132/PRODUCT[33] (tracking_channel_DW02_mult_0)
+                                                          0.00       6.93 r
+  u_track/U189/ZN (AOI22D1BWP40P140)                      0.02       6.95 f
+  u_track/U188/ZN (IOA21D1BWP40P140)                      0.01       6.96 r
+  u_track/code_inc_reg[17]/D (DFCNQD1BWP40P140)           0.00       6.96 r
+  data arrival time                                                  6.96
+
+  clock clk (rise edge)                                  61.09      61.09
+  clock network delay (ideal)                             0.00      61.09
+  clock uncertainty                                      -0.50      60.59
+  u_track/code_inc_reg[17]/CP (DFCNQD1BWP40P140)          0.00      60.59 r
+  library setup time                                     -0.01      60.58
+  data required time                                                60.58
+  --------------------------------------------------------------------------
+  data required time                                                60.58
+  data arrival time                                                 -6.96
+  --------------------------------------------------------------------------
+  slack (MET)                                                       53.62
+
+
+  Startpoint: cfg_write (input port clocked by clk)
+  Endpoint: u_track/code_inc_reg[16]
+            (rising edge-triggered flip-flop clocked by clk)
+  Path Group: clk
+  Path Type: max
+
+  Des/Clust/Port     Wire Load Model       Library
+  ------------------------------------------------
+  bds_channel        ZeroWireload          tcbn28hpcplusbwp40p140tt0p9v25c
+  tracking_channel   ZeroWireload          tcbn28hpcplusbwp40p140tt0p9v25c
+  tracking_channel_DW02_mult_0
+                     ZeroWireload          tcbn28hpcplusbwp40p140tt0p9v25c
+  track_loop         ZeroWireload          tcbn28hpcplusbwp40p140tt0p9v25c
+  tracking_channel_DW01_add_3
+                     ZeroWireload          tcbn28hpcplusbwp40p140tt0p9v25c
+
+  Point                                                   Incr       Path
+  --------------------------------------------------------------------------
+  clock clk (rise edge)                                   0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  input external delay                                    5.00       5.00 f
+  cfg_write (in)                                          0.00       5.00 f
+  U248/ZN (INVD1BWP40P140)                                0.07       5.07 r
+  U247/ZN (ND4D1BWP40P140)                                0.05       5.12 f
+  U222/ZN (INVD1BWP40P140)                                0.03       5.16 r
+  U214/Z (CKBD1BWP40P140)                                 0.04       5.20 r
+  U164/Z (CKAN2D1BWP40P140)                               0.03       5.22 r
+  u_track/init_doppler[5] (tracking_channel)              0.00       5.22 r
+  u_track/U497/Z (OR2D0BWP40P140)                         0.02       5.24 r
+  u_track/U498/ZN (NR4D0BWP40P140)                        0.01       5.25 f
+  u_track/U499/ZN (ND4D0BWP40P140)                        0.02       5.27 r
+  u_track/U500/ZN (AOI31D0BWP40P140)                      0.02       5.29 f
+  u_track/U91/ZN (INVD1BWP40P140)                         0.01       5.30 r
+  u_track/U501/ZN (AOI21D0BWP40P140)                      0.01       5.32 f
+  u_track/U505/ZN (AOI31D0BWP40P140)                      0.02       5.34 r
+  u_track/U41/Z (OR2D1BWP40P140)                          0.03       5.37 r
+  u_track/U26/ZN (INVD1BWP40P140)                         0.03       5.40 f
+  u_track/U231/Z (CKAN2D1BWP40P140)                       0.07       5.47 f
+  u_track/mult_132/A[2] (tracking_channel_DW02_mult_0)
+                                                          0.00       5.47 f
+  u_track/mult_132/U42/Z (CKAN2D1BWP40P140)               0.04       5.51 f
+  u_track/mult_132/S2_3_5/CO (FA1D1BWP40P140)             0.04       5.55 f
+  u_track/mult_132/S2_4_5/CO (FA1D1BWP40P140)             0.04       5.59 f
+  u_track/mult_132/S2_5_5/CO (FA1D1BWP40P140)             0.04       5.64 f
+  u_track/mult_132/S2_6_5/CO (FA1D1BWP40P140)             0.04       5.68 f
+  u_track/mult_132/S2_7_5/CO (FA1D1BWP40P140)             0.04       5.72 f
+  u_track/mult_132/S2_8_5/CO (FA1D1BWP40P140)             0.04       5.77 f
+  u_track/mult_132/S2_9_5/CO (FA1D1BWP40P140)             0.04       5.81 f
+  u_track/mult_132/S2_10_5/CO (FA1D1BWP40P140)            0.04       5.85 f
+  u_track/mult_132/S2_11_5/CO (FA1D1BWP40P140)            0.04       5.89 f
+  u_track/mult_132/S2_12_5/CO (FA1D1BWP40P140)            0.04       5.94 f
+  u_track/mult_132/S2_13_5/CO (FA1D1BWP40P140)            0.04       5.98 f
+  u_track/mult_132/S2_14_5/CO (FA1D1BWP40P140)            0.04       6.02 f
+  u_track/mult_132/S2_15_5/CO (FA1D1BWP40P140)            0.04       6.07 f
+  u_track/mult_132/S2_16_5/S (FA1D1BWP40P140)             0.07       6.14 r
+  u_track/mult_132/S2_17_4/S (FA1D1BWP40P140)             0.06       6.20 f
+  u_track/mult_132/S2_18_3/CO (FA1D1BWP40P140)            0.04       6.24 f
+  u_track/mult_132/S2_19_3/CO (FA1D1BWP40P140)            0.04       6.28 f
+  u_track/mult_132/S2_20_3/CO (FA1D1BWP40P140)            0.04       6.33 f
+  u_track/mult_132/S2_21_3/CO (FA1D1BWP40P140)            0.04       6.37 f
+  u_track/mult_132/S2_22_3/CO (FA1D1BWP40P140)            0.04       6.41 f
+  u_track/mult_132/S2_23_3/CO (FA1D1BWP40P140)            0.04       6.46 f
+  u_track/mult_132/S2_24_3/CO (FA1D1BWP40P140)            0.04       6.50 f
+  u_track/mult_132/S2_25_3/CO (FA1D1BWP40P140)            0.04       6.54 f
+  u_track/mult_132/S2_26_3/CO (FA1D1BWP40P140)            0.04       6.59 f
+  u_track/mult_132/S2_27_3/CO (FA1D1BWP40P140)            0.04       6.63 f
+  u_track/mult_132/S2_28_3/CO (FA1D1BWP40P140)            0.04       6.68 f
+  u_track/mult_132/S2_29_3/S (FA1D1BWP40P140)             0.07       6.75 r
+  u_track/mult_132/S2_30_2/S (FA1D1BWP40P140)             0.06       6.81 f
+  u_track/mult_132/U35/Z (XOR2UD1BWP40P140)               0.03       6.84 f
+  u_track/mult_132/U16/Z (XOR2UD1BWP40P140)               0.03       6.87 f
+  u_track/mult_132/FS_1/A[30] (tracking_channel_DW01_add_3)
+                                                          0.00       6.87 f
+  u_track/mult_132/FS_1/U62/ZN (CKND2D0BWP40P140)         0.02       6.89 r
+  u_track/mult_132/FS_1/U60/ZN (INR2D0BWP40P140)          0.02       6.92 r
+  u_track/mult_132/FS_1/SUM[30] (tracking_channel_DW01_add_3)
+                                                          0.00       6.92 r
+  u_track/mult_132/PRODUCT[32] (tracking_channel_DW02_mult_0)
+                                                          0.00       6.92 r
+  u_track/U162/ZN (AOI22D1BWP40P140)                      0.01       6.93 f
+  u_track/U161/ZN (IOA21D1BWP40P140)                      0.01       6.94 r
+  u_track/code_inc_reg[16]/D (DFCNQD1BWP40P140)           0.00       6.94 r
+  data arrival time                                                  6.94
+
+  clock clk (rise edge)                                  61.09      61.09
+  clock network delay (ideal)                             0.00      61.09
+  clock uncertainty                                      -0.50      60.59
+  u_track/code_inc_reg[16]/CP (DFCNQD1BWP40P140)          0.00      60.59 r
+  library setup time                                     -0.01      60.58
+  data required time                                                60.58
+  --------------------------------------------------------------------------
+  data required time                                                60.58
+  data arrival time                                                 -6.94
+  --------------------------------------------------------------------------
+  slack (MET)                                                       53.64
+
+
+  Startpoint: cfg_write (input port clocked by clk)
+  Endpoint: u_track/code_inc_reg[15]
+            (rising edge-triggered flip-flop clocked by clk)
+  Path Group: clk
+  Path Type: max
+
+  Des/Clust/Port     Wire Load Model       Library
+  ------------------------------------------------
+  bds_channel        ZeroWireload          tcbn28hpcplusbwp40p140tt0p9v25c
+  tracking_channel   ZeroWireload          tcbn28hpcplusbwp40p140tt0p9v25c
+  tracking_channel_DW02_mult_0
+                     ZeroWireload          tcbn28hpcplusbwp40p140tt0p9v25c
+  track_loop         ZeroWireload          tcbn28hpcplusbwp40p140tt0p9v25c
+  tracking_channel_DW01_add_3
+                     ZeroWireload          tcbn28hpcplusbwp40p140tt0p9v25c
+
+  Point                                                   Incr       Path
+  --------------------------------------------------------------------------
+  clock clk (rise edge)                                   0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  input external delay                                    5.00       5.00 f
+  cfg_write (in)                                          0.00       5.00 f
+  U248/ZN (INVD1BWP40P140)                                0.07       5.07 r
+  U247/ZN (ND4D1BWP40P140)                                0.05       5.12 f
+  U222/ZN (INVD1BWP40P140)                                0.03       5.16 r
+  U214/Z (CKBD1BWP40P140)                                 0.04       5.20 r
+  U164/Z (CKAN2D1BWP40P140)                               0.03       5.22 r
+  u_track/init_doppler[5] (tracking_channel)              0.00       5.22 r
+  u_track/U497/Z (OR2D0BWP40P140)                         0.02       5.24 r
+  u_track/U498/ZN (NR4D0BWP40P140)                        0.01       5.25 f
+  u_track/U499/ZN (ND4D0BWP40P140)                        0.02       5.27 r
+  u_track/U500/ZN (AOI31D0BWP40P140)                      0.02       5.29 f
+  u_track/U91/ZN (INVD1BWP40P140)                         0.01       5.30 r
+  u_track/U501/ZN (AOI21D0BWP40P140)                      0.01       5.32 f
+  u_track/U505/ZN (AOI31D0BWP40P140)                      0.02       5.34 r
+  u_track/U41/Z (OR2D1BWP40P140)                          0.03       5.37 r
+  u_track/U26/ZN (INVD1BWP40P140)                         0.03       5.40 f
+  u_track/U242/Z (CKAN2D1BWP40P140)                       0.06       5.46 f
+  u_track/mult_132/A[1] (tracking_channel_DW02_mult_0)
+                                                          0.00       5.46 f
+  u_track/mult_132/U41/Z (CKAN2D1BWP40P140)               0.04       5.49 f
+  u_track/mult_132/S2_2_4/CO (FA1D1BWP40P140)             0.04       5.53 f
+  u_track/mult_132/S2_3_4/CO (FA1D1BWP40P140)             0.04       5.58 f
+  u_track/mult_132/S2_4_4/S (FA1D1BWP40P140)              0.07       5.65 r
+  u_track/mult_132/S2_5_3/S (FA1D1BWP40P140)              0.06       5.71 f
+  u_track/mult_132/S2_6_2/CO (FA1D1BWP40P140)             0.04       5.75 f
+  u_track/mult_132/S2_7_2/CO (FA1D1BWP40P140)             0.04       5.79 f
+  u_track/mult_132/S2_8_2/CO (FA1D1BWP40P140)             0.04       5.83 f
+  u_track/mult_132/S2_9_2/CO (FA1D1BWP40P140)             0.04       5.88 f
+  u_track/mult_132/S2_10_2/CO (FA1D1BWP40P140)            0.04       5.92 f
+  u_track/mult_132/S2_11_2/CO (FA1D1BWP40P140)            0.04       5.96 f
+  u_track/mult_132/S2_12_2/CO (FA1D1BWP40P140)            0.04       6.01 f
+  u_track/mult_132/S2_13_2/CO (FA1D1BWP40P140)            0.04       6.05 f
+  u_track/mult_132/S2_14_2/CO (FA1D1BWP40P140)            0.04       6.09 f
+  u_track/mult_132/S2_15_2/CO (FA1D1BWP40P140)            0.04       6.14 f
+  u_track/mult_132/S2_16_2/CO (FA1D1BWP40P140)            0.04       6.18 f
+  u_track/mult_132/S2_17_2/CO (FA1D1BWP40P140)            0.04       6.22 f
+  u_track/mult_132/S2_18_2/CO (FA1D1BWP40P140)            0.04       6.26 f
+  u_track/mult_132/S2_19_2/CO (FA1D1BWP40P140)            0.04       6.31 f
+  u_track/mult_132/S2_20_2/CO (FA1D1BWP40P140)            0.04       6.35 f
+  u_track/mult_132/S2_21_2/CO (FA1D1BWP40P140)            0.04       6.40 f
+  u_track/mult_132/S2_22_2/CO (FA1D1BWP40P140)            0.04       6.44 f
+  u_track/mult_132/S2_23_2/CO (FA1D1BWP40P140)            0.04       6.48 f
+  u_track/mult_132/S2_24_2/CO (FA1D1BWP40P140)            0.04       6.53 f
+  u_track/mult_132/S2_25_2/CO (FA1D1BWP40P140)            0.04       6.57 f
+  u_track/mult_132/S2_26_2/CO (FA1D1BWP40P140)            0.04       6.61 f
+  u_track/mult_132/S2_27_2/CO (FA1D1BWP40P140)            0.04       6.66 f
+  u_track/mult_132/S2_28_2/CO (FA1D1BWP40P140)            0.04       6.70 f
+  u_track/mult_132/S2_29_2/S (FA1D1BWP40P140)             0.07       6.77 r
+  u_track/mult_132/U11/Z (XOR2UD1BWP40P140)               0.03       6.80 r
+  u_track/mult_132/U62/Z (XOR2UD1BWP40P140)               0.03       6.83 r
+  u_track/mult_132/FS_1/A[29] (tracking_channel_DW01_add_3)
+                                                          0.00       6.83 r
+  u_track/mult_132/FS_1/SUM[29] (tracking_channel_DW01_add_3)
+                                                          0.00       6.83 r
+  u_track/mult_132/PRODUCT[31] (tracking_channel_DW02_mult_0)
+                                                          0.00       6.83 r
+  u_track/U199/ZN (AOI22D1BWP40P140)                      0.02       6.85 f
+  u_track/U198/ZN (IOA21D1BWP40P140)                      0.01       6.86 r
+  u_track/code_inc_reg[15]/D (DFCNQD1BWP40P140)           0.00       6.86 r
+  data arrival time                                                  6.86
+
+  clock clk (rise edge)                                  61.09      61.09
+  clock network delay (ideal)                             0.00      61.09
+  clock uncertainty                                      -0.50      60.59
+  u_track/code_inc_reg[15]/CP (DFCNQD1BWP40P140)          0.00      60.59 r
+  library setup time                                     -0.01      60.58
+  data required time                                                60.58
+  --------------------------------------------------------------------------
+  data required time                                                60.58
+  data arrival time                                                 -6.86
+  --------------------------------------------------------------------------
+  slack (MET)                                                       53.72
+
+
+1

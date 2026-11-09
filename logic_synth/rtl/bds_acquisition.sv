@@ -23,7 +23,8 @@
 
 module bds_acquisition #(
   parameter int N_LANES   = 64,                 // 2 的幂，且整除 4096
-  parameter int BUF_DEPTH = 33024               // >= 4*(N_LANES-1) + nc*16368
+  parameter int BUF_DEPTH = 33024,              // >= 4*(N_LANES-1) + nc*16368
+  parameter bit IF2_ONLY = 1'b0                 // Legal four-level IF: lossless 2-bit storage
 ) (
   input  logic                          clk,
   input  logic                          rst_n,
@@ -73,15 +74,21 @@ module bds_acquisition #(
   // ---------------------------------------------------------------- 回放缓冲
   // Preserve the signed sample verbatim. The simplified teacher source includes
   // zero; the former four-level IF2 compression silently mapped zero to +3.
-  logic signed [SAMPLE_W-1:0] buf_mem [0:BUF_DEPTH-1];
+  localparam int STORE_W = IF2_ONLY ? 2 : SAMPLE_W;
+  logic [STORE_W-1:0] buf_mem [0:BUF_DEPTH-1];
   logic [BW-1:0] wr_ptr, rd_addr;
   logic signed [SAMPLE_W-1:0] rd_q;
   logic          rd_en;
 
   always_ff @(posedge clk) begin
-    if (st == S_CAPTURE && sample_valid) buf_mem[wr_ptr] <= sample;
-    if (rd_en) rd_q <= buf_mem[rd_addr];
+    if (st == S_CAPTURE && sample_valid) buf_mem[wr_ptr] <= sample[SAMPLE_W-1 -: STORE_W];
+    // -3=101, -1=111, +1=001, +3=011: bit 0 is always one.
+    if (rd_en) rd_q <= IF2_ONLY ? {buf_mem[rd_addr],1'b1} : buf_mem[rd_addr];
   end
+  // synopsys translate_off
+  always @(posedge clk) if (IF2_ONLY && st == S_CAPTURE && sample_valid && sample[0] !== 1'b1)
+    $fatal(1,"IF2 replay storage received a sample outside {-3,-1,+1,+3}");
+  // synopsys translate_on
 
   // ---------------------------------------------------------------- Δ 计数（截取起点后的实时样本数）
   logic [31:0] delta;

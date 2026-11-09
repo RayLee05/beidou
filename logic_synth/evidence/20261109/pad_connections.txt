@@ -1,0 +1,10 @@
+Chronologic VCS simulator copyright 1991-2014
+Contains Synopsys proprietary information.
+Compiler version I-2014.03_Full64; Runtime version I-2014.03_Full64;  Nov  9 13:57 2026
+TEST PASSED: 87 input and 24 output real PAD connections
+$finish called from file "sim/pad_connectivity.sv", line 31.
+$finish at simulation time               230000
+           V C S   S i m u l a t i o n   R e p o r t 
+Time: 230000 ps
+CPU Time:      0.110 seconds;       Data structure size:   0.7Mb
+Mon Nov  9 13:57:03 2026

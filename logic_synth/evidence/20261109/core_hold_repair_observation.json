@@ -1,0 +1,32 @@
+{
+  "job": "core-hold-batch-20261109-v1",
+  "provenance": "Values read via SSH from the actual remote reports/log/exit_code before VM shutdown; full files not yet downloaded or SHA256 verified.",
+  "exit_code": 0,
+  "corner": {
+    "max": "SS 0.81V 125C",
+    "min": "FF 0.99V -40C"
+  },
+  "cell_area_library_units": 876538.785914,
+  "leaf_cells": 441789,
+  "sequential_cells": 112409,
+  "inserted_data_delay_cells": 107644,
+  "inserted_output_delay_cells": 16,
+  "setup_slack_ns": 52.26,
+  "setup_tns_ns": 0,
+  "setup_violating_paths": 0,
+  "hold_slack_ns": 0.0605367,
+  "hold_tns_ns": 0,
+  "hold_violating_paths": 0,
+  "max_transition_violations": 0,
+  "max_capacitance_violations": 0,
+  "constraint_report": "This design has no violated constraints.",
+  "elapsed_seconds": 132.79,
+  "max_rss_kib": 1924896,
+  "limitations": [
+    "Original 3-bit channel snapshot, not the IF2 optimization.",
+    "Core pin-level SDC, not accepted full PAD top.",
+    "No GLS or formal equivalence for this ECO yet.",
+    "No complete local download/hash verification for the repaired outputs.",
+    "QoR compile runtime fields inherited from the original mapping; use time-v log for this ECO runtime."
+  ]
+}

@@ -1,0 +1,17 @@
+ 
+****************************************
+check_design summary:
+Version:     K-2015.06
+Date:        Mon Nov  9 16:01:55 2026
+****************************************
+
+                   Name                                            Total
+--------------------------------------------------------------------------------
+Inputs/Outputs                                                      3
+    Multiply driven inputs (LINT-6)                                 3
+--------------------------------------------------------------------------------
+
+Warning: In design 'bds_pad_probe', input port 'clk' drives wired logic; the port direction may have been specified incorrectly. (LINT-6)
+Warning: In design 'bds_pad_probe', input port 'rst_n' drives wired logic; the port direction may have been specified incorrectly. (LINT-6)
+Warning: In design 'bds_pad_probe', input port 'data' drives wired logic; the port direction may have been specified incorrectly. (LINT-6)
+1

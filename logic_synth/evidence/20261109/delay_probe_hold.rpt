@@ -1,0 +1,47 @@
+ 
+****************************************
+Report : timing
+        -path full
+        -delay min
+        -max_paths 1
+Design : bds_pad_probe
+Version: K-2015.06
+Date   : Mon Nov  9 16:01:55 2026
+****************************************
+Wire Load Model Mode: segmented
+
+  Startpoint: value_reg (rising edge-triggered flip-flop clocked by clk)
+  Endpoint: result (output port clocked by clk)
+  Path Group: clk
+  Path Type: min
+
+  Des/Clust/Port     Wire Load Model       Library
+  ------------------------------------------------
+  bds_pad_probe      ZeroWireload          tcbn28hpcplusbwp40p140ffg0p99vm40c
+
+  Point                                    Incr       Path      Voltage
+  ---------------------------------------------------------------------
+  clock clk (rise edge)                    0.00       0.00      
+  clock network delay (propagated)         0.38       0.38      
+  value_reg/CP (DFCNQD1BWP40P140)          0.00       0.38 r    0.99
+  value_reg/Q (DFCNQD1BWP40P140)           0.04       0.42 r    0.99
+  DELAY_ECO_2/Z (DEL250MD1BWP40P140)       0.25       0.67 r    0.99
+  DELAY_ECO_4/Z (DEL250MD1BWP40P140)       0.25       0.93 r    0.99
+  DELAY_ECO_6/Z (DEL250MD1BWP40P140)       0.31       1.24 r    0.99
+  pout/PAD (PDDW04SDGZ_H_G)                0.84       2.08 r    1.98
+  result (out)                             0.00       2.08 r    
+  data arrival time                                   2.08      
+
+  clock clk (rise edge)                    0.00       0.00      
+  clock network delay (propagated)         0.00       0.00      
+  clock uncertainty                        1.50       1.50      
+  output external delay                    0.50       2.00      
+  data required time                                  2.00      
+  ---------------------------------------------------------------------
+  data required time                                  2.00      
+  data arrival time                                  -2.08      
+  ---------------------------------------------------------------------
+  slack (MET)                                         0.08      
+
+
+1

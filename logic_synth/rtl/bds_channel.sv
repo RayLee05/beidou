@@ -48,7 +48,9 @@ module bds_channel #(
     .busy(gen_busy), .done(gen_done), .bad_prn(),
     .out_we(gen_we), .out_addr(gen_addr), .out_chip(gen_chip));
 
-  bds_acquisition #(.N_LANES(ACQ_LANES), .BUF_DEPTH(BUF_DEPTH)) u_acq (
+  // The public IF interface guarantees the four odd levels. This saves one
+  // replay bit/sample without reducing the integration window or precision.
+  bds_acquisition #(.N_LANES(ACQ_LANES), .BUF_DEPTH(BUF_DEPTH), .IF2_ONLY(1'b1)) u_acq (
     .clk(clk), .rst_n(rst_n), .sample_valid(1'b1), .sample(sample),
     .code_we(code_we), .code_waddr(gen_addr), .code_wdata(gen_chip),
     .start(state == ACQ_START && !cfg_write),

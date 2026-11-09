@@ -1,0 +1,196 @@
+                                        
+                           Design Compiler Graphical 
+                                 DC Ultra (TM)
+                                  DFTMAX (TM)
+                              Power Compiler (TM)
+                                 DesignWare (R)
+                                 DC Expert (TM)
+                               Design Vision (TM)
+                               HDL Compiler (TM)
+                               VHDL Compiler (TM)
+                                  DFT Compiler
+                               Design Compiler(R)
+                                        
+                 Version K-2015.06 for linux64 - May 28, 2015 
+                                        
+                    Copyright (c) 1988 - 2015 Synopsys, Inc.
+   This software and the associated documentation are proprietary to Synopsys,
+ Inc. This software may only be used in accordance with the terms and conditions
+ of a written license agreement with Synopsys, Inc. All other use, reproduction,
+            or distribution of this software is strictly prohibited.
+Initializing...
+# Characterize a real delay-cell ECO on the small powered probe before using
+# it on the receiver. The deliberately tighter hold budget is probe-only.
+set ::env(SYNTH_CORNER) SS
+SS
+set ::env(SYNTH_PAD) 1
+1
+source scripts/library.tcl
+. /opt/Synopsys/Synplify2015/libraries/syn /opt/Synopsys/Synplify2015/minpower/syn /opt/Synopsys/Synplify2015/dw/syn_ver /opt/Synopsys/Synplify2015/dw/sim_ver /home/share/libs/tsmc28/logic/selected_db ../rtl/include ../rtl/common
+proc main {} {
+    global CORE_SS CORE_FF PAD_SS PAD_FF
+    read_ddc $::env(PROBE_DIR)/probe.ddc
+    current_design bds_pad_probe
+    if {![link]} {error "Probe link failed"}
+    read_sdc $::env(PROBE_DIR)/probe.sdc
+    set_min_library $CORE_SS -min_version $CORE_FF
+    set_min_library $PAD_SS -min_version $PAD_FF
+    set lib [file rootname [file tail $CORE_SS]]
+    set_operating_conditions -analysis_type bc_wc -max ssg0p81v125c -max_library $lib -min ffg0p99vm40c -min_library [file rootname [file tail $CORE_FF]]
+    # A stricter synthetic test; receiver constraints are never changed here.
+    set_clock_uncertainty -hold 1.5 [get_clocks clk]
+    file mkdir output/pad_probe reports/pad_probe
+    set delay [get_lib_cells $lib/DEL250MD1BWP40P140]
+    if {[sizeof_collection $delay] != 1} {error "Delay cell missing"}
+    set done 0
+    for {set round 0} {$round <= 16} {incr round} {
+        set paths [get_timing_paths -delay_type min -max_paths 1]
+        set path [index_collection $paths 0]
+        set slack [get_attribute $path slack]
+        puts "DELAY_PROBE round=$round hold_slack=$slack"
+        if {$slack >= 0.0} {set done 1;break}
+        if {$round == 16} {break}
+        set ep [get_attribute $path endpoint]
+        set ep_name [get_object_name $ep]
+        # The external result port is also a data endpoint; never delay clocks
+        # or asynchronous reset pins to repair hold.
+        if {![regexp {/(D|DI|D0|D1)$} $ep_name] && $ep_name ne "result"} {error "Non-data endpoint needs review: $ep_name"}
+        if {$ep_name eq "result"} {
+            # Keep the delay on the core side of the output PAD, not on the
+            # package-facing IO-voltage connection.
+            set ep [get_pins pout/I]
+        }
+        puts "DELAY_PROBE_ENDPOINT=$ep_name"
+        set added [insert_buffer $ep $delay -new_cell_names DELAY_ECO_$round -new_net_names DELAY_NET_$round]
+        if {[sizeof_collection $added] != 1} {error "Delay insertion failed"}
+    }
+    if {!$done} {error "Delay-cell probe did not close hold"}
+    redirect reports/pad_probe/setup.rpt {report_timing -delay_type max}
+    redirect reports/pad_probe/hold.rpt {report_timing -delay_type min}
+    redirect reports/pad_probe/check_design.rpt {check_design}
+    write -format verilog -hier -pg -output output/pad_probe/probe.v
+    write -format ddc -hier -output output/pad_probe/probe.ddc
+    write_sdc output/pad_probe/probe.sdc
+    puts "DELAY_PROBE_DONE"
+}
+if {[catch {main} message]} {puts "FATAL: $message";exit 1}
+Loading db file '/home/share/libs/tsmc28/logic/selected_db/tcbn28hpcplusbwp40p140ssg0p81v125c.db'
+Loading db file '/home/share/libs/tsmc28/logic/selected_db/tcbn28hpcplusbwp40p140ffg0p99vm40c.db'
+Loading db file '/home/share/libs/tsmc28/pad/timing_nldm/TSMCHOME/digital/Front_End/timing_power_noise/NLDM/tphn28hpcpgv18_170a/tphn28hpcpgv18ssg0p81v1p62v125c.db'
+Loading db file '/home/share/libs/tsmc28/pad/timing_nldm/TSMCHOME/digital/Front_End/timing_power_noise/NLDM/tphn28hpcpgv18_170a/tphn28hpcpgv18ffg0p99v1p98vm40c.db'
+Loading db file '/opt/Synopsys/Synplify2015/libraries/syn/gtech.db'
+Loading db file '/opt/Synopsys/Synplify2015/libraries/syn/standard.sldb'
+  Loading link library 'tcbn28hpcplusbwp40p140ssg0p81v125c'
+  Loading link library 'tcbn28hpcplusbwp40p140ffg0p99vm40c'
+  Loading link library 'tphn28hpcpgv18ssg0p81v1p62v125c'
+  Loading link library 'tphn28hpcpgv18ffg0p99v1p98vm40c'
+  Loading link library 'gtech'
+Reading ddc file '/home/7902_13/beidou_runs/laptop-acvp5joo/pad-probe-20261109-v9/logic_synth/output/pad_probe/probe.ddc'.
+Loaded 1 design.
+Current design is 'bds_pad_probe'.
+Current design is 'bds_pad_probe'.
+
+  Linking design 'bds_pad_probe'
+  Using the following designs and libraries:
+  --------------------------------------------------------------------------
+  bds_pad_probe               /home/7902_13/beidou_runs/laptop-acvp5joo/pad-probe-20261109-v9/logic_synth/output/pad_probe/probe.ddc
+  tcbn28hpcplusbwp40p140ssg0p81v125c (library) /home/share/libs/tsmc28/logic/selected_db/tcbn28hpcplusbwp40p140ssg0p81v125c.db
+  tcbn28hpcplusbwp40p140ffg0p99vm40c (library) /home/share/libs/tsmc28/logic/selected_db/tcbn28hpcplusbwp40p140ffg0p99vm40c.db
+  tphn28hpcpgv18ssg0p81v1p62v125c (library) /home/share/libs/tsmc28/pad/timing_nldm/TSMCHOME/digital/Front_End/timing_power_noise/NLDM/tphn28hpcpgv18_170a/tphn28hpcpgv18ssg0p81v1p62v125c.db
+  tphn28hpcpgv18ffg0p99v1p98vm40c (library) /home/share/libs/tsmc28/pad/timing_nldm/TSMCHOME/digital/Front_End/timing_power_noise/NLDM/tphn28hpcpgv18_170a/tphn28hpcpgv18ffg0p99v1p98vm40c.db
+
+
+Reading SDC version 2.0...
+Using operating conditions 'ssg0p81v125c' found in library 'tcbn28hpcplusbwp40p140ssg0p81v125c'.
+Using operating conditions 'ffg0p99vm40c' found in library 'tcbn28hpcplusbwp40p140ffg0p99vm40c'.
+Information: set_input_delay values are added to the propagated clock skew. (TIM-113)
+Using operating conditions 'ssg0p81v125c' found in library 'tcbn28hpcplusbwp40p140ssg0p81v125c'.
+Using operating conditions 'ffg0p99vm40c' found in library 'tcbn28hpcplusbwp40p140ffg0p99vm40c'.
+Information: Updating design information... (UID-85)
+Information: Input delay ('fall') on clock port 'clk' will be added to the clock's propagated skew. (TIM-112)
+Information: Input delay ('rise') on clock port 'clk' will be added to the clock's propagated skew. (TIM-112)
+DELAY_PROBE round=0 hold_slack=-1.04349
+DELAY_PROBE_ENDPOINT=value_reg/D
+Warning: The trip points for the library named tphn28hpcpgv18ssg0p81v1p62v125c differ from those in the library named tcbn28hpcplusbwp40p140ssg0p81v125c. (TIM-164)
+Warning: The trip points for the library named tphn28hpcpgv18ffg0p99v1p98vm40c differ from those in the library named tcbn28hpcplusbwp40p140ssg0p81v125c. (TIM-164)
+Information: Buffering net d. (HFS-701)
+Disconnecting net 'd' from pin 'value_reg/D'.
+Creating net 'DELAY_NET_0' in design 'bds_pad_probe'.
+Creating cell 'DELAY_ECO_0' in design 'bds_pad_probe'.
+Connecting net 'DELAY_NET_0' to pin 'DELAY_ECO_0/Z'.
+Connecting net 'DELAY_NET_0' to pin 'value_reg/D'.
+Connecting net 'd' to pin 'DELAY_ECO_0/I'.
+DELAY_PROBE round=1 hold_slack=-0.790032
+DELAY_PROBE_ENDPOINT=value_reg/D
+Information: Buffering net DELAY_NET_0. (HFS-701)
+Disconnecting net 'DELAY_NET_0' from pin 'value_reg/D'.
+Creating net 'DELAY_NET_1' in design 'bds_pad_probe'.
+Creating cell 'DELAY_ECO_1' in design 'bds_pad_probe'.
+Connecting net 'DELAY_NET_1' to pin 'DELAY_ECO_1/Z'.
+Connecting net 'DELAY_NET_1' to pin 'value_reg/D'.
+Connecting net 'DELAY_NET_0' to pin 'DELAY_ECO_1/I'.
+DELAY_PROBE round=2 hold_slack=-0.682431
+DELAY_PROBE_ENDPOINT=result
+Information: Buffering net value. (HFS-701)
+Disconnecting net 'value' from pin 'pout/I'.
+Creating net 'DELAY_NET_2' in design 'bds_pad_probe'.
+Creating cell 'DELAY_ECO_2' in design 'bds_pad_probe'.
+Connecting net 'DELAY_NET_2' to pin 'DELAY_ECO_2/Z'.
+Connecting net 'DELAY_NET_2' to pin 'pout/I'.
+Connecting net 'value' to pin 'DELAY_ECO_2/I'.
+DELAY_PROBE round=3 hold_slack=-0.536758
+DELAY_PROBE_ENDPOINT=value_reg/D
+Information: Buffering net DELAY_NET_1. (HFS-701)
+Disconnecting net 'DELAY_NET_1' from pin 'value_reg/D'.
+Creating net 'DELAY_NET_3' in design 'bds_pad_probe'.
+Creating cell 'DELAY_ECO_3' in design 'bds_pad_probe'.
+Connecting net 'DELAY_NET_3' to pin 'DELAY_ECO_3/Z'.
+Connecting net 'DELAY_NET_3' to pin 'value_reg/D'.
+Connecting net 'DELAY_NET_1' to pin 'DELAY_ECO_3/I'.
+DELAY_PROBE round=4 hold_slack=-0.428831
+DELAY_PROBE_ENDPOINT=result
+Information: Buffering net DELAY_NET_2. (HFS-701)
+Disconnecting net 'DELAY_NET_2' from pin 'pout/I'.
+Creating net 'DELAY_NET_4' in design 'bds_pad_probe'.
+Creating cell 'DELAY_ECO_4' in design 'bds_pad_probe'.
+Connecting net 'DELAY_NET_4' to pin 'DELAY_ECO_4/Z'.
+Connecting net 'DELAY_NET_4' to pin 'pout/I'.
+Connecting net 'DELAY_NET_2' to pin 'DELAY_ECO_4/I'.
+DELAY_PROBE round=5 hold_slack=-0.283483
+DELAY_PROBE_ENDPOINT=value_reg/D
+Information: Buffering net DELAY_NET_3. (HFS-701)
+Disconnecting net 'DELAY_NET_3' from pin 'value_reg/D'.
+Creating net 'DELAY_NET_5' in design 'bds_pad_probe'.
+Creating cell 'DELAY_ECO_5' in design 'bds_pad_probe'.
+Connecting net 'DELAY_NET_5' to pin 'DELAY_ECO_5/Z'.
+Connecting net 'DELAY_NET_5' to pin 'value_reg/D'.
+Connecting net 'DELAY_NET_3' to pin 'DELAY_ECO_5/I'.
+DELAY_PROBE round=6 hold_slack=-0.176723
+DELAY_PROBE_ENDPOINT=result
+Information: Buffering net DELAY_NET_4. (HFS-701)
+Disconnecting net 'DELAY_NET_4' from pin 'pout/I'.
+Creating net 'DELAY_NET_6' in design 'bds_pad_probe'.
+Creating cell 'DELAY_ECO_6' in design 'bds_pad_probe'.
+Connecting net 'DELAY_NET_6' to pin 'DELAY_ECO_6/Z'.
+Connecting net 'DELAY_NET_6' to pin 'pout/I'.
+Connecting net 'DELAY_NET_4' to pin 'DELAY_ECO_6/I'.
+DELAY_PROBE round=7 hold_slack=-0.0302091
+DELAY_PROBE_ENDPOINT=value_reg/D
+Information: Buffering net DELAY_NET_5. (HFS-701)
+Disconnecting net 'DELAY_NET_5' from pin 'value_reg/D'.
+Creating net 'DELAY_NET_7' in design 'bds_pad_probe'.
+Creating cell 'DELAY_ECO_7' in design 'bds_pad_probe'.
+Connecting net 'DELAY_NET_7' to pin 'DELAY_ECO_7/Z'.
+Connecting net 'DELAY_NET_7' to pin 'value_reg/D'.
+Connecting net 'DELAY_NET_5' to pin 'DELAY_ECO_7/I'.
+DELAY_PROBE round=8 hold_slack=0.0753846
+Writing verilog file '/home/7902_13/beidou_runs/laptop-acvp5joo/pad-delay-20261109-v3/logic_synth/output/pad_probe/probe.v'.
+Writing ddc file 'output/pad_probe/probe.ddc'.
+DELAY_PROBE_DONE
+exit 0
+
+Memory usage for main task 681 Mbytes.
+Memory usage for this session 681 Mbytes.
+CPU usage for this session 8 seconds ( 0.00 hours ).
+
+Thank you...

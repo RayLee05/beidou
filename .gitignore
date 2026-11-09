@@ -23,6 +23,7 @@ student_rease/**/logs/
 reports/build/
 reports/sim/
 reports/synth/
+reports/remote/
 /reports/rtl_unit_results_*.json
 
 # --- 本机仿真器垃圾（不入库）---

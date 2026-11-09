@@ -1,0 +1,49 @@
+Chronologic VCS simulator copyright 1991-2014
+Contains Synopsys proprietary information.
+Compiler version I-2014.03_Full64; Runtime version I-2014.03_Full64;  Nov  9 13:58 2026
+STREAM n=0 capture=000000 sync=000000
+STREAM n=1636800 capture=000000 sync=000000
+STREAM n=3273600 capture=111111 sync=000000
+STREAM n=4910400 capture=111111 sync=000000
+STREAM n=6547200 capture=111111 sync=111111
+STREAM n=8184000 capture=111111 sync=111111
+STREAM n=9820800 capture=111111 sync=111111
+STREAM n=11457600 capture=111111 sync=111111
+STREAM n=13094400 capture=111111 sync=111111
+STREAM n=14731200 capture=111111 sync=111111
+REAL_IF CHANNEL 0 NAV_BITS 32 POLARITY 0
+REAL_IF CHANNEL 1 NAV_BITS 32 POLARITY 1
+REAL_IF CHANNEL 2 NAV_BITS 32 POLARITY 0
+REAL_IF CHANNEL 3 NAV_BITS 32 POLARITY 1
+REAL_IF CHANNEL 4 NAV_BITS 32 POLARITY 0
+REAL_IF CHANNEL 5 NAV_BITS 32 POLARITY 1
+TEST PASSED
+$finish called from file "sim/tb.sv", line 91.
+$finish at simulation time         999986836376
+           V C S   S i m u l a t i o n   R e p o r t 
+Time: 999986836376 ps
+CPU Time:    167.330 seconds;       Data structure size:   0.7Mb
+Mon Nov  9 14:01:24 2026
+	Command being timed: "timeout -s KILL 1200 ./build/simv_pad"
+	User time (seconds): 167.33
+	System time (seconds): 0.04
+	Percent of CPU this job got: 99%
+	Elapsed (wall clock) time (h:mm:ss or m:ss): 2:47.48
+	Average shared text size (kbytes): 0
+	Average unshared data size (kbytes): 0
+	Average stack size (kbytes): 0
+	Average total size (kbytes): 0
+	Maximum resident set size (kbytes): 43152
+	Average resident set size (kbytes): 0
+	Major (requiring I/O) page faults: 0
+	Minor (reclaiming a frame) page faults: 9589
+	Voluntary context switches: 9
+	Involuntary context switches: 392
+	Swaps: 0
+	File system inputs: 0
+	File system outputs: 88
+	Socket messages sent: 0
+	Socket messages received: 0
+	Signals delivered: 0
+	Page size (bytes): 4096
+	Exit status: 0

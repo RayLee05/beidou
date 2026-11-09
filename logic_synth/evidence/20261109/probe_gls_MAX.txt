@@ -1,0 +1,11 @@
+Chronologic VCS simulator copyright 1991-2014
+Contains Synopsys proprietary information.
+Compiler version I-2014.03_Full64; Runtime version I-2014.03_Full64;  Nov  9 15:39 2026
+Annotating SDF file "output/probe.sdf" ... Done
+TEST PASSED: powered PAD + standard-cell SDF MAX
+$finish called from file "sim/pad_probe_gls.sv", line 25.
+$finish at simulation time             11882783
+           V C S   S i m u l a t i o n   R e p o r t 
+Time: 11882783 ps
+CPU Time:      0.120 seconds;       Data structure size:  12.0Mb
+Mon Nov  9 15:39:15 2026

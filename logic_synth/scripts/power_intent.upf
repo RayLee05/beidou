@@ -1,0 +1,15 @@
+# Supply-aware logical synthesis. Both rails are always on in this experiment.
+# POC is tied to the IO rail by the package/testbench; no power gating is claimed.
+create_power_domain PD_RECEIVER -include_scope
+foreach name {VDD VSS VDDPST VSSPST POC} {
+    create_supply_port $name -domain PD_RECEIVER -direction in
+    create_supply_net $name
+    connect_supply_net $name -ports $name
+}
+create_supply_set SS_CORE -function {power VDD} -function {ground VSS}
+associate_supply_set SS_CORE -handle PD_RECEIVER.primary
+add_port_state VDD -state {ON 0.81 0.90 0.99}
+add_port_state VDDPST -state {ON 1.62 1.80 1.98}
+add_port_state POC -state {ON 1.62 1.80 1.98}
+add_port_state VSS -state {GROUND 0.0}
+add_port_state VSSPST -state {GROUND 0.0}

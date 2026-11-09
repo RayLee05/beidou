@@ -3,6 +3,12 @@
 proc main {} {
     global target_library link_library search_path CORE_TT CORE_SS CORE_FF PDK_ROOT
     source scripts/library.tcl
+    set requested 4
+    if {[info exists ::env(MAX_CORES)]} {set requested $::env(MAX_CORES)}
+    set available [string trim [exec /usr/bin/getconf _NPROCESSORS_ONLN]]
+    set used [expr {min($requested,$available)}]
+    set_host_options -max_cores $used
+    puts "HOST_CORES requested=$requested available=$available configured=$used"
     set TOP bds_channel
     if {[info exists ::env(CORE_TOP)]} { set TOP $::env(CORE_TOP) }
     if {$TOP ni {bds_channel bds_bb_6ch_core}} { error "Unsupported exploratory top: $TOP" }
@@ -30,7 +36,11 @@ proc main {} {
     # both rather than inventing a physical RC model. No layout parasitics here.
     redirect $RPT/design_environment.rpt {report_design}
     redirect $RPT/library.rpt {report_lib [get_object_name [get_libs *tt0p9v25c]]}
-    if {![compile]} { error "Technology mapping failed" }
+    if {[info exists ::env(SYNTH_MODE)] && $::env(SYNTH_MODE) eq "ultra"} {
+        if {![compile_ultra -no_autoungroup]} {error "Ultra mapping failed"}
+    } else {
+        if {![compile]} {error "Technology mapping failed"}
+    }
     set unmapped [sizeof_collection [get_cells -hierarchical -filter is_unmapped]]
     set cells [sizeof_collection [get_cells -hierarchical *]]
     puts "UNMAPPED_COUNT=$unmapped"
