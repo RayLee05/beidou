@@ -7,12 +7,19 @@ create_clock -name clk -period 61.0948191593 -waveform {0 30.5474095797} [get_po
 set_clock_uncertainty 0.5 [get_clocks clk]
 set_clock_transition 0.2 [get_clocks clk]
 set DATA_IN [remove_from_collection [all_inputs] [get_ports clk]]
+set POWER [get_ports -quiet {VDD VSS VDDPST VSSPST}]
+if {[sizeof_collection $POWER] > 0} {
+    set DATA_IN [remove_from_collection $DATA_IN $POWER]
+    set DATA_OUT [remove_from_collection [all_outputs] $POWER]
+} else {
+    set DATA_OUT [all_outputs]
+}
 set_input_delay -clock clk -max 5.0 $DATA_IN
 set_input_delay -clock clk -min 0.5 $DATA_IN
 set_input_transition 0.2 $DATA_IN
-set_output_delay -clock clk -max 5.0 [all_outputs]
-set_output_delay -clock clk -min -0.5 [all_outputs]
-set_load 0.01 [all_outputs]
+set_output_delay -clock clk -max 5.0 $DATA_OUT
+set_output_delay -clock clk -min -0.5 $DATA_OUT
+set_load 0.01 $DATA_OUT
 set_max_transition 1.0 [current_design]
 set_max_capacitance 0.1 [current_design]
 set_max_fanout 16 [current_design]

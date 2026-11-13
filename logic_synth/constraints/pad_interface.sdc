@@ -17,7 +17,10 @@ set_output_delay -clock clk -min -0.5 [all_outputs]
 set_load 1.0 [all_outputs]
 set_max_transition 1.0 [current_design]
 set_max_transition 5.0 [all_outputs]
-set_max_capacitance 0.1 [current_design]
+# Pad pins are about 1.09 pF, and the external load on outputs is 1 pF.
+# A design-wide 0.1 pF rule is the tighter of the two and overrides this
+# port budget, so the pad boundary uses 3 pF. Core cells keep 0.1 pF in
+# core_exploration.sdc.
 set_max_capacitance 3.0 [all_inputs]
 set_max_capacitance 3.0 [all_outputs]
 set_max_fanout 16 [current_design]
